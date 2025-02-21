@@ -58,10 +58,15 @@ export interface ConfigProps {
   };
   colors: {
     theme: Theme;
+    saigoTheme: Theme;
     main: string;
   };
   auth: {
     loginUrl: string;
     callbackUrl: string;
+    saigo: {
+      loginUrl: string;
+      callbackUrl: string;
+    }
   };
 }

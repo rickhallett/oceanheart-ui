@@ -13,7 +13,7 @@ import logo from "@/app/icon.png";
 const SuspendedFooter = () => {
   const searchParams = useSearchParams();
   const hasSaigo = searchParams?.get("saigo") !== null;
-  const privacyLink = hasSaigo ? "/saigo/signin" : "/privacy-policy";
+  const privacyLink = hasSaigo ? config.auth.saigo.loginUrl : "/privacy-policy";
   return (
     <footer className="bg-base-200 border-t border-base-content/10">
       <div className="max-w-7xl mx-auto px-8 py-24">

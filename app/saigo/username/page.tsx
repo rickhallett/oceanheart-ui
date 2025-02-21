@@ -18,7 +18,7 @@ export default function UsernamePage() {
       // if (isUnique) {
       //   await saveUsernameToSupabase(response);
       // }
-      
+
       setUsername("placeholder_username");
     } catch (err) {
       setError("Failed to generate username. Please try again.");
@@ -31,11 +31,11 @@ export default function UsernamePage() {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-2xl font-bold mb-4">Generate Your Unique Username</h1>
-      
+
       <div className="prose max-w-none mb-8">
         <p>
           Welcome to the username generation process! We use advanced AI to create
-          a unique username that reflects the spirit of the Force.
+          a unique username that reflects the spirit of Saigo.
         </p>
       </div>
 

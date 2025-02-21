@@ -17,8 +17,8 @@ export default function SaigoLogin() {
 
   useEffect(() => {
     // Set the Saigo theme
-    document.documentElement.setAttribute('data-theme', 'synthwave');
-    setSaigoTheme('synthwave');
+    document.documentElement.setAttribute('data-theme', config.colors.saigoTheme);
+    setSaigoTheme(config.colors.saigoTheme);
 
     const script = document.createElement('script');
     script.src = `https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`;
