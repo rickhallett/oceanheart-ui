@@ -10,7 +10,22 @@ export async function GET(req: NextRequest) {
 
   if (code) {
     const supabase = createClient();
-    await supabase.auth.exchangeCodeForSession(code);
+    const { data: { session }, error } = await supabase.auth.exchangeCodeForSession(code);
+    if (error) {
+      console.error("Error during session exchange:", error);
+    }
+    if (session?.user?.email) {
+      try {
+        const { error: insertError } = await supabase
+          .from("saigo_users")
+          .insert([{ email: session.user.email }]);
+        if (insertError) {
+          console.error("Error inserting saigo user:", insertError);
+        }
+      } catch (insertionException) {
+        console.error("Exception inserting saigo user:", insertionException);
+      }
+    }
   }
 
   // Redirect to Saigo-specific callback URL
