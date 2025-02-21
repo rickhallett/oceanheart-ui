@@ -55,7 +55,7 @@ const features = [
   {
     title: "Progress Visualization",
     description:
-      "Visualize therapeutic progress through clean, intuitive data visualizations. Share these with your clients make therapy more tangible",
+      "Visualize therapeutic progress through clean, intuitive data visualizations. Share these with your clients to make therapy more tangible",
     svg: <FaChartLine />,
     type: "image",
     format: "avif",
@@ -64,7 +64,7 @@ const features = [
   {
     title: "Resource Library",
     description:
-      "Access and share a rich collection of therapeutic resources, exercises, and metaphors, automaticallycustomised for each individual",
+      "Access and share a rich collection of therapeutic resources, exercises, and metaphors, automatically customised for each individual",
     svg: <FaBook />,
     type: "image",
     format: "jpg",
