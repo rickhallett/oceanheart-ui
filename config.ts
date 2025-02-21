@@ -18,53 +18,52 @@ const config = {
     // Create multiple plans in your Stripe dashboard, then add them here. You can add as many plans as you want, just make sure to add the priceId
     plans: [
       {
-        // REQUIRED — we use this to find the plan in the webhook (for instance if you want to update the user's credits based on the plan)
+        priceId:
+          process.env.NODE_ENV === "development"
+            ? "price_dev_free_formulation"
+            : "price_prod_free_formulation",
+        name: "Formulation Basics",
+        description: "Free, forever. A taste of AI-assisted therapy planning and insight",
+        price: 0,
+        features: [
+          { name: "'Thera' - AI Formulation Builder (limited monthly usage)" },
+          { name: "Data Privacy & Security" },
+          { name: "Weekly tips & tricks with genAI" }
+        ],
+        availableFrom: "2025-02-28",
+        isFeatured: true,
+      },
+      {
         priceId:
           process.env.NODE_ENV === "development"
             ? "price_1QtHiIRVLr5O3VREAZkhQyuH"
             : "price_1Qu12HRVLr5O3VRE4uM5HmP6",
-        //  REQUIRED - Name of the plan, displayed on the pricing page
         name: "First Movers",
-        // A friendly description of the plan, displayed on the pricing page. Tip: explain why this plan and not others
-        description: "Enhance your clinical practice with AI",
-        // The price you want to display, the one user will be charged on Stripe.
+        description: "Join the wave of change and upgrade your practice",
         price: 8,
-        // If you have an anchor price (i.e. $29) that you want to display crossed out, put it here. Otherwise, leave it empty
         priceAnchor: 14,
         features: [
-          { name: "Smart session note analysis & formatting" },
+          { name: "'Thera'- AI Formulation Builder (unlimited)" },
+          { name: "Smart Session Note Analysis & Advanced Formatting" },
           { name: "Intelligent Resource Library" },
-          { name: "Automated Research Tools" },
-          { name: "Data Privacy and Security" },
-          // { name: "Bolt on additional modules individually for $59" }
         ],
-        isFeatured: true,
         availableFrom: "2025-03-31",
-        limitedTo: 100,
-        remaining: 93,
       },
       {
-        // REQUIRED — we use this to find the plan in the webhook (for instance if you want to update the user's credits based on the plan)
         priceId:
           process.env.NODE_ENV === "development"
             ? "price_1Niyy5AxyNprDp7iZIqEyD2h"
             : "price_456",
-        //  REQUIRED - Name of the plan, displayed on the pricing page
         name: "Power Users",
-        // A friendly description of the plan, displayed on the pricing page. Tip: explain why this plan and not others
         description: "More knowledge, more power",
-        // The price you want to display, the one user will be charged on Stripe.
         price: 24,
-        // If you have an anchor price (i.e. $29) that you want to display crossed out, put it here. Otherwise, leave it empty
-        // priceAnchor: 499,
         features: [
           { name: "All First Movers features" },
-          { name: "AI Formulation Builder" },
+          { name: "Automated Research Tools" },
           { name: "Patient Education Resources" },
           { name: "Secure Client Portal" },
           { name: "Analytics and Reporting" },
           { name: "Discord Community Access" },
-          // { name: "Bolt on additional modules individually for $49" }
         ],
         availableFrom: "2025-05-31",
       },
@@ -76,21 +75,19 @@ const config = {
         name: "Edge Psychotherapy",
         description: "Becoming limitless",
         price: 39,
-        // priceAnchor: 999,
         features: [
           { name: "All Power Users features" },
           { name: "Thera - Your personalised assistant" },
           { name: "Advanced Analytics and Reporting" },
-          { name: "Automated spectrum psychometrics" },
-          { name: "Homework monitoring" },
+          { name: "Automated Spectrum Psychometrics" },
+          { name: "Homework Monitoring" },
           { name: "Whiteboard & Shared Workspaces" },
           { name: "Therapy Blueprint Cloud Service" },
           { name: "Priority Support" },
-          // { name: "Bolt on additional modules individually for $29" }
         ],
         availableFrom: "2025-11-30",
       },
-    ],
+    ]
   },
   aws: {
     // If you use AWS S3/Cloudfront, put values in here
