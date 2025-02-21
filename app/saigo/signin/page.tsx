@@ -16,6 +16,9 @@ export default function SaigoLogin() {
   const [recaptchaLoaded, setRecaptchaLoaded] = useState(false);
 
   useEffect(() => {
+    // Set the Saigo theme
+    document.documentElement.setAttribute('data-theme', 'cyberpunk');
+    
     const script = document.createElement('script');
     script.src = `https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`;
     script.async = true;
