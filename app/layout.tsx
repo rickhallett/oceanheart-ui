@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import { Viewport } from "next";
 import { getSEOTags } from "@/libs/seo";
 import ClientLayout from "@/components/LayoutClient";
+import { getSaigoTheme } from "@/libs/cookies";
 import config from "@/config";
 import "./globals.css";
 
@@ -20,10 +21,11 @@ export const viewport: Viewport = {
 export const metadata = getSEOTags();
 
 export default function RootLayout({ children }: { children: ReactNode }) {
+	const theme = getSaigoTheme() || config.colors.theme;
 	return (
 		<html
 			lang="en"
-			data-theme={config.colors.theme}
+			data-theme={theme}
 			className={font.className}
 		>
 			<body>
