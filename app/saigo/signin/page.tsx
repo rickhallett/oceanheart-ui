@@ -6,7 +6,7 @@ import { createClient } from "@/libs/supabase/client";
 import { Provider } from "@supabase/supabase-js";
 import toast from "react-hot-toast";
 import config from "@/config";
-import { setSaigoTheme } from "@/libs/cookies";
+import { setSaigoTheme } from "@/libs/clientCookies";
 
 export default function SaigoLogin() {
   const supabase = createClient();

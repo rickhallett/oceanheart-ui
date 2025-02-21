@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import { Viewport } from "next";
 import { getSEOTags } from "@/libs/seo";
 import ClientLayout from "@/components/LayoutClient";
-import { getSaigoTheme } from "@/libs/cookies";
+import { getSaigoTheme } from "@/libs/serverCookies";
 import config from "@/config";
 import "./globals.css";
 
