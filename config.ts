@@ -20,15 +20,16 @@ const config = {
       {
         priceId:
           process.env.NODE_ENV === "development"
-            ? "price_dev_free_formulation"
-            : "price_prod_free_formulation",
+            ? "price_1QuuhBRVLr5O3VREdupRdEst"
+            : "price_1QuuhBRVLr5O3VREdupRdEst",
         name: "Formulation Basics",
-        description: "Free, forever. A taste of AI-assisted therapy planning and insight",
-        price: 0,
+        description: "A first taste of AI-assisted therapy, planning and insight",
+        price: 1,
         features: [
           { name: "'Thera' - AI Formulation Builder (limited monthly usage)" },
           { name: "Data Privacy & Security" },
-          { name: "Weekly tips & tricks with genAI" }
+          { name: "Weekly tips & tricks with genAI" },
+          { name: "Premium blog content" }
         ],
         availableFrom: "2025-02-28",
         isFeatured: true,
