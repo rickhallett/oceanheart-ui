@@ -123,7 +123,7 @@ export default function SaigoLogin() {
         </Link>
       </div>
       <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-center mb-12">
-        Join the Force
+        Welcome, Navigator.
       </h1>
 
       <div className="space-y-8 max-w-xl mx-auto">
