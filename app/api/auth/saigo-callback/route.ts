@@ -1,7 +1,6 @@
 import { NextResponse, NextRequest } from "next/server";
 import { createClient } from "@/libs/supabase/server";
 import config from "@/config";
-import { v4 as uuidv4 } from 'uuid';
 
 export const dynamic = "force-dynamic";
 
@@ -19,7 +18,10 @@ export async function GET(req: NextRequest) {
       try {
         const { error: insertError } = await supabase
           .from("saigo_users")
-          .insert([{ id: uuidv4(), email: session.user.email }]);
+          .insert([{ 
+            email: session.user.email,
+            user_id: session.user.id 
+          }]);
         if (insertError) {
           console.error("Error inserting saigo user:", insertError);
         }
