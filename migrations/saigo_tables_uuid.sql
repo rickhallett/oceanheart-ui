@@ -12,11 +12,21 @@ CREATE TABLE saigo_users (
   user_id UUID  -- foreign key to the users table; update type as necessary (assumes users.id is UUID)
 );
 
--- Enable RLS and create a full-access RLS policy for saigo_users
+-- Enable RLS and create policies for saigo_users
 ALTER TABLE saigo_users ENABLE ROW LEVEL SECURITY;
-CREATE POLICY full_access_saigo_users ON saigo_users
-  FOR ALL
-  USING (true);
+GRANT ALL ON saigo_users TO authenticated;
+
+-- Allow users to see their own records
+CREATE POLICY read_own_saigo_users ON saigo_users
+  FOR SELECT
+  TO authenticated
+  USING (auth.uid() = user_id);
+
+-- Allow insert for authenticated users
+CREATE POLICY insert_saigo_users ON saigo_users
+  FOR INSERT
+  TO authenticated
+  WITH CHECK (auth.uid() = user_id);
 
 -- Create the saigo_username table with a UUID primary key and a default value using gen_random_uuid()
 CREATE TABLE saigo_username (
@@ -26,11 +36,25 @@ CREATE TABLE saigo_username (
   saigo_user_id UUID  -- foreign key to saigo_users.id
 );
 
--- Enable RLS and create a full-access RLS policy for saigo_username
+-- Enable RLS and create policies for saigo_username
 ALTER TABLE saigo_username ENABLE ROW LEVEL SECURITY;
-CREATE POLICY full_access_saigo_username ON saigo_username
-  FOR ALL
-  USING (true);
+GRANT ALL ON saigo_username TO authenticated;
+
+-- Allow users to see their own records via saigo_users relationship
+CREATE POLICY read_own_saigo_username ON saigo_username
+  FOR SELECT
+  TO authenticated
+  USING (saigo_user_id IN (
+    SELECT id FROM saigo_users WHERE user_id = auth.uid()
+  ));
+
+-- Allow insert for authenticated users
+CREATE POLICY insert_saigo_username ON saigo_username
+  FOR INSERT
+  TO authenticated
+  WITH CHECK (saigo_user_id IN (
+    SELECT id FROM saigo_users WHERE user_id = auth.uid()
+  ));
 
 -- Update foreign key relationships to use IDs:
 
