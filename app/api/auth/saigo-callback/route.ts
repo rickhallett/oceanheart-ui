@@ -1,6 +1,7 @@
 import { NextResponse, NextRequest } from "next/server";
 import { createClient } from "@/libs/supabase/server";
 import config from "@/config";
+import { v4 as uuidv4 } from 'uuid';
 
 export const dynamic = "force-dynamic";
 
@@ -18,7 +19,7 @@ export async function GET(req: NextRequest) {
       try {
         const { error: insertError } = await supabase
           .from("saigo_users")
-          .insert([{ email: session.user.email }]);
+          .insert([{ id: uuidv4(), email: session.user.email }]);
         if (insertError) {
           console.error("Error inserting saigo user:", insertError);
         }
@@ -29,5 +30,5 @@ export async function GET(req: NextRequest) {
   }
 
   // Redirect to Saigo-specific callback URL
-  return NextResponse.redirect(requestUrl.origin + "/saigo/username");
+  return NextResponse.redirect(requestUrl.origin + config.auth.saigo.callbackUrl);
 }
