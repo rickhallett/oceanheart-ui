@@ -1,14 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<saigo_username_prompt>
-  <prompt>Set up the LLM for great prompt creation.</prompt>
-  <instructions>
-    <instruction>Generate a username containing lowercase letters, uppercase letters, and numeric characters.</instruction>
-    <instruction>The username must be longer than 8 characters.</instruction>
-    <instruction>Ensure the username is generated in the spirit of the event content.</instruction>
-    <instruction>Incorporate the theme of collective and cooperative preparation, discipline, and meditation as described.</instruction>
-  </instructions>
-  <content>
-    <![CDATA[
 # The Last Dream
 
 > "The last dream is a set of teachings based upon the understanding that reality is an illusion, a.k.a. a dream. Circumstances of the time that we exist in politically and technologically are at a dramatic crossroads where the human race is at odds with one another, racing towards the biblical moment of potential global war, biological warfare, and even nuclear turmoil amongst patriots within its own borders with looming negative energies of discontent.
@@ -45,17 +34,14 @@
 
 ## Operation Dreamwalker
 
-> "Operation Dreamwalker is about entering the consciousness—or the sleeping consciousness—of the collective human race. It's about inspiring, shaping, and directing that dream so that it manifests into an awakening moment for humanity.
+> "Operation Dreamwalker is about entering the consciousness—or the sleeping consciousness—of the collective human race. It’s about inspiring, shaping, and directing that dream so that it manifests into an awakening moment for humanity.
 
 > The knowledge that will be presented is the most cutting-edge teaching of Higher Balance. Its evolutionary process into the future affects not only the creator consciousness of the Earth but also the ability to shape and mold life itself at both the macro and micro levels.
 
 > There are some things in life that cannot be ignored.
 
-> This is one moment in life that you have been designed to prepare for, and it simply cannot be ignored. It's a calling."
+> This is one moment in life that you have been designed to prepare for, and it simply cannot be ignored. It’s a calling."
 
 > *— EJP*
 
 ![Image](//img1.wsimg.com/isteam/ip/6bc2350a-2016-4a62-bc87-fac147e6b837/hbiaiartists_No_Prompt_fc899a12-951a-4-3fbc2ac.png/:/cr=t:0%25,l:0%25,w:100%25,h:100%25/rs=w:600,cg:true)
-    ]]>
-  </content>
-</saigo_username_prompt>
