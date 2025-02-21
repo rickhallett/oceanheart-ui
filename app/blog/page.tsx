@@ -1,13 +1,13 @@
-import { categories, articles } from "./_assets/content";
+import { categories, articles, articleType } from "./_assets/content";
 import CardArticle from "./_assets/components/CardArticle";
 import CardCategory from "./_assets/components/CardCategory";
 import config from "@/config";
 import { getSEOTags } from "@/libs/seo";
 
 export const metadata = getSEOTags({
-  title: `${config.appName} Blog | Stripe Chargeback Protection`,
+  title: `${config.appName} AI, Therapy and going at it alone`,
   description:
-    "Learn how to prevent chargebacks, how to accept payments online, and keep your Stripe account in good standing",
+    "My journey into the intersection at AI and mental health",
   canonicalUrlRelative: "/blog",
 });
 
@@ -17,7 +17,8 @@ export default async function Blog() {
       (a, b) =>
         new Date(b.publishedAt).valueOf() - new Date(a.publishedAt).valueOf()
     )
-    .slice(0, 6);
+    .slice(0, 6)
+    .filter(article => article.published)
   return (
     <>
       <section className="text-center max-w-xl mx-auto mt-12 mb-24 md:mb-32">

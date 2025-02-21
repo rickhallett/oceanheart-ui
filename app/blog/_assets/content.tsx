@@ -28,6 +28,7 @@ const categorySlugs: { [key: string]: string } = {
   ai: "ai",
   therapy: "therapy",
   psychology: "psychology",
+  learning: "learning",
 };
 
 // All the blog categories data display in the /blog/category/[categoryI].js pages.
@@ -245,6 +246,7 @@ export type articleType = {
     alt: string;
   };
   content: JSX.Element;
+  published: boolean;
 };
 
 // These styles are used in the content of the articles. When you update them, all articles will be updated.
@@ -325,6 +327,7 @@ export const articles: articleType[] = [
         </section>
       </>
     ),
+    published: true,
   },
   {
     // The unique slug to use in the URL
@@ -371,6 +374,7 @@ export const articles: articleType[] = [
         </p>
       </>
     ),
+    published: true,
   },
   {
     // The unique slug to use in the URL
@@ -417,6 +421,7 @@ export const articles: articleType[] = [
         </p>
       </>
     ),
+    published: true,
   },
   {
     // The unique slug to use in the URL
@@ -483,6 +488,7 @@ export const articles: articleType[] = [
         </p>
       </>
     ),
+    published: true,
   },
   {
     // The unique slug to use in the URL
@@ -542,9 +548,288 @@ export const articles: articleType[] = [
         </p>
       </>
     ),
+    published: true,
+  },
+  {
+    slug: "no-perfect-idea",
+    title: "There’s No Perfect Idea",
+    description:
+      "Reflecting on why the initial concept rarely matters as much as you think.",
+    categories: [
+      categories.find((category) => category.slug === categorySlugs.learning),
+    ],
+    author: authors.find((author) => author.slug === authorSlugs.kai),
+    publishedAt: "2025-02-21",
+    image: {
+      src: scalableAgentSystemsImg,
+      urlRelative: "/blog/no-perfect-idea/header.jpg",
+      alt: "lightbulb moments",
+    },
+    content: (
+      <>
+        <Image
+          src={scalableAgentSystemsImg}
+          alt="lightbulb moments"
+          width={700}
+          height={500}
+          priority={true}
+        />
+        <p className={styles.p}>
+          Early on, I spent weeks obsessing over “the perfect idea” for my side
+          business. Then it hit me: no matter how ingenious my concept was, it
+          would inevitably change once real users got involved. Every product
+          pivot or feedback session proved that ideas aren’t static. What truly
+          matters is the willingness to adapt, respond to feedback, and keep
+          iterating.
+        </p>
+        <p className={styles.p}>
+          My biggest learning? Don’t let yourself stall at the “thinking phase.”
+          If you’re aiming for perfection before you even launch, you’ll never
+          get anything out the door. At some point, you just have to start
+          building. Seeing how users actually interact with your creation
+          reveals flaws and opportunities you never anticipated. That’s where
+          the real growth begins.
+        </p>
+        <p className={styles.p}>
+          Learning point: <strong>Focus on action over obsession.</strong> Pick
+          a direction, test it quickly, and be ready to pivot as reality shifts
+          your perspective.
+        </p>
+      </>
+    ),
+    published: true,
+  },
+  {
+    slug: "embracing-minimalism",
+    title: "Embracing Minimalism in the MVP",
+    description:
+      "How a bare-bones approach keeps your side project manageable and moving forward.",
+    categories: [
+      categories.find((category) => category.slug === categorySlugs.learning),
+    ],
+    author: authors.find((author) => author.slug === authorSlugs.kai),
+    publishedAt: "2025-02-21",
+    image: {
+      src: scalableAgentSystemsImg,
+      urlRelative: "/blog/embracing-minimalism/header.jpg",
+      alt: "minimal product focus",
+    },
+    content: (
+      <>
+        <Image
+          src={scalableAgentSystemsImg}
+          alt="minimal product focus"
+          width={700}
+          height={500}
+          priority={true}
+        />
+        <p className={styles.p}>
+          When I first set out to build my own SaaS, I felt the urge to stuff
+          it with every feature I could imagine. It wasn’t long before I found
+          myself buried in complexity, chasing my tail and losing momentum.
+          That’s when I discovered the power of an absolute bare-bones MVP.
+        </p>
+        <p className={styles.p}>
+          Stripping down to essential functionality not only kept my stress
+          levels in check, but also sped up my release cycle. Once I launched, I
+          realized many of my “must-have” features were irrelevant. Users
+          gravitated to a core set of tools I almost hadn’t built. Every extra
+          feature I had planned would’ve wasted precious time and energy.
+        </p>
+        <p className={styles.p}>
+          Learning point: <strong>Less is more.</strong> Start small, ship it,
+          then learn what matters by watching real-world engagement. It keeps
+          you sane and helps you iterate faster.
+        </p>
+      </>
+    ),
+    published: false,
+  },
+  {
+    slug: "avoid-needless-complexity",
+    title: "Avoiding Complexity That Doesn’t Matter",
+    description:
+      "Why offloading and skipping unneeded tasks can save your side business.",
+    categories: [
+      categories.find((category) => category.slug === categorySlugs.learning),
+    ],
+    author: authors.find((author) => author.slug === authorSlugs.kai),
+    publishedAt: "2025-02-21",
+    image: {
+      src: scalableAgentSystemsImg,
+      urlRelative: "/blog/avoid-needless-complexity/header.jpg",
+      alt: "steering away from complexity",
+    },
+    content: (
+      <>
+        <Image
+          src={scalableAgentSystemsImg}
+          alt="steering away from complexity"
+          width={700}
+          height={500}
+          priority={true}
+        />
+        <p className={styles.p}>
+          In my early attempts at side ventures, I insisted on coding every
+          piece myself—user authentication, email systems, analytics—because I
+          thought being “full stack” meant doing it all. But the deeper I got,
+          the more it felt like pushing a boulder uphill. Customer feedback
+          forms? Email queues? They weren’t my app’s core value, yet they ate
+          major chunks of time.
+        </p>
+        <p className={styles.p}>
+          Eventually, I realized I could outsource or automate most non-critical
+          systems. Using managed services for payments, sign-in, and even user
+          feedback freed up my time to focus on the features that truly made my
+          offering unique. Suddenly, I was shipping updates in days, not weeks,
+          and my burnout risk dropped dramatically.
+        </p>
+        <p className={styles.p}>
+          Learning point: <strong>Pick your battles.</strong> Invest your energy
+          where you add distinct value. Offload or defer everything else—your
+          sanity and timeline will thank you.
+        </p>
+      </>
+    ),
+    published: false,
+  },
+  {
+    slug: "embracing-rework",
+    title: "Embracing Rework as Part of the Process",
+    description:
+      "Why doing things twice can be a feature, not a bug, when building a side SaaS.",
+    categories: [
+      categories.find((category) => category.slug === categorySlugs.learning),
+    ],
+    author: authors.find((author) => author.slug === authorSlugs.kai),
+    publishedAt: "2025-02-21",
+    image: {
+      src: scalableAgentSystemsImg,
+      urlRelative: "/blog/embracing-rework/header.jpg",
+      alt: "embracing rework",
+    },
+    content: (
+      <>
+        <Image
+          src={scalableAgentSystemsImg}
+          alt="embracing rework"
+          width={700}
+          height={500}
+          priority={true}
+        />
+        <p className={styles.p}>
+          Early on, I dreaded the idea of rewriting my code. I aimed for a
+          perfect architecture from day one, hoping to avoid future headaches.
+          But I soon learned that no matter how carefully I planned, real user
+          feedback always changed my direction. Rework became inevitable, and
+          resisting it only slowed me down.
+        </p>
+        <p className={styles.p}>
+          It was a revelation when I started to see rework as a form of
+          “productive iteration.” By expecting to refactor, I wrote simpler
+          first drafts, knowing they weren’t the final word. Each revision
+          improved my design based on reality, not assumptions.
+        </p>
+        <p className={styles.p}>
+          Learning point:{" "}
+          <strong>Don’t fear rebuilding; embrace it as part of evolving.</strong>{" "}
+          Better to iterate fast and adjust than to cling to a “perfect” plan
+          that never survives contact with users.
+        </p>
+      </>
+    ),
+    published: false,
+  },
+  {
+    slug: "finding-a-niche",
+    title: "The Advantage of Finding a Smaller Niche",
+    description:
+      "How aiming for a modest market can give your side project room to thrive.",
+    categories: [
+      categories.find((category) => category.slug === categorySlugs.learning),
+    ],
+    author: authors.find((author) => author.slug === authorSlugs.kai),
+    publishedAt: "2025-02-21",
+    image: {
+      src: scalableAgentSystemsImg,
+      urlRelative: "/blog/finding-a-niche/header.jpg",
+      alt: "small market advantage",
+    },
+    content: (
+      <>
+        <Image
+          src={scalableAgentSystemsImg}
+          alt="small market advantage"
+          width={700}
+          height={500}
+          priority={true}
+        />
+        <p className={styles.p}>
+          There was a time I believed my side project had to disrupt an entire
+          industry to be “worth it.” That mindset is exhausting. When I finally
+          shifted to serving a tightly focused audience, I noticed something
+          wonderful: fewer big competitors bothered to move in.
+        </p>
+        <p className={styles.p}>
+          Sure, my user base was smaller, but it was more committed. I could
+          charge a fair price for specialized value, and my platform’s overhead
+          didn’t need to be massive to sustain me. It was liberating to realize
+          I could build something profitable without chasing millions of
+          customers.
+        </p>
+        <p className={styles.p}>
+          Learning point: <strong>Small can be sustainable.</strong> Aim to
+          serve a distinct group with a real need, and you’ll avoid the brutal
+          slugfest that comes with hyper-competitive markets.
+        </p>
+      </>
+    ),
+    published: false,
+  },
+  {
+    slug: "mvp-marathon",
+    title: "A Side Project is a Marathon, Not a Sprint",
+    description:
+      "Staying consistent and preventing burnout in the long haul of solo SaaS.",
+    categories: [
+      categories.find((category) => category.slug === categorySlugs.learning),
+    ],
+    author: authors.find((author) => author.slug === authorSlugs.kai),
+    publishedAt: "2025-02-21",
+    image: {
+      src: scalableAgentSystemsImg,
+      urlRelative: "/blog/mvp-marathon/header.jpg",
+      alt: "long distance run",
+    },
+    content: (
+      <>
+        <Image
+          src={scalableAgentSystemsImg}
+          alt="long distance run"
+          width={700}
+          height={500}
+          priority={true}
+        />
+        <p className={styles.p}>
+          I can’t count how many times I’ve tried to sprint through a weekend of
+          coding, only to crash hard on Monday. The reality is that building a
+          side business isn’t a quick dash; it’s an ongoing process. Spreading
+          out the workload, staying mindful of rest, and celebrating small wins
+          keeps it sustainable.
+        </p>
+        <p className={styles.p}>
+          The moment I accepted it would take months or even years to refine my
+          product, I relaxed. That freed me to think more carefully, focus on
+          the aspects that truly mattered, and pace myself without burning out.
+          Productivity soared once the pressure was off to rush everything.
+        </p>
+        <p className={styles.p}>
+          Learning point: <strong>Consistency beats intensity.</strong> Treat
+          your project like a long-distance run. You’ll evolve, learn, and build
+          resilience along the way.
+        </p>
+      </>
+    ),
+    published: false,
   }
-
-
-
-
 ];
