@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import config from "@/config";
 import logo from "@/app/icon.png";
@@ -9,7 +10,7 @@ import logo from "@/app/icon.png";
 // Add the Footer to the bottom of your landing page and more.
 // The support link is connected to the config.js file. If there's no config.resend.supportEmail, the link won't be displayed.
 
-const Footer = () => {
+const SuspendedFooter = () => {
   const searchParams = useSearchParams();
   const hasSaigo = searchParams?.get("saigo") !== null;
   const privacyLink = hasSaigo ? "/privacy-policy?saigo=true" : "/privacy-policy";
@@ -76,7 +77,9 @@ const Footer = () => {
                       </g>{" "}
                     </g>
                   </svg>
-                  &nbsp;love at oceanheart.ai
+                  <span className="ml-4">
+                    &nbsp;at oceanheart.ai
+                  </span>
                 </span>
               </div>
             </a>
@@ -130,5 +133,13 @@ const Footer = () => {
     </footer>
   );
 };
+
+const Footer = () => {
+  return (
+    <Suspense>
+      <SuspendedFooter />
+    </Suspense>
+  )
+}
 
 export default Footer;
