@@ -12,14 +12,19 @@ export default function UsernamePage() {
     setError(null);
 
     try {
-      // TODO: Implement LLM-based username generation
-      // const response = await generateUsername();
-      // const isUnique = await checkUsernameUniqueness(response);
-      // if (isUnique) {
-      //   await saveUsernameToSupabase(response);
-      // }
+      const response = await fetch('/api/saigo/username', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
 
-      setUsername("placeholder_username");
+      if (!response.ok) {
+        throw new Error('Failed to generate username');
+      }
+
+      const data = await response.json();
+      setUsername(data.username);
     } catch (err) {
       setError("Failed to generate username. Please try again.");
       console.error("Username generation error:", err);
