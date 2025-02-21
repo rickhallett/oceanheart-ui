@@ -6,7 +6,7 @@ import FeaturesAccordion from "@/components/FeaturesAccordion";
 import Pricing from "@/components/Pricing";
 import FAQ from "@/components/FAQ";
 import CTA from "@/components/CTA";
-import Footer from "@/components/Footer";
+import SuspendedFooter from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -22,7 +22,7 @@ export default function Home() {
         <FAQ />
         <CTA />
       </main>
-      <Footer />
+      <SuspendedFooter />
     </>
   );
 }
