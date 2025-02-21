@@ -1,7 +1,8 @@
 -- Create the "saigo_users" table
 CREATE TABLE IF NOT EXISTS saigo_users (
   id SERIAL PRIMARY KEY,
-  email TEXT NOT NULL UNIQUE
+  email TEXT NOT NULL UNIQUE,
+  user_id INTEGER
 );
 
 -- Enable Row Level Security for saigo_users
@@ -16,7 +17,8 @@ CREATE POLICY full_access_saigo_users ON saigo_users
 CREATE TABLE IF NOT EXISTS saigo_username (
   id SERIAL PRIMARY KEY,
   email TEXT NOT NULL UNIQUE,
-  username TEXT NOT NULL UNIQUE
+  username TEXT NOT NULL UNIQUE,
+  saigo_user_id INTEGER
 );
 
 -- Enable Row Level Security for saigo_username
