@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { useSearchParams } from "next/navigation";
 import config from "@/config";
 import logo from "@/app/icon.png";
 
@@ -7,6 +10,9 @@ import logo from "@/app/icon.png";
 // The support link is connected to the config.js file. If there's no config.resend.supportEmail, the link won't be displayed.
 
 const Footer = () => {
+  const searchParams = useSearchParams();
+  const hasSaigo = searchParams?.get("saigo") !== null;
+  const privacyLink = hasSaigo ? "/privacy-policy?saigo=true" : "/privacy-policy";
   return (
     <footer className="bg-base-200 border-t border-base-content/10">
       <div className="max-w-7xl mx-auto px-8 py-24">
@@ -113,7 +119,7 @@ const Footer = () => {
                 <Link href="/tos" className="link link-hover">
                   Terms of services
                 </Link>
-                <Link href="/privacy-policy" className="link link-hover">
+                <Link href={privacyLink} className="link link-hover">
                   Privacy policy
                 </Link>
               </div>
