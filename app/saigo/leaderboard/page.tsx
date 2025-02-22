@@ -1,4 +1,5 @@
 import ButtonAccount from "@/components/ButtonAccount";
+import LineGraph from "@/components/LineGraph";
 
 export default async function LeaderboardPage() {
   // Fetch data from the secure route
@@ -65,6 +66,12 @@ export default async function LeaderboardPage() {
             </div>
           ))}
         </div>
+      </div>
+
+      {/* Line Graph Section */}
+      <div className="mt-8">
+        {/* Replace the array below with dynamic data if available */}
+        <LineGraph data={[120, 150, 90, 200, 180, 130, 160]} />
       </div>
     </div>
   );
