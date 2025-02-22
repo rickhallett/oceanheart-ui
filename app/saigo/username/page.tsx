@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 
 export default function UsernamePage() {
@@ -34,17 +35,11 @@ export default function UsernamePage() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold mb-4">Generate Your Unique Username</h1>
+    <div className="container flex flex-col items-center mx-auto px-4 py-8">
+      <Image src="/images/hbi_transparent.webp" alt="HBI Logo" width={200} height={200} />
+      <h1 className="text-2xl font-bold mb-4 mt-4">Generate Your Unique Username</h1>
 
-      <div className="prose max-w-none mb-8">
-        <p>
-          Welcome to the username generation process! We use advanced AI to create
-          a unique username that reflects the spirit of Saigo.
-        </p>
-      </div>
-
-      <div className="flex flex-col items-center gap-4">
+      <div className="flex flex-col items-center gap-4 mt-4">
         <button
           className="btn btn-primary"
           onClick={handleGenerateUsername}
