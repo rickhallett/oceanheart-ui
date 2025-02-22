@@ -14,7 +14,6 @@ export async function GET() {
       ),
       total_points: sum(points)
     `)
-    .group('user_id, saigo_users.username')
     .order('total_points', { ascending: false });
 
   if (leaderboardError) {
@@ -47,7 +46,6 @@ export async function GET() {
     `)
     .gte('created_at', startDateStr)
     .lte('created_at', endDateStr)
-    .group('date')
     .order('date', { ascending: true });
 
   if (dailyPointsError) {
@@ -86,7 +84,6 @@ export async function GET() {
       type,
       total_points: sum(points)
     `)
-    .group('type')
     .order('total_points', { ascending: false });
 
   if (practiceSummaryError) {
