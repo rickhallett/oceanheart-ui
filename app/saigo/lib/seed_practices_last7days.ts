@@ -49,8 +49,12 @@ async function seedLast7Days() {
 
     for (let i = 0; i < 100; i++) {
       // Calculate the record date as startDate + i days.
-      const recordDate = new Date(startDate);
-      recordDate.setDate(startDate.getDate() + i % 7);
+      const recordDate = new Date(Date.UTC(
+        startDate.getUTCFullYear(),
+        startDate.getUTCMonth(),
+        startDate.getUTCDate() + i % 7,
+        0, 0, 0 // Ensure time is set to 00:00:00 UTC
+      ));
 
       // Set points to steadily increase: e.g., 10, 20, 30, ..., 70.
       const points = 10 + i * 10;

@@ -49,18 +49,18 @@ export async function GET() {
   const today = new Date();
   // Initialize keys for today and the previous 6 days
   for (let i = 0; i < 7; i++) {
-   const d = new Date(today.getFullYear(), today.getMonth(), today.getDate() - i);
-   const dayStr = d.toISOString().split("T")[0];
-   dailyPointsMap[dayStr] = 0;
+    const d = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate() - i));
+    const dayStr = d.toISOString().split("T")[0];
+    dailyPointsMap[dayStr] = 0;
   }
   // Aggregate points for practices created in these days
   (practiceData ?? []).forEach((practice: any) => {
-   if (practice.created_at) {
-    const dateStr = new Date(practice.created_at).toISOString().split("T")[0];
-    if (dailyPointsMap.hasOwnProperty(dateStr)) {
-     dailyPointsMap[dateStr] += practice.points || 0;
+    if (practice.created_at) {
+      const dateStr = practice.created_at.split("T")[0];
+      if (dailyPointsMap.hasOwnProperty(dateStr)) {
+        dailyPointsMap[dateStr] += practice.points || 0;
+      }
     }
-   }
   });
   // Build an array ordered from oldest to newest
   const orderedDays = Object.keys(dailyPointsMap).sort();
