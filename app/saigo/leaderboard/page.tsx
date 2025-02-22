@@ -2,7 +2,7 @@ import { createClient } from "@/libs/supabase/server";
 
 async function getPracticeSummaryData() {
   const supabase = createClient();
-  
+
   const { data: practiceData, error } = await supabase
     .from('practices')
     .select('type, points');
@@ -27,7 +27,7 @@ async function getPracticeSummaryData() {
 
 async function getLeaderboardData() {
   const supabase = createClient();
-  
+
   // Get users with their total points
   const { data: leaderboardData, error } = await supabase
     .from('saigo_users')
@@ -37,7 +37,12 @@ async function getLeaderboardData() {
       practices (
         points
       )
-    `);
+    `)
+    .not('username', 'is', null);  // Only get users with usernames set
+
+  console.log('Query error if any:', error);
+  console.log('Number of users found:', leaderboardData?.length);
+  console.log('Raw user data:', leaderboardData);
 
   if (error) {
     console.error('Error fetching leaderboard data:', error);
@@ -58,7 +63,7 @@ export default async function LeaderboardPage() {
     getLeaderboardData(),
     getPracticeSummaryData()
   ]);
-  
+
   const totalPoints = leaderboardData.reduce((sum, user) => sum + user.totalPoints, 0);
 
   return (
@@ -86,7 +91,7 @@ export default async function LeaderboardPage() {
           </tbody>
         </table>
       </div>
-      
+
       {/* Practice Summary Section */}
       <div className="mt-8 bg-gray-800 rounded-lg p-6 w-full max-w-2xl">
         <h2 className="text-2xl font-bold text-white mb-4">Practice Summary</h2>
