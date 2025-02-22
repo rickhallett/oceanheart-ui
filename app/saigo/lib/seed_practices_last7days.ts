@@ -28,8 +28,8 @@ async function seedLast7Days() {
   }
   console.log(`Fetched ${users!.length} users`);
 
-  // 2. Define 'today' as Sat Feb 22, 2023 and calculate the start date (6 days before today).
-  const today = new Date("2023-02-22T12:00:00Z");
+  // 2. Define today as current date and calculate the start date (6 days before today)
+  const today = new Date();
   const startDate = new Date(today);
   startDate.setDate(today.getDate() - 6);
 
@@ -47,7 +47,7 @@ async function seedLast7Days() {
   for (const user of users!) {
     const practices = [];
 
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 7; i++) {
       // Calculate the record date as startDate + i days.
       const recordDate = new Date(startDate);
       recordDate.setDate(startDate.getDate() + i);
