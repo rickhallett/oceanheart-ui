@@ -1,37 +1,42 @@
 import { createClient } from "@/libs/supabase/server";
 import { redirect } from "next/navigation";
-import { headers } from 'next/headers';
 
-export async function guardSaigoRoute() {
+export async function guardUsernamePage() {
   const supabase = createClient();
   const { data: { user } } = await supabase.auth.getUser();
-
   if (!user) {
     redirect("/saigo/signin");
   }
-
-  // Check if user has a username set
-  const { data: profile } = await supabase
+  const { data: profile, error } = await supabase
     .from("saigo_users")
     .select("username")
     .eq("id", user.id)
     .single();
-
-  // Get the current path from headers
-  const headersList = headers();
-  const currentPath = headersList.get("x-invoke-path") || "";
-  console.log(currentPath)
-
-
+  if (error) {
+    console.error("Error fetching saigo user for username page:", error);
+  }
+  // If a username exists, the user should not be on the username page
   if (profile?.username) {
-    // If we're not already on the leaderboard, redirect there
-    if (!currentPath.includes("/saigo/leaderboard")) {
-      redirect("/saigo/leaderboard");
-    }
-  } else {
-    // If we're not already on the username page, redirect there
-    if (!currentPath.includes("/saigo/username")) {
-      redirect("/saigo/username");
-    }
+    redirect("/saigo/leaderboard");
+  }
+}
+
+export async function guardLeaderboardPage() {
+  const supabase = createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) {
+    redirect("/saigo/signin");
+  }
+  const { data: profile, error } = await supabase
+    .from("saigo_users")
+    .select("username")
+    .eq("id", user.id)
+    .single();
+  if (error) {
+    console.error("Error fetching saigo user for leaderboard:", error);
+  }
+  // If no username exists, the user should not be on the leaderboard page
+  if (!profile?.username) {
+    redirect("/saigo/username");
   }
 }
