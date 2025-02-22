@@ -49,12 +49,12 @@ async function seedLast7Days() {
 
     for (let i = 0; i < 7; i++) {
       // Calculate the record date as startDate + i days.
-      const recordDate = new Date(Date.UTC(
-        startDate.getUTCFullYear(),
-        startDate.getUTCMonth(),
-        startDate.getUTCDate() + i,
-        0, 0, 0 // Ensure time is set to 00:00:00 UTC
-      ));
+      const recordDate = new Date(
+        startDate.getFullYear(),
+        startDate.getMonth(),
+        startDate.getDate() + i,
+        0, 0, 0 // Time set to 00:00:00
+      );
 
       // Set points to steadily increase: e.g., 10, 20, 30, ..., 70.
       const points = 100 + i * 10;
@@ -66,14 +66,17 @@ async function seedLast7Days() {
         user_id: user.id,
         type,
         points,
-        created_at: recordDate.toISOString()
+        created_at: recordDate
       });
     }
 
     // Insert the 7 practice records for the current user.
     const { error: insertError } = await supabase
       .from("practices")
-      .insert(practices);
+      .insert(practices.map(practice => ({
+        ...practice,
+        created_at: practice.created_at.toISOString(),
+      })));
     if (insertError) {
       console.error(`Error inserting practices for user ${user.id}:`, insertError);
     } else {

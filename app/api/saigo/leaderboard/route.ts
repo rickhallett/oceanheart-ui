@@ -6,7 +6,7 @@ export async function GET() {
 
   // Calculate date range for last 7 days (inclusive)
   const today = new Date();
-  today.setUTCHours(0, 0, 0, 0); // Set to UTC midnight
+  today.setHours(0, 0, 0, 0); // Set to local midnight
   const sevenDaysAgo = new Date(today.getTime() - 6 * 86400000); // 6 days before today
 
   const startDateStr = sevenDaysAgo.toISOString();
@@ -55,14 +55,20 @@ export async function GET() {
 
   // Calculate dates for the last 7 days
   for (let i = 0; i < 7; i++) {
-    const date = new Date(sevenDaysAgo.getTime() + i * 86400000); // Add i days in milliseconds
+    const date = new Date(
+      sevenDaysAgo.getFullYear(),
+      sevenDaysAgo.getMonth(),
+      sevenDaysAgo.getDate() + i,
+      0, 0, 0
+    );
     const dateStr = date.toISOString().split('T')[0];
     dailyPointsMap[dateStr] = 0;
   }
 
   // Aggregate points per day
   (practicesData ?? []).forEach((practice: any) => {
-    const dateStr = new Date(practice.created_at).toISOString().split('T')[0];
+    const practiceDate = new Date(practice.created_at);
+    const dateStr = practiceDate.toISOString().split('T')[0];
     if (dailyPointsMap.hasOwnProperty(dateStr)) {
       dailyPointsMap[dateStr] += practice.points || 0;
     }
