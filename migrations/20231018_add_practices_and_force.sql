@@ -1,7 +1,7 @@
 -- Create new table "practices"
 CREATE TABLE IF NOT EXISTS practices (
   id BIGSERIAL PRIMARY KEY,
-  user_id TEXT NOT NULL,
+  user_id UUID NOT NULL,
   type TEXT,
   points INT,
   created_at TIMESTAMPTZ DEFAULT now(),
