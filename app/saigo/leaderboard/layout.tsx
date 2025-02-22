@@ -7,3 +7,10 @@ export default async function LeaderboardLayout({ children }: { children: ReactN
 
   return <>{children}</>;
 }
+import { ReactNode } from "react";
+import { guardSaigoRoute } from "../lib/guard";
+
+export default async function Layout({ children }: { children: ReactNode }) {
+  await guardSaigoRoute();
+  return <>{children}</>;
+}
