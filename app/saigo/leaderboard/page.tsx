@@ -105,20 +105,24 @@ export default async function LeaderboardPage() {
         </div>
       </div>
 
-      {/* Stacked Bar Chart Section */}
-      <div className="mt-8">
-        <PracticeTypesStackedBarChart data={stackedData} practiceTypes={practiceTypes} />
+      <div className="flex flex-row items-center justify-center w-full gap-6 flex-wrap">
+
+        {/* Stacked Bar Chart Section */}
+        <div className="mt-8">
+          <PracticeTypesStackedBarChart data={stackedData} practiceTypes={practiceTypes} />
+        </div>
+
+        {/* Line Graph Section */}
+        <div className="mt-8">
+          <LineGraph data={dailyPoints} />
+        </div>
+
+        {/* Pie Chart Section */}
+        <div className="mt-8">
+          <PracticeSummaryPieChart data={practiceSummary} />
+        </div>
       </div>
 
-      {/* Line Graph Section */}
-      <div className="mt-8">
-        <LineGraph data={dailyPoints} />
-      </div>
-
-      {/* Pie Chart Section */}
-      <div className="mt-8">
-        <PracticeSummaryPieChart data={practiceSummary} />
-      </div>
     </div>
   );
 }
