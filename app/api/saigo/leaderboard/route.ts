@@ -4,12 +4,13 @@ import { createServiceClient } from "@/libs/supabase/server";
 export async function GET() {
   const supabase = createServiceClient();
 
-  // Calculate date range for last 7 days
+  // Calculate date range for last 7 days (inclusive)
   const today = new Date();
-  const sevenDaysAgo = new Date(today);
-  sevenDaysAgo.setUTCDate(today.getUTCDate() - 6);
+  today.setUTCHours(0, 0, 0, 0); // Set to UTC midnight
+  const sevenDaysAgo = new Date(today.getTime() - 6 * 86400000); // 6 days before today
+
   const startDateStr = sevenDaysAgo.toISOString();
-  const endDateStr = today.toISOString();
+  const endDateStr = new Date(today.getTime() + 86400000 - 1).toISOString(); // End of today
 
   // Fetch raw practice data for the last 7 days
   const { data: practicesData, error: practicesError } = await supabase
@@ -51,16 +52,17 @@ export async function GET() {
 
   // Initialize and populate dailyPoints array
   const dailyPointsMap: Record<string, number> = {};
+
+  // Calculate dates for the last 7 days
   for (let i = 0; i < 7; i++) {
-    const date = new Date(sevenDaysAgo);
-    date.setUTCDate(sevenDaysAgo.getUTCDate() + i);
+    const date = new Date(sevenDaysAgo.getTime() + i * 86400000); // Add i days in milliseconds
     const dateStr = date.toISOString().split('T')[0];
     dailyPointsMap[dateStr] = 0;
   }
 
   // Aggregate points per day
   (practicesData ?? []).forEach((practice: any) => {
-    const dateStr = practice.created_at.split('T')[0];
+    const dateStr = new Date(practice.created_at).toISOString().split('T')[0];
     if (dailyPointsMap.hasOwnProperty(dateStr)) {
       dailyPointsMap[dateStr] += practice.points || 0;
     }
