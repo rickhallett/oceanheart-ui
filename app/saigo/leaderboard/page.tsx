@@ -9,10 +9,11 @@ export default async function LeaderboardPage() {
 
   if (!res.ok) {
     // Handle error gracefully
-    return <div>Error fetching leaderboard data</div>;
+    return <div>Error fetching leaderboard data: {JSON.stringify(res)}</div>;
   }
 
   const { leaderboardData, practiceSummary, dailyPoints } = await res.json();
+  console.log(dailyPoints);
 
   // Calculate total across all users
   const totalPoints = leaderboardData.reduce((sum: number, user: any) => sum + user.totalPoints, 0);
