@@ -2,8 +2,10 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { useRouter } from 'next/navigation';
 
 export default function UsernamePage() {
+  const router = useRouter();
   const [username, setUsername] = useState<string | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -25,7 +27,8 @@ export default function UsernamePage() {
       }
 
       const data = await response.json();
-      setUsername(data.username);
+      setUsername(data.created);
+      router.push('/saigo/leaderboard');
     } catch (err) {
       setError("Failed to generate username. Please try again.");
       console.error("Username generation error:", err);

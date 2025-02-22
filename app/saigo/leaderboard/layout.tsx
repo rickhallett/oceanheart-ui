@@ -18,3 +18,27 @@ export default function LeaderboardLayout({
     </>
   );
 }
+import { ReactNode } from "react";
+import { redirect } from "next/navigation";
+import { createClient } from "@/libs/supabase/server";
+
+export default async function LeaderboardLayout({ children }: { children: ReactNode }) {
+  const supabase = createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+
+  if (!user) {
+    return redirect('/saigo/signin');
+  }
+
+  const { data: saigoUser } = await supabase
+    .from("saigo_users")
+    .select("saigo_username")
+    .eq("email", user.email)
+    .maybeSingle();
+
+  if (!saigoUser || saigoUser.saigo_username === null) {
+    return redirect("/saigo/username");
+  }
+
+  return <>{children}</>;
+}

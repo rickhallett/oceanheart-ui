@@ -1,12 +1,24 @@
 import { ReactNode } from "react";
-import config from "@/config";
-import { getSEOTags } from "@/libs/seo";
+import { redirect } from "next/navigation";
+import { createClient } from "@/libs/supabase/server";
 
-export const metadata = getSEOTags({
-  title: `Generate Your Username - ${config.appName}`,
-  canonicalUrlRelative: "/saigo/username",
-});
+export default async function UsernameLayout({ children }: { children: ReactNode }) {
+  const supabase = createClient();
+  const { data: { user } } = await supabase.auth.getUser();
 
-export default function Layout({ children }: { children: ReactNode }) {
+  if (!user) {
+    return redirect('/saigo/signin');
+  }
+
+  const { data: saigoUser } = await supabase
+    .from("saigo_users")
+    .select("saigo_username")
+    .eq("email", user.email)
+    .maybeSingle();
+
+  if (saigoUser?.saigo_username !== null) {
+    return redirect("/saigo/leaderboard");
+  }
+
   return <>{children}</>;
 }

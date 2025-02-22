@@ -26,30 +26,15 @@ export default async function SaigoLayoutPrivate({
     return redirect(config.auth.loginUrl);
   }
 
-  // Step 2: Get user data in a single query
+  // Step 2: Get user data to verify they exist
   const { data: saigoUser, error: userError } = await supabase
     .from("saigo_users")
-    .select(`
-      *,
-      username (*)
-    `)
+    .select("id")
     .eq("email", user.email)
     .maybeSingle();
 
   if (userError || !saigoUser) {
     return redirect(config.auth.loginUrl);
-  }
-
-  // Step 3: Handle routing based on username status
-  const hasUsername = saigoUser.saigo_username !== null;
-  const isOnUsernamePage = currentPath.includes('/saigo/username');
-
-  if (!hasUsername && !isOnUsernamePage) {
-    return redirect('/saigo/username');
-  }
-
-  if (hasUsername && isOnUsernamePage) {
-    return redirect('/saigo/leaderboard');
   }
 
   return <>{children}</>;
