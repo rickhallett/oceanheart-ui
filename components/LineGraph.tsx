@@ -1,73 +1,79 @@
 "use client";
 
 import React from "react";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer
+} from "recharts";
 
 interface LineGraphProps {
-  data: number[]; // Array of 7 numbers representing points per day.
+  data: number[]; // Array of 7 numbers representing points per day
 }
 
 const LineGraph: React.FC<LineGraphProps> = ({ data }) => {
-  // Graph dimensions and padding
-  const width = 300;
-  const height = 150;
-  const padding = 20;
-  const maxValue = Math.max(...data);
-  const minValue = Math.min(...data);
-
-  // Convert a data value to a vertical SVG coordinate
-  const mapY = (value: number) =>
-    padding + ((maxValue - value) / (maxValue - minValue || 1)) * (height - 2 * padding);
-
-  // Calculate horizontal spacing between points
-  const xStep = (width - 2 * padding) / (data.length - 1);
-
-  // Build the points string for the polyline
-  const points = data
-    .map((point, index) => {
-      const x = padding + index * xStep;
-      const y = mapY(point);
-      return `${x},${y}`;
-    })
-    .join(" ");
+  // Convert data array into format expected by Recharts
+  const chartData = data.map((value, index) => {
+    const date = new Date();
+    date.setDate(date.getDate() - (6 - index)); // Calculate dates for last 7 days
+    return {
+      day: date.toLocaleDateString('en-US', { weekday: 'short' }),
+      points: value
+    };
+  });
 
   return (
-    <div className="w-full max-w-md mx-auto p-4 bg-white rounded-lg shadow-md">
-      <div className="text-center font-semibold mb-2 text-gray-700">
+    <div className="w-full max-w-4xl mx-auto p-4 bg-white rounded-lg shadow-md">
+      <div className="text-center font-semibold mb-4 text-gray-700">
         Points per Day (Past Week)
       </div>
-      <svg width={width} height={height} className="mx-auto">
-        {/* Base grid lines (optional) */}
-        <line
-          x1={padding}
-          y1={height - padding}
-          x2={width - padding}
-          y2={height - padding}
-          stroke="#d1d5db"
-          strokeWidth="1"
-        />
-        <line
-          x1={padding}
-          y1={padding}
-          x2={width - padding}
-          y2={padding}
-          stroke="#d1d5db"
-          strokeWidth="1"
-        />
-        {/* Draw the line */}
-        <polyline
-          fill="none"
-          stroke="#4f46e5"
-          strokeWidth="3"
-          points={points}
-          className="transition-all duration-300"
-        />
-        {/* Render a circle for each data point */}
-        {data.map((point, index) => {
-          const x = padding + index * xStep;
-          const y = mapY(point);
-          return <circle key={index} cx={x} cy={y} r="4" fill="#4f46e5" />;
-        })}
-      </svg>
+      <div className="h-[300px] w-full">
+        <ResponsiveContainer width="100%" height="100%">
+          <LineChart data={chartData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis 
+              dataKey="day" 
+              stroke="#374151"
+            />
+            <YAxis 
+              stroke="#374151"
+              tickFormatter={(value) => Math.round(value).toString()}
+            />
+            <Tooltip
+              contentStyle={{
+                backgroundColor: '#1F2937',
+                border: 'none',
+                borderRadius: '0.5rem',
+                color: '#F3F4F6'
+              }}
+              itemStyle={{ color: '#F3F4F6' }}
+              labelStyle={{ color: '#F3F4F6' }}
+            />
+            <Line
+              type="monotone"
+              dataKey="points"
+              stroke="#4F46E5"
+              strokeWidth={3}
+              dot={{
+                stroke: '#4F46E5',
+                strokeWidth: 2,
+                r: 4,
+                fill: '#fff'
+              }}
+              activeDot={{
+                stroke: '#4F46E5',
+                strokeWidth: 2,
+                r: 6,
+                fill: '#fff'
+              }}
+            />
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
     </div>
   );
 };
