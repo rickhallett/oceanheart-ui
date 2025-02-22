@@ -47,12 +47,12 @@ async function seedLast7Days() {
   for (const user of users!) {
     const practices = [];
 
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 7; i++) {
       // Calculate the record date as startDate + i days.
       const recordDate = new Date(Date.UTC(
         startDate.getUTCFullYear(),
         startDate.getUTCMonth(),
-        startDate.getUTCDate() + i % 7,
+        startDate.getUTCDate() + i,
         0, 0, 0 // Ensure time is set to 00:00:00 UTC
       ));
 
