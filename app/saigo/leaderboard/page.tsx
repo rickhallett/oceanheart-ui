@@ -1,5 +1,30 @@
 import { createClient } from "@/libs/supabase/server";
 
+async function getPracticeSummaryData() {
+  const supabase = createClient();
+  
+  const { data: practiceData, error } = await supabase
+    .from('practices')
+    .select('type, points');
+
+  if (error) {
+    console.error('Error fetching practice summary data:', error);
+    return [];
+  }
+
+  // Aggregate practices by type
+  const summary = practiceData.reduce((acc, practice) => {
+    if (!practice.type) return acc;
+    acc[practice.type] = (acc[practice.type] || 0) + (practice.points || 0);
+    return acc;
+  }, {} as Record<string, number>);
+
+  return Object.entries(summary).map(([type, totalPoints]) => ({
+    type,
+    totalPoints
+  }));
+}
+
 async function getLeaderboardData() {
   const supabase = createClient();
   
@@ -29,7 +54,11 @@ async function getLeaderboardData() {
 }
 
 export default async function LeaderboardPage() {
-  const leaderboardData = await getLeaderboardData();
+  const [leaderboardData, practiceSummary] = await Promise.all([
+    getLeaderboardData(),
+    getPracticeSummaryData()
+  ]);
+  
   const totalPoints = leaderboardData.reduce((sum, user) => sum + user.totalPoints, 0);
 
   return (
@@ -56,6 +85,19 @@ export default async function LeaderboardPage() {
             </tr>
           </tbody>
         </table>
+      </div>
+      
+      {/* Practice Summary Section */}
+      <div className="mt-8 bg-gray-800 rounded-lg p-6 w-full max-w-2xl">
+        <h2 className="text-2xl font-bold text-white mb-4">Practice Summary</h2>
+        <div className="flex flex-wrap gap-4">
+          {practiceSummary.map((practice, index) => (
+            <div key={index} className="bg-gray-700 rounded-lg p-4 flex-1 min-w-[150px]">
+              <div className="text-gray-300 font-medium mb-1">{practice.type}</div>
+              <div className="text-2xl font-bold text-white">{practice.totalPoints}</div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
