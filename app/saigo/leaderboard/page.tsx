@@ -14,7 +14,7 @@ export default async function LeaderboardPage() {
   }
 
   const { leaderboardData, practiceSummary, dailyPoints } = await res.json();
-  console.log(dailyPoints);
+  console.log(dailyPoints, practiceSummary);
 
   // Split leaderboard data into two columns
   const half = Math.ceil(leaderboardData.length / 2);
