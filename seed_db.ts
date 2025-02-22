@@ -8,7 +8,7 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
 
 async function seed() {
   const numberOfUsers = 10;
-  const numberOfPractices = 100;
+  const practicesPerUser = 25;
   const practiceTypes = [
     "Meditation",
     "Sitting in the rain",
@@ -55,21 +55,20 @@ async function seed() {
     }
   }
 
-  // 3. Create 100 practice records with random data
+  // 3. Create exactly 25 practice records for each user
   const practices = [];
-  for (let i = 0; i < numberOfPractices; i++) {
-    // randomly pick one created user
-    const randomUser = createdUsers[Math.floor(Math.random() * createdUsers.length)];
-    if (!randomUser) continue; // skip if no user
-    const randomType = practiceTypes[Math.floor(Math.random() * practiceTypes.length)];
-    const randomPoints = Math.floor(Math.random() * (120 - 5 + 1)) + 5; // random int between 5 and 120
+  for (const user of createdUsers) {
+    for (let i = 0; i < practicesPerUser; i++) {
+      const randomType = practiceTypes[Math.floor(Math.random() * practiceTypes.length)];
+      const randomPoints = Math.floor(Math.random() * (120 - 5 + 1)) + 5; // random int between 5 and 120
 
-    practices.push({
-      user_id: randomUser.id,
-      type: randomType,
-      points: randomPoints
-      // created_at will default to now in the database
-    });
+      practices.push({
+        user_id: user.id,
+        type: randomType,
+        points: randomPoints
+        // created_at will default to now in the database
+      });
+    }
   }
 
   const { error: practicesError } = await supabase
