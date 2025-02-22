@@ -15,6 +15,11 @@ export default async function LeaderboardPage() {
   const { leaderboardData, practiceSummary, dailyPoints } = await res.json();
   console.log(dailyPoints);
 
+  // Split leaderboard data into two columns
+  const half = Math.ceil(leaderboardData.length / 2);
+  const leftData = leaderboardData.slice(0, half);
+  const rightData = leaderboardData.slice(half);
+
   // Calculate total across all users
   const totalPoints = leaderboardData.reduce((sum: number, user: any) => sum + user.totalPoints, 0);
 
@@ -25,31 +30,61 @@ export default async function LeaderboardPage() {
       </div>
 
       <h1 className="text-4xl font-bold text-white mb-6">Leaderboard</h1>
-      <div className="bg-gray-800 rounded-lg p-8 w-full max-w-2xl">
-        <table className="w-full text-left">
-          <thead>
-            <tr className="border-b border-gray-700">
-              <th className="py-3 px-4 text-gray-300">Username</th>
-              <th className="py-3 px-4 text-gray-300 text-right">Points</th>
-            </tr>
-          </thead>
-          <tbody>
-            {leaderboardData.map((user: any, index: number) => (
-              <tr key={index} className="border-b border-gray-700">
-                <td className="py-3 px-4 text-gray-300">{user.username}</td>
-                <td className="py-3 px-4 text-gray-300 text-right">
-                  {user.totalPoints}
+      <div className="bg-gray-800 rounded-lg p-8 w-full max-w-4xl">
+        <div className="flex flex-col md:flex-row gap-4">
+          <div className="flex-1">
+            <table className="w-full text-left">
+              <thead>
+                <tr className="border-b border-gray-700">
+                  <th className="py-3 px-4 text-gray-300">Username</th>
+                  <th className="py-3 px-4 text-gray-300 text-right">Points</th>
+                </tr>
+              </thead>
+              <tbody>
+                {leftData.map((user: any, index: number) => (
+                  <tr key={index} className="border-b border-gray-700">
+                    <td className="py-3 px-4 text-gray-300">{user.username}</td>
+                    <td className="py-3 px-4 text-gray-300 text-right">
+                      {user.totalPoints}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div className="flex-1">
+            <table className="w-full text-left">
+              <thead>
+                <tr className="border-b border-gray-700">
+                  <th className="py-3 px-4 text-gray-300">Username</th>
+                  <th className="py-3 px-4 text-gray-300 text-right">Points</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rightData.map((user: any, index: number) => (
+                  <tr key={index + half} className="border-b border-gray-700">
+                    <td className="py-3 px-4 text-gray-300">{user.username}</td>
+                    <td className="py-3 px-4 text-gray-300 text-right">
+                      {user.totalPoints}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div className="mt-4">
+          <table className="w-full text-left">
+            <tbody>
+              <tr className="border-t-2 border-gray-600">
+                <td className="py-3 px-4 text-gray-300 font-bold">Alisone</td>
+                <td className="py-3 px-4 text-gray-300 text-right font-bold">
+                  {totalPoints}
                 </td>
               </tr>
-            ))}
-            <tr className="border-t-2 border-gray-600">
-              <td className="py-3 px-4 text-gray-300 font-bold">Alisone</td>
-              <td className="py-3 px-4 text-gray-300 text-right font-bold">
-                {totalPoints}
-              </td>
-            </tr>
-          </tbody>
-        </table>
+            </tbody>
+          </table>
+        </div>
       </div>
 
       {/* Practice Summary Section */}
