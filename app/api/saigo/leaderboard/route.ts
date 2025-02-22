@@ -4,10 +4,17 @@ import { createServiceClient } from "@/libs/supabase/server";
 export async function GET() {
   const supabase = createServiceClient();
 
-  // Calculate date range for last 7 days (inclusive)
-  const today = new Date();
-  today.setHours(0, 0, 0, 0); // Set to local midnight
-  const sevenDaysAgo = new Date(today.getTime() - 6 * 86400000); // 6 days before today
+  // Calculate date range for last 7 days in UTC (inclusive)
+  const today = new Date(Date.UTC(
+    new Date().getUTCFullYear(),
+    new Date().getUTCMonth(),
+    new Date().getUTCDate()
+  ));
+  const sevenDaysAgo = new Date(Date.UTC(
+    today.getUTCFullYear(),
+    today.getUTCMonth(),
+    today.getUTCDate() - 6
+  ));
 
   const startDateStr = sevenDaysAgo.toISOString();
   const endDateStr = new Date(today.getTime() + 86400000 - 1).toISOString(); // End of today
@@ -55,12 +62,12 @@ export async function GET() {
 
   // Calculate dates for the last 7 days
   for (let i = 0; i < 7; i++) {
-    const date = new Date(
-      sevenDaysAgo.getFullYear(),
-      sevenDaysAgo.getMonth(),
-      sevenDaysAgo.getDate() + i,
+    const date = new Date(Date.UTC(
+      sevenDaysAgo.getUTCFullYear(),
+      sevenDaysAgo.getUTCMonth(),
+      sevenDaysAgo.getUTCDate() + i,
       0, 0, 0
-    );
+    ));
     const dateStr = date.toISOString().split('T')[0];
     dailyPointsMap[dateStr] = 0;
   }

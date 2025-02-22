@@ -28,10 +28,17 @@ async function seedLast7Days() {
   }
   console.log(`Fetched ${users!.length} users`);
 
-  // 2. Define today as current date and calculate the start date (6 days before today)
-  const today = new Date();
-  const startDate = new Date(today);
-  startDate.setDate(today.getDate() - 6);
+  // 2. Define today as current date in UTC and calculate the start date (6 days before today)
+  const today = new Date(Date.UTC(
+    new Date().getUTCFullYear(),
+    new Date().getUTCMonth(),
+    new Date().getUTCDate()
+  ));
+  const startDate = new Date(Date.UTC(
+    today.getUTCFullYear(),
+    today.getUTCMonth(),
+    today.getUTCDate() - 6
+  ));
 
   // 3. Define an array of practice types (optional selection).
   const practiceTypes = [
@@ -49,12 +56,12 @@ async function seedLast7Days() {
 
     for (let i = 0; i < 7; i++) {
       // Calculate the record date as startDate + i days.
-      const recordDate = new Date(
-        startDate.getFullYear(),
-        startDate.getMonth(),
-        startDate.getDate() + i,
-        0, 0, 0 // Time set to 00:00:00
-      );
+      const recordDate = new Date(Date.UTC(
+        startDate.getUTCFullYear(),
+        startDate.getUTCMonth(),
+        startDate.getUTCDate() + i,
+        0, 0, 0 // Time set to 00:00:00 UTC
+      ));
 
       // Set points to steadily increase: e.g., 10, 20, 30, ..., 70.
       const points = 100 + i * 10;
