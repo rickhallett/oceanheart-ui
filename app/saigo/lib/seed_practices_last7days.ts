@@ -1,6 +1,12 @@
 import { config } from "dotenv";
 import path from "path";
 import { createClient } from "@supabase/supabase-js";
+import { randomInt } from 'crypto';
+
+// Helper function to get a random integer between min and max (inclusive)
+function getRandomInt(min: number, max: number): number {
+  return randomInt(min, max + 1);
+}
 
 // Load env variables from one of multiple possible .env paths
 const envPaths = [".env", "../.env", "../../.env", "../../../.env"].map(p =>
@@ -50,34 +56,83 @@ async function seedLast7Days() {
     "Projection"
   ];
 
-  // 4. For each user, create 7 practice records—one for each day from startDate to today.
+  // For each user, create random practice records over the last 7 days
   for (const user of users!) {
     const practices = [];
 
-    for (let i = 0; i < 7; i++) {
-      // Calculate the record date as startDate + i days.
-      const recordDate = new Date(Date.UTC(
-        startDate.getUTCFullYear(),
-        startDate.getUTCMonth(),
-        startDate.getUTCDate() + i,
-        0, 0, 0 // Time set to 00:00:00 UTC
-      ));
+    // Assign an activity level to each user (1: Low, 2: Medium, 3: High)
+    const activityLevel = getRandomInt(1, 3);
 
-      // Set points to steadily increase: e.g., 10, 20, 30, ..., 70.
-      const points = 100 + i * 10;
+    // Set ranges based on activity level
+    let practicesPerDayRange: [number, number];
+    let pointsRange: [number, number];
+    let practiceDaysProbability: number;
 
-      // Choose a practice type in a cyclic fashion (optional).
-      const type = practiceTypes[i % practiceTypes.length];
-
-      practices.push({
-        user_id: user.id,
-        type,
-        points,
-        created_at: recordDate
-      });
+    if (activityLevel === 1) {
+      // Low activity
+      practicesPerDayRange = [0, 1];
+      pointsRange = [5, 20];
+      practiceDaysProbability = 50; // 50% chance to practice on any day
+    } else if (activityLevel === 2) {
+      // Medium activity
+      practicesPerDayRange = [1, 2];
+      pointsRange = [10, 35];
+      practiceDaysProbability = 70; // 70% chance
+    } else {
+      // High activity
+      practicesPerDayRange = [1, 3];
+      pointsRange = [20, 50];
+      practiceDaysProbability = 90; // 90% chance
     }
 
-    // Insert the 7 practice records for the current user.
+    for (let i = 0; i < 7; i++) {
+      // Randomly decide if the user practiced on this day
+      const practicedToday = getRandomInt(1, 100) <= practiceDaysProbability;
+      if (!practicedToday) {
+        continue; // Skip to the next day
+      }
+
+      // Calculate the date for the practice (UTC)
+      const date = new Date(Date.UTC(
+        startDate.getUTCFullYear(),
+        startDate.getUTCMonth(),
+        startDate.getUTCDate() + i
+      ));
+
+      // Random number of practices for this day
+      const practicesPerDay = getRandomInt(practicesPerDayRange[0], practicesPerDayRange[1]);
+
+      for (let j = 0; j < practicesPerDay; j++) {
+        // Random time within the day
+        const hours = getRandomInt(0, 23);
+        const minutes = getRandomInt(0, 59);
+        const seconds = getRandomInt(0, 59);
+
+        const recordDate = new Date(Date.UTC(
+          date.getUTCFullYear(),
+          date.getUTCMonth(),
+          date.getUTCDate(),
+          hours,
+          minutes,
+          seconds
+        ));
+
+        // Random points for the practice
+        const points = getRandomInt(pointsRange[0], pointsRange[1]);
+
+        // Randomly select a practice type
+        const type = practiceTypes[getRandomInt(0, practiceTypes.length - 1)];
+
+        practices.push({
+          user_id: user.id,
+          type,
+          points,
+          created_at: recordDate
+        });
+      }
+    }
+
+    // Insert the practices for the current user
     const { error: insertError } = await supabase
       .from("practices")
       .insert(practices.map(practice => ({
@@ -87,7 +142,7 @@ async function seedLast7Days() {
     if (insertError) {
       console.error(`Error inserting practices for user ${user.id}:`, insertError);
     } else {
-      console.log(`Inserted 7 practice records for user ${user.id}`);
+      console.log(`Inserted ${practices.length} practice records for user ${user.id} (Activity Level: ${activityLevel})`);
     }
   }
 
