@@ -1,5 +1,6 @@
 import ButtonAccount from "@/components/ButtonAccount";
 import LineGraph from "@/components/LineGraph";
+import PracticeSummaryPieChart from "@/components/PracticeSummaryPieChart";
 
 export default async function LeaderboardPage() {
   // Fetch data from the secure route
@@ -108,6 +109,11 @@ export default async function LeaderboardPage() {
       <div className="mt-8">
         {/* Replace the array below with dynamic data if available */}
         <LineGraph data={dailyPoints} />
+      </div>
+
+      {/* Pie Chart Section */}
+      <div className="mt-8">
+        <PracticeSummaryPieChart data={practiceSummary} />
       </div>
     </div>
   );
