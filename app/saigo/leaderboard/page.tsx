@@ -1,7 +1,9 @@
-import { createServerClient } from "@/libs/supabase/server";
+import ButtonAccount from "@/components/ButtonAccount";
+import { createClient } from "@/libs/supabase/server";
+import Link from "next/link";
 
 async function getPracticeSummaryData() {
-  const supabase = createServerClient();
+  const supabase = createClient();
 
   const { data: practiceData, error } = await supabase
     .from('practices')
@@ -26,7 +28,7 @@ async function getPracticeSummaryData() {
 }
 
 async function getLeaderboardData() {
-  const supabase = createServerClient();
+  const supabase = createClient();
 
   // Get users with their total points
   const { data: leaderboardData, error } = await supabase
@@ -68,6 +70,9 @@ export default async function LeaderboardPage() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[60vh]">
+      <div className="flex flex-row items-end justify-end w-1/2 mb-4">
+        <ButtonAccount />
+      </div>
       <h1 className="text-4xl font-bold text-white mb-6">Leaderboard</h1>
       <div className="bg-gray-800 rounded-lg p-8 w-full max-w-2xl">
         <table className="w-full text-left">
