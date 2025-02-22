@@ -1,7 +1,7 @@
-import { createClient } from "@/libs/supabase/server";
+import { createServerClient } from "@/libs/supabase/server";
 
 async function getPracticeSummaryData() {
-  const supabase = createClient();
+  const supabase = createServerClient();
 
   const { data: practiceData, error } = await supabase
     .from('practices')
@@ -26,7 +26,7 @@ async function getPracticeSummaryData() {
 }
 
 async function getLeaderboardData() {
-  const supabase = createClient();
+  const supabase = createServerClient();
 
   // Get users with their total points
   const { data: leaderboardData, error } = await supabase
