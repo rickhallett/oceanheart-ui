@@ -47,10 +47,10 @@ async function seedLast7Days() {
   for (const user of users!) {
     const practices = [];
 
-    for (let i = 0; i < 7; i++) {
+    for (let i = 0; i < 100; i++) {
       // Calculate the record date as startDate + i days.
       const recordDate = new Date(startDate);
-      recordDate.setDate(startDate.getDate() + i);
+      recordDate.setDate(startDate.getDate() + i % 7);
 
       // Set points to steadily increase: e.g., 10, 20, 30, ..., 70.
       const points = 10 + i * 10;
