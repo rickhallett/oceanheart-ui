@@ -12,7 +12,7 @@ export default async function LeaderboardPage() {
     return <div>Error fetching leaderboard data</div>;
   }
 
-  const { leaderboardData, practiceSummary } = await res.json();
+  const { leaderboardData, practiceSummary, dailyPoints } = await res.json();
 
   // Calculate total across all users
   const totalPoints = leaderboardData.reduce((sum: number, user: any) => sum + user.totalPoints, 0);
@@ -71,7 +71,7 @@ export default async function LeaderboardPage() {
       {/* Line Graph Section */}
       <div className="mt-8">
         {/* Replace the array below with dynamic data if available */}
-        <LineGraph data={[120, 150, 90, 200, 180, 130, 160]} />
+        <LineGraph data={dailyPoints} />
       </div>
     </div>
   );

@@ -35,7 +35,7 @@ export async function GET() {
   // 2) Fetch practice summary
   const { data: practiceData, error: practiceError } = await supabase
     .from("practices")
-    .select("type, points");
+    .select("type, points, created_at");
 
   if (practiceError) {
     return NextResponse.json(
@@ -43,6 +43,28 @@ export async function GET() {
       { status: 400 }
     );
   }
+
+  // Calculate daily points over the past 7 days
+  const dailyPointsMap: Record<string, number> = {};
+  const today = new Date();
+  // Initialize keys for today and the previous 6 days
+  for (let i = 0; i < 7; i++) {
+   const d = new Date(today.getFullYear(), today.getMonth(), today.getDate() - i);
+   const dayStr = d.toISOString().split("T")[0];
+   dailyPointsMap[dayStr] = 0;
+  }
+  // Aggregate points for practices created in these days
+  (practiceData ?? []).forEach((practice: any) => {
+   if (practice.created_at) {
+    const dateStr = new Date(practice.created_at).toISOString().split("T")[0];
+    if (dailyPointsMap.hasOwnProperty(dateStr)) {
+     dailyPointsMap[dateStr] += practice.points || 0;
+    }
+   }
+  });
+  // Build an array ordered from oldest to newest
+  const orderedDays = Object.keys(dailyPointsMap).sort();
+  const dailyPoints = orderedDays.map(day => dailyPointsMap[day]);
 
   // Aggregate practices by type
   const summary = (practiceData ?? []).reduce((acc, practice) => {
@@ -59,5 +81,6 @@ export async function GET() {
   return NextResponse.json({
     leaderboardData: usersWithPoints,
     practiceSummary,
+    dailyPoints
   });
 }
