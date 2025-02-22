@@ -28,7 +28,7 @@ export default function UsernamePage() {
 
       const data = await response.json();
       setUsername(data.created);
-      router.push('/saigo/leaderboard');
+      setTimeout(() => router.push('/saigo/leaderboard'), 3000);
     } catch (err) {
       setError("Failed to generate username. Please try again.");
       console.error("Username generation error:", err);

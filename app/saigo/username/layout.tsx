@@ -3,22 +3,22 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/libs/supabase/server";
 
 export default async function UsernameLayout({ children }: { children: ReactNode }) {
-  const supabase = createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  // const supabase = createClient();
+  // const { data: { user } } = await supabase.auth.getUser();
 
-  if (!user) {
-    return redirect('/saigo/signin');
-  }
+  // if (!user) {
+  //   return redirect('/saigo/signin');
+  // }
 
-  const { data: saigoUser } = await supabase
-    .from("saigo_users")
-    .select("saigo_username")
-    .eq("email", user.email)
-    .maybeSingle();
+  // const { data: saigoUser } = await supabase
+  //   .from("saigo_users")
+  //   .select("saigo_username")
+  //   .eq("email", user.email)
+  //   .maybeSingle();
 
-  if (saigoUser?.saigo_username !== null) {
-    return redirect("/saigo/leaderboard");
-  }
+  // if (saigoUser?.saigo_username !== null) {
+  //   return redirect("/saigo/leaderboard");
+  // }
 
   return <>{children}</>;
 }

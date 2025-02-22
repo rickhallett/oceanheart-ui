@@ -13,29 +13,29 @@ export default async function SaigoLayoutPrivate({
 }: {
   children: ReactNode;
 }) {
-  const supabase = createClient();
-  const currentPath = headers().get("x-pathname") || "";
+  // const supabase = createClient();
+  // const currentPath = headers().get("x-pathname") || "";
 
-  // Step 1: Get user session
-  const {
-    data: { user },
-    error: authError,
-  } = await supabase.auth.getUser();
+  // // Step 1: Get user session
+  // const {
+  //   data: { user },
+  //   error: authError,
+  // } = await supabase.auth.getUser();
 
-  if (authError || !user) {
-    return redirect(config.auth.loginUrl);
-  }
+  // if (authError || !user) {
+  //   return redirect(config.auth.loginUrl);
+  // }
 
-  // Step 2: Get user data to verify they exist
-  const { data: saigoUser, error: userError } = await supabase
-    .from("saigo_users")
-    .select("id")
-    .eq("email", user.email)
-    .maybeSingle();
+  // // Step 2: Get user data to verify they exist
+  // const { data: saigoUser, error: userError } = await supabase
+  //   .from("saigo_users")
+  //   .select("id")
+  //   .eq("email", user.email)
+  //   .maybeSingle();
 
-  if (userError || !saigoUser) {
-    return redirect(config.auth.loginUrl);
-  }
+  // if (userError || !saigoUser) {
+  //   return redirect(config.auth.loginUrl);
+  // }
 
   return <>{children}</>;
 }

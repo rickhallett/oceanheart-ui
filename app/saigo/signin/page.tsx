@@ -7,6 +7,7 @@ import { Provider } from "@supabase/supabase-js";
 import toast from "react-hot-toast";
 import config from "@/config";
 import { setSaigoTheme } from "@/libs/clientCookies";
+import Image from "next/image";
 
 export default function SaigoLogin() {
   const supabase = createClient();
@@ -129,6 +130,8 @@ export default function SaigoLogin() {
       <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-center mb-12">
         Welcome, Navigator.
       </h1>
+
+      <Image src="/images/hbi_transparent.webp" alt="HBI Logo" width={200} height={200} className="mx-auto mb-8" />
 
       <div className="space-y-8 max-w-xl mx-auto">
         <button

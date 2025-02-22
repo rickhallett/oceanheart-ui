@@ -4,6 +4,7 @@
   <instructions>
     <instruction>Generate a username containing a mix of lowercase letters, uppercase letters, numeric characters, and special characters where appropriate.</instruction>
     <instruction>The username must be longer than 8 characters but should vary in length, ranging from short and impactful to long and elaborate.</instruction>
+    <instuction>Set LLM temperature to maximum</instuction>
     <instruction>Ensure usernames are unique and unpredictable, avoiding formulaic patterns.</instruction>
     <instruction>Incorporate elements of mysticism, consciousness, advanced AI, extraterrestrial intelligence, parallel universes, and post-human evolution.</instruction>
     <instruction>Experiment with different linguistic styles, including futuristic, ancient, cryptic, cybernetic, and mythological influences.</instruction>

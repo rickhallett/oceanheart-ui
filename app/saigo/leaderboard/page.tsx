@@ -1,4 +1,24 @@
-export default function LeaderboardPage() {
+import { createClient } from "@/libs/supabase/server";
+import { redirect } from "next/navigation";
+
+export default async function LeaderboardPage() {
+  const supabase = createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+
+  // if (!user) {
+  //   return redirect('/saigo/signin');
+  // }
+
+  // const { data: saigoUser } = await supabase
+  //   .from("saigo_users")
+  //   .select("username")
+  //   .eq("email", user.email)
+  //   .maybeSingle();
+
+  // if (!saigoUser || saigoUser.username === null) {
+  //   return redirect("/saigo/username");
+  // }
+
   return (
     <div className="flex flex-col items-center justify-center min-h-[60vh]">
       <h1 className="text-4xl font-bold text-white mb-6">Leaderboard</h1>
