@@ -57,7 +57,7 @@ async function seedLast7Days() {
       ));
 
       // Set points to steadily increase: e.g., 10, 20, 30, ..., 70.
-      const points = 10 + i * 10;
+      const points = 100 + i * 10;
 
       // Choose a practice type in a cyclic fashion (optional).
       const type = practiceTypes[i % practiceTypes.length];
