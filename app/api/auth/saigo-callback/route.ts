@@ -15,22 +15,38 @@ export async function GET(req: NextRequest) {
       console.error("Error during session exchange:", error);
     }
     if (session?.user?.email) {
-      try {
+      // Check if the user already exists in saigo_users                                                  
+      const { data: existingUser, error: selectError } = await supabase
+        .from("saigo_users")
+        .select("*")
+        .eq("email", session.user.email)
+        .maybeSingle();
+
+      if (selectError) {
+        console.error("Error querying saigo_users:", selectError);
+      }
+
+      if (existingUser) {
+        // User already exists; check for generated username                                              
+        if (existingUser.saigo_username) {
+          // Username exists: redirect to leaderboard                                                     
+          return NextResponse.redirect(requestUrl.origin + "/saigo/leaderboard");
+        } else {
+          // No username yet: redirect to username generation page                                        
+          return NextResponse.redirect(requestUrl.origin + "/saigo/username");
+        }
+      } else {
+        // User not found: insert new user record                                                         
         const { error: insertError } = await supabase
           .from("saigo_users")
-          .insert([{ 
-            email: session.user.email,
-            user_id: session.user.id 
-          }]);
+          .insert([{ email: session.user.email, user_id: session.user.id }]);
         if (insertError) {
-          console.error("Error inserting saigo user:", insertError);
+          console.error("Error inserting new saigo user:", insertError);
         }
-      } catch (insertionException) {
-        console.error("Exception inserting saigo user:", insertionException);
+        // After insertion, redirect to username generation page                                          
+        return NextResponse.redirect(requestUrl.origin + "/saigo/username");
       }
     }
   }
-
-  // Redirect to Saigo-specific callback URL
-  return NextResponse.redirect(requestUrl.origin + config.auth.saigo.callbackUrl);
+}
 }
