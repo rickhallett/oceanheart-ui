@@ -2,6 +2,7 @@ import ButtonAccount from "@/components/ButtonAccount";
 import LineGraph from "@/components/LineGraph";
 import PracticeSummaryPieChart from "@/components/PracticeSummaryPieChart";
 import PracticeTypesStackedBarChart from "@/components/PracticeTypesStackedBarChart";
+import Countdown from "@/components/Countdown";
 
 export default async function LeaderboardPage() {
   // Fetch data from the secure route
@@ -31,6 +32,7 @@ export default async function LeaderboardPage() {
       </div>
 
       <h1 className="text-4xl font-bold text-white mb-6">Leaderboard</h1>
+      <Countdown />
       <div className="bg-gray-800 rounded-lg p-8 w-full max-w-4xl">
         <div className="flex flex-col md:flex-row gap-4">
           <div className="flex-1">
