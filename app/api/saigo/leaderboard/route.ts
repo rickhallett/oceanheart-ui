@@ -4,33 +4,41 @@ import { createServiceClient } from "@/libs/supabase/server";
 export async function GET() {
   const supabase = createServiceClient();
 
-  // 1) Fetch leaderboard data: total points per user
-  const { data: leaderboardData, error: leaderboardError } = await supabase
+  // Calculate date range for last 7 days
+  const today = new Date();
+  const sevenDaysAgo = new Date(today);
+  sevenDaysAgo.setUTCDate(today.getUTCDate() - 6);
+  const startDateStr = sevenDaysAgo.toISOString();
+  const endDateStr = today.toISOString();
+
+  // Fetch raw practice data for the last 7 days
+  const { data: practicesData, error: practicesError } = await supabase
     .from('practices')
     .select(`
       user_id,
-      total_points: sum(points),
+      points,
+      type,
+      created_at,
       saigo_users (
         username
       )
-    `);
+    `)
+    .gte('created_at', startDateStr)
+    .lte('created_at', endDateStr);
 
-  if (leaderboardError) {
+  if (practicesError) {
     return NextResponse.json(
-      { error: leaderboardError.message },
+      { error: practicesError.message },
       { status: 400 }
     );
   }
 
-  // Map leaderboard data
+  // Aggregate points per user
   const usersWithPointsMap: Record<string, number> = {};
-  (leaderboardData ?? []).forEach((entry: any) => {
+  (practicesData ?? []).forEach((entry: any) => {
     const username = entry.saigo_users?.username || "Unknown";
-    if (usersWithPointsMap[username]) {
-      usersWithPointsMap[username] += entry.total_points;
-    } else {
-      usersWithPointsMap[username] = entry.total_points;
-    }
+    const points = entry.points || 0;
+    usersWithPointsMap[username] = (usersWithPointsMap[username] || 0) + points;
   });
 
   const usersWithPoints = Object.entries(usersWithPointsMap).map(([username, totalPoints]) => ({
@@ -41,31 +49,7 @@ export async function GET() {
   // Sort users by totalPoints in descending order
   usersWithPoints.sort((a, b) => b.totalPoints - a.totalPoints);
 
-  // 2) Fetch daily points over the last 7 days
-  const today = new Date();
-  const sevenDaysAgo = new Date(today);
-  sevenDaysAgo.setUTCDate(today.getUTCDate() - 6);
-
-  const startDateStr = sevenDaysAgo.toISOString();
-  const endDateStr = today.toISOString();
-
-  const { data: dailyPointsData, error: dailyPointsError } = await supabase
-    .from('practices')
-    .select(`
-      date: created_at::date,
-      total_points: sum(points)
-    `)
-    .gte('created_at', startDateStr)
-    .lte('created_at', endDateStr);
-
-  if (dailyPointsError) {
-    return NextResponse.json(
-      { error: dailyPointsError.message },
-      { status: 400 }
-    );
-  }
-
-  // Build dailyPoints array ordered by date
+  // Initialize and populate dailyPoints array
   const dailyPointsMap: Record<string, number> = {};
   for (let i = 0; i < 7; i++) {
     const date = new Date(sevenDaysAgo);
@@ -74,11 +58,11 @@ export async function GET() {
     dailyPointsMap[dateStr] = 0;
   }
 
-  // Fill in the aggregated points
-  (dailyPointsData ?? []).forEach((entry: any) => {
-    const dateStr = entry.date;
+  // Aggregate points per day
+  (practicesData ?? []).forEach((practice: any) => {
+    const dateStr = practice.created_at.split('T')[0];
     if (dailyPointsMap.hasOwnProperty(dateStr)) {
-      dailyPointsMap[dateStr] = entry.total_points;
+      dailyPointsMap[dateStr] += practice.points || 0;
     }
   });
 
@@ -86,30 +70,12 @@ export async function GET() {
   const orderedDates = Object.keys(dailyPointsMap).sort();
   const dailyPoints = orderedDates.map(date => dailyPointsMap[date]);
 
-  // 3) Fetch practice summary
-  const { data: practiceSummaryData, error: practiceSummaryError } = await supabase
-    .from('practices')
-    .select(`
-      type,
-      total_points: sum(points)
-    `);
-
-  if (practiceSummaryError) {
-    return NextResponse.json(
-      { error: practiceSummaryError.message },
-      { status: 400 }
-    );
-  }
-
   // Aggregate points per practice type
   const practiceSummaryMap: Record<string, number> = {};
-  (practiceSummaryData ?? []).forEach((entry: any) => {
-    const type = entry.type || "Unknown";
-    if (practiceSummaryMap[type]) {
-      practiceSummaryMap[type] += entry.total_points;
-    } else {
-      practiceSummaryMap[type] = entry.total_points;
-    }
+  (practicesData ?? []).forEach((practice: any) => {
+    const type = practice.type || "Unknown";
+    const points = practice.points || 0;
+    practiceSummaryMap[type] = (practiceSummaryMap[type] || 0) + points;
   });
 
   const practiceSummary = Object.entries(practiceSummaryMap).map(([type, totalPoints]) => ({
