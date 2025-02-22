@@ -10,7 +10,7 @@ export async function guardUsernamePage() {
   const { data: profile, error } = await supabase
     .from("saigo_users")
     .select("username")
-    .eq("id", user.id)
+    .eq("user_id", user.id)
     .single();
   if (error) {
     console.error("Error fetching saigo user for username page:", error);
@@ -30,7 +30,7 @@ export async function guardLeaderboardPage() {
   const { data: profile, error } = await supabase
     .from("saigo_users")
     .select("username")
-    .eq("id", user.id)
+    .eq("user_id", user.id)
     .single();
   if (error) {
     console.error("Error fetching saigo user for leaderboard:", error);
