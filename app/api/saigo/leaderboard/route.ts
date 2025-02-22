@@ -81,9 +81,35 @@ export async function GET() {
     }
   });
 
+  // Create data for stacked bar chart
+  const stackedData = orderedDates.map(date => {
+    const dayData: Record<string, any> = {
+      day: new Date(date).toLocaleDateString('en-US', { weekday: 'short' })
+    };
+    
+    // Initialize all practice types to 0
+    practicesData?.forEach((practice: any) => {
+      if (!dayData[practice.type]) {
+        dayData[practice.type] = 0;
+      }
+    });
+
+    // Sum points for each practice type on this day
+    practicesData?.forEach((practice: any) => {
+      const practiceDate = practice.created_at.split('T')[0];
+      if (practiceDate === date) {
+        dayData[practice.type] = (dayData[practice.type] || 0) + (practice.points || 0);
+      }
+    });
+
+    return dayData;
+  });
+
   // Create an ordered array of daily points
-  const orderedDates = Object.keys(dailyPointsMap).sort();
   const dailyPoints = orderedDates.map(date => dailyPointsMap[date]);
+
+  // Get unique practice types
+  const practiceTypes = [...new Set(practicesData?.map((p: any) => p.type))];
 
   // Aggregate points per practice type
   const practiceSummaryMap: Record<string, number> = {};
@@ -105,5 +131,7 @@ export async function GET() {
     leaderboardData: usersWithPoints,
     practiceSummary,
     dailyPoints,
+    stackedData,
+    practiceTypes
   });
 }

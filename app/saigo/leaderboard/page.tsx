@@ -1,6 +1,7 @@
 import ButtonAccount from "@/components/ButtonAccount";
 import LineGraph from "@/components/LineGraph";
 import PracticeSummaryPieChart from "@/components/PracticeSummaryPieChart";
+import PracticeTypesStackedBarChart from "@/components/PracticeTypesStackedBarChart";
 
 export default async function LeaderboardPage() {
   // Fetch data from the secure route
@@ -13,8 +14,7 @@ export default async function LeaderboardPage() {
     return <div>Error fetching leaderboard data: {JSON.stringify(res)}</div>;
   }
 
-  const { leaderboardData, practiceSummary, dailyPoints } = await res.json();
-  console.log(dailyPoints, practiceSummary);
+  const { leaderboardData, practiceSummary, dailyPoints, stackedData, practiceTypes } = await res.json();
 
   // Split leaderboard data into two columns
   const half = Math.ceil(leaderboardData.length / 2);
@@ -105,9 +105,13 @@ export default async function LeaderboardPage() {
         </div>
       </div>
 
+      {/* Stacked Bar Chart Section */}
+      <div className="mt-8">
+        <PracticeTypesStackedBarChart data={stackedData} practiceTypes={practiceTypes} />
+      </div>
+
       {/* Line Graph Section */}
       <div className="mt-8">
-        {/* Replace the array below with dynamic data if available */}
         <LineGraph data={dailyPoints} />
       </div>
 
