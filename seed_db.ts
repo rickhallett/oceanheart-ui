@@ -1,7 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
 import { faker } from '@faker-js/faker';
 
-const SUPABASE_URL = process.env.SUPABASE_URL!;
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY!;
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
@@ -11,7 +11,7 @@ async function seed() {
   const numberOfPractices = 100;
   const practiceTypes = [
     "Meditation",
-    "Sitting in the rain", 
+    "Sitting in the rain",
     "Energy movements",
     "High Guard",
     "Jumping",
@@ -34,8 +34,8 @@ async function seed() {
       continue;
     }
     if (authUser) {
-      createdUsers.push(authUser);
-      console.log(`Created auth user: ${authUser.email}`);
+      createdUsers.push(authUser.user);
+      console.log(`Created auth user: ${authUser.user.email}`);
     }
   }
 
