@@ -4,16 +4,18 @@ import { createServiceClient } from "@/libs/supabase/server";
 export async function GET() {
   const supabase = createServiceClient(); // Uses service role key under the hood
 
-  // 1) Fetch leaderboard data
+  // 1) Fetch leaderboard data: total points per user
   const { data: leaderboardData, error: leaderboardError } = await supabase
-    .from("saigo_users")
+    .from('practices')
     .select(`
-      id,
-      username,
-      practices (
-        points
-      )
-    `);
+      user_id,
+      saigo_users (
+        username
+      ),
+      total_points: sum(points)
+    `)
+    .group('user_id, saigo_users.username')
+    .order('total_points', { ascending: false });
 
   if (leaderboardError) {
     return NextResponse.json(
@@ -22,65 +24,86 @@ export async function GET() {
     );
   }
 
-  // Calculate total points per user and sort
-  const usersWithPoints = (leaderboardData ?? []).map((user) => ({
-    username: user.username,
-    totalPoints:
-      user.practices?.reduce(
-        (sum, practice) => sum + (practice.points || 0),
-        0
-      ) || 0,
-  })).sort((a, b) => b.totalPoints - a.totalPoints);
+  // Map leaderboard data
+  const usersWithPoints = (leaderboardData ?? []).map((entry: any) => ({
+    username: entry.saigo_users.username,
+    totalPoints: entry.total_points,
+  }));
 
-  // 2) Fetch practice summary
-  const { data: practiceData, error: practiceError } = await supabase
-    .from("practices")
-    .select("type, points, created_at");
+  // 2) Fetch daily points over the last 7 days
+  const today = new Date();
+  const sevenDaysAgo = new Date(today);
+  sevenDaysAgo.setUTCDate(today.getUTCDate() - 6); // Last 7 days including today
 
-  if (practiceError) {
+  // Convert dates to ISO strings
+  const startDateStr = sevenDaysAgo.toISOString();
+  const endDateStr = today.toISOString();
+
+  const { data: dailyPointsData, error: dailyPointsError } = await supabase
+    .from('practices')
+    .select(`
+      date: date_trunc('day', created_at),
+      total_points: sum(points)
+    `)
+    .gte('created_at', startDateStr)
+    .lte('created_at', endDateStr)
+    .group('date')
+    .order('date', { ascending: true });
+
+  if (dailyPointsError) {
     return NextResponse.json(
-      { error: practiceError.message },
+      { error: dailyPointsError.message },
       { status: 400 }
     );
   }
 
-  // Calculate daily points over the past 7 days
+  // Build dailyPoints array ordered by date
   const dailyPointsMap: Record<string, number> = {};
-  const today = new Date();
-  // Initialize keys for today and the previous 6 days
+  // Initialize the map with dates and zero points
   for (let i = 0; i < 7; i++) {
-    const d = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate() - i));
-    const dayStr = d.toISOString().split("T")[0];
-    dailyPointsMap[dayStr] = 0;
+    const date = new Date(sevenDaysAgo);
+    date.setUTCDate(sevenDaysAgo.getUTCDate() + i);
+    const dateStr = date.toISOString().split('T')[0]; // 'YYYY-MM-DD'
+    dailyPointsMap[dateStr] = 0;
   }
-  // Aggregate points for practices created in these days
-  (practiceData ?? []).forEach((practice: any) => {
-    if (practice.created_at) {
-      const dateStr = practice.created_at.split("T")[0];
-      if (dailyPointsMap.hasOwnProperty(dateStr)) {
-        dailyPointsMap[dateStr] += practice.points || 0;
-      }
+
+  // Fill in the aggregated points
+  (dailyPointsData ?? []).forEach((entry: any) => {
+    const dateStr = entry.date.split('T')[0];
+    if (dailyPointsMap.hasOwnProperty(dateStr)) {
+      dailyPointsMap[dateStr] = entry.total_points;
     }
   });
-  // Build an array ordered from oldest to newest
-  const orderedDays = Object.keys(dailyPointsMap).sort();
-  const dailyPoints = orderedDays.map(day => dailyPointsMap[day]);
 
-  // Aggregate practices by type
-  const summary = (practiceData ?? []).reduce((acc, practice) => {
-    if (!practice.type) return acc;
-    acc[practice.type] = (acc[practice.type] || 0) + (practice.points || 0);
-    return acc;
-  }, {} as Record<string, number>);
+  // Create an ordered array of daily points
+  const orderedDates = Object.keys(dailyPointsMap).sort();
+  const dailyPoints = orderedDates.map(date => dailyPointsMap[date]);
 
-  const practiceSummary = Object.entries(summary).map(([type, totalPoints]) => ({
-    type,
-    totalPoints,
+  // 3) Fetch practice summary
+  const { data: practiceSummaryData, error: practiceSummaryError } = await supabase
+    .from('practices')
+    .select(`
+      type,
+      total_points: sum(points)
+    `)
+    .group('type')
+    .order('total_points', { ascending: false });
+
+  if (practiceSummaryError) {
+    return NextResponse.json(
+      { error: practiceSummaryError.message },
+      { status: 400 }
+    );
+  }
+
+  const practiceSummary = (practiceSummaryData ?? []).map((entry: any) => ({
+    type: entry.type,
+    totalPoints: entry.total_points,
   }));
 
   return NextResponse.json({
     leaderboardData: usersWithPoints,
     practiceSummary,
-    dailyPoints
+    dailyPoints,
   });
 }
