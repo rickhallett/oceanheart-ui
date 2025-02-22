@@ -2,19 +2,18 @@ import { NextResponse } from "next/server";
 import { createServiceClient } from "@/libs/supabase/server";
 
 export async function GET() {
-  const supabase = createServiceClient(); // Uses service role key under the hood
+  const supabase = createServiceClient();
 
   // 1) Fetch leaderboard data: total points per user
   const { data: leaderboardData, error: leaderboardError } = await supabase
     .from('practices')
     .select(`
       user_id,
+      total_points: sum(points),
       saigo_users (
         username
-      ),
-      total_points: sum(points)
-    `)
-    .order('total_points', { ascending: false });
+      )
+    `);
 
   if (leaderboardError) {
     return NextResponse.json(
@@ -24,29 +23,40 @@ export async function GET() {
   }
 
   // Map leaderboard data
-  const usersWithPoints = (leaderboardData ?? []).map((entry: any) => ({
-    username: entry.saigo_users.username,
-    totalPoints: entry.total_points,
+  const usersWithPointsMap: Record<string, number> = {};
+  (leaderboardData ?? []).forEach((entry: any) => {
+    const username = entry.saigo_users?.username || "Unknown";
+    if (usersWithPointsMap[username]) {
+      usersWithPointsMap[username] += entry.total_points;
+    } else {
+      usersWithPointsMap[username] = entry.total_points;
+    }
+  });
+
+  const usersWithPoints = Object.entries(usersWithPointsMap).map(([username, totalPoints]) => ({
+    username,
+    totalPoints,
   }));
+
+  // Sort users by totalPoints in descending order
+  usersWithPoints.sort((a, b) => b.totalPoints - a.totalPoints);
 
   // 2) Fetch daily points over the last 7 days
   const today = new Date();
   const sevenDaysAgo = new Date(today);
-  sevenDaysAgo.setUTCDate(today.getUTCDate() - 6); // Last 7 days including today
+  sevenDaysAgo.setUTCDate(today.getUTCDate() - 6);
 
-  // Convert dates to ISO strings
   const startDateStr = sevenDaysAgo.toISOString();
   const endDateStr = today.toISOString();
 
   const { data: dailyPointsData, error: dailyPointsError } = await supabase
     .from('practices')
     .select(`
-      date: date_trunc('day', created_at),
+      date: created_at::date,
       total_points: sum(points)
     `)
     .gte('created_at', startDateStr)
-    .lte('created_at', endDateStr)
-    .order('date', { ascending: true });
+    .lte('created_at', endDateStr);
 
   if (dailyPointsError) {
     return NextResponse.json(
@@ -57,17 +67,16 @@ export async function GET() {
 
   // Build dailyPoints array ordered by date
   const dailyPointsMap: Record<string, number> = {};
-  // Initialize the map with dates and zero points
   for (let i = 0; i < 7; i++) {
     const date = new Date(sevenDaysAgo);
     date.setUTCDate(sevenDaysAgo.getUTCDate() + i);
-    const dateStr = date.toISOString().split('T')[0]; // 'YYYY-MM-DD'
+    const dateStr = date.toISOString().split('T')[0];
     dailyPointsMap[dateStr] = 0;
   }
 
   // Fill in the aggregated points
   (dailyPointsData ?? []).forEach((entry: any) => {
-    const dateStr = entry.date.split('T')[0];
+    const dateStr = entry.date;
     if (dailyPointsMap.hasOwnProperty(dateStr)) {
       dailyPointsMap[dateStr] = entry.total_points;
     }
@@ -83,8 +92,7 @@ export async function GET() {
     .select(`
       type,
       total_points: sum(points)
-    `)
-    .order('total_points', { ascending: false });
+    `);
 
   if (practiceSummaryError) {
     return NextResponse.json(
@@ -93,10 +101,24 @@ export async function GET() {
     );
   }
 
-  const practiceSummary = (practiceSummaryData ?? []).map((entry: any) => ({
-    type: entry.type,
-    totalPoints: entry.total_points,
+  // Aggregate points per practice type
+  const practiceSummaryMap: Record<string, number> = {};
+  (practiceSummaryData ?? []).forEach((entry: any) => {
+    const type = entry.type || "Unknown";
+    if (practiceSummaryMap[type]) {
+      practiceSummaryMap[type] += entry.total_points;
+    } else {
+      practiceSummaryMap[type] = entry.total_points;
+    }
+  });
+
+  const practiceSummary = Object.entries(practiceSummaryMap).map(([type, totalPoints]) => ({
+    type,
+    totalPoints,
   }));
+
+  // Sort practice types by totalPoints in descending order
+  practiceSummary.sort((a, b) => b.totalPoints - a.totalPoints);
 
   return NextResponse.json({
     leaderboardData: usersWithPoints,
