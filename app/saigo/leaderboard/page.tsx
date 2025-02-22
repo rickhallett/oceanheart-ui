@@ -15,7 +15,7 @@ export default async function LeaderboardPage() {
   const { leaderboardData, practiceSummary } = await res.json();
 
   // Calculate total across all users
-  const totalPoints = leaderboardData.reduce((sum, user) => sum + user.totalPoints, 0);
+  const totalPoints = leaderboardData.reduce((sum: number, user: any) => sum + user.totalPoints, 0);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[60vh]">
