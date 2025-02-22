@@ -81,6 +81,19 @@ export async function GET() {
     }
   });
 
+  // Create ordered array of dates
+  const orderedDates: string[] = [];
+  for (let i = 0; i < 7; i++) {
+    const date = new Date(Date.UTC(
+      sevenDaysAgo.getUTCFullYear(),
+      sevenDaysAgo.getUTCMonth(),
+      sevenDaysAgo.getUTCDate() + i,
+      0, 0, 0
+    ));
+    const dateStr = date.toISOString().split('T')[0];
+    orderedDates.push(dateStr);
+  }
+
   // Create data for stacked bar chart
   const stackedData = orderedDates.map(date => {
     const dayData: Record<string, any> = {
