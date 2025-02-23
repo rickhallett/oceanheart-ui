@@ -1,8 +1,11 @@
+-- Enable the UUID extension
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
 -- Create the "saigo_users" table
 CREATE TABLE IF NOT EXISTS saigo_users (
-  id SERIAL PRIMARY KEY,
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   email TEXT NOT NULL UNIQUE,
-  user_id INTEGER
+  user_id UUID
 );
 
 -- Enable Row Level Security for saigo_users
