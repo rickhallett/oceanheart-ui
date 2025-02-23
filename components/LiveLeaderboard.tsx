@@ -102,7 +102,7 @@ const LiveLeaderboard: React.FC = () => {
 
     setSubmitting(false);
     setActivityType("");
-    setMinutes(1);
+    setMinutes("");
     setComment("");
   };
   const totalPoints = leaderboardData.reduce((sum: number, user) => sum + user.totalPoints, 0);
