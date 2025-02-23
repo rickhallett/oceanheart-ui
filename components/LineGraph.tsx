@@ -27,8 +27,8 @@ const LineGraph: React.FC<LineGraphProps> = ({ data }) => {
   });
 
   return (
-    <div className="w-full max-w-4xl mx-auto p-4 bg-white rounded-lg shadow-md">
-      <div className="text-center font-semibold mb-4 text-gray-700">
+    <div className="w-full max-w-4xl mx-auto p-4 bg-gray-800 rounded-lg shadow-md">
+      <div className="text-center font-semibold mb-4 text-gray-200">
         Points per Day (Past Week)
       </div>
       <div className="h-[300px] w-[400px]">
@@ -37,10 +37,10 @@ const LineGraph: React.FC<LineGraphProps> = ({ data }) => {
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis
               dataKey="day"
-              stroke="#374151"
+              stroke="#F3F4F6"
             />
             <YAxis
-              stroke="#374151"
+              stroke="#F3F4F6"
               tickFormatter={(value) => Math.round(value).toString()}
             />
             <Tooltip
@@ -56,10 +56,10 @@ const LineGraph: React.FC<LineGraphProps> = ({ data }) => {
             <Line
               type="monotone"
               dataKey="points"
-              stroke="#4F46E5"
+              stroke="#0088FE"
               strokeWidth={3}
               dot={{
-                stroke: '#4F46E5',
+                stroke: '#0088FE',
                 strokeWidth: 2,
                 r: 4,
                 fill: '#fff'
