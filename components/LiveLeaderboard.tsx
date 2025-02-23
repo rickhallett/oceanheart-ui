@@ -34,7 +34,7 @@ const fetcher = (url: string) => fetch(url).then(res => res.json());
 const LiveLeaderboard: React.FC = () => {
   const [showForm, setShowForm] = useState(false);
   const [activityType, setActivityType] = useState("");
-  const [minutes, setMinutes] = useState(1);
+  const [minutes, setMinutes] = useState("");
   const [comment, setComment] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
@@ -156,8 +156,17 @@ const LiveLeaderboard: React.FC = () => {
               </label>
               <input
                 type="number"
+                min={1}
+                placeholder="0"
                 value={minutes}
-                onChange={(e) => setMinutes(Number(e.target.value))}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (value === "") {
+                    setMinutes("");
+                  } else {
+                    setMinutes(value.replace(/^0+/, "") || "");
+                  }
+                }}
                 required
                 className="input input-bordered input-secondary w-full"
               />
