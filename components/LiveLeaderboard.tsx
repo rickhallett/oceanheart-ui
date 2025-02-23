@@ -243,7 +243,7 @@ const LiveLeaderboard: React.FC = () => {
               </div>
             </div>
             {/* Right Column: Pie Chart & Stacked Bar Chart */}
-            <div className="md:w-2/3 flex flex-col gap-4">
+            <div className="md:w-2/3 flex flex-col gap-8">
               <div className="bg-gray-800 rounded-lg p-10 flex justify-center">
                 <ResponsiveContainer width="100%" height={300}>
                   <PieChart>
