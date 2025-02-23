@@ -3,6 +3,7 @@ import LineGraph from "@/components/LineGraph";
 import PracticeSummaryPieChart from "@/components/PracticeSummaryPieChart";
 import PracticeTypesStackedBarChart from "@/components/PracticeTypesStackedBarChart";
 import CumulativePointsAreaChart from "@/components/CumulativePointsAreaChart";
+import PracticeTypesRadarChart from "@/components/PracticeTypesRadarChart";
 import Countdown from "@/components/Countdown";
 import Image from "next/image";
 
@@ -129,6 +130,11 @@ export default async function LeaderboardPage() {
         {/* Pie Chart Section */}
         <div className="mt-8">
           <PracticeSummaryPieChart data={practiceSummary} />
+        </div>
+
+        {/* Radar Chart Section */}
+        <div className="mt-8">
+          <PracticeTypesRadarChart data={practiceSummary} />
         </div>
       </div>
 
