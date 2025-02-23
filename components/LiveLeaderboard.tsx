@@ -109,7 +109,7 @@ const LiveLeaderboard: React.FC = () => {
 
   return (
     <div className="mockup-window border bg-base-300 border m-4">
-      <div className="flex flex-row items-end justify-end mr-4 gap-4">
+      <div className="flex flex-row items-end justify-end mr-4 gap-0 md:gap-4">
         <button
           onClick={() => setShowForm(true)}
           className="btn btn-white btn-outline"
