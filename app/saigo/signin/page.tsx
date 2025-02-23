@@ -6,7 +6,6 @@ import { createClient } from "@/libs/supabase/client";
 import { Provider } from "@supabase/supabase-js";
 import toast from "react-hot-toast";
 import config from "@/config";
-import { setSaigoTheme } from "@/libs/clientCookies";
 import Image from "next/image";
 
 export default function SaigoLogin() {
@@ -19,7 +18,7 @@ export default function SaigoLogin() {
   useEffect(() => {
     // Set the Saigo theme
     document.documentElement.setAttribute('data-theme', config.colors.saigoTheme);
-    setSaigoTheme(config.colors.saigoTheme);
+    // setSaigoTheme(config.colors.saigoTheme);
 
     const script = document.createElement('script');
     script.src = `https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`;

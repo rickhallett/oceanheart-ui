@@ -1,11 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import useSWR, { mutate } from "swr";
 import ButtonAccount from "@/components/ButtonAccount";
 import LeaderboardTable from "@/components/LeaderboardTable";
 import LineGraph from "@/components/LineGraph";
-import PracticeSummaryPieChart from "@/components/PracticeSummaryPieChart";
 import PracticeTypesStackedBarChart from "@/components/PracticeTypesStackedBarChart";
 import CumulativePointsAreaChart from "@/components/CumulativePointsAreaChart";
 import PracticeTypesRadarChart from "@/components/PracticeTypesRadarChart";
@@ -16,6 +15,9 @@ import { Cell } from "recharts";
 import { PieChart } from "recharts";
 import { Pie } from "recharts";
 import { Tooltip } from "recharts";
+import SaigoAnimatedText from "@/components/SaigoAnimatedText";
+import anime from "animejs";
+import config from "@/config";
 
 interface LeaderboardEntry {
   username: string;
@@ -36,10 +38,13 @@ const fetcher = (url: string) => fetch(url).then(res => res.json());
 const LiveLeaderboard: React.FC = () => {
   const [showForm, setShowForm] = useState(false);
   const [activityType, setActivityType] = useState("");
-  const [minutes, setMinutes] = useState(0);
+  const [minutes, setMinutes] = useState(1);
   const [comment, setComment] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', config.colors.saigoTheme);
+  }, []);
   const { data, error: fetchError } = useSWR<LeaderboardData>(
     '/api/saigo/leaderboard',
     fetcher,
@@ -62,6 +67,16 @@ const LiveLeaderboard: React.FC = () => {
   if (!data) return <LoadingPage />;
 
   const { leaderboardData, practiceSummary, dailyPoints, stackedData, practiceTypes } = data;
+
+  anime({
+    targets: 'h1',
+    strokeDashoffset: [anime.setDashoffset, 0],
+    easing: 'easeInOutSine',
+    duration: 1500,
+    delay: function (el, i) { return i * 250 },
+    direction: 'alternate',
+    loop: true
+  })
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -90,6 +105,9 @@ const LiveLeaderboard: React.FC = () => {
     }
 
     setSubmitting(false);
+    setActivityType("");
+    setMinutes(1);
+    setComment("");
   };
   const totalPoints = leaderboardData.reduce((sum: number, user) => sum + user.totalPoints, 0);
 
@@ -98,16 +116,16 @@ const LiveLeaderboard: React.FC = () => {
       <div className="flex flex-row items-end justify-end mr-4 gap-4">
         <button
           onClick={() => setShowForm(true)}
-          className="btn btn-white btn-outliney"
+          className="btn btn-white btn-outline"
         >
-          Submit Activity
+          Submit Practice
         </button>
         <ButtonAccount />
       </div>
       <div className="flex flex-col items-center justify-center min-h-[60vh]">
-
-
-        <h1 className="text-4xl font-bold text-white mb-6 shadow">Leaderboard</h1>
+        <div className="flex flex-row items-center justify-center w-full py-5">
+          <SaigoAnimatedText text="Saigo No Yume: The Last Dream" />
+        </div>
         <Image src="/images/hbi_transparent.webp" alt="Saigo Logo" width={200} height={200} />
         <div className="flex flex-row items-center justify-center w-full py-5">
           <Countdown enhanced={true} />
@@ -115,7 +133,7 @@ const LiveLeaderboard: React.FC = () => {
 
         {showForm ? (
           <form onSubmit={handleSubmit} className="bg-gray-800 rounded-lg p-6 w-full max-w-4xl">
-            <h2 className="text-2xl font-bold text-white mb-4">Submit Activity</h2>
+            <h2 className="text-2xl font-bold text-white mb-4 animate-pulse">Submit Activity</h2>
 
             <div className="mb-4">
               <label className="block text-white text-sm font-bold mb-2">
@@ -151,12 +169,14 @@ const LiveLeaderboard: React.FC = () => {
 
             <div className="mb-4">
               <label className="block text-white text-sm font-bold mb-2">
-                Comment (optional)
+                Log
               </label>
               <textarea
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
                 className="textarea textarea-bordered textarea-secondary w-full"
+                placeholder="What you learn? Can it help others? What was the most important lesson? (This feature is development...)"
+                disabled={true}
               />
             </div>
 

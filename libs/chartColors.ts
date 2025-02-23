@@ -10,13 +10,11 @@ export const CHART_COLORS = [
 
 export const PRACTICE_TYPES = [
   "Meditation",
-  "Energy movements",
-  "Sitting in the rain",
-  "Water of life",
-  "The tones",
+  "Energy Movements",
+  "Sitting in the Rain", "The Tones",
   "High Guard",
-  "Projection",
-  "Jumping"
+  "Dimension Walking",
+  "The InBetween",
 ];
 
 export const PRACTICE_TYPES_COLORS = PRACTICE_TYPES.map((type, index) => ({

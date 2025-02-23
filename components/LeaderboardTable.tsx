@@ -67,6 +67,7 @@ const LeaderboardTable: React.FC<LeaderboardTableProps> = ({ data }) => {
   const mid = Math.ceil(data.length / 2);
   const leftData = data.slice(0, mid);
   const rightData = data.slice(mid);
+  const isRightDisplayed = rightData.length > 0;
 
   return (
     <div className="w-full max-w-4xl mx-auto bg-gray-800 rounded-lg overflow-hidden">
@@ -80,15 +81,17 @@ const LeaderboardTable: React.FC<LeaderboardTableProps> = ({ data }) => {
             theme="dark"
           />
         </div>
-        <div className="flex-1">
-          <DataTable
-            columns={columns}
-            data={rightData}
-            customStyles={customStyles}
-            pagination
-            theme="dark"
-          />
-        </div>
+        {isRightDisplayed && (
+          <div className="flex-1">
+            <DataTable
+              columns={columns}
+              data={rightData}
+              customStyles={customStyles}
+              pagination
+              theme="dark"
+            />
+          </div>
+        )}
       </div>
     </div>
   );

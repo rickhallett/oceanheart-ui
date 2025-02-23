@@ -125,6 +125,14 @@ export async function GET() {
   // Get unique practice types
   const practiceTypesArray = Array.from(new Set(practicesData?.map((p: any) => p.type)));
 
+  // if (practiceTypesArray.length < 6) {
+  //   for (const type of ["Meditation", "Energy Movements", "High Guard", "Dimension Walking", "The InBetween", "Sitting in the Rain"]) {
+  //     if (!practiceTypesArray.includes(type)) {
+  //       practiceTypesArray.push(type);
+  //     }
+  //   }
+  // }
+
   // Aggregate points per practice type
   const practiceSummaryMap: Record<string, number> = {};
   (practicesData ?? []).forEach((practice: any) => {

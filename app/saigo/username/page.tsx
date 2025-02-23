@@ -1,14 +1,19 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from 'next/navigation';
+import config from "@/config";
 
 export default function UsernamePage() {
   const router = useRouter();
   const [username, setUsername] = useState<string | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', config.colors.saigoTheme);
+  }, []);
 
   const handleGenerateUsername = async () => {
     setIsGenerating(true);
@@ -44,7 +49,7 @@ export default function UsernamePage() {
 
       <div className="flex flex-col items-center gap-4 mt-4">
         <button
-          className="btn btn-primary"
+          className="btn btn-outline btn-white"
           onClick={handleGenerateUsername}
           disabled={isGenerating}
         >

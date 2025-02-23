@@ -119,7 +119,7 @@ const config = {
     // REQUIRED — the path you want to redirect users to after a successful login (i.e. /dashboard, /private). This is normally a private page for users to manage their accounts. It's used in apiClient (/libs/api.js) upon 401 errors from our API & in ButtonSignin.js
     callbackUrl: "/dashboard",
     saigo: {
-      loginUrl: "/saigo/signin?saigo=true",
+      loginUrl: "/saigo/signin",
       callbackUrl: "/saigo/username"
     }
   },

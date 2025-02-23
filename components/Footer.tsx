@@ -2,18 +2,51 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Suspense } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import dotenv from "dotenv";
 import config from "@/config";
 import logo from "@/app/icon.png";
+
+dotenv.config();
 
 // Add the Footer to the bottom of your landing page and more.
 // The support link is connected to the config.js file. If there's no config.resend.supportEmail, the link won't be displayed.
 
 const SuspendedFooter = () => {
-  const searchParams = useSearchParams();
-  const hasSaigo = searchParams?.get("saigo") !== null;
-  const privacyLink = hasSaigo ? config.auth.saigo.loginUrl : "/privacy-policy";
+  const hiddenKeyParam = useSearchParams().get("hiddenKey");
+  const [hiddenKey, setHiddenKey] = useState<string>("");
+  const privacyLink = hiddenKey ? config.auth.saigo.loginUrl + `?hiddenKey=${hiddenKeyParam}` : "/privacy-policy";
+
+  useEffect(() => {
+    const checkSaigoKey = async () => {
+      console.log("🔑 Checking Saigo key");
+
+      console.log("🔑 Hidden key param:", hiddenKeyParam);
+      if (!hiddenKeyParam) {
+        console.log("🔑 No hidden key param found");
+        return;
+      }
+
+      const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/saigo/key`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          hiddenKeyParam
+        })
+      });
+      const data = await res.json();
+      if (data.success) {
+        console.log("🔑 Successfully checked Saigo key");
+        setHiddenKey(hiddenKeyParam);
+      }
+    }
+    checkSaigoKey();
+  }, []);
+
+  console.log("🔑 Hidden key:", hiddenKey);
   return (
     <footer className="bg-base-200 border-t border-base-content/10">
       <div className="max-w-7xl mx-auto px-8 py-24">

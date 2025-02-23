@@ -3,8 +3,8 @@ import { Inter } from "next/font/google";
 import { Viewport } from "next";
 import { getSEOTags } from "@/libs/seo";
 import ClientLayout from "@/components/LayoutClient";
-import { getSaigoTheme } from "@/libs/serverCookies";
 import config from "@/config";
+import Script from "next/script";
 import "./globals.css";
 
 const font = Inter({ subsets: ["latin"] });
@@ -21,7 +21,7 @@ export const viewport: Viewport = {
 export const metadata = getSEOTags();
 
 export default function RootLayout({ children }: { children: ReactNode }) {
-	const theme = getSaigoTheme() || config.colors.theme;
+	const theme = config.colors.theme;
 	return (
 		<html
 			lang="en"
@@ -29,6 +29,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 			className={font.className}
 		>
 			<body>
+				<Script src="/scripts/anime.min.js" strategy="beforeInteractive" />
 				{/* ClientLayout contains all the client wrappers (Crisp chat support, toast messages, tooltips, etc.) */}
 				<ClientLayout>{children}</ClientLayout>
 			</body>
