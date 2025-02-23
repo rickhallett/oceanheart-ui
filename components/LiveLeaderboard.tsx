@@ -85,7 +85,7 @@ const LiveLeaderboard: React.FC = () => {
             <div className="flex flex-wrap gap-4">
               {practiceSummary.map((practice, index) => (
                 <div key={index} className="bg-gray-700 rounded-lg p-4 flex-1 min-w-[150px]">
-                  <div className="text-gray-300 font-medium mb-1">{practice.type}</div>
+                  <div className="text-gray-300 font-medium mb-1" style={{ color: PRACTICE_TYPES_COLORS[index % PRACTICE_TYPES_COLORS.length].color }}>{practice.type}</div>
                   <div className="text-2xl font-bold text-white">
                     {practice.totalPoints} <span className="text-sm">mins</span>
                   </div>
@@ -106,6 +106,7 @@ const LiveLeaderboard: React.FC = () => {
                 label
               >
                 {practiceSummary.map((entry) => {
+                  console.log(entry);
                   const colorObj = PRACTICE_TYPES_COLORS.find((item) => item.type === entry.type);
                   const fillColor = colorObj ? colorObj.color : "#000000";
                   return <Cell key={entry.type} fill={fillColor} />;
@@ -125,33 +126,18 @@ const LiveLeaderboard: React.FC = () => {
       <div className="w-full max-w-4xl mx-auto mt-4 bg-gray-800 rounded-lg p-4">
         <div className="flex justify-between items-center text-gray-300 font-bold border-t-2 border-gray-600 py-3 px-4">
           {/* Practice Summary Section */}
+          <div className="flex flex-row items-center justify-center w-full gap-6 flex-wrap">
+            <div className="mt-8">
+              <LineGraph data={dailyPoints} />
+            </div>
+            <div className="mt-8">
+              <PracticeTypesRadarChart data={practiceSummary} />
+            </div>
+            <div className="mt-8">
+              <CumulativePointsAreaChart dailyPoints={dailyPoints} />
+            </div>
 
-        </div>
-      </div>
-
-
-
-      {/* Practice Summary Chart using Recharts */}
-
-
-      <div className="flex flex-row items-center justify-center w-full gap-6 flex-wrap">
-        <div className="mt-8">
-          <PracticeTypesStackedBarChart data={stackedData} practiceTypes={practiceTypes} colors={CHART_COLORS} />
-        </div>
-        <div className="mt-8">
-          <LineGraph data={dailyPoints} />
-        </div>
-        <div className="mt-8">
-          <PracticeSummaryPieChart data={practiceSummary} />
-        </div>
-      </div>
-
-      <div className="flex flex-row items-center justify-center w-full gap-6 flex-wrap">
-        <div className="mt-8">
-          <CumulativePointsAreaChart dailyPoints={dailyPoints} />
-        </div>
-        <div className="mt-8">
-          <PracticeTypesRadarChart data={practiceSummary} />
+          </div>
         </div>
       </div>
     </div>
