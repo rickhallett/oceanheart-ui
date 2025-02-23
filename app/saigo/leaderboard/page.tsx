@@ -132,16 +132,18 @@ export default async function LeaderboardPage() {
           <PracticeSummaryPieChart data={practiceSummary} />
         </div>
 
-        {/* Radar Chart Section */}
-        <div className="mt-8">
-          <PracticeTypesRadarChart data={practiceSummary} />
-        </div>
+
       </div>
 
       <div className="flex flex-row items-center justify-center w-full gap-6 flex-wrap">
         {/* Cumulative Area Chart Section */}
         <div className="mt-8">
           <CumulativePointsAreaChart dailyPoints={dailyPoints} />
+        </div>
+
+        {/* Radar Chart Section */}
+        <div className="mt-8">
+          <PracticeTypesRadarChart data={practiceSummary} />
         </div>
       </div>
 
