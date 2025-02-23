@@ -27,7 +27,7 @@ export async function GET() {
       points,
       type,
       created_at,
-      saigo_users!inner (
+      saigo_user:saigo_users!inner (
         username
       )
     `)
@@ -45,7 +45,7 @@ export async function GET() {
   const usersWithPointsMap: Record<string, number> = {};
   (practicesData ?? []).forEach((entry: any) => {
     // Use the joined data, falling back to a partial ID only if necessary
-    const username = entry.saigo_user?.username || `User_${String(entry.user_id).substring(0, 8)}`;
+    const username = entry.saigo_user.username || `User_${String(entry.user_id).substring(0, 8)}`;
     const points = entry.points || 0;
     usersWithPointsMap[username] = (usersWithPointsMap[username] || 0) + points;
   });
