@@ -33,7 +33,7 @@ const PracticeTypesStackedBarChart: React.FC<PracticeTypesStackedBarChartProps> 
       <h3 className="text-center font-semibold mb-4 text-white">
         Daily Breakdown by Practice Type
       </h3>
-      <ResponsiveContainer width="100%" height={300}>
+      <ResponsiveContainer width="100%" aspect={2}>
         <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="day" stroke="#F3F4F6" />
