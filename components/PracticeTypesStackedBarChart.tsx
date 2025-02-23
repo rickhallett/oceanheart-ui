@@ -17,16 +17,20 @@ interface StackedBarChartData {
   [practiceType: string]: number | string;
 }
 
+import { CHART_COLORS } from "@/libs/chartColors";
+
 interface PracticeTypesStackedBarChartProps {
   data: StackedBarChartData[];
   practiceTypes: string[];
+  colors?: string[];
 }
 
 const PracticeTypesStackedBarChart: React.FC<PracticeTypesStackedBarChartProps> = ({
   data,
   practiceTypes,
+  colors
 }) => {
-  const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#A569BD", "#F39C12"];
+  const usedColors = colors || CHART_COLORS;
 
   return (
     <div className="w-full max-w-4xl mx-auto p-4 bg-gray-800 rounded-lg shadow-md">
@@ -45,7 +49,7 @@ const PracticeTypesStackedBarChart: React.FC<PracticeTypesStackedBarChartProps> 
           />
           <Legend />
           {practiceTypes.map((type, index) => (
-            <Bar key={type} dataKey={type} stackId="a" fill={COLORS[index % COLORS.length]} />
+            <Bar key={type} dataKey={type} stackId="a" fill={usedColors[index % usedColors.length]} />
           ))}
         </BarChart>
       </ResponsiveContainer>

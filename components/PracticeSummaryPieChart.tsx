@@ -14,11 +14,12 @@ interface PracticeData {
   totalPoints: number;
 }
 
+import { CHART_COLORS } from "@/libs/chartColors";
+
 interface PracticeSummaryPieChartProps {
   data: PracticeData[];
+  colors?: string[];
 }
-
-const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#A569BD", "#F39C12"];
 
 const PracticeSummaryPieChart: React.FC<PracticeSummaryPieChartProps> = ({ data }) => {
   return (
@@ -39,7 +40,7 @@ const PracticeSummaryPieChart: React.FC<PracticeSummaryPieChartProps> = ({ data 
             label
           >
             {data.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+              <Cell key={`cell-${index}`} fill={(colors || CHART_COLORS)[index % (colors || CHART_COLORS).length]} />
             ))}
           </Pie>
           <Tooltip

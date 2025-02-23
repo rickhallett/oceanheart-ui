@@ -30,8 +30,7 @@ interface LeaderboardData {
   practiceTypes: string[];
 }
 
-// const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
-const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#A569BD", "#F39C12"];
+import { CHART_COLORS } from "@/libs/chartColors";
 
 const fetcher = (url: string) => fetch(url).then(res => res.json());
 const LiveLeaderboard: React.FC = () => {
@@ -107,14 +106,14 @@ const LiveLeaderboard: React.FC = () => {
                 label
               >
                 {practiceSummary.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                  <Cell key={`cell-${index}`} fill={CHART_COLORS[index % CHART_COLORS.length]} />
                 ))}
               </Pie>
               <Tooltip />
               <Legend verticalAlign="bottom" height={36} />
             </PieChart>
             <div className="mt-8">
-              <PracticeTypesStackedBarChart data={stackedData} practiceTypes={practiceTypes} />
+              <PracticeTypesStackedBarChart data={stackedData} practiceTypes={practiceTypes} colors={CHART_COLORS} />
             </div>
           </div >
 
@@ -135,13 +134,13 @@ const LiveLeaderboard: React.FC = () => {
 
       <div className="flex flex-row items-center justify-center w-full gap-6 flex-wrap">
         <div className="mt-8">
-          <PracticeTypesStackedBarChart data={stackedData} practiceTypes={practiceTypes} />
+          <PracticeTypesStackedBarChart data={stackedData} practiceTypes={practiceTypes} colors={CHART_COLORS} />
         </div>
         <div className="mt-8">
           <LineGraph data={dailyPoints} />
         </div>
         <div className="mt-8">
-          <PracticeSummaryPieChart data={practiceSummary} />
+          <PracticeSummaryPieChart data={practiceSummary} colors={CHART_COLORS} />
         </div>
       </div>
 
