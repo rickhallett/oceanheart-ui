@@ -10,11 +10,7 @@ import CumulativePointsAreaChart from "@/components/CumulativePointsAreaChart";
 import PracticeTypesRadarChart from "@/components/PracticeTypesRadarChart";
 import Countdown from "@/components/Countdown";
 import Image from "next/image";
-import { Legend } from "recharts";
-import { Cell } from "recharts";
-import { PieChart } from "recharts";
-import { Pie } from "recharts";
-import { Tooltip } from "recharts";
+import { Legend, Cell, PieChart, Pie, Tooltip, ResponsiveContainer } from "recharts";
 import SaigoAnimatedText from "@/components/SaigoAnimatedText";
 import anime from "animejs";
 import config from "@/config";
@@ -249,27 +245,29 @@ const LiveLeaderboard: React.FC = () => {
             {/* Right Column: Pie Chart & Stacked Bar Chart */}
             <div className="md:w-2/3 flex flex-col gap-4">
               <div className="bg-gray-800 rounded-lg p-10 flex justify-center">
-                <PieChart width={400} height={300}>
-                  <Pie
-                    data={practiceSummary}
-                    dataKey="totalPoints"
-                    nameKey="type"
-                    cx="50%"
-                    cy="50%"
-                    outerRadius={80}
-                    label
-                  >
-                    {practiceSummary.map((entry) => {
-                      const colorObj = PRACTICE_TYPES_COLORS.find(
-                        (item) => item.type === entry.type
-                      );
-                      const fillColor = colorObj ? colorObj.color : "#000000";
-                      return <Cell key={entry.type} fill={fillColor} />;
-                    })}
-                  </Pie>
-                  <Tooltip />
-                  <Legend verticalAlign="bottom" height={36} />
-                </PieChart>
+                <ResponsiveContainer width="100%" height={300}>
+                  <PieChart>
+                    <Pie
+                      data={practiceSummary}
+                      dataKey="totalPoints"
+                      nameKey="type"
+                      cx="50%"
+                      cy="50%"
+                      outerRadius={80}
+                      label
+                    >
+                      {practiceSummary.map((entry) => {
+                        const colorObj = PRACTICE_TYPES_COLORS.find(
+                          (item) => item.type === entry.type
+                        );
+                        const fillColor = colorObj ? colorObj.color : "#000000";
+                        return <Cell key={entry.type} fill={fillColor} />;
+                      })}
+                    </Pie>
+                    <Tooltip />
+                    <Legend verticalAlign="bottom" height={36} />
+                  </PieChart>
+                </ResponsiveContainer>
               </div>
               <div className="bg-gray-800 rounded-lg p-10">
                 <PracticeTypesStackedBarChart data={stackedData} practiceTypes={practiceTypes} />

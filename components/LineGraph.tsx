@@ -31,7 +31,7 @@ const LineGraph: React.FC<LineGraphProps> = ({ data }) => {
       <div className="text-center font-semibold mb-4 text-gray-200">
         Points per Day (Past Week)
       </div>
-      <div className="w-full h-64">
+      <div className="w-full h-64 md:h-96">
         <ResponsiveContainer width="100%" aspect={2}>
           <LineChart data={chartData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
             <CartesianGrid strokeDasharray="3 3" />
