@@ -16,12 +16,26 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
+    // Look up the corresponding saigo_users record using auth user id stored in user_id column
+    const { data: profile, error: profileError } = await supabase
+      .from("saigo_users")
+      .select("id")
+      .eq("user_id", user.id)
+      .single();
+
+    if (profileError || !profile) {
+      return NextResponse.json(
+        { error: "User not registered in saigo_users" },
+        { status: 400 }
+      );
+    }
+
     // Insert a new record into the practices table.
     // Note: The comment field is not inserted as the table does not support it yet.
     const { error } = await supabase.from("practices").insert({
       type: activityType,
       points: minutes,
-      user_id: user.id,
+      user_id: profile.id,
     });
 
     if (error) {
