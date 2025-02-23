@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 import ButtonAccount from "@/components/ButtonAccount";
 import LeaderboardTable from "@/components/LeaderboardTable";
 import LineGraph from "@/components/LineGraph";
@@ -40,7 +40,7 @@ const LiveLeaderboard: React.FC = () => {
   const [comment, setComment] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
-  const { data, error } = useSWR<LeaderboardData>(
+  const { data, error: fetchError } = useSWR<LeaderboardData>(
     '/api/saigo/leaderboard',
     fetcher,
     {
@@ -54,7 +54,10 @@ const LiveLeaderboard: React.FC = () => {
 
   if (error) {
     console.error('Error loading leaderboard:', error);
-    return <div>Error loading leaderboard data</div>;
+    return <div className="flex flex-col items-center justify-center h-screen">
+      <ButtonAccount />
+      <div className="text-red-500">Error loading leaderboard data</div>
+    </div>;
   }
   if (!data) return <LoadingPage />;
 
@@ -95,7 +98,7 @@ const LiveLeaderboard: React.FC = () => {
       <div className="flex flex-row items-end justify-end mr-4 gap-4">
         <button
           onClick={() => setShowForm(true)}
-          className="btn btn-primary"
+          className="btn btn-white btn-outliney"
         >
           Submit Activity
         </button>
@@ -115,14 +118,14 @@ const LiveLeaderboard: React.FC = () => {
             <h2 className="text-2xl font-bold text-white mb-4">Submit Activity</h2>
 
             <div className="mb-4">
-              <label className="block text-white text-sm font-bold mb-1">
+              <label className="block text-white text-sm font-bold mb-2">
                 Activity Type
               </label>
               <select
                 value={activityType}
                 onChange={(e) => setActivityType(e.target.value)}
                 required
-                className="input w-full"
+                className="select select-secondary w-full"
               >
                 <option value="">Select an activity</option>
                 {practiceTypes.map((type: string) => (
@@ -134,7 +137,7 @@ const LiveLeaderboard: React.FC = () => {
             </div>
 
             <div className="mb-4">
-              <label className="block text-white text-sm font-bold mb-1">
+              <label className="block text-white text-sm font-bold mb-2">
                 Minutes
               </label>
               <input
@@ -142,18 +145,18 @@ const LiveLeaderboard: React.FC = () => {
                 value={minutes}
                 onChange={(e) => setMinutes(Number(e.target.value))}
                 required
-                className="input w-full"
+                className="input input-bordered input-secondary w-full"
               />
             </div>
 
             <div className="mb-4">
-              <label className="block text-white text-sm font-bold mb-1">
+              <label className="block text-white text-sm font-bold mb-2">
                 Comment (optional)
               </label>
               <textarea
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
-                className="input w-full"
+                className="textarea textarea-bordered textarea-secondary w-full"
               />
             </div>
 
@@ -167,14 +170,14 @@ const LiveLeaderboard: React.FC = () => {
               <button
                 type="submit"
                 disabled={submitting}
-                className="btn btn-primary"
+                className="btn btn-white btn-outline btn-sm"
               >
                 {submitting ? "Submitting..." : "Submit"}
               </button>
               <button
                 type="button"
                 onClick={() => setShowForm(false)}
-                className="btn btn-secondary"
+                className="btn btn-error btn-outline btn-sm"
               >
                 Cancel
               </button>
@@ -211,9 +214,13 @@ const LiveLeaderboard: React.FC = () => {
                       >
                         {practice.type}
                       </div>
-                      <div className="text-2xl font-bold text-white">
-                        {practice.totalPoints} <span className="text-sm">mins</span>
+                      <div className="flex flex-row items-end justify-between">
+                        <div className="text-2xl font-bold text-white">
+                          {practice.totalPoints} <span className="text-sm">mins</span>
+                        </div>
+                        <div className="text-xs opacity-50">({Math.floor(practice.totalPoints / 7)} pts/d)</div>
                       </div>
+
                     </div>
                   ))}
                 </div>

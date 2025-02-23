@@ -36,6 +36,7 @@ export async function POST(request: Request) {
       type: activityType,
       points: minutes,
       user_id: profile.id,
+      created_at: new Date().toISOString(),
     });
 
     if (error) {
