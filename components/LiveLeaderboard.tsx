@@ -12,24 +12,42 @@ import PracticeTypesRadarChart from "@/components/PracticeTypesRadarChart";
 import Countdown from "@/components/Countdown";
 import Image from "next/image";
 
+interface LeaderboardEntry {
+  username: string;
+  totalPoints: number;
+}
+
+interface LeaderboardData {
+  leaderboardData: LeaderboardEntry[];
+  practiceSummary: Array<{type: string; totalPoints: number}>;
+  dailyPoints: number[];
+  stackedData: any[];
+  practiceTypes: string[];
+}
+
 const fetcher = (url: string) => fetch(url).then(res => res.json());
 
 const LiveLeaderboard: React.FC = () => {
-  const { data, error } = useSWR(
-    `${process.env.NEXT_PUBLIC_SITE_URL}/api/saigo/leaderboard`,
+  const { data, error } = useSWR<LeaderboardData>(
+    '/api/saigo/leaderboard',
     fetcher,
     {
-      refreshInterval: 15000,  // Refresh every 15 seconds
-      revalidateOnFocus: false, // Avoid revalidating when the window regains focus
+      refreshInterval: 30000,  // Refresh every 30 seconds
+      revalidateOnFocus: true,
+      dedupingInterval: 5000,
     }
   );
 
-  if (error) return <div>Error loading data</div>;
-  if (!data) return <div></div>;
+  console.log('Fetched leaderboard data:', data);
+
+  if (error) {
+    console.error('Error loading leaderboard:', error);
+    return <div>Error loading leaderboard data</div>;
+  }
+  if (!data) return <div>Loading...</div>;
 
   const { leaderboardData, practiceSummary, dailyPoints, stackedData, practiceTypes } = data;
-  const totalPoints = leaderboardData.reduce((sum: number, user: any) => sum + user.totalPoints, 0);
-  console.log(leaderboardData);
+  const totalPoints = leaderboardData.reduce((sum: number, user) => sum + user.totalPoints, 0);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[60vh]">
@@ -56,7 +74,7 @@ const LiveLeaderboard: React.FC = () => {
       <div className="mt-8 bg-gray-800 rounded-lg p-6 w-full max-w-2xl">
         <h2 className="text-2xl font-bold text-white mb-4">Practice Summary</h2>
         <div className="flex flex-wrap gap-4">
-          {practiceSummary.map((practice: any, index: number) => (
+          {practiceSummary.map((practice, index) => (
             <div key={index} className="bg-gray-700 rounded-lg p-4 flex-1 min-w-[150px]">
               <div className="text-gray-300 font-medium mb-1">{practice.type}</div>
               <div className="text-2xl font-bold text-white">
