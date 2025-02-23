@@ -78,48 +78,61 @@ const LiveLeaderboard: React.FC = () => {
 
 
       <div className="w-full max-w-4xl mx-auto mt-4 bg-gray-800 rounded-lg p-4">
-        <div className="flex flex-wrap justify-between items-center text-gray-300 font-bold border-t-2 border-gray-600 py-3 px-4">
-          {/* Practice Summary Section */}
-          <div className="mt-8 bg-gray-800 rounded-lg p-6 w-full max-w-2xl">
-            <h2 className="text-2xl font-bold text-white mb-4">Practice Summary</h2>
-            <div className="flex flex-wrap gap-4">
-              {practiceSummary.map((practice, index) => (
-                <div key={index} className="bg-gray-700 rounded-lg p-4 flex-1 min-w-[150px]">
-                  <div className="text-gray-300 font-medium mb-1" style={{ color: PRACTICE_TYPES_COLORS[index % PRACTICE_TYPES_COLORS.length].color }}>{practice.type}</div>
-                  <div className="text-2xl font-bold text-white">
-                    {practice.totalPoints} <span className="text-sm">mins</span>
+        <div className="flex flex-col md:flex-row gap-4">
+          {/* Left Column: Practice Summary Types */}
+          <div className="md:w-1/3">
+            <div className="bg-gray-800 rounded-lg p-6">
+              <h2 className="text-2xl font-bold text-white mb-4">Practice Summary</h2>
+              <div className="flex flex-wrap md:flex-col gap-4">
+                {practiceSummary.map((practice, index) => (
+                  <div key={index} className="bg-gray-700 rounded-lg p-4 flex-1 md:flex-none">
+                    <div
+                      className="text-gray-300 font-medium mb-1"
+                      style={{
+                        color:
+                          (PRACTICE_TYPES_COLORS.find((item) => item.type === practice.type)
+                            ?.color) || "#000000",
+                      }}
+                    >
+                      {practice.type}
+                    </div>
+                    <div className="text-2xl font-bold text-white">
+                      {practice.totalPoints} <span className="text-sm">mins</span>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
-          <div className="mt-8 bg-gray-800 rounded-lg p-10 w-full max-w-2xl flex flex-col items-center">
-            {/* <h2 className="text-2xl font-bold text-white mb-4">Practice Summary</h2> */}
-            <PieChart width={400} height={300}>
-              <Pie
-                data={practiceSummary}
-                dataKey="totalPoints"
-                nameKey="type"
-                cx="50%"
-                cy="50%"
-                outerRadius={80}
-                label
-              >
-                {practiceSummary.map((entry) => {
-                  console.log(entry);
-                  const colorObj = PRACTICE_TYPES_COLORS.find((item) => item.type === entry.type);
-                  const fillColor = colorObj ? colorObj.color : "#000000";
-                  return <Cell key={entry.type} fill={fillColor} />;
-                })}
-              </Pie>
-              <Tooltip />
-              <Legend verticalAlign="bottom" height={36} />
-            </PieChart>
-            <div className="mt-8">
+          {/* Right Column: Pie Chart & Stacked Bar Chart */}
+          <div className="md:w-2/3 flex flex-col gap-4">
+            <div className="bg-gray-800 rounded-lg p-10 flex justify-center">
+              <PieChart width={400} height={300}>
+                <Pie
+                  data={practiceSummary}
+                  dataKey="totalPoints"
+                  nameKey="type"
+                  cx="50%"
+                  cy="50%"
+                  outerRadius={80}
+                  label
+                >
+                  {practiceSummary.map((entry) => {
+                    const colorObj = PRACTICE_TYPES_COLORS.find(
+                      (item) => item.type === entry.type
+                    );
+                    const fillColor = colorObj ? colorObj.color : "#000000";
+                    return <Cell key={entry.type} fill={fillColor} />;
+                  })}
+                </Pie>
+                <Tooltip />
+                <Legend verticalAlign="bottom" height={36} />
+              </PieChart>
+            </div>
+            <div className="bg-gray-800 rounded-lg p-10">
               <PracticeTypesStackedBarChart data={stackedData} practiceTypes={practiceTypes} />
             </div>
-          </div >
-
+          </div>
         </div>
       </div>
 
