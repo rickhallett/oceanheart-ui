@@ -29,11 +29,11 @@ async function seedLast7Days() {
     .from("saigo_users")
     .select("id, username");
 
-  if (usersError) {
-    console.error("Error fetching users:", usersError);
+  if (allUsersError) {
+    console.error("Error fetching users:", allUsersError);
     process.exit(1);
   }
-  console.log(`Fetched ${users!.length} users`);
+  console.log(`Fetched ${allUsers!.length} users`);
 
   // 2. Define today as current date in UTC and calculate the start date (6 days before today)
   const today = new Date(Date.UTC(
@@ -58,7 +58,7 @@ async function seedLast7Days() {
   ];
 
   // For each user, create random practice records over the last 7 days
-  for (const user of users!) {
+  for (const user of allUsers!) {
     const practices = [];
 
     // Assign an activity level to each user (1: Low, 2: Medium, 3: High)
