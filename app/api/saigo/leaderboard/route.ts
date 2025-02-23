@@ -99,7 +99,7 @@ export async function GET() {
     const dayData: Record<string, any> = {
       day: new Date(date).toLocaleDateString('en-US', { weekday: 'short' })
     };
-    
+
     // Initialize all practice types to 0
     practicesData?.forEach((practice: any) => {
       if (!dayData[practice.type]) {
@@ -122,7 +122,7 @@ export async function GET() {
   const dailyPoints = orderedDates.map(date => dailyPointsMap[date]);
 
   // Get unique practice types
-  const practiceTypes = [...new Set(practicesData?.map((p: any) => p.type))];
+  const practiceTypesArray = Array.from(new Set(practicesData?.map((p: any) => p.type)));
 
   // Aggregate points per practice type
   const practiceSummaryMap: Record<string, number> = {};
@@ -145,6 +145,6 @@ export async function GET() {
     practiceSummary,
     dailyPoints,
     stackedData,
-    practiceTypes
+    practiceTypes: practiceTypesArray
   });
 }
