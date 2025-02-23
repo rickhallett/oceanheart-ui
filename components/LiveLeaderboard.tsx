@@ -25,10 +25,11 @@ const LiveLeaderboard: React.FC = () => {
   );
 
   if (error) return <div>Error loading data</div>;
-  if (!data) return <div>Loading leaderboard data...</div>;
+  if (!data) return <div></div>;
 
   const { leaderboardData, practiceSummary, dailyPoints, stackedData, practiceTypes } = data;
   const totalPoints = leaderboardData.reduce((sum: number, user: any) => sum + user.totalPoints, 0);
+  console.log(leaderboardData);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[60vh]">
