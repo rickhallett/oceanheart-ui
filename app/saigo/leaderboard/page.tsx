@@ -3,6 +3,7 @@ import LineGraph from "@/components/LineGraph";
 import PracticeSummaryPieChart from "@/components/PracticeSummaryPieChart";
 import PracticeTypesStackedBarChart from "@/components/PracticeTypesStackedBarChart";
 import Countdown from "@/components/Countdown";
+import Image from "next/image";
 
 export default async function LeaderboardPage() {
   // Fetch data from the secure route
@@ -27,12 +28,15 @@ export default async function LeaderboardPage() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[60vh]">
-      <div className="flex flex-row items-end justify-end w-1/2 mb-4">
+      <div className="flex flex-row items-end justify-end w-3/4 my-4">
         <ButtonAccount />
       </div>
 
       <h1 className="text-4xl font-bold text-white mb-6">Leaderboard</h1>
-      <Countdown />
+      <Image src="/images/hbi_transparent.webp" alt="Saigo Logo" width={200} height={200} />
+      <div className="flex flex-row items-center justify-center w-full py-5">
+        <Countdown />
+      </div>
       <div className="bg-gray-800 rounded-lg p-8 w-full max-w-4xl">
         <div className="flex flex-col md:flex-row gap-4">
           <div className="flex-1">
@@ -100,7 +104,7 @@ export default async function LeaderboardPage() {
                 {practice.type}
               </div>
               <div className="text-2xl font-bold text-white">
-                {practice.totalPoints}
+                {practice.totalPoints} <span className="text-sm">mins</span>
               </div>
             </div>
           ))}
