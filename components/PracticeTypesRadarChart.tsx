@@ -20,15 +20,15 @@ const PracticeTypesRadarChart: React.FC<PracticeTypesRadarChartProps> = ({ data 
   const maxPoints = Math.max(...data.map(d => d.totalPoints)) || 100;
 
   return (
-    <div className="w-full max-w-4xl mx-auto p-4 bg-white rounded-lg shadow-md">
-      <h3 className="text-center font-semibold mb-4 text-gray-700">
+    <div className="w-full max-w-4xl mx-auto p-4 bg-gray-800 rounded-lg shadow-md">
+      <h3 className="text-center font-semibold mb-4 text-white">
         Practice Types Radar Chart
       </h3>
       <ResponsiveContainer width="100%" height={300}>
         <RadarChart data={data}>
           <PolarGrid />
-          <PolarAngleAxis dataKey="type" stroke="#374151" />
-          <PolarRadiusAxis angle={30} domain={[0, maxPoints]} stroke="#374151" />
+          <PolarAngleAxis dataKey="type" stroke="#F3F4F6" />
+          <PolarRadiusAxis angle={30} domain={[0, maxPoints]} stroke="#F3F4F6" />
           <Tooltip contentStyle={{ backgroundColor: "#1F2937", borderRadius: "0.5rem", color: "#F3F4F6" }} />
           <Radar
             name="Total Points"

@@ -30,7 +30,7 @@ const PracticeTypesStackedBarChart: React.FC<PracticeTypesStackedBarChartProps> 
 }) => {
   return (
     <div className="w-full max-w-4xl mx-auto p-4 bg-gray-800 rounded-lg shadow-md">
-      <h3 className="text-center font-semibold mb-4 text-grey-200">
+      <h3 className="text-center font-semibold mb-4 text-white">
         Daily Breakdown by Practice Type
       </h3>
       <ResponsiveContainer width="100%" height={300}>
