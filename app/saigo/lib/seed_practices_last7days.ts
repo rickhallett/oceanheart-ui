@@ -36,16 +36,19 @@ async function seedLast7Days() {
   console.log(`Fetched ${allUsers!.length} users`);
 
   // 2. Define today as current date in UTC and calculate the start date (6 days before today)
+  const now = new Date();
   const today = new Date(Date.UTC(
-    new Date().getUTCFullYear(),
-    new Date().getUTCMonth(),
-    new Date().getUTCDate()
+    now.getUTCFullYear(),
+    now.getUTCMonth(),
+    now.getUTCDate()
   ));
   const startDate = new Date(Date.UTC(
-    today.getUTCFullYear(),
-    today.getUTCMonth(),
-    today.getUTCDate() - 6
+    now.getUTCFullYear(),
+    now.getUTCMonth(),
+    now.getUTCDate() - 6
   ));
+
+  console.log(`Generating practices from ${startDate.toISOString()} to ${today.toISOString()}`);
 
   // 3. Define an array of practice types (optional selection).
   const practiceTypes = [
