@@ -22,7 +22,7 @@ const CumulativePointsAreaChart: React.FC<CumulativePointsAreaChartProps> = ({ d
     const date = new Date();
     date.setDate(date.getDate() - (dailyPoints.length - 1 - index));
     const dayLabel = date.toLocaleDateString("en-US", { weekday: "short" });
-    
+
     // Accumulate points.
     const cumulative = (acc[index - 1]?.cumulative || 0) + points;
     acc.push({ day: dayLabel, cumulative });
@@ -34,13 +34,13 @@ const CumulativePointsAreaChart: React.FC<CumulativePointsAreaChartProps> = ({ d
       <div className="text-center font-semibold mb-4 text-gray-700">
         Cumulative Practice Points (Past Week)
       </div>
-      <div className="h-[300px]">
+      <div className="h-[300px] w-[600px]">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={chartData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="day" stroke="#374151" />
             <YAxis stroke="#374151" />
-            <Tooltip 
+            <Tooltip
               contentStyle={{
                 backgroundColor: "#1F2937",
                 border: "none",

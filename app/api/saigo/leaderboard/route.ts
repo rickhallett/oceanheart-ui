@@ -19,9 +19,6 @@ export async function GET() {
   const startDateStr = sevenDaysAgo.toISOString();
   const endDateStr = new Date(today.getTime() + 86400000 - 1).toISOString(); // End of today
 
-  // Fetch raw practice data with joined username from saigo_users
-  console.log(`Fetching practices between ${startDateStr} and ${endDateStr}`);
-  
   const { data: practicesData, error: practicesError } = await supabase
     .from('practices')
     .select(`
@@ -44,10 +41,6 @@ export async function GET() {
     );
   }
 
-  console.log(`Fetching practices from ${startDateStr} to ${endDateStr}`);
-  console.log(`Total practices fetched: ${practicesData?.length}`);
-  console.log('Practices Data:', practicesData);
-
   // Aggregate points per user using the joined username
   const usersWithPointsMap: Record<string, number> = {};
   (practicesData ?? []).forEach((entry: any) => {
@@ -55,8 +48,6 @@ export async function GET() {
     const username = entry.saigo_user?.username || `User_${String(entry.user_id).substring(0, 8)}`;
     const points = entry.points || 0;
     usersWithPointsMap[username] = (usersWithPointsMap[username] || 0) + points;
-    
-    console.log(`Processing entry for ${username} with ${points} points`);
   });
 
   const usersWithPoints = Object.entries(usersWithPointsMap).map(([username, totalPoints]) => ({

@@ -10,7 +10,9 @@ import { User } from "@supabase/supabase-js";
 import ButtonAccount from "./ButtonAccount";
 import Link from "next/link";
 import { FaRegSquareCaretDown } from "react-icons/fa6";
+import { setSaigoTheme } from "@/libs/clientCookies";
 const Hero = () => {
+  setSaigoTheme(config.colors.theme);
   const supabase = createClient();
   const [user, setUser] = useState<User>(null);
 

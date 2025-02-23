@@ -11,6 +11,11 @@ import CumulativePointsAreaChart from "@/components/CumulativePointsAreaChart";
 import PracticeTypesRadarChart from "@/components/PracticeTypesRadarChart";
 import Countdown from "@/components/Countdown";
 import Image from "next/image";
+import { Legend } from "recharts";
+import { Cell } from "recharts";
+import { PieChart } from "recharts";
+import { Pie } from "recharts";
+import { Tooltip } from "recharts";
 
 interface LeaderboardEntry {
   username: string;
@@ -19,14 +24,16 @@ interface LeaderboardEntry {
 
 interface LeaderboardData {
   leaderboardData: LeaderboardEntry[];
-  practiceSummary: Array<{type: string; totalPoints: number}>;
+  practiceSummary: Array<{ type: string; totalPoints: number }>;
   dailyPoints: number[];
   stackedData: any[];
   practiceTypes: string[];
 }
 
-const fetcher = (url: string) => fetch(url).then(res => res.json());
+// const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#A569BD", "#F39C12"];
 
+const fetcher = (url: string) => fetch(url).then(res => res.json());
 const LiveLeaderboard: React.FC = () => {
   const { data, error } = useSWR<LeaderboardData>(
     '/api/saigo/leaderboard',
@@ -70,20 +77,61 @@ const LiveLeaderboard: React.FC = () => {
         </div>
       </div>
 
-      {/* Practice Summary Section */}
-      <div className="mt-8 bg-gray-800 rounded-lg p-6 w-full max-w-2xl">
-        <h2 className="text-2xl font-bold text-white mb-4">Practice Summary</h2>
-        <div className="flex flex-wrap gap-4">
-          {practiceSummary.map((practice, index) => (
-            <div key={index} className="bg-gray-700 rounded-lg p-4 flex-1 min-w-[150px]">
-              <div className="text-gray-300 font-medium mb-1">{practice.type}</div>
-              <div className="text-2xl font-bold text-white">
-                {practice.totalPoints} <span className="text-sm">mins</span>
-              </div>
+
+      <div className="w-full max-w-4xl mx-auto mt-4 bg-gray-800 rounded-lg p-4">
+        <div className="flex justify-between items-center text-gray-300 font-bold border-t-2 border-gray-600 py-3 px-4">
+          {/* Practice Summary Section */}
+          <div className="mt-8 bg-gray-800 rounded-lg p-6 w-full max-w-2xl">
+            <h2 className="text-2xl font-bold text-white mb-4">Practice Summary</h2>
+            <div className="flex flex-wrap gap-4">
+              {practiceSummary.map((practice, index) => (
+                <div key={index} className="bg-gray-700 rounded-lg p-4 flex-1 min-w-[150px]">
+                  <div className="text-gray-300 font-medium mb-1">{practice.type}</div>
+                  <div className="text-2xl font-bold text-white">
+                    {practice.totalPoints} <span className="text-sm">mins</span>
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
+          <div className="mt-8 bg-gray-800 rounded-lg p-10 w-full max-w-2xl flex flex-col items-center">
+            {/* <h2 className="text-2xl font-bold text-white mb-4">Practice Summary</h2> */}
+            <PieChart width={400} height={300}>
+              <Pie
+                data={practiceSummary}
+                dataKey="totalPoints"
+                nameKey="type"
+                cx="50%"
+                cy="50%"
+                outerRadius={80}
+                label
+              >
+                {practiceSummary.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                ))}
+              </Pie>
+              <Tooltip />
+              <Legend verticalAlign="bottom" height={36} />
+            </PieChart>
+            <div className="mt-8">
+              <PracticeTypesStackedBarChart data={stackedData} practiceTypes={practiceTypes} />
+            </div>
+          </div >
+
         </div>
       </div>
+
+      <div className="w-full max-w-4xl mx-auto mt-4 bg-gray-800 rounded-lg p-4">
+        <div className="flex justify-between items-center text-gray-300 font-bold border-t-2 border-gray-600 py-3 px-4">
+          {/* Practice Summary Section */}
+
+        </div>
+      </div>
+
+
+
+      {/* Practice Summary Chart using Recharts */}
+
 
       <div className="flex flex-row items-center justify-center w-full gap-6 flex-wrap">
         <div className="mt-8">

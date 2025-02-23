@@ -31,15 +31,15 @@ const LineGraph: React.FC<LineGraphProps> = ({ data }) => {
       <div className="text-center font-semibold mb-4 text-gray-700">
         Points per Day (Past Week)
       </div>
-      <div className="h-[300px] w-full">
+      <div className="h-[300px] w-[400px]">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={chartData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis 
-              dataKey="day" 
+            <XAxis
+              dataKey="day"
               stroke="#374151"
             />
-            <YAxis 
+            <YAxis
               stroke="#374151"
               tickFormatter={(value) => Math.round(value).toString()}
             />
