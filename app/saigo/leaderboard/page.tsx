@@ -1,4 +1,5 @@
 import ButtonAccount from "@/components/ButtonAccount";
+import LeaderboardTable from "@/components/LeaderboardTable";
 import LineGraph from "@/components/LineGraph";
 import PracticeSummaryPieChart from "@/components/PracticeSummaryPieChart";
 import PracticeTypesStackedBarChart from "@/components/PracticeTypesStackedBarChart";
@@ -20,11 +21,6 @@ export default async function LeaderboardPage() {
 
   const { leaderboardData, practiceSummary, dailyPoints, stackedData, practiceTypes } = await res.json();
 
-  // Split leaderboard data into two columns
-  const half = Math.ceil(leaderboardData.length / 2);
-  const leftData = leaderboardData.slice(0, half);
-  const rightData = leaderboardData.slice(half);
-
   // Calculate total across all users
   const totalPoints = leaderboardData.reduce((sum: number, user: any) => sum + user.totalPoints, 0);
 
@@ -39,60 +35,11 @@ export default async function LeaderboardPage() {
       <div className="flex flex-row items-center justify-center w-full py-5">
         <Countdown />
       </div>
-      <div className="bg-gray-800 rounded-lg p-8 w-full max-w-4xl">
-        <div className="flex flex-col md:flex-row gap-4">
-          <div className="flex-1">
-            <table className="w-full text-left">
-              <thead>
-                <tr className="border-b border-gray-700">
-                  <th className="py-3 px-4 text-gray-300">Username</th>
-                  <th className="py-3 px-4 text-gray-300 text-right">Points</th>
-                </tr>
-              </thead>
-              <tbody>
-                {leftData.map((user: any, index: number) => (
-                  <tr key={index} className="border-b border-gray-700">
-                    <td className="py-3 px-4 text-gray-300">{user.username}</td>
-                    <td className="py-3 px-4 text-gray-300 text-right">
-                      {user.totalPoints}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <div className="flex-1">
-            <table className="w-full text-left">
-              <thead>
-                <tr className="border-b border-gray-700">
-                  <th className="py-3 px-4 text-gray-300">Username</th>
-                  <th className="py-3 px-4 text-gray-300 text-right">Points</th>
-                </tr>
-              </thead>
-              <tbody>
-                {rightData.map((user: any, index: number) => (
-                  <tr key={index + half} className="border-b border-gray-700">
-                    <td className="py-3 px-4 text-gray-300">{user.username}</td>
-                    <td className="py-3 px-4 text-gray-300 text-right">
-                      {user.totalPoints}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div className="mt-4">
-          <table className="w-full text-left">
-            <tbody>
-              <tr className="border-t-2 border-gray-600">
-                <td className="py-3 px-4 text-gray-300 font-bold">Alisone</td>
-                <td className="py-3 px-4 text-gray-300 text-right font-bold">
-                  {totalPoints}
-                </td>
-              </tr>
-            </tbody>
-          </table>
+      <LeaderboardTable data={leaderboardData} />
+      <div className="w-full max-w-4xl mx-auto mt-4 bg-gray-800 rounded-lg p-4">
+        <div className="flex justify-between items-center text-gray-300 font-bold border-t-2 border-gray-600 py-3 px-4">
+          <span>Alisone</span>
+          <span>{totalPoints}</span>
         </div>
       </div>
 
