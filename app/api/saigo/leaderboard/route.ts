@@ -27,7 +27,9 @@ export async function GET() {
       points,
       type,
       created_at,
-      saigo_user:saigo_users!practices_user_id_fkey ( username )
+      saigo_users!inner (
+        username
+      )
     `)
     .gte('created_at', startDateStr)
     .lte('created_at', endDateStr);
