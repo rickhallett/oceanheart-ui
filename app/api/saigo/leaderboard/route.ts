@@ -19,40 +19,18 @@ export async function GET() {
   const startDateStr = sevenDaysAgo.toISOString();
   const endDateStr = new Date(today.getTime() + 86400000 - 1).toISOString(); // End of today
 
-  // Fetch raw practice data for the last 7 days with user info
+  // Fetch raw practice data with joined username from saigo_users
   const { data: practicesData, error: practicesError } = await supabase
     .from('practices')
     .select(`
       user_id,
       points,
       type,
-      created_at
+      created_at,
+      saigo_users ( username )
     `)
     .gte('created_at', startDateStr)
     .lte('created_at', endDateStr);
-
-  // Fetch all relevant users
-  const { data: usersData, error: usersError } = await supabase
-    .from('saigo_users')
-    .select('id, username');
-
-  if (usersError) {
-    return NextResponse.json(
-      { error: usersError.message },
-      { status: 400 }
-    );
-  }
-
-  // Create a map of user_id to username
-  // Create user map with fallback to partial ID
-  const userMap = new Map(
-    usersData?.map(user => [
-      String(user.id),
-      (user.username && user.username !== '')
-        ? user.username
-        : `User_${String(user.id).substring(0, 8)}`
-    ]) || []
-  );
 
   if (practicesError) {
     return NextResponse.json(
@@ -61,11 +39,11 @@ export async function GET() {
     );
   }
 
-  // Aggregate points per user
+  // Aggregate points per user using the joined username
   const usersWithPointsMap: Record<string, number> = {};
   (practicesData ?? []).forEach((entry: any) => {
-    const userId = String(entry.user_id);
-    const username = userMap.get(userId) || `User_${userId.substring(0, 8)}`;
+    // Use the joined data, falling back to a partial ID only if necessary
+    const username = entry.saigo_users?.username || `User_${String(entry.user_id).substring(0, 8)}`;
     const points = entry.points || 0;
     usersWithPointsMap[username] = (usersWithPointsMap[username] || 0) + points;
   });
