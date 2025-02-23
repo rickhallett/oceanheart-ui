@@ -47,9 +47,9 @@ export async function GET() {
   // Create user map with fallback to partial ID
   const userMap = new Map(
     usersData?.map(user => [
-      user.id.trim().toLowerCase(),
-      (user.username && user.username.trim() !== '')
-        ? user.username.trim()
+      user.id,
+      (user.username && user.username !== '')
+        ? user.username
         : `User_${user.id.substring(0, 8)}`
     ]) || []
   );
@@ -64,8 +64,8 @@ export async function GET() {
   // Aggregate points per user
   const usersWithPointsMap: Record<string, number> = {};
   (practicesData ?? []).forEach((entry: any) => {
-    const normalizedId = (entry.user_id || "").toString().trim().toLowerCase();
-    const username = userMap.get(normalizedId) || `User_${normalizedId.substring(0, 8)}`;
+    const userId = entry.user_id;
+    const username = userMap.get(userId) || `User_${userId.substring(0, 8)}`;
     const points = entry.points || 0;
     usersWithPointsMap[username] = (usersWithPointsMap[username] || 0) + points;
   });
