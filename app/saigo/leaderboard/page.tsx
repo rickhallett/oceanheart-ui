@@ -2,6 +2,7 @@ import ButtonAccount from "@/components/ButtonAccount";
 import LineGraph from "@/components/LineGraph";
 import PracticeSummaryPieChart from "@/components/PracticeSummaryPieChart";
 import PracticeTypesStackedBarChart from "@/components/PracticeTypesStackedBarChart";
+import CumulativePointsAreaChart from "@/components/CumulativePointsAreaChart";
 import Countdown from "@/components/Countdown";
 import Image from "next/image";
 
@@ -121,6 +122,11 @@ export default async function LeaderboardPage() {
         {/* Line Graph Section */}
         <div className="mt-8">
           <LineGraph data={dailyPoints} />
+        </div>
+
+        {/* Cumulative Area Chart Section */}
+        <div className="mt-8">
+          <CumulativePointsAreaChart dailyPoints={dailyPoints} />
         </div>
 
         {/* Pie Chart Section */}
