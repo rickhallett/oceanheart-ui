@@ -1,8 +1,12 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, CSSProperties } from "react";
 
-const Countdown: React.FC = () => {
+interface CountdownProps {
+  enhanced?: boolean;
+}
+
+const Countdown: React.FC<CountdownProps> = ({ enhanced = false }) => {
   // Set the target date to Friday, February 28 at 05:00 GMT.
   // (Adjust the year if necessary.)
   const targetDate = new Date("2025-02-28T05:00:00Z");
@@ -36,9 +40,40 @@ const Countdown: React.FC = () => {
   );
   const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
 
+  if (enhanced) {
+    return (
+      <div className="grid grid-flow-col gap-5 text-center auto-cols-max">
+        <div className="flex flex-col p-2 bg-neutral rounded-box text-neutral-content">
+          <span className="countdown font-mono text-5xl">
+            <span style={{ "--value": days } as CSSProperties}></span>
+          </span>
+          days
+        </div>
+        <div className="flex flex-col p-2 bg-neutral rounded-box text-neutral-content">
+          <span className="countdown font-mono text-5xl">
+            <span style={{ "--value": hours } as CSSProperties}></span>
+          </span>
+          hours
+        </div>
+        <div className="flex flex-col p-2 bg-neutral rounded-box text-neutral-content">
+          <span className="countdown font-mono text-5xl">
+            <span style={{ "--value": minutes } as CSSProperties}></span>
+          </span>
+          min
+        </div>
+        <div className="flex flex-col p-2 bg-neutral rounded-box text-neutral-content">
+          <span className="countdown font-mono text-5xl">
+            <span style={{ "--value": seconds } as CSSProperties}></span>
+          </span>
+          sec
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="text-center text-white font-bold py-2">
-      {days}d {hours}h {minutes}m  remaining until Friday, February 28 at 05:00 GMT
+      {days}d {hours}h {minutes}m {seconds}s
     </div>
   );
 };
