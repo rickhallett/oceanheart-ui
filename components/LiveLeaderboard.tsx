@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import useSWR from "swr";
 import ButtonAccount from "@/components/ButtonAccount";
 import LeaderboardTable from "@/components/LeaderboardTable";
@@ -34,6 +34,12 @@ import { PRACTICE_TYPES_COLORS } from "@/libs/chartColors";
 import LoadingPage from "@/components/LoadingPage";
 const fetcher = (url: string) => fetch(url).then(res => res.json());
 const LiveLeaderboard: React.FC = () => {
+  const [showForm, setShowForm] = useState(false);
+  const [activityType, setActivityType] = useState("");
+  const [minutes, setMinutes] = useState(0);
+  const [comment, setComment] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
   const { data, error } = useSWR<LeaderboardData>(
     '/api/saigo/leaderboard',
     fetcher,
@@ -53,11 +59,46 @@ const LiveLeaderboard: React.FC = () => {
   if (!data) return <LoadingPage />;
 
   const { leaderboardData, practiceSummary, dailyPoints, stackedData, practiceTypes } = data;
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitting(true);
+    setError("");
+
+    const payload = {
+      activityType,
+      minutes,
+      comment,
+    };
+
+    const response = await fetch("/api/saigo/practice", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    if (!response.ok) {
+      const err = await response.json();
+      setError(err.error || "Submission failed");
+    } else {
+      setShowForm(false);
+      // Trigger a revalidation of the SWR cache
+      mutate('/api/saigo/leaderboard');
+    }
+
+    setSubmitting(false);
+  };
   const totalPoints = leaderboardData.reduce((sum: number, user) => sum + user.totalPoints, 0);
 
   return (
     <div className="mockup-window border bg-base-300 border m-4">
-      <div className="flex flex-row items-end justify-end mr-4">
+      <div className="flex flex-row items-end justify-end mr-4 gap-4">
+        <button
+          onClick={() => setShowForm(true)}
+          className="btn btn-primary"
+        >
+          Submit Activity
+        </button>
         <ButtonAccount />
       </div>
       <div className="flex flex-col items-center justify-center min-h-[60vh]">
@@ -69,7 +110,79 @@ const LiveLeaderboard: React.FC = () => {
           <Countdown enhanced={true} />
         </div>
 
-        <LeaderboardTable data={leaderboardData} />
+        {showForm ? (
+          <form onSubmit={handleSubmit} className="bg-gray-800 rounded-lg p-6 w-full max-w-4xl">
+            <h2 className="text-2xl font-bold text-white mb-4">Submit Activity</h2>
+
+            <div className="mb-4">
+              <label className="block text-white text-sm font-bold mb-1">
+                Activity Type
+              </label>
+              <select
+                value={activityType}
+                onChange={(e) => setActivityType(e.target.value)}
+                required
+                className="input w-full"
+              >
+                <option value="">Select an activity</option>
+                {practiceTypes.map((type: string) => (
+                  <option key={type} value={type}>
+                    {type}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="mb-4">
+              <label className="block text-white text-sm font-bold mb-1">
+                Minutes
+              </label>
+              <input
+                type="number"
+                value={minutes}
+                onChange={(e) => setMinutes(Number(e.target.value))}
+                required
+                className="input w-full"
+              />
+            </div>
+
+            <div className="mb-4">
+              <label className="block text-white text-sm font-bold mb-1">
+                Comment (optional)
+              </label>
+              <textarea
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+                className="input w-full"
+              />
+            </div>
+
+            {error && (
+              <div className="mb-4 text-red-500">
+                {error}
+              </div>
+            )}
+
+            <div className="flex gap-3">
+              <button
+                type="submit"
+                disabled={submitting}
+                className="btn btn-primary"
+              >
+                {submitting ? "Submitting..." : "Submit"}
+              </button>
+              <button
+                type="button"
+                onClick={() => setShowForm(false)}
+                className="btn btn-secondary"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        ) : (
+          <LeaderboardTable data={leaderboardData} />
+        )}
 
         <div className="w-full max-w-4xl mx-auto mt-4 bg-gray-800 rounded-lg p-4">
           <div className="flex justify-between items-center text-gray-300 font-bold border-t-2 border-gray-600 py-3 px-4">
