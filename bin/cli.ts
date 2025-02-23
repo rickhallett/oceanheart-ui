@@ -101,6 +101,62 @@ async function deletePractice() {
   }
 }
 
+async function addPracticeEntry() {
+  // Prompt for practice type and minutes
+  const { practiceType, minutesEntered } = await inquirer.prompt([
+    {
+      type: 'list',
+      name: 'practiceType',
+      message: 'Choose a practice type:',
+      choices: [
+        "Meditation", 
+        "Sitting in the rain", 
+        "Energy movements", 
+        "High Guard", 
+        "Jumping", 
+        "Projection"
+      ]
+    },
+    {
+      type: 'input',
+      name: 'minutesEntered',
+      message: 'Enter the number of minutes practiced:',
+      validate: (input: string) => {
+        const parsed = Number(input);
+        return !isNaN(parsed) && parsed > 0 ? true : 'Please enter a positive number';
+      }
+    }
+  ]);
+
+  const minutes = Number(minutesEntered);
+
+  // Look up the user in saigo_users by email
+  const { data: userProfile, error: userError } = await supabase
+    .from('saigo_users')
+    .select('id')
+    .eq('email', 'kai@oceanheart.ai')
+    .single();
+
+  if (userError || !userProfile) {
+    console.error('Error fetching profile for kai@oceanheart.ai:', userError);
+    return;
+  }
+
+  // Insert the new practice entry
+  const { error } = await supabase.from('practices').insert({
+    type: practiceType,
+    points: minutes,
+    user_id: userProfile.id,
+    created_at: new Date().toISOString(),
+  });
+
+  if (error) {
+    console.error('Error inserting practice entry:', error);
+  } else {
+    console.log('Practice entry added successfully for kai@oceanheart.ai!');
+  }
+}
+
 async function main() {
   while (true) {
     const { action } = await inquirer.prompt([
@@ -112,6 +168,7 @@ async function main() {
           'List Users',
           'List Recent Practices',
           'Delete Practice',
+          'Add Practice Entry for kai@oceanheart.ai',
           'Exit'
         ]
       }
@@ -126,6 +183,9 @@ async function main() {
         break;
       case 'Delete Practice':
         await deletePractice();
+        break;
+      case 'Add Practice Entry for kai@oceanheart.ai':
+        await addPracticeEntry();
         break;
       case 'Exit':
         process.exit(0);
