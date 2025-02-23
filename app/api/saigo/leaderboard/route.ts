@@ -27,7 +27,7 @@ export async function GET() {
       points,
       type,
       created_at,
-      saigo_user:saigo_users!inner (
+      saigo_user:saigo_users (
         username
       )
     `)
@@ -35,11 +35,16 @@ export async function GET() {
     .lte('created_at', endDateStr);
 
   if (practicesError) {
+    console.error('Error fetching practices:', practicesError);
     return NextResponse.json(
       { error: practicesError.message },
       { status: 400 }
     );
   }
+
+  console.log(`Fetching practices from ${startDateStr} to ${endDateStr}`);
+  console.log(`Total practices fetched: ${practicesData?.length}`);
+  console.log('Practices Data:', practicesData);
 
   // Aggregate points per user using the joined username
   const usersWithPointsMap: Record<string, number> = {};

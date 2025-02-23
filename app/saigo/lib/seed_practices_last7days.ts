@@ -133,6 +133,33 @@ async function seedLast7Days() {
       }
     }
 
+    // Ensure at least one practice per user if none were generated
+    if (practices.length === 0) {
+      const randomDate = new Date(Date.UTC(
+        today.getUTCFullYear(),
+        today.getUTCMonth(),
+        today.getUTCDate() - getRandomInt(0, 6)
+      ));
+
+      const hours = getRandomInt(0, 23);
+      const minutes = getRandomInt(0, 59);
+      const seconds = getRandomInt(0, 59);
+
+      randomDate.setUTCHours(hours, minutes, seconds);
+
+      const points = getRandomInt(10, 50);
+      const type = practiceTypes[getRandomInt(0, practiceTypes.length - 1)];
+
+      practices.push({
+        user_id: user.id,
+        type,
+        points,
+        created_at: randomDate
+      });
+
+      console.log(`No practices generated for user ${user.id}. Assigned a default practice.`);
+    }
+
     // Insert the practices for the current user
     const { error: insertError } = await supabase
       .from("practices")
