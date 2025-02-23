@@ -17,7 +17,7 @@ interface StackedBarChartData {
   [practiceType: string]: number | string;
 }
 
-import { CHART_COLORS } from "@/libs/chartColors";
+import { PRACTICE_TYPES_COLORS } from "@/libs/chartColors";
 
 interface PracticeTypesStackedBarChartProps {
   data: StackedBarChartData[];
@@ -48,9 +48,11 @@ const PracticeTypesStackedBarChart: React.FC<PracticeTypesStackedBarChartProps> 
             labelStyle={{ color: "#F3F4F6" }}
           />
           <Legend />
-          {practiceTypes.map((type, index) => (
-            <Bar key={type} dataKey={type} stackId="a" fill={usedColors[index % usedColors.length]} />
-          ))}
+          {practiceTypes.map((type) => {
+            const colorObj = PRACTICE_TYPES_COLORS.find((item) => item.type === type);
+            const fillColor = colorObj ? colorObj.color : "#000000";
+            return <Bar key={type} dataKey={type} stackId="a" fill={fillColor} />;
+          })}
         </BarChart>
       </ResponsiveContainer>
     </div>

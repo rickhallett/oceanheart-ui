@@ -14,7 +14,7 @@ interface PracticeData {
   totalPoints: number;
 }
 
-import { CHART_COLORS } from "@/libs/chartColors";
+import { PRACTICE_TYPES_COLORS } from "@/libs/chartColors";
 
 interface PracticeSummaryPieChartProps {
   data: PracticeData[];
@@ -39,9 +39,11 @@ const PracticeSummaryPieChart: React.FC<PracticeSummaryPieChartProps> = ({ data,
             fill="#82ca9d"
             label
           >
-            {data.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={(colors || CHART_COLORS)[index % (colors || CHART_COLORS).length]} />
-            ))}
+            {data.map((entry) => {
+              const colorObj = PRACTICE_TYPES_COLORS.find((item) => item.type === entry.type);
+              const fillColor = colorObj ? colorObj.color : "#000000";
+              return <Cell key={entry.type} fill={fillColor} />;
+            })}
           </Pie>
           <Tooltip
             contentStyle={{
