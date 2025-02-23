@@ -29,12 +29,12 @@ const PracticeTypesStackedBarChart: React.FC<PracticeTypesStackedBarChartProps> 
   practiceTypes,
 }) => {
   return (
-    <div className="w-full max-w-4xl mx-auto p-4 bg-gray-800 rounded-lg shadow-md">
+    <>
       <h3 className="text-center font-semibold mb-4 text-white">
         Daily Breakdown by Practice Type
       </h3>
-      <ResponsiveContainer width="100%" aspect={2}>
-        <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+      <ResponsiveContainer width="100%" height={300} minWidth={300} minHeight={300} aspect={2}>
+        <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }} title="Daily Breakdown by Practice Type">
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="day" stroke="#F3F4F6" />
           <YAxis stroke="#F3F4F6" />
@@ -51,7 +51,7 @@ const PracticeTypesStackedBarChart: React.FC<PracticeTypesStackedBarChartProps> 
           })}
         </BarChart>
       </ResponsiveContainer>
-    </div>
+    </>
   );
 };
 

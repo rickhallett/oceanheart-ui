@@ -211,7 +211,7 @@ const LiveLeaderboard: React.FC = () => {
         </div>
 
 
-        <div className="w-full max-w-4xl mx-auto mt-4 bg-gray-800 rounded-lg p-4">
+        <div className="w-full h-[1020px] md:h-[1020px] max-w-4xl mx-auto mt-4 bg-gray-800 rounded-lg p-4">
           <div className="flex flex-col md:flex-row gap-4">
             {/* Left Column: Practice Summary Types */}
             <div className="md:w-1/3">
@@ -243,9 +243,9 @@ const LiveLeaderboard: React.FC = () => {
               </div>
             </div>
             {/* Right Column: Pie Chart & Stacked Bar Chart */}
-            <div className="md:w-2/3 flex flex-col gap-8">
-              <div className="bg-gray-800 rounded-lg p-10 flex justify-center">
-                <ResponsiveContainer width="100%" height={300}>
+            <div className="md:w-2/3 flex flex-col gap-32 sm:gap-4">
+              <div className="bg-gray-800 rounded-lg p-0 md:p-4 md:m-16 flex justify-evenly">
+                <ResponsiveContainer width="100%" aspect={1}>
                   <PieChart>
                     <Pie
                       data={practiceSummary}
@@ -269,7 +269,7 @@ const LiveLeaderboard: React.FC = () => {
                   </PieChart>
                 </ResponsiveContainer>
               </div>
-              <div className="bg-gray-800 rounded-lg p-10">
+              <div className="bg-gray-800 rounded-lg p-0 md:p-10 hidden md:block">
                 <PracticeTypesStackedBarChart data={stackedData} practiceTypes={practiceTypes} />
               </div>
             </div>
@@ -279,7 +279,7 @@ const LiveLeaderboard: React.FC = () => {
         <div className="w-full max-w-4xl mx-auto mt-4 bg-gray-800 rounded-lg p-4">
           <div className="flex justify-between items-center text-gray-300 font-bold border-t-2 border-gray-600 py-3 px-4">
             {/* Practice Summary Section */}
-            <div className="flex flex-row items-center justify-center w-full gap-6 flex-wrap">
+            <div className="flex flex-row items-center justify-center w-full gap-16 flex-wrap">
               <div className="mt-8">
                 <LineGraph data={dailyPoints} />
               </div>
