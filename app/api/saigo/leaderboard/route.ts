@@ -19,20 +19,32 @@ export async function GET() {
   const startDateStr = sevenDaysAgo.toISOString();
   const endDateStr = new Date(today.getTime() + 86400000 - 1).toISOString(); // End of today
 
-  // Fetch raw practice data for the last 7 days
+  // Fetch raw practice data for the last 7 days with user info
   const { data: practicesData, error: practicesError } = await supabase
     .from('practices')
     .select(`
       user_id,
       points,
       type,
-      created_at,
-      saigo_users (
-        username
-      )
+      created_at
     `)
     .gte('created_at', startDateStr)
     .lte('created_at', endDateStr);
+
+  // Fetch all relevant users
+  const { data: usersData, error: usersError } = await supabase
+    .from('saigo_users')
+    .select('id, username');
+
+  if (usersError) {
+    return NextResponse.json(
+      { error: usersError.message },
+      { status: 400 }
+    );
+  }
+
+  // Create a map of user_id to username
+  const userMap = new Map(usersData?.map(user => [user.id, user.username]) || []);
 
   if (practicesError) {
     return NextResponse.json(
@@ -44,7 +56,7 @@ export async function GET() {
   // Aggregate points per user
   const usersWithPointsMap: Record<string, number> = {};
   (practicesData ?? []).forEach((entry: any) => {
-    const username = entry.saigo_users?.username || "Unknown";
+    const username = userMap.get(entry.user_id) || "Unknown";
     const points = entry.points || 0;
     usersWithPointsMap[username] = (usersWithPointsMap[username] || 0) + points;
   });
