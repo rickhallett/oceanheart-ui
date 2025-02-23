@@ -29,7 +29,7 @@ export async function GET() {
       points,
       type,
       created_at,
-      saigo_user:saigo_users (
+      saigo_user:saigo_users!practices_user_id_fkey (
         username
       )
     `)
