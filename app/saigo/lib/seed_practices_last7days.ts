@@ -24,25 +24,10 @@ const supabase = createClient(
 
 async function seedLast7Days() {
   // 1. Fetch all users from the saigo_users table.
-  const { data: users, error: usersError } = await supabase
-    .from("saigo_users")
-    .select("id, username")
-    .is('username', null);
-
-  // Update any users without usernames
-  if (users && users.length > 0) {
-    for (const user of users) {
-      await supabase
-        .from("saigo_users")
-        .update({ username: `User_${user.id.substring(0, 8)}` })
-        .eq('id', user.id);
-    }
-  }
-
-  // Fetch all users again after updates
+  // Fetch all users
   const { data: allUsers, error: allUsersError } = await supabase
     .from("saigo_users")
-    .select("id");
+    .select("id, username");
 
   if (usersError) {
     console.error("Error fetching users:", usersError);
