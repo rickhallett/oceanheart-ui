@@ -124,14 +124,18 @@ export default async function LeaderboardPage() {
           <LineGraph data={dailyPoints} />
         </div>
 
-        {/* Cumulative Area Chart Section */}
-        <div className="mt-8">
-          <CumulativePointsAreaChart dailyPoints={dailyPoints} />
-        </div>
+
 
         {/* Pie Chart Section */}
         <div className="mt-8">
           <PracticeSummaryPieChart data={practiceSummary} />
+        </div>
+      </div>
+
+      <div className="flex flex-row items-center justify-center w-full gap-6 flex-wrap">
+        {/* Cumulative Area Chart Section */}
+        <div className="mt-8">
+          <CumulativePointsAreaChart dailyPoints={dailyPoints} />
         </div>
       </div>
 
