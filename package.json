@@ -5,14 +5,17 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "postbuild": "next-sitemap",
+    "postbuild": "next-sitemap", 
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "cli": "ts-node bin/cli.ts"
   },
   "dependencies": {
     "@faker-js/faker": "^9.5.0",
     "@headlessui/react": "^1.7.19",
     "@mdx-js/loader": "^2.3.0",
+    "cli-table3": "^0.6.3",
+    "inquirer": "^9.2.15",
     "@mdx-js/react": "^2.3.0",
     "@next/mdx": "^13.5.8",
     "@supabase/ssr": "^0.4.1",
