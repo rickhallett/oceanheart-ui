@@ -64,15 +64,32 @@ const LeaderboardTable: React.FC<LeaderboardTableProps> = ({ data }) => {
     },
   };
 
+  const mid = Math.ceil(data.length / 2);
+  const leftData = data.slice(0, mid);
+  const rightData = data.slice(mid);
+
   return (
     <div className="w-full max-w-4xl mx-auto bg-gray-800 rounded-lg overflow-hidden">
-      <DataTable
-        columns={columns}
-        data={data}
-        customStyles={customStyles}
-        pagination
-        theme="dark"
-      />
+      <div className="flex flex-col md:flex-row">
+        <div className="flex-1">
+          <DataTable
+            columns={columns}
+            data={leftData}
+            customStyles={customStyles}
+            pagination
+            theme="dark"
+          />
+        </div>
+        <div className="flex-1">
+          <DataTable
+            columns={columns}
+            data={rightData}
+            customStyles={customStyles}
+            pagination
+            theme="dark"
+          />
+        </div>
+      </div>
     </div>
   );
 };
