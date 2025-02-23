@@ -78,7 +78,7 @@ const LiveLeaderboard: React.FC = () => {
 
 
       <div className="w-full max-w-4xl mx-auto mt-4 bg-gray-800 rounded-lg p-4">
-        <div className="flex justify-between items-center text-gray-300 font-bold border-t-2 border-gray-600 py-3 px-4">
+        <div className="flex flex-wrap justify-between items-center text-gray-300 font-bold border-t-2 border-gray-600 py-3 px-4">
           {/* Practice Summary Section */}
           <div className="mt-8 bg-gray-800 rounded-lg p-6 w-full max-w-2xl">
             <h2 className="text-2xl font-bold text-white mb-4">Practice Summary</h2>
