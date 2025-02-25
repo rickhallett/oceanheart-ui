@@ -53,7 +53,7 @@ async function seedLast7Days() {
   // 3. Define an array of practice types (optional selection).
   const practiceTypes = [
     "Meditation",
-    "Sitting in the rain",
+    "Sitting in the Rain",
     "Energy movements",
     "High Guard",
     "Jumping",
@@ -62,6 +62,9 @@ async function seedLast7Days() {
 
   // For each user, create random practice records over the last 7 days
   for (const user of allUsers!) {
+    if (user.username === "sereneWisdom42") {
+      continue;
+    }
     const practices = [];
 
     // Assign an activity level to each user (1: Low, 2: Medium, 3: High)

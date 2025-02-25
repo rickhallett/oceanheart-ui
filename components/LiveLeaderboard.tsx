@@ -288,7 +288,7 @@ const LiveLeaderboard: React.FC = () => {
         <div className="w-full max-w-4xl mx-auto mt-4 bg-gray-800 rounded-lg p-4">
           <div className="flex justify-between items-center text-gray-300 font-bold border-t-2 border-gray-600 py-3 px-4">
             {/* Practice Summary Section */}
-            <div className="flex flex-row items-center justify-center w-full gap-16 flex-wrap">
+            <div className="flex flex-row items-center justify-center w-full gap-32 flex-wrap">
               <div className="mt-8">
                 <LineGraph data={dailyPoints} />
               </div>

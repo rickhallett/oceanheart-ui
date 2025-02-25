@@ -1,24 +1,24 @@
 export const CHART_COLORS = [
-  "#0088FE",
-  "#00C49F",
-  "#FFBB28",
-  "#FF8042",
-  "#A569BD",
-  "#F39C12",
-  "#808080"
+  "#E779C1",
+  "#58C7F3",
+  "#71EAD2",
+  "#EACE6C",
+  "#EC8C78",
+  "#9D81E6",
+  "#FF5277",
 ];
 
 export const PRACTICE_TYPES = [
   "Meditation",
-  "Energy Movements",
-  "Sitting in the Rain", "The Tones",
+  "Energy movements",
+  "Sitting in the Rain",
   "High Guard",
   "Dimension Walking",
   "The InBetween",
+  "Projection"
 ];
 
 export const PRACTICE_TYPES_COLORS = PRACTICE_TYPES.map((type, index) => ({
   type,
   color: CHART_COLORS[index % CHART_COLORS.length]
 }));
-

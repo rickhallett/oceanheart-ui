@@ -109,12 +109,15 @@ async function addPracticeEntry() {
       name: 'practiceType',
       message: 'Choose a practice type:',
       choices: [
-        "Meditation", 
-        "Sitting in the rain", 
-        "Energy movements", 
-        "High Guard", 
-        "Jumping", 
-        "Projection"
+        "Meditation",
+        "Sitting in the rain",
+        "Energy movements",
+        "High Guard",
+        "Jumping",
+        "Projection",
+        "Conscious Dance",
+        "Yoga",
+        "Teaching"
       ]
     },
     {

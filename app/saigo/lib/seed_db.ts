@@ -1,6 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import { faker } from '@faker-js/faker';
-
+import { v4 as uuidv4 } from 'uuid';
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY!;
 
@@ -41,12 +41,12 @@ async function seed() {
 
   // 2. Create corresponding saigo_users with made-up usernames
   for (const user of createdUsers) {
-    const username = faker.internet.userName();
+    const username = faker.internet.username();
     const { error: userError } = await supabase.from('saigo_users').insert({
-      id: user.id,     // associating the auth user's ID
+      id: uuidv4(),
+      user_id: user.id,     // associating the auth user's ID
       email: user.email,
       username,        // made-up username
-      force: 0
     });
     if (userError) {
       console.error(`Error inserting saigo_user for user ${user.id}:`, userError);
