@@ -21,7 +21,7 @@ const links: {
       label: "FAQ",
     },
     {
-      href: "/blog",
+      href: "https://www.oceanheart.blog/",
       label: "Blog",
     },
     {
