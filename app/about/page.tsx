@@ -1,5 +1,6 @@
 import Image from "next/image";
 import config from "@/config";
+import { WhyOceanheartVideo } from "@/components/WhyOceanheartVideo";
 
 export default function AboutPage() {
   return (
@@ -7,11 +8,22 @@ export default function AboutPage() {
       {/* Intro Section */}
       <section className="pt-20 px-8 max-w-7xl mx-auto text-center">
         <h1 className="font-extrabold text-4xl md:text-6xl tracking-tight mb-6">
-          About Me
+          Why Oceanheart?
         </h1>
         <p className="text-lg md:text-xl opacity-80 max-w-2xl mx-auto mb-0 md:mb-12">
           Welcome! I'm <a className="underline text-primary" href="https://www.linkedin.com/in/richardhallett86/" target="_blank" rel="noopener noreferrer">Richard (Kai)</a>, the founder behind {config.appName}. I am passionate about leveraging technology to empower therapists and transform care.
         </p>
+        <div className="flex flex-col md:flex-row gap-4 p-4 justify-center items-center">
+          <div className="hidden lg:block">
+            <WhyOceanheartVideo width={560 * 1.5} height={315 * 1.5} />
+          </div>
+          <div className="hidden md:block lg:hidden">
+            <WhyOceanheartVideo width={560} height={315} />
+          </div>
+          <div className="block md:hidden">
+            <WhyOceanheartVideo width={560 / 1.6} height={315 / 1.6} />
+          </div>
+        </div>
       </section>
 
       {/* Profile & Story Section */}
@@ -49,7 +61,7 @@ export default function AboutPage() {
           <article>
             <h2 className="font-bold text-2xl mb-4">Private Consulting</h2>
             <p className="text-base">
-              I offer private consulting services to therapists and their teams. Want help with AI tools? Good chance I have used it. I've got you covered. Don't waste time reinventing the wheel or figuring things out from the ground up.
+              I offer <a className="underline text-primary" href="https://www.oceanheart.online/pricing" target="_blank" rel="noopener noreferrer">private consulting services</a> to therapists and their teams. Want help with AI tools? Need a custom AI workflow? Good chance I have used it. I've got you covered. Don't waste time reinventing the wheel or figuring things out from the ground up.
             </p>
             <br />
             <p className="text-base">

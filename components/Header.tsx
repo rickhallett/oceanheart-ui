@@ -20,16 +20,16 @@ const links: {
       href: "/#faq",
       label: "FAQ",
     },
+
+    {
+      href: "/about",
+      label: "Why Oceanheart?",
+    },
     {
       href: "https://www.oceanheart.blog/",
       label: "Blog",
     },
-    {
-      href: "/about",
-      label: "About",
-    },
   ];
-
 const cta: JSX.Element = <ButtonSignin extraStyle="btn-primary" />;
 
 // A header with a logo on the left, links in the center (like Pricing, etc...), and a CTA (like Get Started or Login) on the right.
