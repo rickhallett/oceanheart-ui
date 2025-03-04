@@ -20,6 +20,7 @@
     "@supabase/ssr": "^0.4.1",
     "@supabase/supabase-js": "^2.48.1",
     "@types/animejs": "^3.1.13",
+    "@vercel/speed-insights": "^1.2.0",
     "animejs": "^3.2.2",
     "axios": "^1.7.9",
     "cli-table3": "^0.6.3",
@@ -73,5 +74,8 @@
       "sharp",
       "supabase"
     ]
-  }
+  },
+  "trustedDependencies": [
+    "@vercel/speed-insights"
+  ]
 }
