@@ -16,7 +16,6 @@ for (const envPath of envPaths) {
 
 const algorithm = 'aes-256-cbc';
 const secret = process.env.SAIGO_SECRET_KEY;
-console.log(secret.length)
 
 // Ensure the secret is a Buffer and is 32 bytes long
 if (!secret || secret.length !== 32) {
@@ -34,4 +33,3 @@ function encrypt(text: string) {
 
 // Example: Generate an encrypted key
 const encryptedKey = encrypt('saigo-no-yume');
-console.log(encryptedKey); // Send this as ?key=<encryptedKey>
