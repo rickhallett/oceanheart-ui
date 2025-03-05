@@ -1,6 +1,7 @@
 import sqlite3
 import re
 import os
+import datetime
 
 
 def insert_names_from_sql():
@@ -28,10 +29,16 @@ def insert_names_from_sql():
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
 
-    # Insert each name (without specifying id or created_at)
+    # Get current timestamp in the required format
+    current_timestamp = datetime.datetime.now().isoformat()
+
+    # Insert each name with the formatted timestamp
     for name in names:
-        cursor.execute("INSERT INTO Name (name) VALUES (?)", (name,))
-        print(f"Inserted: {name}")
+        cursor.execute(
+            "INSERT INTO Name (name, created_at) VALUES (?, ?)",
+            (name, current_timestamp),
+        )
+        print(f"Inserted: {name} with timestamp: {current_timestamp}")
 
     # Commit changes and close connection
     conn.commit()
