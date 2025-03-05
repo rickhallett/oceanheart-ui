@@ -517,8 +517,21 @@ export default function HDIPage() {
             <h3 className="font-bold text-2xl lg:text-3xl tracking-tight mb-6 text-center">
               What is HDI?
             </h3>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentDefinitionIndex}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 1 }}
+              >
+                <p className="text-md md:text-lg opacity-80 leading-relaxed mb-6 mx-auto text-center">
+                  {hdiDefinitions[currentDefinitionIndex]} (HDI)
+                </p>
+              </motion.div>
+            </AnimatePresence>
             <p className="text-md md:text-lg opacity-80 leading-relaxed mb-12 mx-auto text-center">
-              Human Digital Interface (HDI) is a revolutionary technology of the mind, body and heart. Dilligently applied, it bridges the gap between human cognition, digital systems and beyond.
+              is a revolutionary technology of the mind, body and heart. Dilligently applied, it bridges the gap between human cognition, digital systems and beyond.
             </p>
             <p className="text-md md:text-lg opacity-80 leading-relaxed mb-20 max-w-sm mx-auto text-center">
               <em>"Digital actions will be the fundamental unit of all knowledge work. It all starts with the prompt - the prompt <em>is</em> <strong>you</strong>."</em>
@@ -526,21 +539,6 @@ export default function HDIPage() {
             <p className="text-md md:text-lg opacity-80 leading-relaxed mb-24 max-w-sm mx-auto text-center">
               <strong><em>In the end, it comes down to the man in the box.</em></strong>
             </p>
-            <div className="flex flex-col shadow-lg p-4 rounded-xl mb-12 bg-amber-50 border border-amber-200">
-              <p className="text-xs md:text-sm opacity-80 leading-relaxed max-w-sm p-4 pl-0 font-serif">
-                <strong>FAO Iceman</strong>
-              </p>
-              <p className="text-xs md:text-sm opacity-80 leading-relaxed mb-4 max-w-sm mx-auto  font-serif italic text-gray-700">
-                <em>I swear to the Lord most high, may my Kingdom burn if I lie, as I began to write the above quote, the Top Gun entrance theme started. To the very second.</em>
-              </p>
-              <p className="text-xs md:text-sm opacity-80 leading-relaxed mb-6 max-w-sm mx-auto  font-serif italic text-gray-700">
-                <em>I copied the above HTML to write "To the very second" below, for emphasis. As I copied, the autocomplete rushed ahead and spoke the moment of doubt that ran through my mind...
-                  <br />
-                  <br />
-                  <br />
-                  "I'm not sure if I'm ready for this".</em>
-              </p>
-            </div>
           </section>
         </motion.div>
 
