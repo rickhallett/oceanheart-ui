@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function HDIPage() {
   const targetTimestamp = 1741129521485 + (7 * 24 * 60 * 60 * 1000) + (7 * 60 * 60 * 1000) + (7 * 60 * 1000) + (7 * 1000);
@@ -11,6 +12,18 @@ export default function HDIPage() {
     seconds: 0,
     expired: false
   });
+
+  // HDI definitions for the carousel
+  const hdiDefinitions = [
+    "Human Digital Interface",
+    "Higher Defiance Institute",
+    "Hyperconsciousness Design Initiative",
+    "Heart Data Integrated"
+  ];
+
+  // State for the carousel
+  const [currentDefinitionIndex, setCurrentDefinitionIndex] = useState(0);
+  const [direction, setDirection] = useState(1); // 1 for right to left, -1 for left to right
 
   useEffect(() => {
     const calculateTimeRemaining = () => {
@@ -48,6 +61,18 @@ export default function HDIPage() {
     return () => clearInterval(timer);
   }, [targetTimestamp]);
 
+  // Effect for the carousel
+  useEffect(() => {
+    const carouselInterval = setInterval(() => {
+      setDirection(1);
+      setCurrentDefinitionIndex((prevIndex) => 
+        prevIndex === hdiDefinitions.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 3000);
+
+    return () => clearInterval(carouselInterval);
+  }, [hdiDefinitions.length]);
+
   const handleDownload = async () => {
     try {
       window.location.href = "/api/hdi/download";
@@ -56,15 +81,49 @@ export default function HDIPage() {
     }
   };
 
+  // Animation variants for the carousel
+  const variants = {
+    enter: (direction) => ({
+      x: direction > 0 ? 100 : -100,
+      opacity: 0
+    }),
+    center: {
+      x: 0,
+      opacity: 1
+    },
+    exit: (direction) => ({
+      x: direction > 0 ? -100 : 100,
+      opacity: 0
+    })
+  };
+
   return (
     <div className="container mx-auto px-4 font-mono">
       <section className="text-center max-w-xl mx-auto mt-12 mb-16 md:mb-24">
         <h1 className="font-extrabold text-3xl lg:text-5xl tracking-tight mb-6">
           HDI
         </h1>
-        <h2 className="text-2xl font-bold mb-6" id="hdi-carousel">
-          Human to Digital Interface
-        </h2>
+        
+        {/* Carousel for h2 with id="hdi-carousel" */}
+        <div id="hdi-carousel" className="h-12 relative overflow-hidden mb-6">
+          <AnimatePresence initial={false} custom={direction}>
+            <motion.h2
+              key={currentDefinitionIndex}
+              custom={direction}
+              variants={variants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{
+                x: { type: "spring", stiffness: 300, damping: 30 },
+                opacity: { duration: 0.2 }
+              }}
+              className="text-2xl font-bold absolute w-full"
+            >
+              {hdiDefinitions[currentDefinitionIndex]}
+            </motion.h2>
+          </AnimatePresence>
+        </div>
         <p className="text-lg opacity-80 leading-relaxed mb-4">
           The next generation of human-computer interaction is almost here.
         </p>
