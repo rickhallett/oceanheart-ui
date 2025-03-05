@@ -65,7 +65,7 @@ export default function HDIPage() {
   useEffect(() => {
     const carouselInterval = setInterval(() => {
       setDirection(1);
-      setCurrentDefinitionIndex((prevIndex) => 
+      setCurrentDefinitionIndex((prevIndex) =>
         prevIndex === hdiDefinitions.length - 1 ? 0 : prevIndex + 1
       );
     }, 3000);
@@ -83,7 +83,7 @@ export default function HDIPage() {
 
   // Animation variants for the carousel
   const variants = {
-    enter: (direction) => ({
+    enter: (direction: number) => ({
       x: direction > 0 ? 100 : -100,
       opacity: 0
     }),
@@ -91,7 +91,7 @@ export default function HDIPage() {
       x: 0,
       opacity: 1
     },
-    exit: (direction) => ({
+    exit: (direction: number) => ({
       x: direction > 0 ? -100 : 100,
       opacity: 0
     })
@@ -103,7 +103,7 @@ export default function HDIPage() {
         <h1 className="font-extrabold text-3xl lg:text-5xl tracking-tight mb-6">
           HDI
         </h1>
-        
+
         {/* Carousel for h2 with id="hdi-carousel" */}
         <div id="hdi-carousel" className="h-12 relative overflow-hidden mb-6">
           <AnimatePresence initial={false} custom={direction}>
