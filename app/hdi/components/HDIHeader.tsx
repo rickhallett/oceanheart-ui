@@ -6,11 +6,13 @@ import Image from "next/image";
 
 interface HDIHeaderProps {
   hdiDefinitions: string[];
+  currentDefinitionIndex: number;
+  setCurrentDefinitionIndex: (index: (prevIndex: number) => number) => void;
   isLoading: boolean;
 }
 
-export default function HDIHeader({ hdiDefinitions, isLoading }: HDIHeaderProps) {
-  const [currentDefinitionIndex, setCurrentDefinitionIndex] = useState(0);
+export default function HDIHeader({ hdiDefinitions, currentDefinitionIndex, setCurrentDefinitionIndex, isLoading }: HDIHeaderProps) {
+
   const [direction, setDirection] = useState(1); // 1 for right to left, -1 for left to right
 
   // Effect for the carousel

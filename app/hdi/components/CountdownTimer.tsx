@@ -6,17 +6,25 @@ import 'react-tooltip/dist/react-tooltip.css';
 
 interface CountdownTimerProps {
   onDownload: () => void;
+  timeRemaining: {
+    days: number;
+    hrs: number;
+    mins: number;
+    secs: number;
+    expired: boolean;
+  };
+  setTimeRemaining: (timeRemaining: {
+    days: number;
+    hrs: number;
+    mins: number;
+    secs: number;
+    expired: boolean;
+  }) => void;
 }
 
-export default function CountdownTimer({ onDownload }: CountdownTimerProps) {
+export default function CountdownTimer({ onDownload, timeRemaining, setTimeRemaining }: CountdownTimerProps) {
   const targetTimestamp = 1741129521485 + (7 * 24 * 60 * 60 * 1000) + (7 * 60 * 60 * 1000) + (7 * 60 * 1000) + (7 * 1000);
-  const [timeRemaining, setTimeRemaining] = useState({
-    days: 0,
-    hrs: 0,
-    mins: 0,
-    secs: 0,
-    expired: false
-  });
+
 
   useEffect(() => {
     const calculateTimeRemaining = () => {

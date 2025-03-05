@@ -1,14 +1,14 @@
 "use client";
 
-import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface ContentSectionsProps {
   hdiDefinitions: string[];
+  currentDefinitionIndex: number;
 }
 
-export default function ContentSections({ hdiDefinitions }: ContentSectionsProps) {
-  const [currentDefinitionIndex, setCurrentDefinitionIndex] = useState(0);
+export default function ContentSections({ hdiDefinitions, currentDefinitionIndex }: ContentSectionsProps) {
+  console.log(currentDefinitionIndex);
 
   return (
     <motion.div

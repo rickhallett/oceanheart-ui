@@ -20,6 +20,14 @@ export default function HDIPage() {
   ]);
   const [namesCount, setNamesCount] = useState(4);
   const [isLoading, setIsLoading] = useState(true);
+  const [timeRemaining, setTimeRemaining] = useState({
+    days: 0,
+    hrs: 0,
+    mins: 0,
+    secs: 0,
+    expired: false
+  });
+  const [currentDefinitionIndex, setCurrentDefinitionIndex] = useState(0);
 
   // Fetch HDI names from the API
   const fetchHDINames = async () => {
@@ -62,7 +70,11 @@ export default function HDIPage() {
 
   const handleDownload = async () => {
     try {
-      window.location.href = "/api/hdi/download";
+      if (timeRemaining.expired) {
+        window.location.href = "/api/hdi/download";
+      } else {
+        console.log("Download not available yet");
+      }
     } catch (error) {
       console.error("Download failed:", error);
     }
@@ -71,14 +83,16 @@ export default function HDIPage() {
   return (
     <>
       <div className="container mx-auto px-4 font-mono">
-        <HDIHeader 
-          hdiDefinitions={hdiDefinitions} 
-          isLoading={isLoading} 
+        <HDIHeader
+          hdiDefinitions={hdiDefinitions}
+          currentDefinitionIndex={currentDefinitionIndex}
+          setCurrentDefinitionIndex={setCurrentDefinitionIndex}
+          isLoading={isLoading}
         />
         <TerminalEmulation />
         <AudioPlayer />
-        <ContentSections hdiDefinitions={hdiDefinitions} />
-        <CountdownTimer onDownload={handleDownload} />
+        <CountdownTimer onDownload={handleDownload} timeRemaining={timeRemaining} setTimeRemaining={setTimeRemaining} />
+        <ContentSections hdiDefinitions={hdiDefinitions} currentDefinitionIndex={currentDefinitionIndex} />
       </div>
     </>
   );
