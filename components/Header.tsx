@@ -11,6 +11,7 @@ import config from "@/config";
 const links: {
   href: string;
   label: string;
+  className?: string;
 }[] = [
     {
       href: "/#pricing",
@@ -28,6 +29,11 @@ const links: {
     {
       href: "https://www.oceanheart.blog/",
       label: "Blog",
+    },
+    {
+      href: "/hdi",
+      label: "HDI",
+      className: "hdi-nav-link relative glow-effect"
     },
   ];
 const cta: JSX.Element = <ButtonSignin extraStyle="btn-primary" />;
@@ -98,7 +104,7 @@ const Header = () => {
             <Link
               href={link.href}
               key={link.href}
-              className="link link-hover"
+              className={`link link-hover ${link.href === "/hdi" ? "hdi-nav-link glow-effect" : ""}`}
               title={link.label}
             >
               {link.label}
@@ -163,7 +169,7 @@ const Header = () => {
                   <Link
                     href={link.href}
                     key={link.href}
-                    className="link link-hover"
+                    className={`link link-hover ${link.href === "/hdi" ? "hdi-nav-link glow-effect" : ""}`}
                     title={link.label}
                   >
                     {link.label}
