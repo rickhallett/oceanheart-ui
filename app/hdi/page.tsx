@@ -33,10 +33,8 @@ export default function HDIPage() {
 
   // State for terminal animation
   const [terminalLines, setTerminalLines] = useState<string[]>([]);
-  const [currentLineIndex, setCurrentLineIndex] = useState(0);
+  const [isAnimationComplete, setIsAnimationComplete] = useState(false);
   const [showCursor, setShowCursor] = useState(true);
-  const [currentText, setCurrentText] = useState("");
-  const [isTyping, setIsTyping] = useState(false);
 
   const terminalContent = [
     { prefix: "<span class='text-green-500'>hdi@oceanheart:~$</span> <span class='text-green-400'>", text: "./initialize.sh", suffix: "</span>" },
@@ -44,7 +42,7 @@ export default function HDIPage() {
     { prefix: "<span class='text-green-500'>[INFO]</span> <span class='text-green-400'>", text: "Loading neural interface modules...", suffix: "</span>" },
     { prefix: "<span class='text-green-500'>[INFO]</span> <span class='text-green-400'>", text: "Establishing connection to central node...", suffix: "</span>" },
     { prefix: "<span class='text-green-500'>[SUCCESS]</span> <span class='text-green-400'>", text: "Connection established.", suffix: "</span>" },
-    { prefix: "<span class='text-green-500'>hdi@oceanheart:~$</span> <span class='text-green-400'>", text: "", suffix: "</span>" }
+    // { prefix: "<span class='text-green-500'>hdi@oceanheart:~$</span> <span class='text-green-400'>", text: "", suffix: "</span>" }
   ];
 
   // Fetch HDI names from the API
@@ -137,33 +135,76 @@ export default function HDIPage() {
     return () => clearInterval(carouselInterval);
   }, [hdiDefinitions.length]);
 
-  // Effect for terminal animation
+  // Effect to start terminal animation on component mount
   useEffect(() => {
-    if (currentLineIndex < terminalContent.length && !isTyping) {
-      // Start typing a new line
-      setIsTyping(true);
-      let charIndex = 0;
-      const currentLine = terminalContent[currentLineIndex];
+    let isMounted = true;
+    let timeouts: NodeJS.Timeout[] = [];
 
-      // Type character by character
-      const typeChar = () => {
-        if (charIndex <= currentLine.text.length) {
-          setCurrentText(currentLine.prefix + currentLine.text.substring(0, charIndex) + currentLine.suffix);
-          charIndex++;
-          setTimeout(typeChar, Math.random() * 50 + 30); // Random typing speed
-        } else {
-          // Finished typing this line
-          setTimeout(() => {
-            setTerminalLines(prev => [...prev, currentLine.prefix + currentLine.text + currentLine.suffix]);
-            setCurrentLineIndex(prev => prev + 1);
-            setIsTyping(false);
-          }, 300);
+    const animateTerminal = async () => {
+      // Clear any existing lines
+      setTerminalLines([]);
+
+      // Process each line with a delay
+      for (let i = 0; i < terminalContent.length; i++) {
+        const line = terminalContent[i];
+
+        // Type each character of the current line
+        let displayedText = line.prefix;
+        for (let j = 0; j <= line.text.length; j++) {
+          if (!isMounted) return;
+
+          // Add next character
+          const newText = line.prefix + line.text.substring(0, j) + line.suffix;
+
+          // Update with small delay
+          await new Promise<void>(resolve => {
+            const timeout = setTimeout(() => {
+              if (isMounted) {
+                if (i === 0) {
+                  // For first line, directly update the array
+                  setTerminalLines([newText]);
+                } else {
+                  // For subsequent lines, append to existing lines
+                  setTerminalLines(prev => {
+                    const newLines = [...prev];
+                    if (newLines.length > i) {
+                      newLines[i] = newText;
+                    } else {
+                      newLines.push(newText);
+                    }
+                    return newLines;
+                  });
+                }
+              }
+              resolve();
+            }, Math.random() * 50);
+            timeouts.push(timeout);
+          });
         }
-      };
 
-      typeChar();
-    }
-  }, [currentLineIndex, isTyping]);
+        // Pause between lines
+        if (i < terminalContent.length - 1) {
+          await new Promise<void>(resolve => {
+            const timeout = setTimeout(resolve, 300);
+            timeouts.push(timeout);
+          });
+        }
+      }
+
+      // Animation complete
+      if (isMounted) {
+        setIsAnimationComplete(true);
+      }
+    };
+
+    animateTerminal();
+
+    // Cleanup function
+    return () => {
+      isMounted = false;
+      timeouts.forEach(clearTimeout);
+    };
+  }, []);
 
   // Blinking cursor effect
   useEffect(() => {
@@ -204,7 +245,7 @@ export default function HDIPage() {
 
   return (
     <>
-      <Script src="/scripts/progress.js" strategy="beforeInteractive" />
+
 
 
       <div className="container mx-auto px-4 font-mono">
@@ -214,15 +255,6 @@ export default function HDIPage() {
           </h1>
 
           <Image src="/images/hdi_logo_v01-2.png" alt="HDI Logo" width={300} height={300} className="mx-auto my-4" />
-
-          {/* <div className="demo-content update-demo bg-base-100 p-4 mb-8 rounded-xl opacity-70">
-            <div className="logs">
-              <input className="log progress-log bg-base-100 text-center text-green-500" />
-              <input className="log update-log bg-base-100 text-center text-green-500" />
-            </div>
-            <div className="circle shadow"></div>
-            <div className="circle el" style={{ transform: 'translateX(270px)' }}></div>
-          </div> */}
 
           {/* Carousel for h2 with id="hdi-carousel" */}
           <div id="hdi-carousel" className="h-12 relative mb-12">
@@ -259,14 +291,11 @@ export default function HDIPage() {
             </div>
             <div className="terminal-body bg-black p-4 font-mono text-sm" style={{ minHeight: '200px' }}>
               {terminalLines.map((line, index) => (
-                <div key={index} className="terminal-line" dangerouslySetInnerHTML={{ __html: line }} />
+                <div key={`line-${index}`} className="terminal-line" dangerouslySetInnerHTML={{ __html: line }} />
               ))}
-              {isTyping && (
-                <div className="terminal-line" dangerouslySetInnerHTML={{ __html: currentText }} />
-              )}
-              {!isTyping && currentLineIndex === terminalContent.length && (
+              {isAnimationComplete && (
                 <div className="terminal-line">
-                  {/* <span className="text-green-500">hdi@oceanheart:~$</span> */}
+                  <span className="text-green-500">hdi@oceanheart:~$</span>
                   <span className={`text-green-400 ${showCursor ? 'terminal-cursor' : 'opacity-0'}`}>_</span>
                 </div>
               )}
@@ -274,26 +303,26 @@ export default function HDIPage() {
           </div>
 
 
-          <p className="text-lg opacity-80 leading-relaxed mb-4">
+          <p className="text-md md:text-lg opacity-80 leading-relaxed mb-4">
             The next generation of human-computer interaction is almost here.
           </p>
-          <p className="text-lg opacity-80 leading-relaxed mb-4">
+          <p className="text-md md:text-lg opacity-80 leading-relaxed mb-4">
             The future is coming and soon the old world of the analogue and digital will become one.
           </p>
-          <p className="text-lg opacity-80 leading-relaxed mb-4">
+          <p className="text-md md:text-lg opacity-80 leading-relaxed mb-4">
             There's every chance you'll survive this transition. But then again, there's a chance you won't.
           </p>
-          <p className="text-lg opacity-80 leading-relaxed mb-4">
+          <p className="text-md md:text-lg opacity-80 leading-relaxed mb-4">
             It's really just a question of bandwidth. <em>How much data can you handle?</em>
           </p>
           <hr className="my-16 border-base-300" />
-          <p className="text-lg opacity-80 leading-relaxed mb-8">
+          <p className="text-md md:text-lg opacity-80 leading-relaxed mb-8">
             HDI will rewire your fundamental relationship with the machine <span className="font-bold">forever</span>.
           </p>
-          <p className="text-lg opacity-80 leading-relaxed mb-2 max-w-sm mx-auto">
+          <p className="text-md md:text-lg opacity-80 leading-relaxed mb-2 max-w-sm mx-auto">
             But to get to the root of the problem, we need to update the most important operating system of all: <span className="font-bold">your brain</span>.
           </p>
-          <p className="text-sm opacity-20 leading-relaxed mb-2 max-w-sm mx-auto mt-8">
+          <p className="text-sm md:text-md opacity-20 leading-relaxed mb-2 max-w-sm mx-auto mt-8">
             Do you think that's air you're breathing now?
           </p>
         </section>
@@ -339,23 +368,23 @@ export default function HDIPage() {
           <h3 className="font-bold text-2xl lg:text-3xl tracking-tight mb-6 text-center">
             What is HDI?
           </h3>
-          <p className="text-lg opacity-80 leading-relaxed mb-12 mx-auto text-center">
+          <p className="text-md md:text-lg opacity-80 leading-relaxed mb-12 mx-auto text-center">
             Human Digital Interface (HDI) is a revolutionary technology of the mind, body and heart. Dilligently applied, it bridges the gap between human cognition, digital systems and beyond.
           </p>
-          <p className="text-lg opacity-80 leading-relaxed mb-20 max-w-sm mx-auto text-center">
+          <p className="text-md md:text-lg opacity-80 leading-relaxed mb-20 max-w-sm mx-auto text-center">
             <em>"Digital actions will be the fundamental unit of all knowledge work. It all starts with the prompt - the prompt <em>is</em> <strong>you</strong>."</em>
           </p>
-          <p className="text-lg opacity-80 leading-relaxed mb-24 max-w-sm mx-auto text-center">
+          <p className="text-md md:text-lg opacity-80 leading-relaxed mb-24 max-w-sm mx-auto text-center">
             <strong><em>In the end, it comes down to the man in the box.</em></strong>
           </p>
           <div className="flex flex-col shadow-lg p-0 rounded-xl mb-12">
-            <p className="text-xs opacity-80 leading-relaxed max-w-sm p-6">
+            <p className="text-xs md:text-sm opacity-80 leading-relaxed max-w-sm p-6">
               <strong>FAO Iceman</strong>
             </p>
-            <p className="text-xs opacity-80 leading-relaxed mb-4 max-w-sm mx-auto text-center">
+            <p className="text-xs md:text-sm opacity-80 leading-relaxed mb-4 max-w-sm mx-auto text-center">
               <em>I swear to the Lord most high, may my Kingdom burn if I lie, as I began to write the above quote, the Top Gun entrance theme started. To the very second. </em>
             </p>
-            <p className="text-xs opacity-80 leading-relaxed mb-6 max-w-sm mx-auto text-center">
+            <p className="text-xs md:text-sm opacity-80 leading-relaxed mb-6 max-w-sm mx-auto text-center">
               <em>I copied the above HTML to write "To the very second" below, for emphasis. As I copied, the autocomplete rushed ahead and spoke the moment of doubt that ran through my mind...
                 <br />
                 <br />
