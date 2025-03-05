@@ -17,7 +17,7 @@ export default function HDILayout({ children }: { children: React.ReactNode }) {
         <Header />
       </Suspense>
 
-      <main className="min-h-screen">{children}</main>
+      <main className="min-h-screen p-2">{children}</main>
 
       <Suspense>
         <Footer showHDIForm={true} />

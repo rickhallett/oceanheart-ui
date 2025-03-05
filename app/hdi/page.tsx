@@ -215,41 +215,17 @@ export default function HDIPage() {
 
           <Image src="/images/hdi_logo_v01-2.png" alt="HDI Logo" width={300} height={300} className="mx-auto my-4" />
 
-          <div className="demo-content update-demo bg-base-100 p-4 mb-8 rounded-xl opacity-70">
+          {/* <div className="demo-content update-demo bg-base-100 p-4 mb-8 rounded-xl opacity-70">
             <div className="logs">
               <input className="log progress-log bg-base-100 text-center text-green-500" />
               <input className="log update-log bg-base-100 text-center text-green-500" />
             </div>
             <div className="circle shadow"></div>
             <div className="circle el" style={{ transform: 'translateX(270px)' }}></div>
-          </div>
-
-          {/* Terminal emulation */}
-          <div className="terminal-container mb-8 rounded-xl overflow-hidden shadow-lg">
-            <div className="terminal-header bg-gray-800 p-2 flex items-center">
-              <div className="terminal-button bg-red-500 rounded-full w-3 h-3 mr-2"></div>
-              <div className="terminal-button bg-yellow-500 rounded-full w-3 h-3 mr-2"></div>
-              <div className="terminal-button bg-green-500 rounded-full w-3 h-3"></div>
-              <div className="terminal-title text-gray-400 text-xs ml-4">hdi@oceanheart:~</div>
-            </div>
-            <div className="terminal-body bg-black p-4 font-mono text-sm" style={{ minHeight: '200px' }}>
-              {terminalLines.map((line, index) => (
-                <div key={index} className="terminal-line" dangerouslySetInnerHTML={{ __html: line }} />
-              ))}
-              {isTyping && (
-                <div className="terminal-line" dangerouslySetInnerHTML={{ __html: currentText }} />
-              )}
-              {!isTyping && currentLineIndex === terminalContent.length && (
-                <div className="terminal-line">
-                  <span className="text-green-500">hdi@oceanheart:~$</span>
-                  <span className={`text-green-400 ${showCursor ? 'terminal-cursor' : 'opacity-0'}`}>_</span>
-                </div>
-              )}
-            </div>
-          </div>
+          </div> */}
 
           {/* Carousel for h2 with id="hdi-carousel" */}
-          <div id="hdi-carousel" className="h-12 relative overflow-hidden mb-6">
+          <div id="hdi-carousel" className="h-12 relative mb-12">
             {isLoading ? (
               <div className="text-2xl font-bold">Loading...</div>
             ) : (
@@ -265,13 +241,39 @@ export default function HDIPage() {
                     x: { type: "spring", stiffness: 300, damping: 30 },
                     opacity: { duration: 0.2 }
                   }}
-                  className="text-2xl font-bold absolute w-full"
+                  className="text-2xl absolute w-full"
                 >
                   {hdiDefinitions[currentDefinitionIndex]}
                 </motion.h2>
               </AnimatePresence>
             )}
           </div>
+
+          {/* Terminal emulation */}
+          <div className="terminal-container mb-12 rounded-xl overflow-hidden shadow-lg">
+            <div className="terminal-header bg-gray-800 p-2 flex items-center">
+              <div className="terminal-button bg-red-500 rounded-full w-3 h-3 mr-2"></div>
+              <div className="terminal-button bg-yellow-500 rounded-full w-3 h-3 mr-2"></div>
+              <div className="terminal-button bg-green-500 rounded-full w-3 h-3"></div>
+              <div className="terminal-title text-gray-400 text-xs ml-4">hdi@oceanheart:~</div>
+            </div>
+            <div className="terminal-body bg-black p-4 font-mono text-sm" style={{ minHeight: '200px' }}>
+              {terminalLines.map((line, index) => (
+                <div key={index} className="terminal-line" dangerouslySetInnerHTML={{ __html: line }} />
+              ))}
+              {isTyping && (
+                <div className="terminal-line" dangerouslySetInnerHTML={{ __html: currentText }} />
+              )}
+              {!isTyping && currentLineIndex === terminalContent.length && (
+                <div className="terminal-line">
+                  {/* <span className="text-green-500">hdi@oceanheart:~$</span> */}
+                  <span className={`text-green-400 ${showCursor ? 'terminal-cursor' : 'opacity-0'}`}>_</span>
+                </div>
+              )}
+            </div>
+          </div>
+
+
           <p className="text-lg opacity-80 leading-relaxed mb-4">
             The next generation of human-computer interaction is almost here.
           </p>
@@ -291,12 +293,12 @@ export default function HDIPage() {
           <p className="text-lg opacity-80 leading-relaxed mb-2 max-w-sm mx-auto">
             But to get to the root of the problem, we need to update the most important operating system of all: <span className="font-bold">your brain</span>.
           </p>
-          <p className="text-sm opacity-80 leading-relaxed mb-2 max-w-sm mx-auto mt-8">
-            Do you think this is air you are breathing?
+          <p className="text-sm opacity-20 leading-relaxed mb-2 max-w-sm mx-auto mt-8">
+            Do you think that's air you're breathing now?
           </p>
         </section>
 
-        <section className="mb-16 md:mb-24">
+        <section className="mb-16 md:mb-18">
           <h3 className="font-bold text-2xl lg:text-3xl tracking-tight mb-6 text-center">
             Countdown to <span className="text-secondary">v0.1</span>
           </h3>
@@ -337,12 +339,32 @@ export default function HDIPage() {
           <h3 className="font-bold text-2xl lg:text-3xl tracking-tight mb-6 text-center">
             What is HDI?
           </h3>
-          <p className="text-lg opacity-80 leading-relaxed mb-8 mx-auto text-center">
+          <p className="text-lg opacity-80 leading-relaxed mb-12 mx-auto text-center">
             Human Digital Interface (HDI) is a revolutionary technology of the mind, body and heart. Dilligently applied, it bridges the gap between human cognition, digital systems and beyond.
           </p>
-          <p className="text-lg opacity-80 leading-relaxed mb-24 max-w-sm mx-auto text-center">
-            <em>Digital actions will be the fundamental unit of all knowledge work. It all starts with the prompt - the prompt <em>is</em> <strong>you</strong>.</em>
+          <p className="text-lg opacity-80 leading-relaxed mb-20 max-w-sm mx-auto text-center">
+            <em>"Digital actions will be the fundamental unit of all knowledge work. It all starts with the prompt - the prompt <em>is</em> <strong>you</strong>."</em>
           </p>
+          <p className="text-lg opacity-80 leading-relaxed mb-24 max-w-sm mx-auto text-center">
+            <strong><em>In the end, it comes down to the man in the box.</em></strong>
+          </p>
+          <div className="flex flex-col shadow-lg p-0 rounded-xl mb-12">
+            <p className="text-xs opacity-80 leading-relaxed max-w-sm p-6">
+              <strong>FAO Iceman</strong>
+            </p>
+            <p className="text-xs opacity-80 leading-relaxed mb-4 max-w-sm mx-auto text-center">
+              <em>I swear to the Lord most high, may my Kingdom burn if I lie, as I began to write the above quote, the Top Gun entrance theme started. To the very second. </em>
+            </p>
+            <p className="text-xs opacity-80 leading-relaxed mb-6 max-w-sm mx-auto text-center">
+              <em>I copied the above HTML to write "To the very second" below, for emphasis. As I copied, the autocomplete rushed ahead and spoke the moment of doubt that ran through my mind...
+                <br />
+                <br />
+                <br />
+                "I'm not sure if I'm ready for this".</em>
+            </p>
+
+          </div>
+
         </section>
       </div>
     </>
