@@ -1,15 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import config from "@/config";
-import { getSEOTags } from "@/libs/seo";
-
-// Set metadata for SEO
-export const metadata = getSEOTags({
-  title: `${config.appName} HDI - Human Digital Interface`,
-  description: "Download the first version of our Human Digital Interface technology",
-  canonicalUrlRelative: "/hdi",
-});
 
 export default function HDIPage() {
   const targetTimestamp = 1741129521485 + (7 * 24 * 60 * 60 * 1000) + (7 * 60 * 60 * 1000) + (7 * 60 * 1000) + (7 * 1000);
@@ -25,7 +16,7 @@ export default function HDIPage() {
     const calculateTimeRemaining = () => {
       const now = Date.now();
       const difference = targetTimestamp - now;
-      
+
       if (difference <= 0) {
         setTimeRemaining({
           days: 0,
@@ -36,12 +27,12 @@ export default function HDIPage() {
         });
         return;
       }
-      
+
       const days = Math.floor(difference / (1000 * 60 * 60 * 24));
       const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-      
+
       setTimeRemaining({
         days,
         hours,
@@ -50,10 +41,10 @@ export default function HDIPage() {
         expired: false
       });
     };
-    
+
     calculateTimeRemaining();
     const timer = setInterval(calculateTimeRemaining, 1000);
-    
+
     return () => clearInterval(timer);
   }, [targetTimestamp]);
 
@@ -66,21 +57,43 @@ export default function HDIPage() {
   };
 
   return (
-    <>
-      <section className="text-center max-w-xl mx-auto mt-12 mb-24 md:mb-32">
+    <div className="container mx-auto px-4 font-mono">
+      <section className="text-center max-w-xl mx-auto mt-12 mb-16 md:mb-24">
         <h1 className="font-extrabold text-3xl lg:text-5xl tracking-tight mb-6">
-          Human Digital Interface
+          HDI
         </h1>
-        <p className="text-lg opacity-80 leading-relaxed">
-          The next generation of human-computer interaction is almost here. Our HDI technology will change how you interact with digital systems forever.
+        <h2 className="text-2xl font-bold mb-6" id="hdi-carousel">
+          Human to Digital Interface
+        </h2>
+        <p className="text-lg opacity-80 leading-relaxed mb-4">
+          The next generation of human-computer interaction is almost here.
+        </p>
+        <p className="text-lg opacity-80 leading-relaxed mb-4">
+          The future is coming and soon the old world of the analogue and digital will become one.
+        </p>
+        <p className="text-lg opacity-80 leading-relaxed mb-4">
+          There's every chance you'll survive this transition. But then again, there's a chance you won't.
+        </p>
+        <p className="text-lg opacity-80 leading-relaxed mb-4">
+          It's really just a question of bandwidth. <em>How much data can you handle?</em>
+        </p>
+        <hr className="my-16 border-base-300" />
+        <p className="text-lg opacity-80 leading-relaxed mb-8">
+          HDI will rewire your fundamental relationship with the machine <span className="font-bold">forever</span>.
+        </p>
+        <p className="text-lg opacity-80 leading-relaxed mb-2 max-w-sm mx-auto">
+          But to get to the root of the problem, we need to update the most important operating system of all: <span className="font-bold">your brain</span>.
+        </p>
+        <p className="text-sm opacity-80 leading-relaxed mb-2 max-w-sm mx-auto mt-8">
+          Is this air you are breathing?
         </p>
       </section>
 
-      <section className="mb-24 md:mb-32">
-        <h3 className="font-bold text-2xl lg:text-3xl tracking-tight mb-6">
-          Countdown to v0.1 Release
+      <section className="mb-16 md:mb-24">
+        <h3 className="font-bold text-2xl lg:text-3xl tracking-tight mb-6 text-center">
+          Countdown to v<span className="text-secondary">0.1</span>
         </h3>
-        
+
         <div className="grid grid-cols-4 gap-4 max-w-2xl mx-auto mb-12">
           <div className="bg-base-200 p-6 rounded-xl text-center">
             <div className="text-4xl font-bold">{timeRemaining.days}</div>
@@ -101,35 +114,27 @@ export default function HDIPage() {
         </div>
 
         <div className="text-center">
-          <button 
+          <button
             onClick={handleDownload}
             disabled={!timeRemaining.expired}
-            className={`btn btn-lg ${timeRemaining.expired ? 'btn-primary' : 'btn-disabled'}`}
+            className={`btn btn-md text-md ${timeRemaining.expired ? 'btn-primary' : 'btn-disabled'}`}
           >
-            {timeRemaining.expired ? 'Download v0.1' : 'Coming Soon'}
+            download
           </button>
         </div>
       </section>
 
-      <section>
-        <h3 className="font-bold text-2xl lg:text-3xl tracking-tight mb-6">
+      <section className="max-w-xl mx-auto">
+        <h3 className="font-bold text-2xl lg:text-3xl tracking-tight mb-6 text-center">
           What is HDI?
         </h3>
-        <p className="text-lg opacity-80 leading-relaxed mb-8">
-          Human Digital Interface (HDI) is our revolutionary technology that bridges the gap between human cognition and digital systems. Unlike traditional interfaces that require physical interaction, HDI creates a seamless connection between your thoughts and digital actions.
+        <p className="text-lg opacity-80 leading-relaxed mb-8 mx-auto text-center">
+          Human Digital Interface (HDI) is a revolutionary technology of the mind, body and heart. Dilligently applied, it bridges the gap between human cognition, digital systems and beyond.
         </p>
-        
-        <h3 className="font-bold text-2xl lg:text-3xl tracking-tight mb-6">
-          Key Features
-        </h3>
-        <ul className="list-disc pl-6 text-lg opacity-80 leading-relaxed mb-8">
-          <li>Direct neural-digital communication</li>
-          <li>Zero latency response time</li>
-          <li>Intuitive thought-based navigation</li>
-          <li>Adaptive learning algorithms</li>
-          <li>Privacy-first architecture</li>
-        </ul>
+        <p className="text-lg opacity-80 leading-relaxed mb-8 max-w-sm mx-auto text-center">
+          <em>Digital actions will be the fundamental unit of all knowledge work. It all starts with the prompt - the prompt <em>is</em> <strong>you</strong>.</em>
+        </p>
       </section>
-    </>
+    </div>
   );
 }
