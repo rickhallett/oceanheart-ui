@@ -32,8 +32,8 @@ export async function POST(request: NextRequest) {
       .join(' ');
 
     // Check if the name already exists
-    const existing = await query<{ id: number }>('SELECT id FROM hdi_names WHERE name = ?', [formattedName]);
-    if (existing.length > 0) {
+    const existing = await queryOne<{ id: number }>('SELECT id FROM hdi_names WHERE name = ?', [formattedName]);
+    if (existing) {
       return NextResponse.json({ error: 'This name already exists' }, { status: 409 });
     }
 
