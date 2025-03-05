@@ -3,19 +3,102 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Suspense, useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, usePathname } from "next/navigation";
 import dotenv from "dotenv";
 import config from "@/config";
 import logo from "@/app/icon.png";
 
 dotenv.config();
 
+interface FooterProps {
+  showHDIForm?: boolean;
+}
+
+// HDI Name Form Component
+const HDINameForm = () => {
+  const [name, setName] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState<"success" | "error" | "">("");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!name.trim()) {
+      setMessage("Please enter a name");
+      setMessageType("error");
+      return;
+    }
+    
+    setIsSubmitting(true);
+    setMessage("");
+    setMessageType("");
+    
+    try {
+      const response = await fetch('/api/hdi/names', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name }),
+      });
+      
+      const data = await response.json();
+      
+      if (response.ok) {
+        setName("");
+        setMessage("Name added successfully!");
+        setMessageType("success");
+      } else {
+        setMessage(data.error || "Failed to add name");
+        setMessageType("error");
+      }
+    } catch (error) {
+      setMessage("An error occurred. Please try again.");
+      setMessageType("error");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <div className="mt-6 p-4 bg-base-300 rounded-lg">
+      <h4 className="text-sm font-bold mb-2">Suggest an HDI meaning</h4>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-2">
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="e.g. Holistic Data Integration"
+          className="input input-sm input-bordered w-full"
+          disabled={isSubmitting}
+        />
+        <div className="flex justify-between items-center">
+          <button
+            type="submit"
+            className={`btn btn-sm btn-primary ${isSubmitting ? 'loading' : ''}`}
+            disabled={isSubmitting}
+          >
+            Submit
+          </button>
+          {message && (
+            <span className={`text-xs ${messageType === 'success' ? 'text-success' : 'text-error'}`}>
+              {message}
+            </span>
+          )}
+        </div>
+      </form>
+    </div>
+  );
+};
+
 // Add the Footer to the bottom of your landing page and more.
 // The support link is connected to the config.js file. If there's no config.resend.supportEmail, the link won't be displayed.
 
-const SuspendedFooter = () => {
+const SuspendedFooter = ({ showHDIForm = false }: FooterProps) => {
   const hiddenKeyParam = useSearchParams().get("hiddenKey");
   const [hiddenKey, setHiddenKey] = useState<string>("");
+  const pathname = usePathname();
   const privacyLink = hiddenKey ? config.auth.saigo.loginUrl + `?hiddenKey=${hiddenKeyParam}` : "/privacy-policy";
 
   useEffect(() => {
@@ -76,6 +159,9 @@ const SuspendedFooter = () => {
             <p className="mt-3 text-sm text-base-content/60">
               Copyright © {new Date().getFullYear()} - All rights reserved
             </p>
+
+            {/* Show HDI Name Form if on HDI page */}
+            {showHDIForm && pathname.includes('/hdi') && <HDINameForm />}
 
             <a
               href="https://www.oceanheart.ai/?ref=oceanheart_badge"
@@ -167,10 +253,10 @@ const SuspendedFooter = () => {
   );
 };
 
-const Footer = () => {
+const Footer = ({ showHDIForm = false }: FooterProps) => {
   return (
     <Suspense>
-      <SuspendedFooter />
+      <SuspendedFooter showHDIForm={showHDIForm} />
     </Suspense>
   )
 }

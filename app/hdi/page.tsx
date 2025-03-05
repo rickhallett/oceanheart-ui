@@ -13,17 +13,58 @@ export default function HDIPage() {
     expired: false
   });
 
-  // HDI definitions for the carousel
-  const hdiDefinitions = [
+  // State for HDI definitions from the database
+  const [hdiDefinitions, setHdiDefinitions] = useState([
     "Human Digital Interface",
     "Higher Defiance Institute",
     "Hyperconsciousness Design Initiative",
     "Heart Data Integrated"
-  ];
+  ]);
+  const [namesCount, setNamesCount] = useState(4);
+  const [isLoading, setIsLoading] = useState(true);
 
   // State for the carousel
   const [currentDefinitionIndex, setCurrentDefinitionIndex] = useState(0);
   const [direction, setDirection] = useState(1); // 1 for right to left, -1 for left to right
+
+  // Fetch HDI names from the API
+  const fetchHDINames = async () => {
+    try {
+      const response = await fetch('/api/hdi/names');
+      const data = await response.json();
+      
+      if (data.names && data.names.length > 0) {
+        setHdiDefinitions(data.names);
+        setNamesCount(data.count);
+      }
+      
+      setIsLoading(false);
+    } catch (error) {
+      console.error('Error fetching HDI names:', error);
+      setIsLoading(false);
+    }
+  };
+
+  // Poll for new names
+  useEffect(() => {
+    fetchHDINames();
+    
+    const pollInterval = setInterval(async () => {
+      try {
+        const response = await fetch('/api/hdi/names');
+        const data = await response.json();
+        
+        if (data.count > namesCount) {
+          setHdiDefinitions(data.names);
+          setNamesCount(data.count);
+        }
+      } catch (error) {
+        console.error('Error polling HDI names:', error);
+      }
+    }, 5000); // Poll every 5 seconds
+    
+    return () => clearInterval(pollInterval);
+  }, [namesCount]);
 
   useEffect(() => {
     const calculateTimeRemaining = () => {
@@ -63,6 +104,8 @@ export default function HDIPage() {
 
   // Effect for the carousel
   useEffect(() => {
+    if (hdiDefinitions.length === 0) return;
+    
     const carouselInterval = setInterval(() => {
       setDirection(1);
       setCurrentDefinitionIndex((prevIndex) =>
@@ -106,23 +149,27 @@ export default function HDIPage() {
 
         {/* Carousel for h2 with id="hdi-carousel" */}
         <div id="hdi-carousel" className="h-12 relative overflow-hidden mb-6">
-          <AnimatePresence initial={false} custom={direction}>
-            <motion.h2
-              key={currentDefinitionIndex}
-              custom={direction}
-              variants={variants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{
-                x: { type: "spring", stiffness: 300, damping: 30 },
-                opacity: { duration: 0.2 }
-              }}
-              className="text-2xl font-bold absolute w-full"
-            >
-              {hdiDefinitions[currentDefinitionIndex]}
-            </motion.h2>
-          </AnimatePresence>
+          {isLoading ? (
+            <div className="text-2xl font-bold">Loading...</div>
+          ) : (
+            <AnimatePresence initial={false} custom={direction}>
+              <motion.h2
+                key={currentDefinitionIndex}
+                custom={direction}
+                variants={variants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{
+                  x: { type: "spring", stiffness: 300, damping: 30 },
+                  opacity: { duration: 0.2 }
+                }}
+                className="text-2xl font-bold absolute w-full"
+              >
+                {hdiDefinitions[currentDefinitionIndex]}
+              </motion.h2>
+            </AnimatePresence>
+          )}
         </div>
         <p className="text-lg opacity-80 leading-relaxed mb-4">
           The next generation of human-computer interaction is almost here.
