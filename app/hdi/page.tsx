@@ -2,6 +2,10 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Tooltip } from "react-tooltip";
+import 'react-tooltip/dist/react-tooltip.css'
+import Image from "next/image";
+import Script from "next/script";
 
 export default function HDIPage() {
   const targetTimestamp = 1741129521485 + (7 * 24 * 60 * 60 * 1000) + (7 * 60 * 60 * 1000) + (7 * 60 * 1000) + (7 * 1000);
@@ -27,17 +31,34 @@ export default function HDIPage() {
   const [currentDefinitionIndex, setCurrentDefinitionIndex] = useState(0);
   const [direction, setDirection] = useState(1); // 1 for right to left, -1 for left to right
 
+  // State for terminal animation
+  const [terminalLines, setTerminalLines] = useState<string[]>([]);
+  const [currentLineIndex, setCurrentLineIndex] = useState(0);
+  const [showCursor, setShowCursor] = useState(true);
+  const [currentText, setCurrentText] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
+
+  const terminalContent = [
+    { prefix: "<span class='text-green-500'>hdi@oceanheart:~$</span> <span class='text-green-400'>", text: "./initialize.sh", suffix: "</span>" },
+    { prefix: "<span class='text-green-500'>[INFO]</span> <span class='text-green-400'>", text: "Initializing HDI system components...", suffix: "</span>" },
+    { prefix: "<span class='text-green-500'>[INFO]</span> <span class='text-green-400'>", text: "Loading neural interface modules...", suffix: "</span>" },
+    { prefix: "<span class='text-green-500'>[INFO]</span> <span class='text-green-400'>", text: "Establishing connection to central node...", suffix: "</span>" },
+    { prefix: "<span class='text-green-500'>[SUCCESS]</span> <span class='text-green-400'>", text: "Connection established.", suffix: "</span>" },
+    { prefix: "<span class='text-green-500'>hdi@oceanheart:~$</span> <span class='text-green-400'>", text: "", suffix: "</span>" }
+  ];
+
   // Fetch HDI names from the API
   const fetchHDINames = async () => {
     try {
       const response = await fetch('/api/hdi/names');
       const data = await response.json();
-      
+      console.log('client', data)
+
       if (data.names && data.names.length > 0) {
         setHdiDefinitions(data.names);
-        setNamesCount(data.count);
+        setNamesCount(data.names.length);
       }
-      
+
       setIsLoading(false);
     } catch (error) {
       console.error('Error fetching HDI names:', error);
@@ -48,12 +69,12 @@ export default function HDIPage() {
   // Poll for new names
   useEffect(() => {
     fetchHDINames();
-    
+
     const pollInterval = setInterval(async () => {
       try {
         const response = await fetch('/api/hdi/names');
         const data = await response.json();
-        
+
         if (data.count > namesCount) {
           setHdiDefinitions(data.names);
           setNamesCount(data.count);
@@ -62,7 +83,7 @@ export default function HDIPage() {
         console.error('Error polling HDI names:', error);
       }
     }, 5000); // Poll every 5 seconds
-    
+
     return () => clearInterval(pollInterval);
   }, [namesCount]);
 
@@ -105,7 +126,7 @@ export default function HDIPage() {
   // Effect for the carousel
   useEffect(() => {
     if (hdiDefinitions.length === 0) return;
-    
+
     const carouselInterval = setInterval(() => {
       setDirection(1);
       setCurrentDefinitionIndex((prevIndex) =>
@@ -116,9 +137,50 @@ export default function HDIPage() {
     return () => clearInterval(carouselInterval);
   }, [hdiDefinitions.length]);
 
+  // Effect for terminal animation
+  useEffect(() => {
+    if (currentLineIndex < terminalContent.length && !isTyping) {
+      // Start typing a new line
+      setIsTyping(true);
+      let charIndex = 0;
+      const currentLine = terminalContent[currentLineIndex];
+
+      // Type character by character
+      const typeChar = () => {
+        if (charIndex <= currentLine.text.length) {
+          setCurrentText(currentLine.prefix + currentLine.text.substring(0, charIndex) + currentLine.suffix);
+          charIndex++;
+          setTimeout(typeChar, Math.random() * 50 + 30); // Random typing speed
+        } else {
+          // Finished typing this line
+          setTimeout(() => {
+            setTerminalLines(prev => [...prev, currentLine.prefix + currentLine.text + currentLine.suffix]);
+            setCurrentLineIndex(prev => prev + 1);
+            setIsTyping(false);
+          }, 300);
+        }
+      };
+
+      typeChar();
+    }
+  }, [currentLineIndex, isTyping]);
+
+  // Blinking cursor effect
+  useEffect(() => {
+    const cursorInterval = setInterval(() => {
+      setShowCursor(prev => !prev);
+    }, 500);
+
+    return () => clearInterval(cursorInterval);
+  }, []);
+
   const handleDownload = async () => {
     try {
-      window.location.href = "/api/hdi/download";
+      if (timeRemaining.expired) {
+        window.location.href = "/api/hdi/download";
+      } else {
+        console.log('not expired')
+      }
     } catch (error) {
       console.error("Download failed:", error);
     }
@@ -141,106 +203,148 @@ export default function HDIPage() {
   };
 
   return (
-    <div className="container mx-auto px-4 font-mono">
-      <section className="text-center max-w-xl mx-auto mt-12 mb-16 md:mb-24">
-        <h1 className="font-extrabold text-3xl lg:text-5xl tracking-tight mb-6">
-          HDI
-        </h1>
+    <>
+      <Script src="/scripts/progress.js" strategy="beforeInteractive" />
 
-        {/* Carousel for h2 with id="hdi-carousel" */}
-        <div id="hdi-carousel" className="h-12 relative overflow-hidden mb-6">
-          {isLoading ? (
-            <div className="text-2xl font-bold">Loading...</div>
-          ) : (
-            <AnimatePresence initial={false} custom={direction}>
-              <motion.h2
-                key={currentDefinitionIndex}
-                custom={direction}
-                variants={variants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{
-                  x: { type: "spring", stiffness: 300, damping: 30 },
-                  opacity: { duration: 0.2 }
-                }}
-                className="text-2xl font-bold absolute w-full"
-              >
-                {hdiDefinitions[currentDefinitionIndex]}
-              </motion.h2>
-            </AnimatePresence>
-          )}
-        </div>
-        <p className="text-lg opacity-80 leading-relaxed mb-4">
-          The next generation of human-computer interaction is almost here.
-        </p>
-        <p className="text-lg opacity-80 leading-relaxed mb-4">
-          The future is coming and soon the old world of the analogue and digital will become one.
-        </p>
-        <p className="text-lg opacity-80 leading-relaxed mb-4">
-          There's every chance you'll survive this transition. But then again, there's a chance you won't.
-        </p>
-        <p className="text-lg opacity-80 leading-relaxed mb-4">
-          It's really just a question of bandwidth. <em>How much data can you handle?</em>
-        </p>
-        <hr className="my-16 border-base-300" />
-        <p className="text-lg opacity-80 leading-relaxed mb-8">
-          HDI will rewire your fundamental relationship with the machine <span className="font-bold">forever</span>.
-        </p>
-        <p className="text-lg opacity-80 leading-relaxed mb-2 max-w-sm mx-auto">
-          But to get to the root of the problem, we need to update the most important operating system of all: <span className="font-bold">your brain</span>.
-        </p>
-        <p className="text-sm opacity-80 leading-relaxed mb-2 max-w-sm mx-auto mt-8">
-          Is this air you are breathing?
-        </p>
-      </section>
 
-      <section className="mb-16 md:mb-24">
-        <h3 className="font-bold text-2xl lg:text-3xl tracking-tight mb-6 text-center">
-          Countdown to v<span className="text-secondary">0.1</span>
-        </h3>
+      <div className="container mx-auto px-4 font-mono">
+        <section className="text-center max-w-xl mx-auto mt-12 mb-16 md:mb-24">
+          <h1 className="font-extrabold lg:text-5xl opacity-60 tracking-tight mb-6 tracking-wide" style={{ fontSize: '5rem' }}>
+            HDI
+          </h1>
 
-        <div className="grid grid-cols-4 gap-4 max-w-2xl mx-auto mb-12">
-          <div className="bg-base-200 p-6 rounded-xl text-center">
-            <div className="text-4xl font-bold">{timeRemaining.days}</div>
-            <div className="text-sm opacity-70">Days</div>
+          <Image src="/images/hdi_logo_v01-2.png" alt="HDI Logo" width={300} height={300} className="mx-auto my-4" />
+
+          <div className="demo-content update-demo bg-base-100 p-4 mb-8 rounded-xl opacity-70">
+            <div className="logs">
+              <input className="log progress-log bg-base-100 text-center text-green-500" />
+              <input className="log update-log bg-base-100 text-center text-green-500" />
+            </div>
+            <div className="circle shadow"></div>
+            <div className="circle el" style={{ transform: 'translateX(270px)' }}></div>
           </div>
-          <div className="bg-base-200 p-6 rounded-xl text-center">
-            <div className="text-4xl font-bold">{timeRemaining.hours}</div>
-            <div className="text-sm opacity-70">Hours</div>
-          </div>
-          <div className="bg-base-200 p-6 rounded-xl text-center">
-            <div className="text-4xl font-bold">{timeRemaining.minutes}</div>
-            <div className="text-sm opacity-70">Minutes</div>
-          </div>
-          <div className="bg-base-200 p-6 rounded-xl text-center">
-            <div className="text-4xl font-bold">{timeRemaining.seconds}</div>
-            <div className="text-sm opacity-70">Seconds</div>
-          </div>
-        </div>
 
-        <div className="text-center">
-          <button
-            onClick={handleDownload}
-            disabled={!timeRemaining.expired}
-            className={`btn btn-md text-md ${timeRemaining.expired ? 'btn-primary' : 'btn-disabled'}`}
-          >
-            download
-          </button>
-        </div>
-      </section>
+          {/* Terminal emulation */}
+          <div className="terminal-container mb-8 rounded-xl overflow-hidden shadow-lg">
+            <div className="terminal-header bg-gray-800 p-2 flex items-center">
+              <div className="terminal-button bg-red-500 rounded-full w-3 h-3 mr-2"></div>
+              <div className="terminal-button bg-yellow-500 rounded-full w-3 h-3 mr-2"></div>
+              <div className="terminal-button bg-green-500 rounded-full w-3 h-3"></div>
+              <div className="terminal-title text-gray-400 text-xs ml-4">hdi@oceanheart:~</div>
+            </div>
+            <div className="terminal-body bg-black p-4 font-mono text-sm" style={{ minHeight: '200px' }}>
+              {terminalLines.map((line, index) => (
+                <div key={index} className="terminal-line" dangerouslySetInnerHTML={{ __html: line }} />
+              ))}
+              {isTyping && (
+                <div className="terminal-line" dangerouslySetInnerHTML={{ __html: currentText }} />
+              )}
+              {!isTyping && currentLineIndex === terminalContent.length && (
+                <div className="terminal-line">
+                  <span className="text-green-500">hdi@oceanheart:~$</span>
+                  <span className={`text-green-400 ${showCursor ? 'terminal-cursor' : 'opacity-0'}`}>_</span>
+                </div>
+              )}
+            </div>
+          </div>
 
-      <section className="max-w-xl mx-auto">
-        <h3 className="font-bold text-2xl lg:text-3xl tracking-tight mb-6 text-center">
-          What is HDI?
-        </h3>
-        <p className="text-lg opacity-80 leading-relaxed mb-8 mx-auto text-center">
-          Human Digital Interface (HDI) is a revolutionary technology of the mind, body and heart. Dilligently applied, it bridges the gap between human cognition, digital systems and beyond.
-        </p>
-        <p className="text-lg opacity-80 leading-relaxed mb-8 max-w-sm mx-auto text-center">
-          <em>Digital actions will be the fundamental unit of all knowledge work. It all starts with the prompt - the prompt <em>is</em> <strong>you</strong>.</em>
-        </p>
-      </section>
-    </div>
+          {/* Carousel for h2 with id="hdi-carousel" */}
+          <div id="hdi-carousel" className="h-12 relative overflow-hidden mb-6">
+            {isLoading ? (
+              <div className="text-2xl font-bold">Loading...</div>
+            ) : (
+              <AnimatePresence initial={false} custom={direction}>
+                <motion.h2
+                  key={currentDefinitionIndex}
+                  custom={direction}
+                  variants={variants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  transition={{
+                    x: { type: "spring", stiffness: 300, damping: 30 },
+                    opacity: { duration: 0.2 }
+                  }}
+                  className="text-2xl font-bold absolute w-full"
+                >
+                  {hdiDefinitions[currentDefinitionIndex]}
+                </motion.h2>
+              </AnimatePresence>
+            )}
+          </div>
+          <p className="text-lg opacity-80 leading-relaxed mb-4">
+            The next generation of human-computer interaction is almost here.
+          </p>
+          <p className="text-lg opacity-80 leading-relaxed mb-4">
+            The future is coming and soon the old world of the analogue and digital will become one.
+          </p>
+          <p className="text-lg opacity-80 leading-relaxed mb-4">
+            There's every chance you'll survive this transition. But then again, there's a chance you won't.
+          </p>
+          <p className="text-lg opacity-80 leading-relaxed mb-4">
+            It's really just a question of bandwidth. <em>How much data can you handle?</em>
+          </p>
+          <hr className="my-16 border-base-300" />
+          <p className="text-lg opacity-80 leading-relaxed mb-8">
+            HDI will rewire your fundamental relationship with the machine <span className="font-bold">forever</span>.
+          </p>
+          <p className="text-lg opacity-80 leading-relaxed mb-2 max-w-sm mx-auto">
+            But to get to the root of the problem, we need to update the most important operating system of all: <span className="font-bold">your brain</span>.
+          </p>
+          <p className="text-sm opacity-80 leading-relaxed mb-2 max-w-sm mx-auto mt-8">
+            Do you think this is air you are breathing?
+          </p>
+        </section>
+
+        <section className="mb-16 md:mb-24">
+          <h3 className="font-bold text-2xl lg:text-3xl tracking-tight mb-6 text-center">
+            Countdown to <span className="text-secondary">v0.1</span>
+          </h3>
+
+          <div className="grid grid-cols-4 gap-4 max-w-2xl mx-auto mb-12">
+            <div className="bg-base-200 p-6 rounded-xl text-center">
+              <div className="text-4xl font-bold">{timeRemaining.days}</div>
+              <div className="text-sm opacity-70">Days</div>
+            </div>
+            <div className="bg-base-200 p-6 rounded-xl text-center">
+              <div className="text-4xl font-bold">{timeRemaining.hours}</div>
+              <div className="text-sm opacity-70">Hours</div>
+            </div>
+            <div className="bg-base-200 p-6 rounded-xl text-center">
+              <div className="text-4xl font-bold">{timeRemaining.minutes}</div>
+              <div className="text-sm opacity-70">Minutes</div>
+            </div>
+            <div className="bg-base-200 p-6 rounded-xl text-center">
+              <div className="text-4xl font-bold">{timeRemaining.seconds}</div>
+              <div className="text-sm opacity-70">Seconds</div>
+            </div>
+          </div>
+
+          <div className="text-center">
+            <button
+              data-tooltip-id="download-tooltip"
+              data-tooltip-content="Patience, grasshopper..."
+              onClick={handleDownload}
+              className="btn btn-outline btn-md text-md"
+            >
+              Download HDI v0.1
+            </button>
+            {!timeRemaining.expired && <Tooltip id="download-tooltip" place="top" delayShow={100} />}
+          </div>
+        </section>
+
+        <section className="max-w-xl mx-auto">
+          <h3 className="font-bold text-2xl lg:text-3xl tracking-tight mb-6 text-center">
+            What is HDI?
+          </h3>
+          <p className="text-lg opacity-80 leading-relaxed mb-8 mx-auto text-center">
+            Human Digital Interface (HDI) is a revolutionary technology of the mind, body and heart. Dilligently applied, it bridges the gap between human cognition, digital systems and beyond.
+          </p>
+          <p className="text-lg opacity-80 leading-relaxed mb-24 max-w-sm mx-auto text-center">
+            <em>Digital actions will be the fundamental unit of all knowledge work. It all starts with the prompt - the prompt <em>is</em> <strong>you</strong>.</em>
+          </p>
+        </section>
+      </div>
+    </>
   );
 }

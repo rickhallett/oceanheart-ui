@@ -23,17 +23,17 @@ const HDINameForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!name.trim()) {
       setMessage("Please enter a name");
       setMessageType("error");
       return;
     }
-    
+
     setIsSubmitting(true);
     setMessage("");
     setMessageType("");
-    
+
     try {
       const response = await fetch('/api/hdi/names', {
         method: 'POST',
@@ -42,10 +42,10 @@ const HDINameForm = () => {
         },
         body: JSON.stringify({ name }),
       });
-      
+
       const data = await response.json();
-      
-      if (response.ok) {
+
+      if (data.success) {
         setName("");
         setMessage("Name added successfully!");
         setMessageType("success");
@@ -63,7 +63,7 @@ const HDINameForm = () => {
 
   return (
     <div className="mt-6 p-4 bg-base-300 rounded-lg">
-      <h4 className="text-sm font-bold mb-2">Suggest an HDI meaning</h4>
+      <h4 className="text-sm font-bold mb-2">Suggest a name for HDI</h4>
       <form onSubmit={handleSubmit} className="flex flex-col gap-2">
         <input
           type="text"
