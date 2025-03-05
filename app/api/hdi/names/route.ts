@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { query, execute } from '@/app/hdi/lib/db';
+import { query, execute, queryOne } from '@/app/hdi/lib/db';
 
 // GET endpoint to fetch all HDI names
 export async function GET() {
