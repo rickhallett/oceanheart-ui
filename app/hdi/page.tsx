@@ -11,9 +11,9 @@ export default function HDIPage() {
   const targetTimestamp = 1741129521485 + (7 * 24 * 60 * 60 * 1000) + (7 * 60 * 60 * 1000) + (7 * 60 * 1000) + (7 * 1000);
   const [timeRemaining, setTimeRemaining] = useState({
     days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
+    hrs: 0,
+    mins: 0,
+    secs: 0,
     expired: false
   });
 
@@ -80,7 +80,7 @@ export default function HDIPage() {
       } catch (error) {
         console.error('Error polling HDI names:', error);
       }
-    }, 5000); // Poll every 5 seconds
+    }, 5000); // Poll every 5 secs
 
     return () => clearInterval(pollInterval);
   }, [namesCount]);
@@ -93,24 +93,24 @@ export default function HDIPage() {
       if (difference <= 0) {
         setTimeRemaining({
           days: 0,
-          hours: 0,
-          minutes: 0,
-          seconds: 0,
+          hrs: 0,
+          mins: 0,
+          secs: 0,
           expired: true
         });
         return;
       }
 
       const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+      const hrs = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const mins = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+      const secs = Math.floor((difference % (1000 * 60)) / 1000);
 
       setTimeRemaining({
         days,
-        hours,
-        minutes,
-        seconds,
+        hrs,
+        mins,
+        secs,
         expired: false
       });
     };
@@ -243,23 +243,43 @@ export default function HDIPage() {
     })
   };
 
+  const loadingText = () => {
+    return (
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 2.5 }}
+      >
+        <div className="text-2xl font-bold opacity-50">Loading...</div>
+      </motion.div>
+    )
+  }
+
   return (
     <>
-
-
-
       <div className="container mx-auto px-4 font-mono">
-        <section className="text-center max-w-xl mx-auto mt-12 mb-16 md:mb-24">
-          <h1 className="font-extrabold lg:text-5xl opacity-60 tracking-tight mb-6 tracking-wide" style={{ fontSize: '5rem' }}>
-            HDI
-          </h1>
-
-          <Image src="/images/hdi_logo_v01-2.png" alt="HDI Logo" width={300} height={300} className="mx-auto my-4" />
+        <section className="text-center max-w-xl mx-auto mt-6 md:mt-12 mb-16 md:mb-24">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 2.5 }}
+          >
+            <h1 className="font-extrabold lg:text-5xl opacity-60 tracking-tight mb-6 tracking-wide" style={{ fontSize: '5rem' }}>
+              HDI
+            </h1>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 2.5 }}
+          >
+            <Image src="/images/hdi_logo_v01-2.png" alt="HDI Logo" width={300} height={300} className="mx-auto my-4" />
+          </motion.div>
 
           {/* Carousel for h2 with id="hdi-carousel" */}
           <div id="hdi-carousel" className="h-12 relative mb-12">
             {isLoading ? (
-              <div className="text-2xl font-bold">Loading...</div>
+              loadingText()
             ) : (
               <AnimatePresence initial={false} custom={direction}>
                 <motion.h2
@@ -303,98 +323,113 @@ export default function HDIPage() {
           </div>
 
 
-          <p className="text-md md:text-lg opacity-80 leading-relaxed mb-4">
-            The next generation of human-computer interaction is almost here.
-          </p>
-          <p className="text-md md:text-lg opacity-80 leading-relaxed mb-4">
-            The future is coming and soon the old world of the analogue and digital will become one.
-          </p>
-          <p className="text-md md:text-lg opacity-80 leading-relaxed mb-4">
-            There's every chance you'll survive this transition. But then again, there's a chance you won't.
-          </p>
-          <p className="text-md md:text-lg opacity-80 leading-relaxed mb-4">
-            It's really just a question of bandwidth. <em>How much data can you handle?</em>
-          </p>
-          <hr className="my-16 border-base-300" />
-          <p className="text-md md:text-lg opacity-80 leading-relaxed mb-8">
-            HDI will rewire your fundamental relationship with the machine <span className="font-bold">forever</span>.
-          </p>
-          <p className="text-md md:text-lg opacity-80 leading-relaxed mb-2 max-w-sm mx-auto">
-            But to get to the root of the problem, we need to update the most important operating system of all: <span className="font-bold">your brain</span>.
-          </p>
-          <p className="text-sm md:text-md opacity-20 leading-relaxed mb-2 max-w-sm mx-auto mt-8">
-            Do you think that's air you're breathing now?
-          </p>
-        </section>
 
-        <section className="mb-16 md:mb-18">
-          <h3 className="font-bold text-2xl lg:text-3xl tracking-tight mb-6 text-center">
-            Countdown to <span className="text-secondary">v0.1</span>
-          </h3>
-
-          <div className="grid grid-cols-4 gap-4 max-w-2xl mx-auto mb-12">
-            <div className="bg-base-200 p-6 rounded-xl text-center">
-              <div className="text-4xl font-bold">{timeRemaining.days}</div>
-              <div className="text-sm opacity-70">Days</div>
-            </div>
-            <div className="bg-base-200 p-6 rounded-xl text-center">
-              <div className="text-4xl font-bold">{timeRemaining.hours}</div>
-              <div className="text-sm opacity-70">Hours</div>
-            </div>
-            <div className="bg-base-200 p-6 rounded-xl text-center">
-              <div className="text-4xl font-bold">{timeRemaining.minutes}</div>
-              <div className="text-sm opacity-70">Minutes</div>
-            </div>
-            <div className="bg-base-200 p-6 rounded-xl text-center">
-              <div className="text-4xl font-bold">{timeRemaining.seconds}</div>
-              <div className="text-sm opacity-70">Seconds</div>
-            </div>
-          </div>
-
-          <div className="text-center">
-            <button
-              data-tooltip-id="download-tooltip"
-              data-tooltip-content="Patience, grasshopper..."
-              onClick={handleDownload}
-              className="btn btn-outline btn-md text-md"
-            >
-              Download HDI v0.1
-            </button>
-            {!timeRemaining.expired && <Tooltip id="download-tooltip" place="top" delayShow={100} />}
-          </div>
-        </section>
-
-        <section className="max-w-xl mx-auto">
-          <h3 className="font-bold text-2xl lg:text-3xl tracking-tight mb-6 text-center">
-            What is HDI?
-          </h3>
-          <p className="text-md md:text-lg opacity-80 leading-relaxed mb-12 mx-auto text-center">
-            Human Digital Interface (HDI) is a revolutionary technology of the mind, body and heart. Dilligently applied, it bridges the gap between human cognition, digital systems and beyond.
-          </p>
-          <p className="text-md md:text-lg opacity-80 leading-relaxed mb-20 max-w-sm mx-auto text-center">
-            <em>"Digital actions will be the fundamental unit of all knowledge work. It all starts with the prompt - the prompt <em>is</em> <strong>you</strong>."</em>
-          </p>
-          <p className="text-md md:text-lg opacity-80 leading-relaxed mb-24 max-w-sm mx-auto text-center">
-            <strong><em>In the end, it comes down to the man in the box.</em></strong>
-          </p>
-          <div className="flex flex-col shadow-lg p-0 rounded-xl mb-12">
-            <p className="text-xs md:text-sm opacity-80 leading-relaxed max-w-sm p-6">
-              <strong>FAO Iceman</strong>
-            </p>
-            <p className="text-xs md:text-sm opacity-80 leading-relaxed mb-4 max-w-sm mx-auto text-center">
-              <em>I swear to the Lord most high, may my Kingdom burn if I lie, as I began to write the above quote, the Top Gun entrance theme started. To the very second. </em>
-            </p>
-            <p className="text-xs md:text-sm opacity-80 leading-relaxed mb-6 max-w-sm mx-auto text-center">
-              <em>I copied the above HTML to write "To the very second" below, for emphasis. As I copied, the autocomplete rushed ahead and spoke the moment of doubt that ran through my mind...
-                <br />
-                <br />
-                <br />
-                "I'm not sure if I'm ready for this".</em>
-            </p>
-
-          </div>
 
         </section>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 2.5 }}
+        >
+
+          <section className="text-center max-w-xl mx-auto mt-6 md:mt-12 mb-16 md:mb-24">
+            <p className="text-md md:text-lg opacity-80 leading-relaxed mb-4">
+              The next generation of human-computer interaction is almost here.
+            </p>
+            <p className="text-md md:text-lg opacity-80 leading-relaxed mb-4">
+              The future is coming and soon the old world of the analogue and digital will become one.
+            </p>
+            <p className="text-md md:text-lg opacity-80 leading-relaxed mb-4">
+              There's every chance you'll survive this transition. But then again, there's a chance you won't.
+            </p>
+            <p className="text-md md:text-lg opacity-80 leading-relaxed mb-4">
+              It's really just a question of bandwidth. <em>How much data can you handle?</em>
+            </p>
+            <hr className="my-16 border-base-300" />
+            <p className="text-md md:text-lg opacity-80 leading-relaxed mb-8">
+              HDI will rewire your fundamental relationship with the machine <span className="font-bold">forever</span>.
+            </p>
+            <p className="text-md md:text-lg opacity-80 leading-relaxed mb-2 max-w-sm mx-auto">
+              But to get to the root of the problem, we need to update the most important operating system of all: <span className="font-bold">your brain</span>.
+            </p>
+            <p className="text-sm md:text-md opacity-20 leading-relaxed mb-2 max-w-sm mx-auto mt-8">
+              Do you think that's air you're breathing now?
+            </p>
+
+          </section>
+
+
+          <section className="mb-16 md:mb-18">
+            <h3 className="font-bold text-2xl lg:text-3xl tracking-tight mb-6 text-center">
+              Countdown to <span className="text-secondary">v0.1</span>
+            </h3>
+
+            <div className="grid grid-cols-4 gap-4 max-w-2xl mx-auto mb-12">
+              <div className="bg-base-200 p-6 rounded-xl text-center">
+                <div className="text-3xl md:text-4xl font-bold">{timeRemaining.days}</div>
+                <div className="text-sm opacity-70">days</div>
+              </div>
+              <div className="bg-base-200 p-6 rounded-xl text-center">
+                <div className="text-3xl md:text-4xl font-bold">{timeRemaining.hrs}</div>
+                <div className="text-sm opacity-70">hrs</div>
+              </div>
+              <div className="bg-base-200 p-6 rounded-xl text-center">
+                <div className="text-3xl md:text-4xl font-bold">{timeRemaining.mins}</div>
+                <div className="text-sm opacity-70">mins</div>
+              </div>
+              <div className="bg-base-200 p-6 rounded-xl text-center">
+                <div className="text-3xl md:text-4xl font-bold">{timeRemaining.secs}</div>
+                <div className="text-sm opacity-70">secs</div>
+              </div>
+            </div>
+
+            <div className="text-center">
+              <button
+                data-tooltip-id="download-tooltip"
+                data-tooltip-content="Patience, grasshopper..."
+                onClick={handleDownload}
+                className="btn btn-outline btn-md text-md"
+              >
+                Download HDI v0.1
+              </button>
+              {!timeRemaining.expired && <Tooltip id="download-tooltip" place="top" delayShow={100} />}
+            </div>
+          </section>
+
+          <section className="max-w-xl mx-auto">
+            <h3 className="font-bold text-2xl lg:text-3xl tracking-tight mb-6 text-center">
+              What is HDI?
+            </h3>
+            <p className="text-md md:text-lg opacity-80 leading-relaxed mb-12 mx-auto text-center">
+              Human Digital Interface (HDI) is a revolutionary technology of the mind, body and heart. Dilligently applied, it bridges the gap between human cognition, digital systems and beyond.
+            </p>
+            <p className="text-md md:text-lg opacity-80 leading-relaxed mb-20 max-w-sm mx-auto text-center">
+              <em>"Digital actions will be the fundamental unit of all knowledge work. It all starts with the prompt - the prompt <em>is</em> <strong>you</strong>."</em>
+            </p>
+            <p className="text-md md:text-lg opacity-80 leading-relaxed mb-24 max-w-sm mx-auto text-center">
+              <strong><em>In the end, it comes down to the man in the box.</em></strong>
+            </p>
+            <div className="flex flex-col shadow-lg p-4 rounded-xl mb-12 bg-amber-50 border border-amber-200">
+              <p className="text-xs md:text-sm opacity-80 leading-relaxed max-w-sm p-4 pl-0 font-serif">
+                <strong>FAO Iceman</strong>
+              </p>
+              <p className="text-xs md:text-sm opacity-80 leading-relaxed mb-4 max-w-sm mx-auto  font-serif italic text-gray-700">
+                <em>I swear to the Lord most high, may my Kingdom burn if I lie, as I began to write the above quote, the Top Gun entrance theme started. To the very second.</em>
+              </p>
+              <p className="text-xs md:text-sm opacity-80 leading-relaxed mb-6 max-w-sm mx-auto  font-serif italic text-gray-700">
+                <em>I copied the above HTML to write "To the very second" below, for emphasis. As I copied, the autocomplete rushed ahead and spoke the moment of doubt that ran through my mind...
+                  <br />
+                  <br />
+                  <br />
+                  "I'm not sure if I'm ready for this".</em>
+              </p>
+            </div>
+          </section>
+        </motion.div>
+
+
+
       </div>
     </>
   );
