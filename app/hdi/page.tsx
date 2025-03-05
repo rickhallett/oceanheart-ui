@@ -50,7 +50,6 @@ export default function HDIPage() {
     try {
       const response = await fetch('/api/hdi/names');
       const data = await response.json();
-      console.log('client', data)
 
       if (data.names && data.names.length > 0) {
         setHdiDefinitions(data.names);

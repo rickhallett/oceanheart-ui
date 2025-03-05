@@ -14,7 +14,6 @@ export async function GET() {
 
     // Connect to the database in the same directory as this file
     const dbPath = path.join(__dirname, 'names.db');
-    console.log('Database path:', dbPath);
 
     const db = new BetterSqlite3(dbPath);
 
@@ -60,11 +59,9 @@ export async function POST(request: NextRequest) {
 
     // Insert the new name
     const result = db.prepare('INSERT INTO Name (name) VALUES (?)').run(name);
-    console.log(result.changes)
 
     // Get updated list of names
     const names = db.prepare('SELECT name FROM Name ORDER BY created_at DESC').all();
-    console.log(names)
 
     db.close();
 

@@ -51,7 +51,6 @@ const LiveLeaderboard: React.FC = () => {
     }
   );
 
-  console.log('Fetched leaderboard data:', data);
 
   if (error) {
     console.error('Error loading leaderboard:', error);
