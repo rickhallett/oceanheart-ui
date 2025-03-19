@@ -9,7 +9,7 @@ interface CountdownProps {
 const Countdown: React.FC<CountdownProps> = ({ enhanced = false }) => {
   // Set the target date to Friday, February 28 at 05:00 GMT.
   // (Adjust the year if necessary.)
-  const targetDate = new Date("2025-04-19T08:00:00Z");
+  const targetDate = new Date("2025-04-18T09:30:00Z");
 
   const [timeRemaining, setTimeRemaining] = useState<number>(
     targetDate.getTime() - new Date().getTime()

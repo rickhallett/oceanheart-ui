@@ -38,6 +38,7 @@ const LiveLeaderboard: React.FC = () => {
   const [comment, setComment] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
+  const [showMachTable, setShowMachTable] = useState(false);
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', config.colors.saigoTheme);
   }, []);
@@ -119,11 +120,101 @@ const LiveLeaderboard: React.FC = () => {
       </div>
       <div className="flex flex-col items-center justify-center min-h-[60vh]">
         <div className="flex flex-row items-center justify-center w-full py-5">
-          <SaigoAnimatedText text="Saigo No Yume: The Last Dream" />
+          <SaigoAnimatedText text="White Dragon" />
         </div>
         <Image src="/images/hbi_transparent.webp" alt="Saigo Logo" width={200} height={200} />
         <div className="flex flex-row items-center justify-center w-full py-5">
           <Countdown enhanced={true} />
+        </div>
+
+        {/* Mach Rank Table - Toggleable */}
+        <div className="w-full max-w-4xl mx-auto mb-6">
+          <button
+            onClick={() => setShowMachTable(!showMachTable)}
+            className="btn btn-white btn-outline w-3/4 mb-2 flex items-center justify-around mx-auto"
+          >
+            <span className="text-md font-bold">Mach Speed Targets</span>
+            <span className="text-md">{showMachTable ? '▲' : '▼'}</span>
+          </button>
+
+          {showMachTable && (
+            <div className="bg-gray-800 rounded-lg p-4 transition-all duration-300 ease-in-out">
+              <div className="overflow-x-auto">
+                <table className="table table-zebra w-full">
+                  <thead>
+                    <tr className="bg-gray-700 text-white">
+                      <th className="text-center">Mach Rank</th>
+                      <th className="text-center">mph</th>
+                      <th className="text-center">mph/d</th>
+                      <th className="text-center">hrs/d</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className="hover:bg-gray-600">
+                      <td className="text-center font-bold">Mach 1</td>
+                      <td className="text-center">767</td>
+                      <td className="text-center">25.6</td>
+                      <td className="text-center">0.4</td>
+                    </tr>
+                    <tr className="hover:bg-gray-600">
+                      <td className="text-center font-bold">Mach 2</td>
+                      <td className="text-center">1,534</td>
+                      <td className="text-center">51.1</td>
+                      <td className="text-center">0.9</td>
+                    </tr>
+                    <tr className="hover:bg-gray-600">
+                      <td className="text-center font-bold">Mach 3</td>
+                      <td className="text-center">2,301</td>
+                      <td className="text-center">76.7</td>
+                      <td className="text-center">1.3</td>
+                    </tr>
+                    <tr className="hover:bg-gray-600">
+                      <td className="text-center font-bold">Mach 4</td>
+                      <td className="text-center">3,068</td>
+                      <td className="text-center">102.3</td>
+                      <td className="text-center">1.7</td>
+                    </tr>
+                    <tr className="hover:bg-gray-600">
+                      <td className="text-center font-bold">Mach 5</td>
+                      <td className="text-center">3,835</td>
+                      <td className="text-center">127.8</td>
+                      <td className="text-center">2.1</td>
+                    </tr>
+                    <tr className="hover:bg-gray-600">
+                      <td className="text-center font-bold">Mach 6</td>
+                      <td className="text-center">4,602</td>
+                      <td className="text-center">153.4</td>
+                      <td className="text-center">2.6</td>
+                    </tr>
+                    <tr className="hover:bg-gray-600">
+                      <td className="text-center font-bold">Mach 7</td>
+                      <td className="text-center">5,369</td>
+                      <td className="text-center">179.0</td>
+                      <td className="text-center">3.0</td>
+                    </tr>
+                    <tr className="hover:bg-gray-600">
+                      <td className="text-center font-bold">Mach 8</td>
+                      <td className="text-center">6,136</td>
+                      <td className="text-center">204.5</td>
+                      <td className="text-center">3.4</td>
+                    </tr>
+                    <tr className="hover:bg-gray-600">
+                      <td className="text-center font-bold">Mach 9</td>
+                      <td className="text-center">6,903</td>
+                      <td className="text-center">230.1</td>
+                      <td className="text-center">3.8</td>
+                    </tr>
+                    <tr className="hover:bg-gray-600">
+                      <td className="text-center font-bold">Mach 10</td>
+                      <td className="text-center">7,670</td>
+                      <td className="text-center">255.7</td>
+                      <td className="text-center">4.3</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
         </div>
 
         {showForm ? (
@@ -177,9 +268,10 @@ const LiveLeaderboard: React.FC = () => {
               </label>
               <textarea
                 value={comment}
+                rows={3}
                 onChange={(e) => setComment(e.target.value)}
                 className="textarea textarea-bordered textarea-secondary w-full"
-                placeholder="What you learn? Can it help others? What was the most important lesson? (This feature is development...)"
+                placeholder="What did you learn? Can it help others? What was the most important lesson? (This feature is in development...)"
                 disabled={true}
               />
             </div>
@@ -218,87 +310,78 @@ const LiveLeaderboard: React.FC = () => {
           </div>
         </div>
 
-
-        <div className="w-full h-[1020px] md:h-[1020px] max-w-4xl mx-auto mt-4 bg-gray-800 rounded-lg p-4">
-          <div className="flex flex-col md:flex-row gap-4">
-            {/* Left Column: Practice Summary Types */}
-            <div className="md:w-1/3">
-              <div className="bg-gray-800 rounded-lg p-6">
-                <h2 className="text-2xl font-bold text-white mb-4">Practice Summary</h2>
-                <div className="flex flex-wrap md:flex-col gap-4">
-                  {practiceSummary.map((practice, index) => (
-                    <div key={index} className="bg-gray-700 rounded-lg p-4 flex-1 md:flex-none">
-                      <div
-                        className="text-gray-300 font-medium mb-1"
-                        style={{
-                          color:
-                            (PRACTICE_TYPES_COLORS.find((item) => item.type === practice.type)
-                              ?.color) || "#000000",
-                        }}
-                      >
-                        {practice.type}
-                      </div>
-                      <div className="flex flex-row items-end justify-between">
-                        <div className="text-2xl font-bold text-white">
-                          {practice.totalPoints} <span className="text-sm">mins</span>
-                        </div>
-                        <div className="text-xs opacity-50">({Math.floor(practice.totalPoints / 7)} pts/d)</div>
-                      </div>
-
-                    </div>
-                  ))}
+        {/* Practice Summary Panel */}
+        <div className="w-full max-w-4xl mx-auto mt-4 bg-gray-800 rounded-lg p-4">
+          <h2 className="text-2xl font-bold text-white mb-4">Practice Summary</h2>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 min-h-[581px]">
+            {practiceSummary.map((practice, index) => (
+              <div key={index} className="bg-gray-700 rounded-lg p-4">
+                <div
+                  className="text-gray-300 font-medium mb-1"
+                  style={{
+                    color:
+                      (PRACTICE_TYPES_COLORS.find((item) => item.type === practice.type)
+                        ?.color) || "#000000",
+                  }}
+                >
+                  {practice.type}
+                </div>
+                <div className="flex flex-row items-end justify-between">
+                  <div className="text-2xl font-bold text-white">
+                    {practice.totalPoints} <span className="text-sm">mins</span>
+                  </div>
+                  <div className="text-xs opacity-50">({Math.floor(practice.totalPoints / 7)} pts/d)</div>
                 </div>
               </div>
-            </div>
-            {/* Right Column: Pie Chart & Stacked Bar Chart */}
-            <div className="md:w-2/3 flex flex-col gap-32 sm:gap-4">
-              <div className="bg-gray-800 rounded-lg p-0 md:p-4 md:m-16 flex justify-evenly">
-                <ResponsiveContainer width="100%" aspect={1}>
-                  <PieChart>
-                    <Pie
-                      data={practiceSummary}
-                      dataKey="totalPoints"
-                      nameKey="type"
-                      cx="50%"
-                      cy="50%"
-                      outerRadius={80}
-                      label
-                    >
-                      {practiceSummary.map((entry) => {
-                        const colorObj = PRACTICE_TYPES_COLORS.find(
-                          (item) => item.type === entry.type
-                        );
-                        const fillColor = colorObj ? colorObj.color : "#000000";
-                        return <Cell key={entry.type} fill={fillColor} />;
-                      })}
-                    </Pie>
-                    <Tooltip />
-                    <Legend verticalAlign="bottom" height={36} />
-                  </PieChart>
-                </ResponsiveContainer>
-              </div>
-              <div className="bg-gray-800 rounded-lg p-0 md:p-10 hidden md:block">
-                <PracticeTypesStackedBarChart data={stackedData} practiceTypes={practiceTypes} />
-              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Pie Chart Panel */}
+        <div className="w-full max-w-4xl mx-auto mt-4 bg-gray-800 rounded-lg p-4">
+          <h2 className="text-2xl font-bold text-white mb-4">Practice Distribution</h2>
+          <div className="flex justify-center min-h-[540px]">
+            <div className="w-full h-[300px] md:h-[400px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={practiceSummary}
+                    dataKey="totalPoints"
+                    nameKey="type"
+                    cx="50%"
+                    cy="50%"
+                    outerRadius="70%"
+                    label
+                  >
+                    {practiceSummary.map((entry) => {
+                      const colorObj = PRACTICE_TYPES_COLORS.find(
+                        (item) => item.type === entry.type
+                      );
+                      const fillColor = colorObj ? colorObj.color : "#000000";
+                      return <Cell key={entry.type} fill={fillColor} />;
+                    })}
+                  </Pie>
+                  <Tooltip />
+                  <Legend verticalAlign="bottom" height={36} />
+                </PieChart>
+              </ResponsiveContainer>
             </div>
           </div>
         </div>
 
+        {/* Points Per Day Panel */}
         <div className="w-full max-w-4xl mx-auto mt-4 bg-gray-800 rounded-lg p-4">
-          <div className="flex justify-between items-center text-gray-300 font-bold border-t-2 border-gray-600 py-3 px-4">
-            {/* Practice Summary Section */}
-            <div className="flex flex-row items-center justify-center w-full gap-32 flex-wrap">
-              <div className="mt-8">
-                <LineGraph data={dailyPoints} />
-              </div>
-              <div className="mt-8">
-                <PracticeTypesRadarChart data={practiceSummary} />
-              </div>
-              <div className="mt-8">
-                <CumulativePointsAreaChart dailyPoints={dailyPoints} />
-              </div>
+          <h2 className="text-2xl font-bold text-white mb-4">Points Per Day</h2>
+          <div className="w-full min-h-[370px]">
+            <LineGraph data={dailyPoints} />
+          </div>
+        </div>
 
-            </div>
+        {/* Cumulative Points Panel */}
+        <div className="w-full max-w-4xl mx-auto mt-4 bg-gray-800 rounded-lg p-4 min-h-[500px]">
+          <h2 className="text-2xl font-bold text-white mb-4">Cumulative Progress</h2>
+          <div className="w-full h-[300px] md:h-[400px]">
+            <CumulativePointsAreaChart dailyPoints={dailyPoints} />
           </div>
         </div>
       </div>
