@@ -23,7 +23,7 @@ interface CountdownTimerProps {
 }
 
 export default function CountdownTimer({ onDownload, timeRemaining, setTimeRemaining }: CountdownTimerProps) {
-  const targetTimestamp = 1741129521485 + (7 * 24 * 60 * 60 * 1000) + (7 * 60 * 60 * 1000) + (7 * 60 * 1000) + (7 * 1000);
+  const targetTimestamp = 1741129521485 + (7 * 24 * 60 * 60 * 1000) + (16 * 60 * 60 * 1000) + ((7 + 6) * 60 * 1000) + (7 * 1000);
 
 
   useEffect(() => {
