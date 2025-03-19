@@ -1,9 +1,6 @@
 import crypto from 'crypto';
-
 import { config } from 'dotenv';
 import path from 'path';
-
-
 
 // Load env variables from one of multiple possible .env paths
 const envPaths = [".env", "../.env", "../../.env", "../../../.env"].map(p =>
@@ -33,3 +30,4 @@ function encrypt(text: string) {
 
 // Example: Generate an encrypted key
 const encryptedKey = encrypt('saigo-no-yume');
+console.log(encryptedKey);
