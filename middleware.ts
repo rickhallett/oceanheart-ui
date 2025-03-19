@@ -1,7 +1,10 @@
-import { type NextRequest } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { updateSession } from "@/libs/supabase/middleware";
 
 export async function middleware(request: NextRequest) {
+  if (request.nextUrl.pathname.startsWith("/hdi")) {
+    return NextResponse.redirect(new URL("/", request.url));
+  }
   return await updateSession(request);
 }
 

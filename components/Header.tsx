@@ -30,11 +30,11 @@ const links: {
       href: "https://www.oceanheart.blog/",
       label: "Blog",
     },
-    {
-      href: "/hdi",
-      label: "HDI",
-      className: "hdi-nav-link relative glow-effect"
-    },
+    // {
+    //   href: "/hdi",
+    //   label: "HDI",
+    //   className: "hdi-nav-link relative glow-effect"
+    // },
   ];
 const cta: JSX.Element = <ButtonSignin extraStyle="btn-primary" />;
 
