@@ -31,6 +31,20 @@ interface LeaderboardData {
 import { PRACTICE_TYPES_COLORS } from "@/libs/chartColors";
 import LoadingPage from "@/components/LoadingPage";
 const fetcher = (url: string) => fetch(url).then(res => res.json());
+
+// Function to trigger Instagram check
+const triggerInstagramCheck = async () => {
+  try {
+    await fetch('/api/saigo/instagram/check-trigger', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+    });
+    console.log('Instagram check triggered');
+  } catch (error) {
+    console.error('Error triggering Instagram check:', error);
+  }
+};
+
 const LiveLeaderboard: React.FC = () => {
   const [showForm, setShowForm] = useState(false);
   const [activityType, setActivityType] = useState("");
@@ -41,6 +55,9 @@ const LiveLeaderboard: React.FC = () => {
   const [showMachTable, setShowMachTable] = useState(false);
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', config.colors.saigoTheme);
+
+    // Trigger Instagram check when the component mounts
+    triggerInstagramCheck();
   }, []);
   const { data, error: fetchError } = useSWR<LeaderboardData>(
     '/api/saigo/leaderboard',
