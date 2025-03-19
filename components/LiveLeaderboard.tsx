@@ -81,6 +81,8 @@ const LiveLeaderboard: React.FC = () => {
 
   const { leaderboardData, practiceSummary, dailyPoints, stackedData, practiceTypes } = data;
 
+  const showCountdown = false;
+
   anime({
     targets: 'h1',
     strokeDashoffset: [anime.setDashoffset, 0],
@@ -139,100 +141,16 @@ const LiveLeaderboard: React.FC = () => {
         <div className="flex flex-row items-center justify-center w-full py-5">
           <SaigoAnimatedText text="White Dragon" />
         </div>
-        <Image src="/images/hbi_transparent.webp" alt="Saigo Logo" width={200} height={200} />
         <div className="flex flex-row items-center justify-center w-full py-5">
-          <Countdown enhanced={true} />
+          <Image src="/images/hbi_transparent.webp" alt="Saigo Logo" width={200} height={200} />
         </div>
+        {showCountdown && (
+          <div className="flex flex-row items-center justify-center w-full py-5">
+            <Countdown enhanced={true} />
+          </div>
+        )}
 
-        {/* Mach Rank Table - Toggleable */}
-        <div className="w-full max-w-4xl mx-auto mb-6">
-          <button
-            onClick={() => setShowMachTable(!showMachTable)}
-            className="btn btn-white btn-outline w-3/4 mb-2 flex items-center justify-around mx-auto"
-          >
-            <span className="text-md font-bold">Mach Speed Targets</span>
-            <span className="text-md">{showMachTable ? '▲' : '▼'}</span>
-          </button>
 
-          {showMachTable && (
-            <div className="bg-gray-800 rounded-lg p-4 transition-all duration-300 ease-in-out">
-              <div className="overflow-x-auto">
-                <table className="table table-zebra w-full">
-                  <thead>
-                    <tr className="bg-gray-700 text-white">
-                      <th className="text-center">Mach Rank</th>
-                      <th className="text-center">mph</th>
-                      <th className="text-center">mph/d</th>
-                      <th className="text-center">hrs/d</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr className="hover:bg-gray-600">
-                      <td className="text-center font-bold">Mach 1</td>
-                      <td className="text-center">767</td>
-                      <td className="text-center">25.6</td>
-                      <td className="text-center">0.4</td>
-                    </tr>
-                    <tr className="hover:bg-gray-600">
-                      <td className="text-center font-bold">Mach 2</td>
-                      <td className="text-center">1,534</td>
-                      <td className="text-center">51.1</td>
-                      <td className="text-center">0.9</td>
-                    </tr>
-                    <tr className="hover:bg-gray-600">
-                      <td className="text-center font-bold">Mach 3</td>
-                      <td className="text-center">2,301</td>
-                      <td className="text-center">76.7</td>
-                      <td className="text-center">1.3</td>
-                    </tr>
-                    <tr className="hover:bg-gray-600">
-                      <td className="text-center font-bold">Mach 4</td>
-                      <td className="text-center">3,068</td>
-                      <td className="text-center">102.3</td>
-                      <td className="text-center">1.7</td>
-                    </tr>
-                    <tr className="hover:bg-gray-600">
-                      <td className="text-center font-bold">Mach 5</td>
-                      <td className="text-center">3,835</td>
-                      <td className="text-center">127.8</td>
-                      <td className="text-center">2.1</td>
-                    </tr>
-                    <tr className="hover:bg-gray-600">
-                      <td className="text-center font-bold">Mach 6</td>
-                      <td className="text-center">4,602</td>
-                      <td className="text-center">153.4</td>
-                      <td className="text-center">2.6</td>
-                    </tr>
-                    <tr className="hover:bg-gray-600">
-                      <td className="text-center font-bold">Mach 7</td>
-                      <td className="text-center">5,369</td>
-                      <td className="text-center">179.0</td>
-                      <td className="text-center">3.0</td>
-                    </tr>
-                    <tr className="hover:bg-gray-600">
-                      <td className="text-center font-bold">Mach 8</td>
-                      <td className="text-center">6,136</td>
-                      <td className="text-center">204.5</td>
-                      <td className="text-center">3.4</td>
-                    </tr>
-                    <tr className="hover:bg-gray-600">
-                      <td className="text-center font-bold">Mach 9</td>
-                      <td className="text-center">6,903</td>
-                      <td className="text-center">230.1</td>
-                      <td className="text-center">3.8</td>
-                    </tr>
-                    <tr className="hover:bg-gray-600">
-                      <td className="text-center font-bold">Mach 10</td>
-                      <td className="text-center">7,670</td>
-                      <td className="text-center">255.7</td>
-                      <td className="text-center">4.3</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          )}
-        </div>
 
         {showForm ? (
           <form onSubmit={handleSubmit} className="bg-gray-800 rounded-lg p-6 w-full max-w-4xl">
@@ -330,27 +248,28 @@ const LiveLeaderboard: React.FC = () => {
         {/* Practice Summary Panel */}
         <div className="w-full max-w-4xl mx-auto mt-4 bg-gray-800 rounded-lg p-4">
           <h2 className="text-2xl font-bold text-white mb-4">Practice Summary</h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 min-h-[581px]">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {practiceSummary.map((practice, index) => (
-              <div key={index} className="bg-gray-700 rounded-lg p-4">
-                <div
-                  className="text-gray-300 font-medium mb-1"
-                  style={{
-                    color:
-                      (PRACTICE_TYPES_COLORS.find((item) => item.type === practice.type)
-                        ?.color) || "#000000",
-                  }}
-                >
-                  {practice.type}
-                </div>
-                <div className="flex flex-row items-end justify-between">
-                  <div className="text-2xl font-bold text-white">
-                    {practice.totalPoints} <span className="text-sm">mins</span>
+              practice.totalPoints > 0 && (
+                <div key={index} className="bg-gray-700 rounded-lg p-4">
+                  <div
+                    className="text-gray-300 font-medium mb-1"
+                    style={{
+                      color:
+                        (PRACTICE_TYPES_COLORS.find((item) => item.type === practice.type)
+                          ?.color) || "#000000",
+                    }}
+                  >
+                    {practice.type}
                   </div>
-                  <div className="text-xs opacity-50">({Math.floor(practice.totalPoints / 7)} pts/d)</div>
+                  <div className="flex flex-row items-end justify-between">
+                    <div className="text-2xl font-bold text-white">
+                      {practice.totalPoints} <span className="text-sm">mins</span>
+                    </div>
+                    <div className="text-xs opacity-50">({Math.floor(practice.totalPoints / 7)} pts/d)</div>
+                  </div>
                 </div>
-              </div>
-            ))}
+              )))}
           </div>
         </div>
 
@@ -400,6 +319,96 @@ const LiveLeaderboard: React.FC = () => {
           <div className="w-full h-[300px] md:h-[400px]">
             <CumulativePointsAreaChart dailyPoints={dailyPoints} />
           </div>
+        </div>
+
+        {/* Mach Rank Table - Toggleable */}
+        <div className="w-full max-w-4xl mt-4 mx-auto mb-6">
+          <button
+            onClick={() => setShowMachTable(!showMachTable)}
+            className="btn btn-white btn-outline w-3/4 mb-2 flex items-center justify-around mx-auto"
+          >
+            <span className="text-md font-bold">Mach Speeds (30 days)</span>
+            <span className="text-md">{showMachTable ? '▲' : '▼'}</span>
+          </button>
+
+          {showMachTable && (
+            <div className="bg-gray-800 rounded-lg p-4 transition-all duration-300 ease-in-out">
+              <div className="overflow-x-auto">
+                <table className="table table-zebra w-full">
+                  <thead>
+                    <tr className="bg-gray-700 text-white">
+                      <th className="text-center">Mach Rank</th>
+                      <th className="text-center">mph</th>
+                      <th className="text-center">mph/d</th>
+                      <th className="text-center">hrs/d</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className="hover:bg-gray-600">
+                      <td className="text-center font-bold">Mach 1</td>
+                      <td className="text-center">767</td>
+                      <td className="text-center">25.6</td>
+                      <td className="text-center">0.4</td>
+                    </tr>
+                    <tr className="hover:bg-gray-600">
+                      <td className="text-center font-bold">Mach 2</td>
+                      <td className="text-center">1,534</td>
+                      <td className="text-center">51.1</td>
+                      <td className="text-center">0.9</td>
+                    </tr>
+                    <tr className="hover:bg-gray-600">
+                      <td className="text-center font-bold">Mach 3</td>
+                      <td className="text-center">2,301</td>
+                      <td className="text-center">76.7</td>
+                      <td className="text-center">1.3</td>
+                    </tr>
+                    <tr className="hover:bg-gray-600">
+                      <td className="text-center font-bold">Mach 4</td>
+                      <td className="text-center">3,068</td>
+                      <td className="text-center">102.3</td>
+                      <td className="text-center">1.7</td>
+                    </tr>
+                    <tr className="hover:bg-gray-600">
+                      <td className="text-center font-bold">Mach 5</td>
+                      <td className="text-center">3,835</td>
+                      <td className="text-center">127.8</td>
+                      <td className="text-center">2.1</td>
+                    </tr>
+                    <tr className="hover:bg-gray-600">
+                      <td className="text-center font-bold">Mach 6</td>
+                      <td className="text-center">4,602</td>
+                      <td className="text-center">153.4</td>
+                      <td className="text-center">2.6</td>
+                    </tr>
+                    <tr className="hover:bg-gray-600">
+                      <td className="text-center font-bold">Mach 7</td>
+                      <td className="text-center">5,369</td>
+                      <td className="text-center">179.0</td>
+                      <td className="text-center">3.0</td>
+                    </tr>
+                    <tr className="hover:bg-gray-600">
+                      <td className="text-center font-bold">Mach 8</td>
+                      <td className="text-center">6,136</td>
+                      <td className="text-center">204.5</td>
+                      <td className="text-center">3.4</td>
+                    </tr>
+                    <tr className="hover:bg-gray-600">
+                      <td className="text-center font-bold">Mach 9</td>
+                      <td className="text-center">6,903</td>
+                      <td className="text-center">230.1</td>
+                      <td className="text-center">3.8</td>
+                    </tr>
+                    <tr className="hover:bg-gray-600">
+                      <td className="text-center font-bold">Mach 10</td>
+                      <td className="text-center">7,670</td>
+                      <td className="text-center">255.7</td>
+                      <td className="text-center">4.3</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

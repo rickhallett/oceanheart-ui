@@ -69,6 +69,14 @@ const LeaderboardTable: React.FC<LeaderboardTableProps> = ({ data }) => {
   const rightData = data.slice(mid);
   const isRightDisplayed = rightData.length > 0;
 
+  if (data.length <= 5) {
+    return (
+      <div className="w-full max-w-4xl mx-auto bg-gray-800 rounded-lg overflow-hidden">
+        <DataTable columns={columns} data={data} customStyles={customStyles} pagination theme="dark" />
+      </div>
+    );
+  }
+
   return (
     <div className="w-full max-w-4xl mx-auto bg-gray-800 rounded-lg overflow-hidden">
       <div className="flex flex-col md:flex-row">
