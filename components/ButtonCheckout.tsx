@@ -52,7 +52,7 @@ const ButtonCheckout = ({
       const { url }: { url: string } = await apiClient.post(
         "/stripe/create-checkout",
         {
-          priceId,
+          priceId: donate ? "price_1R4RHkRVLr5O3VRE6dsEzO4U" : priceId,
           successUrl: window.location.href,
           cancelUrl: window.location.href,
           mode,

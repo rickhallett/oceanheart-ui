@@ -60,7 +60,7 @@ export const createCheckout = async ({
 
     const stripeSession = await stripe.checkout.sessions.create({
       mode,
-      allow_promotion_codes: true,
+      // allow_promotion_codes: true,
       client_reference_id: clientReferenceId,
       line_items: [
         {
@@ -68,13 +68,13 @@ export const createCheckout = async ({
           quantity: 1,
         },
       ],
-      discounts: couponId
-        ? [
-          {
-            coupon: couponId,
-          },
-        ]
-        : [],
+      // discounts: couponId
+      //   ? [
+      //     {
+      //       coupon: couponId,
+      //     },
+      //   ]
+      //   : [],
       success_url: successUrl,
       cancel_url: cancelUrl,
       ...extraParams,
