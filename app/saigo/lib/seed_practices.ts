@@ -30,37 +30,50 @@ async function seedPracticeRecords() {
   // Define the practice types as in seed_db.ts
   const practiceTypes = [
     "Meditation",
-    "Sitting in the rain",
-    "Energy movements",
+    "Sitting In The Rain",
+    "Energy Movements",
     "High Guard",
-    "Jumping",
-    "Projection"
+    "Feels Like",
+    "Surrender",
+    "Tonglen",
+    "Scanning",
+    "Manifestation",
+    "The Tones",
+    "Mind Projection",
+    "Koan Meditation",
+    "Conversations with God",
+    "Time Stepping",
+    "Brain Wiggle",
+    "The White Fire",
+    "Energise Water",
+    "Aums",
+    "Seeing Auras",
+    "Watching Static",
+    "Prana Walking",
+    "Cloud Busting"
   ];
 
-  // For each user, generate 100 practice records
+  // for each user, generate 1 practice record with all the practice types
   for (const user of users!) {
     const practices = [];
-    for (let i = 0; i < 100; i++) {
-      const randomType = practiceTypes[Math.floor(Math.random() * practiceTypes.length)];
-      const randomPoints = Math.floor(Math.random() * (120 - 5 + 1)) + 5;
+    for (const type of practiceTypes) {
       practices.push({
         user_id: user.id,
-        type: randomType,
-        points: randomPoints
+        type: type,
+        points: 5,
+        created_at: new Date().toISOString()
       });
     }
-    
-    // Insert the 100 practice records for the current user
     const { error: insertError } = await supabase
       .from("practices")
       .insert(practices);
     if (insertError) {
       console.error(`Error inserting practices for user ${user.id}:`, insertError);
     } else {
-      console.log(`Inserted 100 practices for user ${user.id}`);
+      console.log(`Inserted ${practices.length} practices for user ${user.id}`);
     }
   }
-  
+
   console.log("Practice seeding complete!");
 }
 
