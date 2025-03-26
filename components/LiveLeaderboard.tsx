@@ -81,7 +81,7 @@ const LiveLeaderboard: React.FC = () => {
 
   const { leaderboardData, practiceSummary, dailyPoints, stackedData, practiceTypes } = data;
 
-  const showCountdown = false;
+  const showCountdown = true;
 
   anime({
     targets: 'h1',

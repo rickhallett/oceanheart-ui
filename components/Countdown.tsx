@@ -7,38 +7,37 @@ interface CountdownProps {
 }
 
 const Countdown: React.FC<CountdownProps> = ({ enhanced = false }) => {
-  // Set the target date to Friday, February 28 at 05:00 GMT.
-  // (Adjust the year if necessary.)
-  const targetDate = new Date("2025-04-18T09:30:00Z");
+  // Set the start date to when the leaderboard began running
+  const startDate = new Date("2025-03-18T09:30:00Z");
 
-  const [timeRemaining, setTimeRemaining] = useState<number>(
-    targetDate.getTime() - new Date().getTime()
+  const [timeElapsed, setTimeElapsed] = useState<number>(
+    new Date().getTime() - startDate.getTime()
   );
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setTimeRemaining(targetDate.getTime() - new Date().getTime());
+      setTimeElapsed(new Date().getTime() - startDate.getTime());
     }, 1000);
 
     return () => clearInterval(intervalId);
-  }, [targetDate]);
+  }, [startDate]);
 
-  if (timeRemaining <= 0) {
+  if (timeElapsed <= 0) {
     return (
       <div className="text-center text-white font-bold py-2">
-        The countdown has ended!
+        The leaderboard has not started yet!
       </div>
     );
   }
 
-  const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+  const days = Math.floor(timeElapsed / (1000 * 60 * 60 * 24));
   const hours = Math.floor(
-    (timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    (timeElapsed % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
   );
   const minutes = Math.floor(
-    (timeRemaining % (1000 * 60 * 60)) / (1000 * 60)
+    (timeElapsed % (1000 * 60 * 60)) / (1000 * 60)
   );
-  const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+  const seconds = Math.floor((timeElapsed % (1000 * 60)) / 1000);
 
   if (enhanced) {
     return (

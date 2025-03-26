@@ -18,17 +18,17 @@ const links: {
       label: "Pricing",
     },
     {
-      href: "/#faq",
-      label: "FAQ",
-    },
-
-    {
       href: "/about",
       label: "Why Oceanheart?",
     },
     {
       href: "https://www.oceanheart.blog/",
       label: "Blog",
+    },
+    {
+      href: "/hdi",
+      label: "HDI",
+      className: "hdi-nav-link relative glow-effect"
     },
     {
       href: "/donate",

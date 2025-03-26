@@ -5,6 +5,7 @@ import { config } from 'dotenv';
 import inquirer from 'inquirer';
 import Table from 'cli-table3';
 import path from 'path';
+import { PRACTICE_TYPES } from '@/libs/chartColors';
 
 // Load env variables from one of multiple possible .env paths
 const envPaths = [".env", "../.env", "../../.env", "../../../.env"].map(p =>
@@ -108,17 +109,7 @@ async function addPracticeEntry() {
       type: 'list',
       name: 'practiceType',
       message: 'Choose a practice type:',
-      choices: [
-        "Meditation",
-        "Sitting in the rain",
-        "Energy movements",
-        "High Guard",
-        "Jumping",
-        "Projection",
-        "Conscious Dance",
-        "Yoga",
-        "Teaching"
-      ]
+      choices: PRACTICE_TYPES
     },
     {
       type: 'input',
@@ -160,6 +151,88 @@ async function addPracticeEntry() {
   }
 }
 
+async function addPracticeEntryForOtherUser() {
+  // Fetch list of users from the database
+  const { data: users, error: usersError } = await supabase
+    .from('saigo_users')
+    .select('id, username, email');
+
+  if (usersError || !users || users.length === 0) {
+    console.error('Error fetching users:', usersError || 'No users found');
+    return;
+  }
+
+  // Create user choices for selection menu, showing both username and email for clarity
+  const userChoices = users.map(user => ({
+    name: `${user.username || 'No username'} (${user.email || 'No email'})`,
+    value: user.id
+  }));
+
+  // Add a back option
+  userChoices.push({ name: 'Back to main menu', value: 'back' });
+
+  // Prompt for user selection
+  const { selectedUserId } = await inquirer.prompt([
+    {
+      type: 'list',
+      name: 'selectedUserId',
+      message: 'Select a user:',
+      choices: userChoices
+    }
+  ]);
+
+  // Return to main menu if back option selected
+  if (selectedUserId === 'back') {
+    return;
+  }
+
+  // Find the selected user for display purposes
+  const selectedUser = users.find(user => user.id === selectedUserId);
+
+  if (!selectedUser) {
+    console.error('Selected user not found');
+    return;
+  }
+
+  // Display which user was selected
+  console.log(`Adding practice for: ${selectedUser.username || 'No username'} (${selectedUser.email || 'No email'})`);
+
+  // Prompt for practice type and minutes
+  const { practiceType, minutesEntered } = await inquirer.prompt([
+    {
+      type: 'list',
+      name: 'practiceType',
+      message: 'Choose a practice type:',
+      choices: PRACTICE_TYPES
+    },
+    {
+      type: 'input',
+      name: 'minutesEntered',
+      message: 'Enter the number of minutes practiced:',
+      validate: (input: string) => {
+        const parsed = Number(input);
+        return !isNaN(parsed) && parsed > 0 ? true : 'Please enter a positive number';
+      }
+    }
+  ]);
+
+  const minutes = Number(minutesEntered);
+
+  // Insert the new practice entry
+  const { error } = await supabase.from('practices').insert({
+    type: practiceType,
+    points: minutes,
+    user_id: selectedUserId,
+    created_at: new Date().toISOString(),
+  });
+
+  if (error) {
+    console.error('Error inserting practice entry:', error);
+  } else {
+    console.log(`Practice entry added successfully for ${selectedUser.username || selectedUser.email || 'selected user'}!`);
+  }
+}
+
 async function main() {
   while (true) {
     const { action } = await inquirer.prompt([
@@ -168,10 +241,11 @@ async function main() {
         name: 'action',
         message: 'What would you like to do?',
         choices: [
-          'List Users',
-          'List Recent Practices',
-          'Delete Practice',
           'Add Practice Entry for kai@oceanheart.ai',
+          'Add Practice Entry for Another User',
+          'List Recent Practices',
+          'List Users',
+          'Delete Practice',
           'Exit'
         ]
       }
@@ -189,6 +263,9 @@ async function main() {
         break;
       case 'Add Practice Entry for kai@oceanheart.ai':
         await addPracticeEntry();
+        break;
+      case 'Add Practice Entry for Another User':
+        await addPracticeEntryForOtherUser();
         break;
       case 'Exit':
         process.exit(0);

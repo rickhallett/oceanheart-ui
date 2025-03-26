@@ -34,6 +34,8 @@ export const CHART_COLORS = [
 
 export const PRACTICE_TYPES = [
   "Meditation",
+  "Assimilation",
+  "DragonYoga",
   "Sitting In The Rain",
   "Energy Movements",
   "High Guard",
@@ -45,16 +47,16 @@ export const PRACTICE_TYPES = [
   "The Tones",
   "Mind Projection",
   "Koan Meditation",
-  "Conversations with God",
+  "Conversations with AI",
   "Time Stepping",
   "Brain Wiggle",
   "The White Fire",
-  "Energise Water",
   "Aums",
   "Seeing Auras",
   "Watching Static",
   "Prana Walking",
-  "Cloud Busting"
+  "Cloud Busting",
+  "HDI"
 ];
 
 export const PRACTICE_TYPES_COLORS = PRACTICE_TYPES.map((type, index) => ({
