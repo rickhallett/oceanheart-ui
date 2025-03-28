@@ -14,6 +14,30 @@ const openai = new OpenAI({
 export async function POST() {
   const supabase = createClient();
   try {
+    // Get user
+    const { data: user, error: userError } = await supabase.auth.getUser();
+    console.log("👤 User email:", user.user.email);
+
+    if (userError) {
+      throw userError;
+    }
+
+    // Check if email has a predefined username
+    const predefinedUsername = checkPredefinedUsername(user.user.email);
+    if (predefinedUsername) {
+      // Store predefined username in Supabase
+      const { error } = await supabase
+        .from('saigo_users')
+        .update({ username: predefinedUsername })
+        .eq('email', user.user.email);
+
+      if (error) {
+        throw error;
+      }
+
+      return NextResponse.json({ "created": predefinedUsername });
+    }
+
     // Read and parse the XML prompt file
     const promptPath = path.join(process.cwd(), 'prompts', 'saigo_username_prompt.xml');
     const xmlContent = fs.readFileSync(promptPath, 'utf-8');
@@ -51,14 +75,6 @@ export async function POST() {
       throw new Error(`Failed to generate username: ${JSON.stringify(completion)}`);
     }
 
-    // get user
-    const { data: user, error: userError } = await supabase.auth.getUser();
-    console.log("👤 User email:", user.user.email);
-
-    if (userError) {
-      throw userError;
-    }
-
     // Store in Supabase
     const { data: updatedUser, error } = await supabase
       .from('saigo_users')
@@ -79,4 +95,30 @@ export async function POST() {
       { status: 500 }
     );
   }
+}
+
+/**
+ * Checks if the user's email has a predefined username mapping
+ * @param email User's email address
+ * @returns Predefined username if it exists, otherwise null
+ */
+function checkPredefinedUsername(email: string): string | null {
+  // Get email mappings from environment variables
+  // Format: EMAIL_MAPPINGS=email1:username1,email2:username2,email3:username3
+  const emailMappingsStr = process.env.EMAIL_MAPPINGS || '';
+
+  if (!emailMappingsStr) {
+    return null;
+  }
+
+  // Parse the mappings string into a Record object
+  const emailMappings: Record<string, string> = {};
+  emailMappingsStr.split(',').forEach(mapping => {
+    const [mappedEmail, username] = mapping.split(':');
+    if (mappedEmail && username) {
+      emailMappings[mappedEmail.trim()] = username.trim();
+    }
+  });
+
+  return emailMappings[email] || null;
 }
