@@ -3,7 +3,7 @@ import { ConfigProps } from "./types/config";
 
 const config = {
   // REQUIRED
-  appName: "oceanheart.ai",
+  appName: "data_angel_v1.0",
   // REQUIRED: a short description of your app for SEO tags (can be overwritten)
   appDescription: "Welcome to Therapy 2.0",
   // REQUIRED (no https://, not trailing slash at the end, just the naked domain)
