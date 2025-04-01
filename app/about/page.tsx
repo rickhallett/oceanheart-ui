@@ -11,7 +11,7 @@ export default function AboutPage() {
           Why Oceanheart?
         </h1>
         <p className="text-lg md:text-xl opacity-80 max-w-2xl mx-auto mb-0 md:mb-12">
-          Welcome! I'm <a className="underline text-primary" href="https://www.linkedin.com/in/richardhallett86/" target="_blank" rel="noopener noreferrer">Richard (Kai)</a>, the founder behind {config.appName}. I am passionate about leveraging technology to empower therapists and transform care.
+          Welcome! I'm <a className="underline text-primary" href="https://www.linkedin.com/in/richardhallett86/" target="_blank" rel="noopener noreferrer">Richard (Kai)</a>, the founder behind {config.appName}. I am passionate about leveraging technology to empower everybody working in the wellbeing space.
         </p>
         <div className="flex flex-col md:flex-row gap-4 p-4 justify-center items-center">
           <div className="hidden lg:block">

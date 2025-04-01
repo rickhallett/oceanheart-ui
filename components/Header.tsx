@@ -19,21 +19,21 @@ const links: {
     },
     {
       href: "/about",
-      label: "Why Data Angel?",
+      label: "Why Oceanheart?",
     },
     {
       href: "https://www.oceanheart.blog/",
       label: "Blog",
     },
     {
-      href: "/privacy",
-      label: "Privacy",
-      className: "hdi-nav-link relative glow-effect"
+      href: "/consulting",
+      label: "Consulting",
+      className: "hdi-nav-link relative"
     },
     {
       href: "/contact",
       label: "Contact",
-      className: "hdi-nav-link relative glow-effect"
+      className: "hdi-nav-link relative"
     },
   ];
 const cta: JSX.Element = <ButtonSignin extraStyle="btn-primary" />;

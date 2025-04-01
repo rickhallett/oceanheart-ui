@@ -37,8 +37,12 @@ const Hero = () => {
           <p className="text-lg opacity-80 leading-relaxed">
             oceanheart.ai helps therapists do more of what they love most: <span className="italic text-blue-400">helping people</span>
           </p>
-          <p className="text-lg opacity-80 leading-relaxed">
-            Introducing <span className="font-bold text-blue-400">Data Angel v1.0</span>: Smarter Notes. Safer Data. Simpler Workflows.
+          <p className="text-lg opacity-80 leading-relaxed -mt-4">
+            <span className="font-bold text-blue-400">Data Angel v1.0</span>: Smarter Notes. Safer Data. Simpler Workflows.
+          </p>
+          <p className="text-lg opacity-80 leading-relaxed -mt-8">
+            <span className="font-bold text-blue-400">"myThera"</span>: With just one psychological assessment, we can build a custom AI model that helps you reflect on your life. And your data doesn't go anywhere. Ever.{' '}
+            <a href="https://calendar.app.google/85ZdaqYK5vfNk4aH9" target="_blank" rel="noopener noreferrer" className="text-blue-400 underline">Book a free 20-min call</a>
           </p>
           {user ? (
             <Link href="/#pricing" className="btn btn-primary btn-wide">Get Data Angel v1.0<FaRegSquareCaretDown className="animate-bounce ml-2 bg-secondary rounded-full" /> </Link>

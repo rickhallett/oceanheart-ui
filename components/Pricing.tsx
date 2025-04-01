@@ -29,7 +29,7 @@ const Pricing = () => {
 
         <div className="relative flex justify-center flex-col lg:flex-row items-center lg:items-stretch gap-8">
           {config.stripe.plans.map((plan) => (
-            <div key={plan.priceId} className={`relative w-full max-w-lg ${isAvailable(plan) ? '' : 'opacity-50'}`}>
+            <div key={plan.priceId} className={`relative w-full max-w-lg'}`}>
               {plan.isFeatured && (
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
                   <span
@@ -73,7 +73,7 @@ const Pricing = () => {
                   </p>
                   <div className="flex flex-col justify-end mb-[4px]">
                     <p className="text-xs text-base-content/60 uppercase font-semibold">
-                      GBP/<span className="lowercase">month</span>
+                      GBP
                     </p>
                   </div>
                 </div>
@@ -100,7 +100,7 @@ const Pricing = () => {
                   </ul>
                 )}
                 <div className="space-y-2">
-                  <ButtonCheckout priceId={plan.priceId} disabled={!isAvailable(plan)} mode="subscription" />
+                  <ButtonCheckout priceId={plan.priceId} mode="subscription" />
 
                   {/* <p className="flex items-center justify-center gap-2 text-sm text-center text-base-content/80 font-medium relative">
                     Pay once. Access forever.

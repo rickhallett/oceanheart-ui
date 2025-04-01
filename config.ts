@@ -18,13 +18,10 @@ const config = {
     // Create multiple plans in your Stripe dashboard, then add them here. You can add as many plans as you want, just make sure to add the priceId
     plans: [
       {
-        priceId:
-          process.env.NODE_ENV === "development"
-            ? "price_1QuuhBRVLr5O3VREdupRdEst"
-            : "price_1QuuhBRVLr5O3VREdupRdEst",
+        priceId: "price_1R97mvRVLr5O3VREkhQiyUTD",
         name: "Toolkit & Setup",
         description: "One-time payment for the basic Data Angel toolkit",
-        price: 250,
+        price: 199,
         features: [
           { name: "Portable AI Toolkit" },
           { name: "100% Offline Processing" },
@@ -32,47 +29,29 @@ const config = {
           { name: "Built for Compliance" },
           { name: "Initial Setup Support" }
         ],
-        isFeatured: true,
+
       },
       {
-        priceId:
-          process.env.NODE_ENV === "development"
-            ? "price_1QtHiIRVLr5O3VREAZkhQyuH"
-            : "price_1Qu12HRVLr5O3VRE4uM5HmP6",
-        name: "Future Features",
-        description: "Monthly access to all new features as they're released",
-        price: 10,
-        features: [
-          { name: "Access to All Future Updates" },
-          { name: "Priority Support" },
-          { name: "Monthly Webinars" },
-          { name: "Community Access" }
-        ],
-      },
-      {
-        priceId:
-          process.env.NODE_ENV === "development"
-            ? "price_1Niyy5AxyNprDp7iZIqEyD2h"
-            : "price_456",
+        priceId: "price_1R97oIRVLr5O3VREkNV6FtvQ",
         name: "On-Device Data Cleaning",
         description: "Add-on for using cloud AI safely",
-        price: 100,
+        price: 349,
         features: [
+          { name: "Everything in Toolkit & Setup" },
           { name: "Scrub Identifiable Data" },
           { name: "Use Any Cloud AI Model" },
           { name: "Stay Compliant" },
           { name: "Save on Cloud Costs" }
         ],
+        isFeatured: true,
       },
       {
-        priceId:
-          process.env.NODE_ENV === "development"
-            ? "price_1O5KtcAxyNprDp7iftKnrrpw"
-            : "price_456",
+        priceId: "price_1R97puRVLr5O3VREYGJUHFo7",
         name: "Premium Desktop App",
         description: "Elevate your practice",
-        price: 100,
+        price: 449,
         features: [
+          { name: "Everything in On-Device Data Cleaning" },
           { name: "Polished, Intuitive Interface" },
           { name: "Customize to Match Your Brand" },
           { name: "Dedicated Application Experience" },
@@ -80,14 +59,12 @@ const config = {
         ],
       },
       {
-        priceId:
-          process.env.NODE_ENV === "development"
-            ? "price_1O5KtcAxyNprDp7iftKnrrpw"
-            : "price_456",
+        priceId: "price_1R97qwRVLr5O3VREygNfIdgT",
         name: "Your Digital Clone",
         description: "AI trained on your expertise",
-        price: 100,
+        price: 549,
         features: [
+          { name: "Everything in Premium Desktop App" },
           { name: "Fine-tuned to Your Style" },
           { name: "Authentic-Sounding Notes" },
           { name: "Capture Your Unique Value" },
