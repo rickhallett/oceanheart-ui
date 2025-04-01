@@ -22,16 +22,16 @@ const config = {
           process.env.NODE_ENV === "development"
             ? "price_1QuuhBRVLr5O3VREdupRdEst"
             : "price_1QuuhBRVLr5O3VREdupRdEst",
-        name: "Formulation Basics",
-        description: "A first taste of AI-assisted therapy, planning and insight",
-        price: 1,
+        name: "Toolkit & Setup",
+        description: "One-time payment for the basic Data Angel toolkit",
+        price: 250,
         features: [
-          { name: "'Thera' - AI Formulation Builder (limited monthly usage)" },
-          { name: "Data Privacy & Security" },
-          { name: "Weekly tips & tricks with genAI" },
-          { name: "Premium blog content" }
+          { name: "Portable AI Toolkit" },
+          { name: "100% Offline Processing" },
+          { name: "Custom Templates" },
+          { name: "Built for Compliance" },
+          { name: "Initial Setup Support" }
         ],
-        availableFrom: "2025-02-28",
         isFeatured: true,
       },
       {
@@ -39,55 +39,61 @@ const config = {
           process.env.NODE_ENV === "development"
             ? "price_1QtHiIRVLr5O3VREAZkhQyuH"
             : "price_1Qu12HRVLr5O3VRE4uM5HmP6",
-        name: "First Movers",
-        description: "Join the wave of change and upgrade your practice",
-        price: 8,
-        priceAnchor: 14,
+        name: "Future Features",
+        description: "Monthly access to all new features as they're released",
+        price: 10,
         features: [
-          { name: "'Thera'- AI Formulation Builder (unlimited)" },
-          { name: "Smart Session Note Analysis & Advanced Formatting" },
-          { name: "Intelligent Resource Library" },
+          { name: "Access to All Future Updates" },
+          { name: "Priority Support" },
+          { name: "Monthly Webinars" },
+          { name: "Community Access" }
         ],
-        availableFrom: "2025-03-31",
       },
       {
         priceId:
           process.env.NODE_ENV === "development"
             ? "price_1Niyy5AxyNprDp7iZIqEyD2h"
             : "price_456",
-        name: "Power Users",
-        description: "More knowledge, more power",
-        price: 24,
+        name: "On-Device Data Cleaning",
+        description: "Add-on for using cloud AI safely",
+        price: 100,
         features: [
-          { name: "All First Movers features" },
-          { name: "Automated Research Tools" },
-          { name: "Patient Education Resources" },
-          { name: "Secure Client Portal" },
-          { name: "Analytics and Reporting" },
-          { name: "Discord Community Access" },
+          { name: "Scrub Identifiable Data" },
+          { name: "Use Any Cloud AI Model" },
+          { name: "Stay Compliant" },
+          { name: "Save on Cloud Costs" }
         ],
-        availableFrom: "2025-05-31",
       },
       {
         priceId:
           process.env.NODE_ENV === "development"
             ? "price_1O5KtcAxyNprDp7iftKnrrpw"
             : "price_456",
-        name: "Edge Psychotherapy",
-        description: "Becoming limitless",
-        price: 39,
+        name: "Premium Desktop App",
+        description: "Elevate your practice",
+        price: 100,
         features: [
-          { name: "All Power Users features" },
-          { name: "Thera - Your personalised assistant" },
-          { name: "Advanced Analytics and Reporting" },
-          { name: "Automated Spectrum Psychometrics" },
-          { name: "Homework Monitoring" },
-          { name: "Whiteboard & Shared Workspaces" },
-          { name: "Therapy Blueprint Cloud Service" },
-          { name: "Priority Support" },
+          { name: "Polished, Intuitive Interface" },
+          { name: "Customize to Match Your Brand" },
+          { name: "Dedicated Application Experience" },
+          { name: "Professional Integration" }
         ],
-        availableFrom: "2025-11-30",
       },
+      {
+        priceId:
+          process.env.NODE_ENV === "development"
+            ? "price_1O5KtcAxyNprDp7iftKnrrpw"
+            : "price_456",
+        name: "Your Digital Clone",
+        description: "AI trained on your expertise",
+        price: 100,
+        features: [
+          { name: "Fine-tuned to Your Style" },
+          { name: "Authentic-Sounding Notes" },
+          { name: "Capture Your Unique Value" },
+          { name: "Save Hours of Documentation Time" }
+        ],
+      }
     ]
   },
   aws: {

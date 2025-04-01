@@ -21,7 +21,7 @@ const CTA = () => {
           </p>
 
           <button className="btn btn-primary btn-wide">
-            Get <span className="lowercase shadow-md">{config?.appName}</span>
+            Get Data Angel v1.0
           </button>
         </div>
       </div>

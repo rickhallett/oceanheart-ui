@@ -13,30 +13,29 @@ interface FAQItemProps {
 
 const faqList: FAQItemProps[] = [
   {
-    question: "What do I get exactly?",
-    answer: <div className="space-y-2 leading-relaxed">You get a complete, streamlined therapy practice solution. It handles secure client management, session documentation, progress tracking, and resource sharing—enhanced with AI for note analysis and treatment insights. <br /> <br /> For premium users, it also includes your personal assistant Thera, advanced analytics, automated spectrum psychometrics, homework monitoring, collaborative whiteboards, shared workspaces, the Therapy Blueprint Cloud Service, plus priority support.</div>,
+    question: "What exactly is Data Angel?",
+    answer: <div className="space-y-2 leading-relaxed">Data Angel is a privacy-first AI toolkit designed specifically for therapists, counselors, and wellness professionals. It enables you to harness powerful AI capabilities for note-taking, summarization, and documentation—all while keeping your clients' sensitive data 100% on your own device.</div>,
   },
   {
-    question: "What is the Therapy Blueprint Cloud Service?",
-    answer: <div className="space-y-2 leading-relaxed">The Therapy Blueprint Cloud Service is a premium feature that allows both you and your clients to store and access your therapy blueprints from anywhere. It grows alongside their progress and is accessible from any device.</div>,
+    question: "How is this different from other AI tools?",
+    answer: <div className="space-y-2 leading-relaxed">Unlike most AI services that require sending data to cloud servers (often costing £300-£500/month for HIPAA compliance), Data Angel processes everything locally on your device. Your clients' data never leaves your control, making it inherently more secure and affordable than cloud alternatives.</div>,
   },
   {
-    question: "Are all the features built yet?",
-    answer: (<div className="space-y-2 leading-relaxed">No, but the core features are. I&apos;m working on adding more features all the time and aiming to have the full suite available by the end of 2025. See the project roadmap for more information, and get to vote on what features you&apos;d like to see next!</div>),
+    question: "What hardware do I need?",
+    answer: (<div className="space-y-2 leading-relaxed">Data Angel is designed to work on most modern laptops. We'll help you determine if your current device is suitable during setup. For optimal performance, we recommend at least 16GB RAM and an i5/Ryzen 5 processor or better. We can also provide pre-configured hardware options if needed.</div>),
   },
   {
     question: "Can I get a refund?",
     answer: (
       <p>
-        Yes! You can request a refund within 7 days of your purchase. Reach out
-        by email.
+        Yes! You can request a refund within 14 days of your purchase if you're not satisfied with Data Angel. Simply reach out to us by email.
       </p>
     ),
   },
   {
     question: "I have another question",
     answer: (
-      <div className="space-y-2 leading-relaxed">Good! I&apos;m here to help. <br /> <br /> Email me at <a href="mailto:kai@oceanheart.ai">kai@oceanheart.ai</a></div>
+      <div className="space-y-2 leading-relaxed">We're here to help! Please email us at <a href="mailto:kai@oceanheart.ai">kai@oceanheart.ai</a> with any questions about Data Angel or to schedule a demo.</div>
     ),
   },
 ];

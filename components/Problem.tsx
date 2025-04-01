@@ -44,32 +44,32 @@ const Problem = () => {
     <section className="bg-neutral text-neutral-content">
       <div className="max-w-7xl mx-auto px-8 py-16 md:py-32 text-center">
         <h2 className="max-w-3xl mx-auto font-extrabold text-4xl md:text-5xl tracking-tight mb-6 md:mb-12">
-          45% of therapists report <a className="text-secondary underline" href="https://www.apa.org/monitor/2023/11/taking-a-break-from-practice" target="_blank" rel="noopener noreferrer">feeling burnt out</a>
+          Most AI services charge <span className="text-secondary underline">£300–£500/month</span> for HIPAA-compliant hosting
         </h2>
         <p className="max-w-xl mx-auto text-lg opacity-90 leading-relaxed mb-6 md:mb-16">
-          Clients, note keeping, case management, continual learning... There&apos;s never enough time.
+          Cheaper options may risk non-compliance, eroding client trust and practice integrity.
         </p>
         <p className="max-w-xl mx-auto text-lg opacity-90 leading-relaxed mb-6 md:mb-16">
-          <a className="text-accent underline" href="https://www.apa.org/monitor/2023/09/many-psychologists-have-waitlist" target="_blank" rel="noopener noreferrer">Almost half</a> of all psychologists have a waiting list...
+          One breach can <a className="text-accent underline" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8166960/" target="_blank" rel="noopener noreferrer">permanently damage</a> therapeutic relationships...
         </p>
         <p className="max-w-xl mx-auto text-lg opacity-90 leading-relaxed mb-6 md:mb-20">
-          ...and people <a className="text-error underline" href="https://www.apa.org/pubs/reports/practitioner/2023-psychologist-reach-limits" target="_blank" rel="noopener noreferrer">are getting worse</a>.
+          ...and there are too many <a className="text-error underline" href="https://www.nature.com/articles/s41746-023-00881-0" target="_blank" rel="noopener noreferrer">unknowns about cloud AI governance</a>.
         </p>
 
         <div className="flex flex-col md:flex-row justify-center items-center md:items-start gap-6">
-          <Step emoji="🧑‍💻" text="Endless admin" />
+          <Step emoji="🧑‍💻" text="Cloud dependency" />
 
           <Arrow extraStyle="max-md:-scale-x-100 md:-rotate-90" />
 
-          <Step emoji="😮‍💨" text="Insufficient recovery time" />
+          <Step emoji="💰" text="High monthly costs" />
 
           <Arrow extraStyle="md:-scale-x-100 md:-rotate-90" />
 
-          <Step emoji="🧠" text="Continual learning" />
+          <Step emoji="🔓" text="Privacy risks" />
 
           <Arrow extraStyle="max-md:-scale-x-100 md:-rotate-90" />
 
-          <Step emoji="😔" text="Burnout" />
+          <Step emoji="😔" text="Loss of trust" />
         </div>
       </div>
     </section>

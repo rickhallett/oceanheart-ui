@@ -19,20 +19,20 @@ const links: {
     },
     {
       href: "/about",
-      label: "Why Oceanheart?",
+      label: "Why Data Angel?",
     },
     {
       href: "https://www.oceanheart.blog/",
       label: "Blog",
     },
     {
-      href: "/hdi",
-      label: "HDI",
+      href: "/privacy",
+      label: "Privacy",
       className: "hdi-nav-link relative glow-effect"
     },
     {
-      href: "/donate",
-      label: "Donate",
+      href: "/contact",
+      label: "Contact",
       className: "hdi-nav-link relative glow-effect"
     },
   ];

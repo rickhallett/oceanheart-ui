@@ -32,17 +32,20 @@ const Hero = () => {
         <div className="flex flex-col gap-10 lg:gap-14 items-center justify-center text-center lg:text-left lg:items-start">
 
           <h1 className="font-extrabold text-4xl lg:text-6xl tracking-tight md:-mb-4">
-            Welcome to therapy <span className="text-blue-400">2.0</span>
+            Privacy-First AI Tools <span className="text-blue-400">for Wellbeing</span>
           </h1>
           <p className="text-lg opacity-80 leading-relaxed">
             oceanheart.ai helps therapists do more of what they love most: <span className="italic text-blue-400">helping people</span>
           </p>
+          <p className="text-lg opacity-80 leading-relaxed">
+            Introducing <span className="font-bold text-blue-400">Data Angel v1.0</span>: Smarter Notes. Safer Data. Simpler Workflows.
+          </p>
           {user ? (
-            <Link href="/#pricing" className="btn btn-primary btn-wide">Get Started<FaRegSquareCaretDown className="animate-bounce ml-2 bg-secondary rounded-full" /> </Link>
+            <Link href="/#pricing" className="btn btn-primary btn-wide">Get Data Angel v1.0<FaRegSquareCaretDown className="animate-bounce ml-2 bg-secondary rounded-full" /> </Link>
           ) : (
             <ButtonSignin
               extraStyle="btn btn-primary btn-wide"
-              text={`Get ${config.appName}`}
+              text={`Get Data Angel v1.0`}
             />
           )}
 

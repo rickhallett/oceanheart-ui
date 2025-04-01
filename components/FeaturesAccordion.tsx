@@ -3,7 +3,7 @@
 import { useState, useRef } from "react";
 import type { JSX } from "react";
 import Image from "next/image";
-import { FaBook, FaBrain, FaChartLine, FaCloud, FaFile, FaLock } from "react-icons/fa"
+import { FaBook, FaBrain, FaChartLine, FaCloud, FaFile, FaLock, FaLaptop, FaFileAlt, FaUserShield, FaMoneyBillWave } from "react-icons/fa"
 
 interface Feature {
   title: string;
@@ -17,54 +17,54 @@ interface Feature {
 
 const features = [
   {
-    title: "AI-Powered Insights",
+    title: "100% Offline Processing",
     description:
-      "Automate note analysis, formulation, and treatment suggestions to enhance therapeutic effectiveness.",
-    svg: <FaBrain />,
+      "All processing happens on your device. No data leaves your control, ensuring maximum security and confidentiality for your clients.",
+    svg: <FaLaptop />,
     type: "image",
     format: "webp",
     path: "/images/keyboard.webp"
   },
   {
-    title: "Therapy Blueprint Cloud Service",
+    title: "AI-Powered Note Taking",
     description:
-      "Long gone are the days when precious insights were lost on scraps of paper. Our cloud service ensures your therapy blueprints are safe and accessible from anywhere, so your clients can continue to grow after their final session.",
-    svg: <FaCloud />,
+      "Transcribe sessions in real time, auto-generate summaries and wellness plans, and format progress notes in your voice—all offline.",
+    svg: <FaFileAlt />,
     type: "image",
     format: "avif",
     path: "/images/noid.avif"
   },
   {
-    title: "Session Documentation",
+    title: "Built for Compliance",
     description:
-      "Effortlessly create, organize, and access session notes, treatment plans, and progress tracking. Convert recordings into notes and notes into clinical grade documents.",
-    svg: <FaFile />,
+      "Designed from the ground up for privacy, aligning with GDPR/HIPAA principles without complex cloud setups or ongoing compliance costs.",
+    svg: <FaUserShield />,
     type: "image",
     format: "jpg",
     path: "/images/handshake.jpg"
   },
   {
-    title: "Secure Client Management",
+    title: "Custom Templates",
     description:
-      "Protect client data with industry-standard encryption and secure cloud storage.",
-    svg: <FaLock />,
+      "Structure your notes, summaries, and reports your way—automatically and consistent with your practice style.",
+    svg: <FaFile />,
     type: "image",
     format: "webp",
     path: "/images/phonelock.webp"
   },
   {
-    title: "Progress Visualization",
+    title: "Cost Effective",
     description:
-      "Visualize therapeutic progress through clean, intuitive data visualizations. Share these with your clients to make therapy more tangible",
-    svg: <FaChartLine />,
+      "One-time payment options save you from expensive monthly subscriptions. On average, clinicians save £600/year by switching to local processing.",
+    svg: <FaMoneyBillWave />,
     type: "image",
     format: "avif",
     path: "/images/mind-cloud.avif"
   },
   {
-    title: "Resource Library",
+    title: "Premium Add-ons",
     description:
-      "Access and share a rich collection of therapeutic resources, exercises, and metaphors, automatically customised for each individual",
+      "Enhance your experience with optional features like On-Device Data Cleaning, Premium Desktop App, and Your Digital Clone for personalized AI.",
     svg: <FaBook />,
     type: "image",
     format: "jpg",
@@ -179,9 +179,9 @@ const FeaturesAccordion = () => {
     >
       <div className="px-8">
         <h2 className="font-extrabold text-4xl lg:text-6xl tracking-tight mb-12 md:mb-24">
-          Using the technology of <span className="text-blue-400">tomorrow</span> to give
+          AI for wellbeing professionals, <span className="text-blue-400">your way</span>
           <span className="bg-neutral text-neutral-content px-2 md:px-4 ml-1 md:ml-1.5 leading-relaxed">
-            you back your time <span className="text-blue-400">today</span>
+            Private. Practical. <span className="text-blue-400">Local-first.</span>
           </span>
         </h2>
         <div className=" flex flex-col md:flex-row gap-12 md:gap-24">
