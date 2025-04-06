@@ -21,7 +21,7 @@ const CTA = () => {
           </p>
 
           <button className="btn btn-primary btn-wide">
-            Get Data Angel v1.0
+            <a href="https://calendar.app.google/85ZdaqYK5vfNk4aH9" target="_blank" rel="noopener noreferrer">Talk to me</a>
           </button>
         </div>
       </div>

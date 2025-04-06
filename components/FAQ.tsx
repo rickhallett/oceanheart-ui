@@ -13,29 +13,29 @@ interface FAQItemProps {
 
 const faqList: FAQItemProps[] = [
   {
-    question: "What exactly is Data Angel?",
-    answer: <div className="space-y-2 leading-relaxed">Data Angel is a privacy-first AI toolkit designed specifically for therapists, counselors, and wellness professionals. It enables you to harness powerful AI capabilities for note-taking, summarization, and documentation—all while keeping your clients' sensitive data 100% on your own device.</div>,
+    question: "What services do you offer?",
+    answer: <div className="space-y-2 leading-relaxed">I provide consulting, training, and guidance for wellbeing professionals looking to integrate AI ethically and effectively into their practice. This includes personalized strategy sessions, workshops, and ongoing support to help you navigate AI with confidence and integrity.</div>,
   },
   {
-    question: "How is this different from other AI tools?",
-    answer: <div className="space-y-2 leading-relaxed">Unlike most AI services that require sending data to cloud servers (often costing £300-£500/month for HIPAA compliance), Data Angel processes everything locally on your device. Your clients' data never leaves your control, making it inherently more secure and affordable than cloud alternatives.</div>,
+    question: "Why is your background uniquely valuable?",
+    answer: <div className="space-y-2 leading-relaxed">My 15 years as a psychotherapist, 5 years as a software engineer, and 25 years in contemplative practices gives me a rare perspective. I understand both technology and human dynamics deeply, allowing me to serve as a translator between these worlds in a way few others can.</div>,
   },
   {
-    question: "What hardware do I need?",
-    answer: (<div className="space-y-2 leading-relaxed">Data Angel is designed to work on most modern laptops. We'll help you determine if your current device is suitable during setup. For optimal performance, we recommend at least 16GB RAM and an i5/Ryzen 5 processor or better. We can also provide pre-configured hardware options if needed.</div>),
+    question: "How do you approach AI differently?",
+    answer: (<div className="space-y-2 leading-relaxed">I focus on first principles rather than trends. By understanding AI through lived experience and critical reflection, I help you develop your human capacity to engage with these tools wisely. My approach prioritizes ethical considerations, keeping your expertise at the center, and ensuring technology serves human connection rather than replacing it.</div>),
   },
   {
-    question: "Can I get a refund?",
+    question: "Who can benefit from working with you?",
     answer: (
       <p>
-        Yes! You can request a refund within 14 days of your purchase if you're not satisfied with Data Angel. Simply reach out to us by email.
+        Therapists, coaches, healers, and wellbeing leaders who want to integrate AI with integrity, wisdom and authentic connection. If you're seeking clarity beyond surface-level solutions and want to navigate AI's possibilities while honoring your practice's values, my approach will resonate with you.
       </p>
     ),
   },
   {
-    question: "I have another question",
+    question: "How can I get started?",
     answer: (
-      <div className="space-y-2 leading-relaxed">We're here to help! Please email us at <a href="mailto:kai@oceanheart.ai">kai@oceanheart.ai</a> with any questions about Data Angel or to schedule a demo.</div>
+      <div className="space-y-2 leading-relaxed">The best way to begin is by booking a free 20-minute call where we can discuss your specific needs and challenges. This allows us to determine if working together is a good fit. You can schedule this call directly through <a href="https://calendar.app.google/85ZdaqYK5vfNk4aH9" className="text-primary underline">my calendar</a>.</div>
     ),
   },
 ];

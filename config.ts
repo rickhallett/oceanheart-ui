@@ -3,9 +3,9 @@ import { ConfigProps } from "./types/config";
 
 const config = {
   // REQUIRED
-  appName: "data_angel_v1.0",
+  appName: "Oceanheart.ai",
   // REQUIRED: a short description of your app for SEO tags (can be overwritten)
-  appDescription: "Welcome to Therapy 2.0",
+  appDescription: "Human-Centred AI Guidance for Wellbeing Professionals. Integrating Science, Story & Spirit.",
   // REQUIRED (no https://, not trailing slash at the end, just the naked domain)
   domainName: "oceanheart.ai",
   crisp: {
@@ -15,61 +15,65 @@ const config = {
     onlyShowOnRoutes: ["/"],
   },
   stripe: {
-    // Create multiple plans in your Stripe dashboard, then add them here. You can add as many plans as you want, just make sure to add the priceId
+    // 🚨 MAJOR UPDATE NEEDED HERE 🚨
+    // These plans now reflect the NEW service structure (1:1, Workshop, Course).
+    // Replace placeholders with your actual offerings, pricing, and Stripe IDs IF using Stripe checkout directly.
+    // 1:1 guidance might use a different onboarding flow (e.g., application/call).
     plans: [
       {
-        priceId: "price_1R97mvRVLr5O3VREkhQiyUTD",
-        name: "Toolkit & Setup",
-        description: "One-time payment for the basic Data Angel toolkit",
-        price: 199,
+        // Option 2: Representing a Workshop
+        // Replace with actual Price ID if applicable
+        priceId: "price_workshop_conversations_ai", // EXAMPLE placeholder
+        name: "Conversations with AI: Feel the AI", // UPDATED
+        description: "Experiential group learning for safe & insightful AI use.", // UPDATED
+        price: 95, // EXAMPLE price - set based on your strategy
+        frequency: "per workshop", // UPDATED
         features: [
-          { name: "Portable AI Toolkit" },
-          { name: "100% Offline Processing" },
-          { name: "Custom Templates" },
-          { name: "Built for Compliance" },
-          { name: "Initial Setup Support" }
+          { name: "Live Guided Sessions (Online/In-Person)" }, // UPDATED
+          { name: "Practice AI interaction using your core skills" }, // UPDATED
+          { name: "Learn Organically" }, // UPDATED
+          { name: "Stand Together - Connect with Peers" }, // UPDATED
+          { name: "Identify Ethical Considerations" }, // UPDATED
+          { name: "Includes workbook/resources" }, // Placeholder
         ],
+        isFeatured: true, // Highlight workshop as a good entry point
+      },
+      {
+        // Option 1: Representing an Online Course / Digital Product
+        // Replace with actual Price ID if applicable
+        priceId: "price_course_humanos_foundations", // EXAMPLE placeholder
+        name: "HumanOS Foundations Course", // UPDATED
+        description: "Self-paced learning for mindful, effective AI engagement.", // UPDATED
+        price: 199, // EXAMPLE price - set based on your strategy
+        frequency: "one-time", // UPDATED (or /month if subscription)
+        features: [
+          { name: "Core principles of Science, Story & Spirit" }, // UPDATED
+          { name: "Practical exercises for safe AI interaction" }, // UPDATED
+          { name: "Understand AI risks & potentials" }, // UPDATED
+          { name: "Lifetime access to course materials" }, // UPDATED
+          { name: "Learn with others: oceanheart.ai community" }, // Placeholder
+        ],
+      },
 
-      },
       {
-        priceId: "price_1R97oIRVLr5O3VREkNV6FtvQ",
-        name: "On-Device Data Cleaning",
-        description: "Add-on for using cloud AI safely",
-        price: 349,
+        // Option 3: Representing Premium 1:1 Package (May not use direct checkout)
+        // Price ID might be irrelevant if using an application/call flow
+        priceId: "price_package_premium_3mo", // EXAMPLE placeholder
+        name: "Reverse Engineering AI (3-Month Package)", // UPDATED
+        description: "For health & wellbeing leaders who want to navigate AI with confidence.", // UPDATED
+        price: 2400, // EXAMPLE price - set based on your strategy (£800/mo)
+        frequency: "total package", // UPDATED
         features: [
-          { name: "Everything in Toolkit & Setup" },
-          { name: "Scrub Identifiable Data" },
-          { name: "Use Any Cloud AI Model" },
-          { name: "Stay Compliant" },
-          { name: "Save on Cloud Costs" }
+          { name: "Deeply personalised strategy, coaching & partnership" }, // UPDATED
+          { name: "6 x 90 min one-to-one Expert Consultations" }, // UPDATED
+          { name: "Between-session support: Make it Stick" }, // UPDATED
+          { name: "Integrate AI safely & ethically" }, // UPDATED
+          { name: "Leverage unique Science/Story/Spirit approach" }, // UPDATED
+          { name: "Priority access & deep partnership" }, // UPDATED
         ],
-        isFeatured: true,
-      },
-      {
-        priceId: "price_1R97puRVLr5O3VREYGJUHFo7",
-        name: "Premium Desktop App",
-        description: "Elevate your practice",
-        price: 449,
-        features: [
-          { name: "Everything in On-Device Data Cleaning" },
-          { name: "Polished, Intuitive Interface" },
-          { name: "Customize to Match Your Brand" },
-          { name: "Dedicated Application Experience" },
-          { name: "Professional Integration" }
-        ],
-      },
-      {
-        priceId: "price_1R97qwRVLr5O3VREygNfIdgT",
-        name: "Your Digital Clone",
-        description: "AI trained on your expertise",
-        price: 549,
-        features: [
-          { name: "Everything in Premium Desktop App" },
-          { name: "Fine-tuned to Your Style" },
-          { name: "Authentic-Sounding Notes" },
-          { name: "Capture Your Unique Value" },
-          { name: "Save Hours of Documentation Time" }
-        ],
+        // Might add a CTA like "Book a Discovery Call" instead of direct checkout
+        // cta: "Book a Discovery Call",
+        // ctaUrl: "https://calendar.app.google/your-booking-link" // EXAMPLE
       }
     ]
   },
@@ -81,10 +85,9 @@ const config = {
   },
   resend: {
     // REQUIRED — Email 'From' field to be used when sending magic login links
-    fromNoReply: `oceanheart <noreply@oceanheart.ai>`,
+    fromNoReply: `Oceanheart.ai <noreply@oceanheart.ai>`,
     // REQUIRED — Email 'From' field to be used when sending other emails, like abandoned carts, updates etc..
-    // fromAdmin: `Kai at oceanheart <kai@oceanheart.ai>`,
-    fromAdmin: `updates@oceanheart.ai`,
+    fromAdmin: `Kai at Oceanheart.ai <kai@oceanheart.ai>`,
     // Email shown to customer if they need support. Leave empty if not needed => if empty, set up Crisp above, otherwise you won't be able to offer customer support."
     supportEmail: "kai@oceanheart.ai",
   },

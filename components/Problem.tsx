@@ -23,9 +23,9 @@ const Arrow = ({ extraStyle }: { extraStyle: string }) => {
 };
 const Step = ({ emoji, text }: { emoji: string; text: string }) => {
   return (
-    <div className="w-full md:w-48 flex flex-col gap-2 items-center justify-center">
-      <span className="text-4xl">{emoji}</span>
-      <h3 className="font-bold">{text}</h3>
+    <div className="w-full md:w-64 flex flex-col gap-2 items-center justify-center">
+      <span className="text-5xl mb-2">{emoji}</span>
+      <h3 className="font-bold text-center">{text}</h3>
     </div>
   );
 };
@@ -42,34 +42,24 @@ const Step = ({ emoji, text }: { emoji: string; text: string }) => {
 const Problem = () => {
   return (
     <section className="bg-neutral text-neutral-content">
-      <div className="max-w-7xl mx-auto px-8 py-16 md:py-32 text-center">
-        <h2 className="max-w-3xl mx-auto font-extrabold text-4xl md:text-5xl tracking-tight mb-6 md:mb-12">
-          Most AI services charge <span className="text-secondary underline">£300–£500/month</span> for HIPAA-compliant hosting
+      <div className="max-w-7xl mx-auto px-8 py-12 md:py-24 text-center">
+        <h2 className="max-w-3xl mx-auto font-extrabold text-4xl md:text-5xl tracking-tight mb-6 md:mb-10">
+          My Unique Synthesis
         </h2>
-        <p className="max-w-xl mx-auto text-lg opacity-90 leading-relaxed mb-6 md:mb-16">
-          Cheaper options may risk non-compliance, eroding client trust and practice integrity.
-        </p>
-        <p className="max-w-xl mx-auto text-lg opacity-90 leading-relaxed mb-6 md:mb-16">
-          One breach can <a className="text-accent underline" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8166960/" target="_blank" rel="noopener noreferrer">permanently damage</a> therapeutic relationships...
-        </p>
-        <p className="max-w-xl mx-auto text-lg opacity-90 leading-relaxed mb-6 md:mb-20">
-          ...and there are too many <a className="text-error underline" href="https://www.nature.com/articles/s41746-023-00881-0" target="_blank" rel="noopener noreferrer">unknowns about cloud AI governance</a>.
+        <p className="max-w-xl mx-auto text-lg opacity-90 leading-relaxed mb-10">
+          A rare combination of expertise that bridges technology, human experience, and spiritual wisdom.
         </p>
 
-        <div className="flex flex-col md:flex-row justify-center items-center md:items-start gap-6">
-          <Step emoji="🧑‍💻" text="Cloud dependency" />
+        <div className="flex flex-col md:flex-row justify-center items-center md:items-start gap-6 mb-0">
+          <Step emoji="🧠" text="Psychotherapist: 15 years in CBT, mindfulness & somatic therapies" />
 
           <Arrow extraStyle="max-md:-scale-x-100 md:-rotate-90" />
 
-          <Step emoji="💰" text="High monthly costs" />
+          <Step emoji="💻" text="Software Engineer: 5 years creating enterprise-grade solutions" />
 
           <Arrow extraStyle="md:-scale-x-100 md:-rotate-90" />
 
-          <Step emoji="🔓" text="Privacy risks" />
-
-          <Arrow extraStyle="max-md:-scale-x-100 md:-rotate-90" />
-
-          <Step emoji="😔" text="Loss of trust" />
+          <Step emoji="🧘" text="Contemplative: 25 years across wisdom traditions" />
         </div>
       </div>
     </section>

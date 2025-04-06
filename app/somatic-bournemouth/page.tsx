@@ -1,6 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import { Suspense } from "react";
+import { Suspense, useState, useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { FaLeaf, FaWater, FaWind, FaFire, FaYinYang } from "react-icons/fa";
@@ -13,7 +15,65 @@ const ElementCard = ({ icon, title, text }: { icon: React.ReactNode, title: stri
   </div>
 );
 
+const quotes = [
+  {
+    text: "The body is not a thing, it is a situation: it is our grasp on the world and the outline of our projects.",
+    author: "Simone de Beauvoir"
+  },
+  {
+    text: "There is deep wisdom within our very flesh, if we can only come to our senses and feel it.",
+    author: "Elizabeth A. Behnke"
+  },
+  {
+    text: "When the body calls us back, we begin to find that we have a partner on the spiritual path that we didn't know about—the body itself.",
+    author: "Reggie Ray"
+  },
+  {
+    text: "Our own physical body possesses a wisdom which we who inhabit the body lack. We give it orders which make no sense.",
+    author: "Henry Miller"
+  },
+  {
+    text: "Feelings come and go like clouds in a windy sky. Conscious breathing is my anchor.",
+    author: "Thich Nhat Hanh"
+  },
+  {
+    text: "Breath is the bridge which connects life to consciousness, which unites your body to your thoughts.",
+    author: "Thich Nhat Hanh"
+  },
+  {
+    text: "Meditation speaks. It speaks in silence. It reveals to the aspirant that matter and spirit are one, quantity and quality are one, the immanent and the transcendent are one.",
+    author: "Sri Chinmoy"
+  },
+  {
+    text: "Embodiment is a birthright, a wild ride and gentle (and make no mistake) revolutionary adventure in becoming.",
+    author: "Mark Walsh"
+  },
+  {
+    text: "Every man is the builder of a Temple called his body.",
+    author: "Henry David Thoreau"
+  }
+];
+
 export default function SomaticBournemouthPage() {
+  const [currentQuoteIndex, setCurrentQuoteIndex] = useState(0);
+  const [fadeState, setFadeState] = useState(true);
+
+  useEffect(() => {
+    const quoteInterval = setInterval(() => {
+      // Start fade out
+      setFadeState(false);
+
+      // After fade out completes, change quote and fade in
+      setTimeout(() => {
+        setCurrentQuoteIndex((prevIndex) => (prevIndex + 1) % quotes.length);
+        setFadeState(true);
+      }, 700); // Match the fade-out duration
+
+    }, 7000); // Total time per quote
+
+    return () => clearInterval(quoteInterval); // Cleanup on unmount
+  }, []);
+
   return (
     <>
       <Suspense>
@@ -107,11 +167,15 @@ export default function SomaticBournemouthPage() {
 
         {/* Testimonial/Quote Section */}
         <section className="py-16 md:py-24 px-8 bg-neutral text-neutral-content">
-          <div className="max-w-4xl mx-auto text-center">
-            <blockquote className="text-2xl md:text-3xl italic font-light mb-8">
-              "The body is not a thing, it is a situation: it is our grasp on the world and the outline of our projects."
-            </blockquote>
-            <p className="text-lg">— Simone de Beauvoir</p>
+          <div className="max-w-4xl mx-auto text-center min-h-[200px] flex flex-col justify-center">
+            <div
+              className={`transition-opacity duration-700 ease-in-out ${fadeState ? 'opacity-100' : 'opacity-0'}`}
+            >
+              <blockquote className="text-2xl md:text-3xl italic font-light mb-8">
+                "{quotes[currentQuoteIndex].text}"
+              </blockquote>
+              <p className="text-lg">— {quotes[currentQuoteIndex].author}</p>
+            </div>
           </div>
         </section>
 
