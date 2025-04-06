@@ -71,7 +71,7 @@ const config = {
           { name: "Advanced analytics" },
           { name: "Bespoke materials" },
         ],
-        monzoLink: "https://monzo.com/pay/r/oceanheartai-ltd_uku1DkkJjLypsD"
+        monzoLink: "https://monzo.com/pay/r/oceanheartai-ltd_koKjOdUifKfCmu"
 
       },
       {
@@ -80,14 +80,14 @@ const config = {
         priceId: "price_package_premium_3mo", // EXAMPLE placeholder
         name: "Navigator: 3-Month Masterclass", // UPDATED
         description: "For health & wellbeing leaders who want to navigate AI with confidence.", // UPDATED
-        price: 1800, // EXAMPLE price - set based on your strategy (£800/mo)
+        price: 2400, // EXAMPLE price - set based on your strategy (£800/mo)
         frequency: "total package", // UPDATED
         features: [
           { name: "Deeply personalised strategy, coaching & partnership" },
           { name: "6 x 90 min one-to-one consultations" },
           { name: "Dissolve boundaries and preserve what is most human" },
-          { name: "Between-session support: this is true partnership" },
-          { name: "Find your edge" },
+          { name: "Between-session support: this is a lasting partnership" },
+          { name: "Find your edge, free up your time" },
         ],
         monzoLink: "https://monzo.com/pay/r/oceanheartai-ltd_uku1DkkJjLypsD"
         // Might add a CTA like "Book a Discovery Call" instead of direct checkout
