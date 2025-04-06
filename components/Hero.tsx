@@ -43,7 +43,7 @@ const Hero = () => {
 
           <div className="flex flex-col gap-3 border-l-4 border-blue-400 pl-4 py-2">
             <p className="text-xl font-semibold">
-              Richard Hallett
+              Rick "Kai" Hallett
             </p>
             <p className="text-md opacity-80">
               Psychotherapist & Software Engineer
