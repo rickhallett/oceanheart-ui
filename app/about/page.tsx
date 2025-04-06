@@ -61,11 +61,11 @@ export default function AboutPage() {
           <article>
             <h2 className="font-bold text-2xl mb-4">Private Consulting</h2>
             <p className="text-base">
-              I offer <a className="underline text-primary" href="https://www.oceanheart.online/pricing" target="_blank" rel="noopener noreferrer">private consulting services</a> to therapists and their teams. Want help with AI tools? Need a custom AI workflow? Good chance I have used it. I've got you covered. Don't waste time reinventing the wheel or figuring things out from the ground up.
+              I offer <a className="underline text-primary" href="mailto:kai@oceanheart.ai" target="_blank" rel="noopener noreferrer">private consulting services</a> to therapists and their teams. Want help with AI tools? Need a custom AI workflow? Good chance I have used it. I've got you covered. Don't waste time reinventing the wheel or figuring things out from the ground up.
             </p>
             <br />
             <p className="text-base">
-              I specialise in Acceptance and Commitment Therapy (ACT); if you are looking for something different to CBT, <a className="underline text-primary" href="https://www.oceanheart.online/pricing" target="_blank" rel="noopener noreferrer">I'm here to help</a>.
+              I specialise in Acceptance and Commitment Therapy (ACT); if you are looking for something different to CBT, <a className="underline text-primary" href="mailto:kai@oceanheart.ai" target="_blank" rel="noopener noreferrer">I'm here to help</a>.
             </p>
           </article>
         </div>

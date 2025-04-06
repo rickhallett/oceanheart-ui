@@ -34,11 +34,11 @@ const links: {
       label: "AI Consulting",
       className: "hdi-nav-link relative"
     },
-    {
-      href: "/contact",
-      label: "Contact",
-      className: "hdi-nav-link relative"
-    },
+    // {
+    //   href: "/contact",
+    //   label: "Contact",
+    //   className: "hdi-nav-link relative"
+    // },
   ];
 const cta: JSX.Element = <ButtonSignin extraStyle="btn-primary" />;
 

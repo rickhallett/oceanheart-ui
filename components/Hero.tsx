@@ -80,7 +80,7 @@ const Hero = () => {
             </a>
           </div>
 
-          {user ? (
+          {/* {user ? (
             <Link
               href="/#features"
               className="btn btn-outline btn-wide btn-lg group transition-all duration-300 mt-4"
@@ -93,7 +93,7 @@ const Hero = () => {
               extraStyle="btn btn-outline btn-wide btn-lg mt-4"
               text={`Explore My Approach`}
             />
-          )}
+          )} */}
         </div>
         <div className="lg:w-2/5 relative">
           <div className="absolute -top-10 -left-10 w-40 h-40 bg-blue-50 rounded-full opacity-40 blur-xl"></div>
@@ -101,14 +101,14 @@ const Hero = () => {
           <Image
             src="/images/Transparent Logo.png"
             alt="Richard Hallett"
-            className="w-full rounded-xl shadow-xl relative z-10 border border-base-200"
+            className="w-full rounded-xl relative z-10"
             priority={true}
             width={500}
             height={500}
           />
         </div>
       </section>
-      <section className="max-w-7xl mx-auto bg-base-100 flex flex-col items-center justify-center px-8 py-8 lg:py-16">
+      <section className="max-w-7xl mx-auto bg-base-100 flex flex-col items-center justify-center px-8 py-8 lg:py-4 lg:pb-16">
         <div className="rounded-xl overflow-hidden shadow-lg">
           <div className="hidden lg:block">
             <IntroVideo width={560 * 1.2} height={315 * 1.2} />
