@@ -45,6 +45,7 @@ export interface ConfigProps {
       availableFrom?: string;
       limitedTo?: number;
       remaining?: number;
+      monzoLink?: string;
     }[];
   };
   aws?: {

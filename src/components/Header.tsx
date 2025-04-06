@@ -1,9 +1,8 @@
 "use client";
 import { useState, useEffect, Suspense } from "react";
-import { useSession } from "next-auth/react";
 import Link from "next/link";
 import Image from "next/image";
-import ButtonSignin from "./ButtonSignin";
+import ButtonSignin from "@/components/ButtonSignin";
 import logo from "@/app/icon.png"; // Consider updating if you have a new logo
 import config from "@/config";
 

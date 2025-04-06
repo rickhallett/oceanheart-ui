@@ -2,6 +2,11 @@ import config from "@/config";
 import ButtonCheckout from "./ButtonCheckout";
 import MailingListForm from "@/components/MailingListForm";
 
+// Format price with thousand separators (e.g., 1000 -> 1,000)
+const formatPrice = (price: number): string => {
+  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
+
 // <Pricing/> displays the pricing plans for your app
 // It's your Stripe config in config.js.stripe.plans[] that will be used to display the plans
 // <ButtonCheckout /> renders a button that will redirect the user to Stripe checkout called the /api/stripe/create-checkout API endpoint with the correct priceId
@@ -63,13 +68,13 @@ const Pricing = () => {
                       <p className="relative">
                         <span className="absolute bg-base-content h-[1.5px] inset-x-0 top-[53%]"></span>
                         <span className="text-base-content/80">
-                          £{plan.priceAnchor}
+                          £{formatPrice(plan.priceAnchor)}
                         </span>
                       </p>
                     </div>
                   )}
                   <p className={`text-5xl tracking-tight font-extrabold`}>
-                    £{plan.price}
+                    £{formatPrice(plan.price)}
                   </p>
                   <div className="flex flex-col justify-end mb-[4px]">
                     <p className="text-xs text-base-content/60 font-semibold">
@@ -99,7 +104,7 @@ const Pricing = () => {
                   </ul>
                 )}
                 <div className="space-y-2">
-                  <ButtonCheckout priceId={plan.priceId} mode="payment" />
+                  <ButtonCheckout priceId={plan.priceId} mode="payment" monzoLink={plan.monzoLink} />
 
                   {/* <p className="flex items-center justify-center gap-2 text-sm text-center text-base-content/80 font-medium relative">
                     Pay once. Access forever.

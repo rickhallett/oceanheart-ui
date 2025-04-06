@@ -29,14 +29,15 @@ const config = {
         price: 95, // EXAMPLE price - set based on your strategy
         frequency: "per workshop", // UPDATED
         features: [
-          { name: "Live Guided Sessions (Online/In-Person)" }, // UPDATED
-          { name: "Practice AI interaction using your core skills" }, // UPDATED
-          { name: "Learn Organically" }, // UPDATED
-          { name: "Stand Together - Connect with Peers" }, // UPDATED
-          { name: "Identify Ethical Considerations" }, // UPDATED
-          { name: "Includes workbook/resources" }, // Placeholder
+          { name: "2x live guided sessions (online/in-person)" },
+          { name: "Practice AI interaction using your core skills" },
+          { name: "Learn organically" },
+          { name: "Stand together - connect with peers" },
+          { name: "Identify ethical considerations" },
+          { name: "Includes workbook/resources" },
         ],
         isFeatured: true, // Highlight workshop as a good entry point
+        monzoLink: "https://monzo.com/pay/r/oceanheartai-ltd_0Tl8iggjemzSXq"
       },
       {
         // Option 1: Representing an Online Course / Digital Product
@@ -47,34 +48,52 @@ const config = {
         price: 199, // EXAMPLE price - set based on your strategy
         frequency: "one-time", // UPDATED (or /month if subscription)
         features: [
-          { name: "Core principles of Science, Story & Spirit" }, // UPDATED
-          { name: "Practical exercises for safe AI interaction" }, // UPDATED
-          { name: "Understand AI risks & potentials" }, // UPDATED
-          { name: "Lifetime access to course materials" }, // UPDATED
-          { name: "Learn with others: oceanheart.ai community" }, // Placeholder
+          { name: "Core principles of Science, Story & Spirit" },
+          { name: "Practical exercises for safe AI interaction" },
+          { name: "Understand AI risks & potentials" },
+          { name: "Lifetime access to course materials" },
+          { name: "Learn with others: Oceanheart.ai community" },
         ],
+        monzoLink: "https://monzo.com/pay/r/oceanheartai-ltd_4RBZXMqYRMfBgb"
       },
+      {
+        // Option 3: AI Recovery Therapy
+        priceId: "price_package_ai_recovery_therapy", // EXAMPLE placeholder
+        name: "AI Recovery: Therapy 2.0", // UPDATED
+        description: "Confused? Need help? Your AI journey is as unique as your mental health. Let's chat.", // UPDATED
+        price: 640, // EXAMPLE price - set based on your strategy
+        frequency: "one-time", // UPDATED
+        features: [
+          { name: "120 min clinical consultation" },
+          { name: "6 x 90 min treatment sessions" },
+          { name: "CBT, ACT, somatic release & mindfulness based psychotherapy" },
+          { name: "Deeply experiential and designed for you" },
+          { name: "Advanced analytics" },
+          { name: "Bespoke materials" },
+        ],
+        monzoLink: "https://monzo.com/pay/r/oceanheartai-ltd_uku1DkkJjLypsD"
 
+      },
       {
         // Option 3: Representing Premium 1:1 Package (May not use direct checkout)
         // Price ID might be irrelevant if using an application/call flow
         priceId: "price_package_premium_3mo", // EXAMPLE placeholder
-        name: "Reverse Engineering AI (3-Month Package)", // UPDATED
+        name: "Navigator: 3-Month Masterclass", // UPDATED
         description: "For health & wellbeing leaders who want to navigate AI with confidence.", // UPDATED
-        price: 2400, // EXAMPLE price - set based on your strategy (£800/mo)
+        price: 1800, // EXAMPLE price - set based on your strategy (£800/mo)
         frequency: "total package", // UPDATED
         features: [
-          { name: "Deeply personalised strategy, coaching & partnership" }, // UPDATED
-          { name: "6 x 90 min one-to-one Expert Consultations" }, // UPDATED
-          { name: "Between-session support: Make it Stick" }, // UPDATED
-          { name: "Integrate AI safely & ethically" }, // UPDATED
-          { name: "Leverage unique Science/Story/Spirit approach" }, // UPDATED
-          { name: "Priority access & deep partnership" }, // UPDATED
+          { name: "Deeply personalised strategy, coaching & partnership" },
+          { name: "6 x 90 min one-to-one consultations" },
+          { name: "Dissolve boundaries and preserve what is most human" },
+          { name: "Between-session support: this is true partnership" },
+          { name: "Find your edge" },
         ],
+        monzoLink: "https://monzo.com/pay/r/oceanheartai-ltd_uku1DkkJjLypsD"
         // Might add a CTA like "Book a Discovery Call" instead of direct checkout
         // cta: "Book a Discovery Call",
         // ctaUrl: "https://calendar.app.google/your-booking-link" // EXAMPLE
-      }
+      },
     ]
   },
   aws: {
