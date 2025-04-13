@@ -2,11 +2,13 @@
 import { useState, useRef } from 'react';
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { FaRegComments, FaBrain, FaSearch, FaRegLightbulb, FaListAlt, FaChalkboardTeacher, FaUserCheck, FaProjectDiagram, FaLaptopCode, FaUsers, FaRegArrowAltCircleRight } from "react-icons/fa";
+import { FaRegComments, FaBrain, FaSearch, FaRegLightbulb, FaListAlt, FaChalkboardTeacher, FaUserCheck, FaProjectDiagram, FaLaptopCode, FaUsers, FaRegArrowAltCircleRight, FaBookOpen } from "react-icons/fa";
 import Link from "next/link";
 
 const ConversationsPage = () => {
   const [openAccordionIndex, setOpenAccordionIndex] = useState<number | null>(null);
+  const [isOutlineOpen, setIsOutlineOpen] = useState<boolean>(false);
+  const outlineContentRef = useRef<HTMLDivElement>(null);
 
   const differentiators = [
     {
@@ -203,6 +205,67 @@ const ConversationsPage = () => {
                   );
                 })}
               </ul>
+            </div>
+
+            {/* NEW: Course Outline Preview Accordion */}
+            <div className="max-w-3xl mx-auto mt-12 md:mt-16 relative">
+              <div className="bg-base-100 border border-base-300/20 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden">
+                <button
+                  className="w-full py-5 px-6 text-left flex items-center gap-4 cursor-pointer"
+                  onClick={() => setIsOutlineOpen(!isOutlineOpen)}
+                  aria-expanded={isOutlineOpen}
+                >
+                  {/* Icon */}
+                  <span className={`w-8 h-8 flex-shrink-0 transition-colors duration-300 ${isOutlineOpen ? 'text-primary' : 'text-base-content/70'}`}>
+                    <FaBookOpen className="w-full h-full" />
+                  </span>
+                  {/* Title */}
+                  <span className={`flex-1 text-lg md:text-xl font-semibold transition-colors duration-300 ${isOutlineOpen ? 'text-primary font-bold' : 'text-base-content'}`}>
+                    A Glimpse Inside: Course Outline Preview
+                  </span>
+                  {/* Arrow Icon */}
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className={`w-5 h-5 flex-shrink-0 transition-transform duration-300 ${isOutlineOpen ? 'rotate-180 text-primary' : ''}`}>
+                    <path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.29a.75.75 0 01.02-1.06z" clipRule="evenodd" />
+                  </svg>
+                </button>
+
+                {/* Content */}
+                <div
+                  ref={outlineContentRef}
+                  className="transition-all duration-300 ease-in-out overflow-hidden"
+                  style={{
+                    maxHeight: isOutlineOpen ? outlineContentRef.current?.scrollHeight + "px" : "0px",
+                    opacity: isOutlineOpen ? 1 : 0,
+                  }}
+                >
+                  <div className="px-6 pt-0 pb-6 md:px-8 md:pb-8 prose prose-sm md:prose-base max-w-none text-base-content/90">
+                    <p className="mb-4">This course guides you through a progressive journey, building intuitive AI dialogue skills:</p>
+                    <ul className="space-y-3 list-none p-0">
+                      <li className="flex items-start gap-2">
+                        <FaRegArrowAltCircleRight className="text-primary w-4 h-4 mt-1 flex-shrink-0" />
+                        <span><strong>Phase 1: Foundations - Making Contact:</strong> Start your first conversations, see how wording matters, guide response length, and tune the AI's creativity (Temperature).</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <FaRegArrowAltCircleRight className="text-primary w-4 h-4 mt-1 flex-shrink-0" />
+                        <span><strong>Phase 2: Shaping the Dialogue:</strong> Learn to teach the AI with examples (Few-Shot), provide essential context, assign roles/personas, and give clear instructions.</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <FaRegArrowAltCircleRight className="text-primary w-4 h-4 mt-1 flex-shrink-0" />
+                        <span><strong>Phase 3: Deeper Interaction & Reasoning:</strong> Encourage step-by-step logic (Chain of Thought), check for consistency, use abstraction (Step-Back), and grasp how AI can use tools (ReAct).</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <FaRegArrowAltCircleRight className="text-primary w-4 h-4 mt-1 flex-shrink-0" />
+                        <span><strong>Phase 4: Specialized Skills:</strong> Explore basic code generation/explanation and learn to request structured data like JSON.</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <FaRegArrowAltCircleRight className="text-primary w-4 h-4 mt-1 flex-shrink-0" />
+                        <span><strong>Phase 5: Integration & Mastery:</strong> Combine techniques for complex tasks, reflect on your learning process, and consider responsible AI use.</span>
+                      </li>
+                    </ul>
+                    <p className="mt-6 text-sm italic">Note: This is a simplified overview. Each phase contains multiple modules with guided, experiential exercises within the platform.</p>
+                  </div>
+                </div>
+              </div>
             </div>
 
           </div>
