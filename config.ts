@@ -29,12 +29,13 @@ const config = {
         price: 95, // EXAMPLE price - set based on your strategy
         frequency: "per workshop", // UPDATED
         features: [
-          { name: "2x live guided sessions (online/in-person)" },
+          { name: "2x live guided sessions to build confidence & intuition" },
           { name: "Practice AI interaction using your core skills" },
-          { name: "Learn organically" },
-          { name: "Stand together - connect with peers" },
-          { name: "Identify ethical considerations" },
-          { name: "Includes workbook/resources" },
+          { name: "Discover AI insights naturally through guided experience" },
+          { name: "Stand together - connect with peers in a supportive space" },
+          { name: "Navigate ethical AI use with clarity and integrity" },
+          { name: "Receive practical workbooks & resources to support your journey" },
+          { name: "Move from uncertainty to empowered exploration" }
         ],
         isFeatured: true, // Highlight workshop as a good entry point
         monzoLink: "https://monzo.com/pay/r/oceanheartai-ltd_0Tl8iggjemzSXq"
@@ -50,9 +51,10 @@ const config = {
         features: [
           { name: "Core principles of Science, Story & Spirit" },
           { name: "Practical exercises for safe AI interaction" },
-          { name: "Understand AI risks & potentials" },
-          { name: "Lifetime access to course materials" },
-          { name: "Learn with others: Oceanheart.ai community" },
+          { name: "Gain a balanced perspective on AI's risks & potential" },
+          { name: "Lifetime access to evolving course materials" },
+          { name: "Learn with others: Oceanheart.ai community access" },
+          { name: "Build a solid foundation for mindful AI integration" },
         ],
         monzoLink: "https://monzo.com/pay/r/oceanheartai-ltd_4RBZXMqYRMfBgb"
       },
@@ -64,12 +66,12 @@ const config = {
         price: 640, // EXAMPLE price - set based on your strategy
         frequency: "one-time", // UPDATED
         features: [
-          { name: "120 min clinical consultation" },
-          { name: "6 x 90 min treatment sessions" },
-          { name: "CBT, ACT, somatic release & mindfulness based psychotherapy" },
-          { name: "Deeply experiential and designed for you" },
-          { name: "Advanced analytics" },
-          { name: "Bespoke materials" },
+          { name: "120 min initial clinical consultation" },
+          { name: "6 x 90 min tailored treatment sessions" },
+          { name: "Integrates mind-body techniques (CBT, ACT, Somatic) for holistic recovery" },
+          { name: "Deeply experiential and designed uniquely for you" },
+          { name: "Receive personalised resources & materials created just for you" },
+          { name: "Navigate AI-related distress with expert therapeutic support" },
         ],
         monzoLink: "https://monzo.com/pay/r/oceanheartai-ltd_koKjOdUifKfCmu"
 
@@ -84,10 +86,10 @@ const config = {
         frequency: "total package", // UPDATED
         features: [
           { name: "Deeply personalised strategy, coaching & partnership" },
-          { name: "6 x 90 min one-to-one consultations" },
-          { name: "Dissolve boundaries and preserve what is most human" },
+          { name: "6 x 90 min one-to-one strategy consultations" },
+          { name: "Master AI integration while strengthening your core human values & leadership" },
           { name: "Between-session support: this is a lasting partnership" },
-          { name: "Find your edge, free up your time" },
+          { name: "Find your strategic edge, free up your time & energy" },
         ],
         monzoLink: "https://monzo.com/pay/r/oceanheartai-ltd_uku1DkkJjLypsD"
         // Might add a CTA like "Book a Discovery Call" instead of direct checkout
