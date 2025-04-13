@@ -32,10 +32,10 @@ const Hero = () => {
         <div className="flex flex-col gap-8 lg:gap-10 items-center justify-center text-center lg:text-left lg:items-center">
           <div className="relative">
             <h1 className="font-extrabold text-5xl lg:text-7xl tracking-tight relative z-10">
-              Beyond the <span className="text-blue-400">Hype</span>
+              Beyond the <span className="text-blue-400">Hype.</span>
             </h1>
             <h2 className="font-bold text-3xl lg:text-5xl tracking-tight mt-2 relative z-10">
-              Human-Centred <span className="text-blue-400">AI</span>
+              == Human-Centred <span className="text-blue-400">AI</span>
             </h2>
             <div className="absolute -top-4 -left-4 w-24 h-24 bg-base-200 rounded-full opacity-50 blur-xl z-0"></div>
             <div className="absolute bottom-0 right-0 w-32 h-32 bg-blue-100 rounded-full opacity-30 blur-xl z-0"></div>

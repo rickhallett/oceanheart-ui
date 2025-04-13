@@ -30,6 +30,10 @@ const links: {
       label: "Blog",
     },
     {
+      href: "/conversations",
+      label: "Conversations",
+    },
+    {
       href: "/consulting",
       label: "AI Consulting",
       className: "hdi-nav-link relative"
