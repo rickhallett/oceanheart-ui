@@ -1,4 +1,4 @@
-import { Section, RoleDetail, rolesById } from '@/app/team/page'; // Import rolesById
+import { Section, RoleDetail, rolesById } from '@/lib/teamData'; // Import rolesById from the new data file
 import RoleCard from './RoleCard';
 import { MutableRefObject } from 'react'; // Import Ref type
 

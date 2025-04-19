@@ -4,112 +4,21 @@ import { useState, useEffect, useRef, useCallback, useMemo, MouseEvent } from 'r
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { FaArrowLeft } from "react-icons/fa";
-// Import new components
 import RoleSection from '../../components/team/RoleSection';
+// Import data and types from the new file
+import { RoleDetail, Section, leadershipStructure, allRoles, rolesById } from '@/lib/teamData';
 
-// --- Interfaces (keep as defined in Iteration 1) ---
-export interface RoleDetail { // Export for use in components
-  id: string; // Unique identifier for the role (e.g., 'eng-lead')
-  title?: string;
-  advisorTitle?: string;
-  description: string;
-  advisorDescription?: string;
-  isPureAdvisor?: boolean;
-  isAlliance?: boolean;
-  reportsTo?: string[]; // IDs of roles this role reports to
-  // Placeholder for connection point calculation
-  connectionPoint?: { x: number; y: number };
+// Define the structure for stored positions
+interface RolePositionInfo {
+  topCenter: { x: number; y: number };
+  bottomCenter: { x: number; y: number };
 }
-
-export interface Section { // Export for use in components
-  level: string;
-  description?: string;
-  roles: RoleDetail[];
-  id: string;
-}
-
-// --- Data Structure (keep as defined in Iteration 1) ---
-const leadershipStructure: Section[] = [
-  // ... (same data structure)
-  {
-    id: 'leadership',
-    level: 'Leadership & Strategy',
-    roles: [
-      {
-        id: 'ceo',
-        title: 'CEO (Chief Executive Officer)',
-        advisorTitle: 'Senior Advisor (Strategic Vision)',
-        description: 'Leads overall vision, strategy, and execution. Represents the company, drives growth, and fosters culture.',
-        advisorDescription: 'Offers perspective on overall direction, mission, and long-term goals. Acts as a sounding board for strategic choices.'
-      },
-    ],
-  },
-  {
-    id: 'operations',
-    level: 'Core Operations & Execution',
-    roles: [
-      { id: 'coo', title: 'COO', reportsTo: ['ceo'], advisorTitle: 'Advisor (Operational Efficiency)', description: 'Oversees daily operations, ensuring efficiency and execution.', advisorDescription: 'Shares insights on improving processes and efficiency.' },
-      { id: 'cfo', title: 'CFO', reportsTo: ['ceo'], advisorTitle: 'Senior Advisor (Financial Perspective)', description: 'Manages financial strategy, planning, reporting, and risk.', advisorDescription: 'Lends financial acumen, offering perspective on fiscal matters.' },
-      { id: 'cto', title: 'CTO', reportsTo: ['ceo'], advisorTitle: 'Advisor (Technology Insight)', description: 'Drives technology strategy, innovation, and development.', advisorDescription: 'Shares knowledge of tech trends and development practices.' },
-      { id: 'cpo-prod', title: 'CPO (Product)', reportsTo: ['ceo'], advisorTitle: 'Advisor (Product Strategy)', description: 'Owns product vision, strategy, and roadmap.', advisorDescription: 'Provides perspective on user needs, market fit, and product direction.' },
-      { id: 'cro-cgo', title: 'CRO/CGO', reportsTo: ['ceo'], advisorTitle: 'Advisor (Revenue Growth Perspective)', description: 'Oversees revenue generation, aligning sales, marketing, etc.', advisorDescription: 'Shares insights on growth strategies and market opportunities.' },
-    ],
-  },
-  {
-    id: 'specialized',
-    level: 'Specialized Functions & Expertise',
-    roles: [
-      { id: 'eng-lead', title: 'Lead Engineer', reportsTo: ['cto'], description: 'Oversees the engineering team, ensuring technical excellence and project delivery.', advisorDescription: 'Provides technical guidance and mentorship.' },
-      { id: 'frontend-dev', title: 'Frontend Developer', reportsTo: ['eng-lead'], description: 'Builds the user interface using modern web technologies.', advisorDescription: 'Focuses on usability and performance.' },
-      { id: 'backend-dev', title: 'Backend Developer', reportsTo: ['eng-lead'], description: 'Manages server-side logic, APIs, and database interactions.', advisorDescription: 'Ensures scalability and security.' },
-      { id: 'qa-engineer', title: 'QA Engineer', reportsTo: ['eng-lead'], description: 'Ensures software quality through rigorous testing procedures.', advisorDescription: 'Champions quality across the development lifecycle.' },
-      { id: 'ux-designer', title: 'UX/UI Designer', reportsTo: ['cpo-prod'], description: 'Designs intuitive and visually appealing user experiences.', advisorDescription: 'Advocates for user-centered design principles.' },
-      { id: 'caio', title: 'CAIO', reportsTo: ['cto'], advisorTitle: 'Advisor (AI Strategy & Ethics)', description: 'Leads AI strategy, development, implementation, and ethics.', advisorDescription: 'Offers perspective on AI applications and responsible use.' },
-      { id: 'clo-learn', title: 'CLO (Learning)', reportsTo: ['coo'], advisorTitle: 'Advisor (Learning & Development)', description: 'Leads strategy for employee learning and skills development.', advisorDescription: 'Shares insights on effective training and continuous learning.' },
-      { id: 'cxo', title: 'CXO', reportsTo: ['coo'], advisorTitle: 'Advisor (Holistic Experience)', description: 'Oversees holistic stakeholder experiences (Customer, Employee, User).', advisorDescription: 'Provides perspective on creating positive, people-centered experiences.' },
-      { id: 'ciso', title: 'CISO', reportsTo: ['cto'], advisorTitle: 'Advisor (Info Security Insight)', description: 'Leads cybersecurity strategy and protects information assets.', advisorDescription: 'Helps consider best practices for protecting information.' },
-      { id: 'clo-legal', title: 'CLO/CCO (Legal/Compliance)', reportsTo: ['ceo'], advisorTitle: 'Senior Advisor (Legal Perspective)', description: 'Manages legal affairs, compliance, and risk.', advisorDescription: 'Draws upon legal experience to offer perspective on potential legal considerations.' },
-      { id: 'cmo', title: 'CMO', reportsTo: ['cro-cgo'], advisorTitle: 'Advisor (Marketing & Brand Strategy)', description: 'Leads marketing, branding, and communication efforts.', advisorDescription: 'Acts as a sounding board for marketing and brand ideas.' },
-      { id: 'chro-people', title: 'CHRO/CPO (People)', reportsTo: ['coo'], advisorTitle: 'Advisor (People & Culture)', description: 'Oversees HR, talent, culture, and employee experience.', advisorDescription: 'Shares wisdom on fostering a positive workplace culture.' },
-    ],
-  },
-  {
-    id: 'advisory',
-    level: 'Senior Advisory Circle',
-    description: 'Individuals primarily offering perspective and guidance based on deep experience, often with minimal operational involvement.',
-    roles: [
-      {
-        id: 'advisor-legal',
-        advisorTitle: 'Senior Advisor (Legal Perspective)',
-        description: 'Draws upon decades of invaluable experience as a solicitor, providing seasoned guidance and perspective to the team. Helps us navigate considerations with thoughtfulness and care.',
-        isPureAdvisor: true
-      },
-    ],
-  },
-  {
-    id: 'alliance',
-    level: 'OceanHeart Wellbeing Alliance',
-    description: 'A network of external professionals and ambassadors aligned with our mission, equipped through training to support and advocate for our human-centered approach.',
-    roles: [
-      {
-        id: 'alliance-member',
-        title: 'Wellbeing Alliance Member / Ambassador',
-        description: 'Joins a community dedicated to advancing human-centered approaches to wellbeing in the age of AI. Members support our mission and champion effective and ethical human-AI interaction.',
-        isAlliance: true
-      },
-    ],
-  },
-];
-
-// Helper to flatten roles for easier lookup
-const allRoles = leadershipStructure.flatMap(section => section.roles);
-export const rolesById = new Map(allRoles.map(role => [role.id, role]));
 
 const TeamPage = () => {
   // State for sidebar (same as before)
   const [selectedRole, setSelectedRole] = useState<RoleDetail | null>(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
-  const [rolePositions, setRolePositions] = useState<Record<string, { x: number; y: number }>>({});
+  const [rolePositions, setRolePositions] = useState<Record<string, RolePositionInfo>>({});
   const roleRefs = useRef<Record<string, HTMLDivElement | null>>({});
   const containerRef = useRef<HTMLDivElement>(null); // Ref for the main container
   const [hoveredRoleId, setHoveredRoleId] = useState<string | null>(null);
@@ -118,28 +27,28 @@ const TeamPage = () => {
   const updatePositions = useCallback(() => {
     if (!containerRef.current) return;
     const containerRect = containerRef.current.getBoundingClientRect();
-    const newPositions: Record<string, { x: number; y: number }> = {};
+    const newPositions: Record<string, RolePositionInfo> = {};
     allRoles.forEach(role => {
       const element = roleRefs.current[role.id];
       if (element) {
         const rect = element.getBoundingClientRect();
-        // Calculate center position relative to the containerRef
+        const x = rect.left - containerRect.left; // X relative to container
+        const y = rect.top - containerRect.top; // Y relative to container
         newPositions[role.id] = {
-          // Center X: element's left edge relative to container + half element width
-          x: rect.left - containerRect.left + rect.width / 2,
-          // Center Y: element's top edge relative to container + half element height
-          y: rect.top - containerRect.top + rect.height / 2,
+          // Top-center point
+          topCenter: { x: x + rect.width / 2, y: y },
+          // Bottom-center point
+          bottomCenter: { x: x + rect.width / 2, y: y + rect.height },
         };
       }
     });
     setRolePositions(prevPositions => {
-      // Basic check to prevent unnecessary updates if positions haven't changed significantly
       if (JSON.stringify(prevPositions) === JSON.stringify(newPositions)) {
         return prevPositions;
       }
       return newPositions;
     });
-  }, []); // Removed containerRef from dependencies as it's stable
+  }, []);
 
   // Calculate positions on mount and window resize
   useEffect(() => {
@@ -203,11 +112,18 @@ const TeamPage = () => {
     if (!hoveredRoleId || !rolePositions[hoveredRoleId]) {
       return [];
     }
-    const managerPos = rolePositions[hoveredRoleId];
+
+    // Use bottom-center of the hovered (manager) role
+    const managerPos = rolePositions[hoveredRoleId]?.bottomCenter;
+    if (!managerPos) return []; // Ensure manager position exists
+
     const reportingRoles = allRoles.filter(role => role.reportsTo?.includes(hoveredRoleId));
+
     return reportingRoles.map(report => {
-      const reportPos = rolePositions[report.id];
-      if (!reportPos || !managerPos) return null;
+      // Use top-center of the reporting role
+      const reportPos = rolePositions[report.id]?.topCenter;
+      if (!reportPos) return null; // Skip if report position is unknown
+
       return {
         key: `${hoveredRoleId}-to-${report.id}`,
         x1: managerPos.x,
@@ -291,6 +207,19 @@ const TeamPage = () => {
             <p className="text-sm italic text-base-content/50">N/A for Advisory/Alliance roles.</p>
           )}
         </div>
+
+        {/* --- Apply Now Button (Conditional) --- */}
+        {role.memberName?.toLowerCase() === "position available" && (
+          <div className="mt-8 mb-4 pt-4 border-t border-base-content/20 text-center">
+            <a
+              href={`mailto:kai@oceanheart.ai?subject=${encodeURIComponent(`Job Application: ${sidebarTitle}`)}`}
+              className="btn btn-primary"
+            >
+              Apply Now
+            </a>
+            <p className="text-xs text-base-content/60 mt-4">Interested in this role? Let us know!</p>
+          </div>
+        )}
       </> // End React Fragment
     );
   }; // End getSidebarContent function
@@ -305,9 +234,12 @@ const TeamPage = () => {
         onMouseLeave={handleContainerMouseLeave}
       >
         {/* Header text (same as before) */}
-        <h1 className="text-4xl font-bold mb-4 text-center">OceanHeart.ai Structure</h1>
-        <p className="text-lg text-center text-base-content/80 max-w-3xl mx-auto mb-12">
-          Our structure reflects a blend of core leadership, specialized expertise, valued advisors offering perspective, and a supportive external alliance.
+        <h1 className="text-4xl font-bold mb-4 text-center"><span className="text-secondary">Meritocracy</span> &gt; <span className="text-primary">Hierarchy</span>: Our Company Structure</h1>
+        <p className="text-md text-center text-base-content/80 max-w-3xl mx-auto mb-12">
+          Our structure reflects a blend of core leadership, specialized expertise, valued multi-disciplinary advisors, designed from the start to serve by far the most important layer: the "<span className="text-secondary">OceanHeart Wellbeing Alliance</span>".
+        </p>
+        <p className="text-md text-center text-base-content/80 max-w-3xl mx-auto mb-12">
+
         </p>
 
         {/* Sections Display - Pass down roleRefs */}

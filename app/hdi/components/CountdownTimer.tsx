@@ -23,8 +23,12 @@ interface CountdownTimerProps {
 }
 
 export default function CountdownTimer({ onDownload, timeRemaining, setTimeRemaining }: CountdownTimerProps) {
-  const targetTimestamp = 1742907282052 + (7 * 24 * 60 * 60 * 1000); // 7 days from now
-
+  // Calculate target timestamp only once on initial mount
+  const [targetTimestamp] = useState(() => {
+    const targetDate = new Date();
+    targetDate.setDate(targetDate.getDate() + 30);
+    return targetDate.getTime();
+  });
 
   useEffect(() => {
     const calculateTimeRemaining = () => {
