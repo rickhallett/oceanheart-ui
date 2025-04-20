@@ -9,6 +9,7 @@ interface RoleCardProps {
   onSelectRole: (role: RoleDetail) => void;
   isDimmed?: boolean;
   isHighlighted?: boolean;
+  isAvailable?: boolean;
   // No need to accept ref as prop directly if using forwardRef
 }
 
@@ -33,9 +34,9 @@ const cleanUrlForDisplay = (urlString?: string): string => {
 
 // Use forwardRef to allow passing ref to the underlying div
 const RoleCard = React.forwardRef<HTMLDivElement, RoleCardProps>(
-  ({ role, onSelectRole, isDimmed, isHighlighted }, ref) => {
+  ({ role, onSelectRole, isDimmed, isHighlighted, isAvailable }, ref) => {
     // --- Determine if position is available ---
-    const isAvailable = role.memberName?.toLowerCase() === "position available" && !role.avatarUrl;
+    const isAvailableRole = role.memberName?.toLowerCase() === "position available" && !role.avatarUrl;
 
     // --- Updated Title Logic ---
     let displayTitle = role.title || role.advisorTitle || 'Role'; // Default fallback
@@ -47,14 +48,15 @@ const RoleCard = React.forwardRef<HTMLDivElement, RoleCardProps>(
 
     // Apply conditional styling based on props
     const cardClasses = `
-        card ${isAvailable ? 'bg-base-100/75 backdrop-blur-sm' : 'bg-base-100'} shadow-md hover:shadow-lg border border-base-300/50
-        transition-all duration-300 cursor-pointer h-full flex flex-col
-        ${isHighlighted ? 'transform -translate-y-1 scale-[1.02] shadow-xl border-primary ring-2 ring-primary ring-offset-2 ring-offset-base-100' : (isAvailable ? '' : 'hover:-translate-y-1')} {/* Reduced hover effect if available */}
-        ${isDimmed ? 'opacity-40' : (isAvailable ? 'opacity-90' : 'opacity-100')} {/* Slightly adjusted opacity logic */}
+        card ${isAvailable ? 'bg-base-200' : 'bg-base-100'} shadow-md border border-base-300/50
+        transition-all duration-300 cursor-pointer flex flex-col
+        ${isAvailable ? 'p-3' : 'p-5 h-full'} /* Adjust padding and remove h-full if available */
+        ${isHighlighted && !isAvailable ? 'transform -translate-y-1 scale-[1.02] shadow-xl border-primary ring-2 ring-primary ring-offset-2 ring-offset-base-100' : (!isAvailable ? 'hover:shadow-lg hover:-translate-y-1' : '')} /* Adjust hover/highlight effects */
+        ${isDimmed ? 'opacity-40' : 'opacity-100'} /* Simplified opacity */
     `;
 
     // --- Check if we have a real avatar ---
-    const hasRealAvatar = role.avatarUrl && role.avatarUrl !== placeholderAvatarUrl && !role.avatarUrl.startsWith('/api/placeholder') && !isAvailable;
+    const hasRealAvatar = role.avatarUrl && role.avatarUrl !== placeholderAvatarUrl && !role.avatarUrl.startsWith('/api/placeholder');
 
     return (
       <div
@@ -63,10 +65,11 @@ const RoleCard = React.forwardRef<HTMLDivElement, RoleCardProps>(
         onClick={() => onSelectRole(role)}
         data-role-id={role.id}
       >
-        <div className="card-body p-3 flex-grow flex flex-col">
+        {/* Use card-body only for non-available cards for padding consistency */}
+        <div className={`${isAvailable ? 'flex-grow flex flex-col' : 'card-body p-0 flex-grow flex flex-col'}`}>
           {/* Top content */}
           <div className="flex-grow pointer-events-none">
-            <h3 className={`card-title text-lg font-bold pb-2 ${isHighlighted ? 'text-primary-focus' : 'text-primary'}`}>
+            <h3 className={`card-title ${isAvailable ? 'text-base' : 'text-lg'} font-bold pb-2 ${isHighlighted && !isAvailable ? 'text-primary-focus' : 'text-primary'}`}>
               {/* Display Acronym first if it exists */}
               {role.acronym && !role.isPureAdvisor && !role.isAlliance && (
                 <span className="text-primary/80 font-medium mr-1">{role.acronym}:</span>
@@ -74,20 +77,22 @@ const RoleCard = React.forwardRef<HTMLDivElement, RoleCardProps>(
               {/* Always display the main title */}
               {displayTitle}
             </h3>
-            {/* Advisor Perspective (only show if it's *not* the main display title) */}
-            {role.title && role.advisorTitle && role.advisorTitle !== displayTitle && !role.isPureAdvisor && !role.isAlliance && (
+            {/* Advisor Perspective (only show if it's *not* the main display title AND not available) */}
+            {role.title && role.advisorTitle && role.advisorTitle !== displayTitle && !role.isPureAdvisor && !role.isAlliance && !isAvailable && (
               <p className="text-xs font-medium text-accent -mt-1 mb-2">
                 Perspective: {role.advisorTitle}
               </p>
             )}
 
-            {/* Description */}
-            <p className="text-base-content/90 text-sm mt-2">
-              {role.description}
-            </p>
+            {/* Description (Only show if NOT available) */}
+            {!isAvailable && (
+              <p className="text-base-content/90 text-sm mt-2">
+                {role.description}
+              </p>
+            )}
 
-            {/* Advisor Description Snippet (only if different from main description) */}
-            {role.advisorDescription && role.advisorDescription !== role.description && !role.isPureAdvisor && !role.isAlliance && (
+            {/* Advisor Description Snippet (Only show if NOT available and conditions met) */}
+            {role.advisorDescription && role.advisorDescription !== role.description && !role.isPureAdvisor && !role.isAlliance && !isAvailable && (
               <div className="mt-3 pt-3 border-t border-base-content/10">
                 <p className="text-xs text-base-content/70 italic">
                   <span className="font-semibold text-accent/80">Advisor Focus:</span> {role.advisorDescription}
@@ -96,8 +101,8 @@ const RoleCard = React.forwardRef<HTMLDivElement, RoleCardProps>(
             )}
           </div>
 
-          {/* --- Background Section --- */}
-          {role.background && (
+          {/* --- Background Section (Only show if NOT available) --- */}
+          {role.background && !isAvailable && (
             <div className="mt-3 pt-3 border-t border-base-content/10 pointer-events-none">
               <h4 className="text-xs font-semibold uppercase text-base-content/60 mb-1">Background</h4>
               <p className="text-sm text-base-content/80 italic">
@@ -107,44 +112,34 @@ const RoleCard = React.forwardRef<HTMLDivElement, RoleCardProps>(
           )}
           {/* --- End Background Section --- */}
 
-          {/* --- Member Info Section (Conditionally Styled) --- */}
-          {(role.memberName || !role.avatarUrl || role.memberName?.toLowerCase() === "position available") && (
+          {/* --- Member Info Section (Only show if NOT available) --- */}
+          {!isAvailable && (role.memberName || !role.avatarUrl) && (
             // Apply flex-col when showing large placeholder OR real avatar
             <div className={`mt-4 pt-4 border-t border-base-content/10 ${(hasRealAvatar || (role.memberName?.toLowerCase() === "position available" && !hasRealAvatar)) ? 'flex flex-col items-center text-center' : 'flex items-center gap-3'}`}>
               {/* Avatar Area */}
-              <div className={`avatar placeholder pointer-events-none ${!hasRealAvatar && role.memberName?.toLowerCase() !== "position available" ? '' : 'flex flex-col items-center text-center w-full'}`}> {/* Keep this as is */}
+              <div className={`avatar placeholder pointer-events-none ${!hasRealAvatar && role.memberName?.toLowerCase() !== "position available" ? '' : 'flex flex-col items-center text-center w-full'}`}>
                 <div className={`${(hasRealAvatar || role.memberName?.toLowerCase() === "position available") ? 'w-52 h-52' : 'w-10 h-10 bg-neutral text-neutral-content'} mb-3 rounded-full ring ring-primary ring-offset-base-100 ring-offset-1 flex items-center justify-center`}>
                   {hasRealAvatar && role.avatarUrl ? (
                     <Image
                       src={role.avatarUrl}
                       alt={role.memberName || 'Avatar'}
-                      width={hasRealAvatar ? 208 : 40}
+                      width={hasRealAvatar ? 208 : 40} // Adjusted size based on hasRealAvatar only
                       height={hasRealAvatar ? 208 : 40}
                       className="rounded-full object-cover"
                       unoptimized={role.avatarUrl?.startsWith('/api/placeholder')}
                     />
-                  ) : role.memberName?.toLowerCase() === "position available" ? (
-                    // Large placeholder icon for available positions
-                    <FaBriefcase className="w-24 h-24 text-base-content/30" />
                   ) : (
-                    // Small placeholder icon for members without avatars
                     <FaUser className="w-5 h-5" />
                   )}
                 </div>
               </div>
 
-              {/* Name / Position Available Text Area */}
-              {role.memberName?.toLowerCase() === "position available" && !hasRealAvatar ? (
-                // Render "Position Available" text centered below large icon
-                <span className="text-sm font-semibold text-info mt-2 block text-center pointer-events-none">
-                  Position Available
-                </span>
-              ) : role.memberName ? (
-                // Render actual member name if it exists and isn't "position available"
+              {/* Name / Position Available Text Area (Simplified: Only shows name now) */}
+              {role.memberName && (
                 <span className={`text-sm font-semibold text-base-content/90 ${hasRealAvatar ? 'mt-2 block' : ''} pointer-events-none`}>
                   {role.memberName}
                 </span>
-              ) : null} {/* Render nothing if memberName is null/undefined and not "position available" */}
+              )}
 
               {/* --- Socials and Website (Only if real avatar) --- */}
               {hasRealAvatar && (
@@ -183,7 +178,6 @@ const RoleCard = React.forwardRef<HTMLDivElement, RoleCardProps>(
                     >
                       <FaLink className="w-3 h-3 flex-shrink-0" />
                       <span className="truncate">
-                        {/* --- Use helper function --- */}
                         {cleanUrlForDisplay(role.websiteUrl)}
                       </span>
                     </a>

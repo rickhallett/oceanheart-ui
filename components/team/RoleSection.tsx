@@ -1,6 +1,6 @@
 import { Section, RoleDetail, rolesById } from '@/lib/teamData'; // Import rolesById from the new data file
 import RoleCard from './RoleCard';
-import { MutableRefObject } from 'react'; // Import Ref type
+import { MutableRefObject, useMemo } from 'react'; // Import useMemo
 
 interface RoleSectionProps {
   section: Section;
@@ -15,6 +15,20 @@ const RoleSection: React.FC<RoleSectionProps> = ({
   roleRefs,
   hoveredRoleId
 }) => {
+  // --- Split roles --- 
+  const { filledRoles, availableRoles } = useMemo(() => {
+    const filled: RoleDetail[] = [];
+    const available: RoleDetail[] = [];
+    section.roles.forEach(role => {
+      if (role.memberName?.toLowerCase() !== "position available") {
+        filled.push(role);
+      } else {
+        available.push(role);
+      }
+    });
+    return { filledRoles: filled, availableRoles: available };
+  }, [section.roles]);
+
   // Simple background mapping (can be expanded or moved to config)
   const bgClasses: { [key: string]: string } = {
     leadership: 'bg-primary/5 border-primary',
@@ -35,7 +49,8 @@ const RoleSection: React.FC<RoleSectionProps> = ({
           <p className="italic text-base-content/80 mb-6 max-w-prose">{section.description}</p>
         )}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          {section.roles.map((role) => {
+          {/* Render Filled Roles */}
+          {filledRoles.map((role) => {
             // --- Logic moved here, using parent's hoveredRoleId ---
             const isHoveredCard = hoveredRoleId === role.id;
             const isReportingToHovered = role.reportsTo?.includes(hoveredRoleId || '') ?? false;
@@ -58,10 +73,32 @@ const RoleSection: React.FC<RoleSectionProps> = ({
                 ref={(el) => { roleRefs.current[role.id] = el; }}
                 isDimmed={isDimmed}
                 isHighlighted={isHighlighted}
+              // isAvailable is implicitly false here for filled roles
               />
             );
           })}
         </div>
+
+        {/* --- Available Positions Section --- */}
+        {availableRoles.length > 0 && (
+          <div className="mt-8 pt-6 border-t border-base-content/20">
+            <h3 className="text-xl font-semibold text-base-content/80 mb-4">Available Positions</h3>
+            {/* Responsive layout: flex-col on small, flex-row wrap on medium+ */}
+            <div className="flex flex-col md:flex-row md:flex-wrap gap-4">
+              {availableRoles.map((role) => (
+                <div key={role.id} className="w-full md:w-auto"> {/* Wrapper for consistent width/basis */}
+                  <RoleCard
+                    role={role}
+                    onSelectRole={onSelectRole} // Still needed for potential future interactions?
+                    ref={(el) => { roleRefs.current[role.id] = el; }} // Keep ref for potential layout calculations
+                    isAvailable={true} // Pass the available variant flag
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
       </div>
     </section>
   );

@@ -40,6 +40,7 @@ export const leadershipStructure: Section[] = [
       {
         id: 'ceo',
         acronym: 'CEO',
+        reportsTo: [],
         title: 'Chief Executive Officer',
         memberName: "Rick ('Kai') Hallett PGDip PGCert BSc (Hons) BABCP", avatarUrl: "/images/kai_profile.jpeg",
         advisorTitle: 'Director & Founder',

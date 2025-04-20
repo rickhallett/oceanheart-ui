@@ -1,0 +1,8 @@
+# bunfig.toml
+
+[test]
+# Use jsdom environment for DOM simulation
+dom = true
+
+# Explicitly preload setup file
+preload = ["./jest.setup.ts"] 

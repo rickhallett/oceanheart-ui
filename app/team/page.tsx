@@ -280,31 +280,6 @@ const TeamPage = () => {
           />
         )}
 
-        {/* SVG Lines (keep as is) */}
-        <div className="absolute inset-0 top-0 left-0 w-full h-full pointer-events-none z-10">
-          <svg width="100%" height="100%" className="absolute top-0 left-0 overflow-visible">
-            {connections.map(line => (
-              line && (
-                <line
-                  key={line.key}
-                  x1={line.x1}
-                  y1={line.y1}
-                  x2={line.x2}
-                  y2={line.y2}
-                  stroke="currentColor"
-                  className="text-primary/50 transition-opacity duration-300"
-                  strokeWidth="2"
-                  markerEnd="url(#arrowhead)"
-                />
-              )
-            ))}
-            <defs>
-              <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
-                <polygon points="0 0, 10 3.5, 0 7" className="fill-primary/50" />
-              </marker>
-            </defs>
-          </svg>
-        </div>
       </main>
       <Footer />
     </>
