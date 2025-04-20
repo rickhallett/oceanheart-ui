@@ -44,10 +44,14 @@ const FlagList = ({ flags, type }: { flags: string[], type: 'green' | 'red' }) =
   </ul>
 );
 
-const CandidateRow = ({ candidate }: { candidate: Candidate }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const toggleOpen = () => setIsOpen(!isOpen);
+// Updated CandidateRow props
+interface CandidateRowProps {
+  candidate: Candidate;
+  isExpanded: boolean;
+  onToggleExpand: (rank: number) => void;
+}
 
+const CandidateRow = ({ candidate, isExpanded, onToggleExpand }: CandidateRowProps) => {
   const { rank, name, country, tel, email, linkedIn, overview, weightedScore, cultureFit, seniority, healthcareYrs, overallFit, greenFlags, redFlags } = candidate;
 
   const getScoreClass = (score: number | undefined) => {
@@ -72,9 +76,10 @@ const CandidateRow = ({ candidate }: { candidate: Candidate }) => {
 
   return (
     <React.Fragment>
+      {/* Main visible row (clickable) */}
       <tr
         className="bg-purple-950/80 even:bg-purple-900/80 hover:bg-pink-900/80 text-gray-200 cursor-pointer"
-        onClick={toggleOpen}
+        onClick={() => onToggleExpand(rank)} // Use handler from props
       >
         <td className={`rank-cell text-center font-bold text-sm border border-purple-700 p-2 align-top ${getScoreClass(overallFit)}`}>{rank}</td>
         <td className="border border-purple-700 p-2 align-top text-xs">{name}</td>
@@ -89,12 +94,14 @@ const CandidateRow = ({ candidate }: { candidate: Candidate }) => {
         <td className={`border border-purple-700 p-2 align-top text-xs hidden md:table-cell ${getScoreClass(cultureFit)}`}>{cultureFit}</td>
         <td className={`border border-purple-700 p-2 align-top text-xs hidden md:table-cell ${getScoreClass(seniority)}`}>{seniority}</td>
         <td className={`border border-purple-700 p-2 align-top text-xs hidden md:table-cell ${getScoreClass(healthcareYrs)}`}>{healthcareYrs}</td>
-        <td className={`border border-purple-700 p-2 align-top text-xs ${getScoreClass(overallFit)}`}>{overallFit}</td>
+        <td className={`border border-purple-700 p-2 align-top text-xs hidden md:table-cell ${getScoreClass(overallFit)}`}>{overallFit}</td>
         <td className="border border-purple-700 p-2 align-top hidden md:table-cell"><FlagList flags={greenFlags} type="green" /></td>
         <td className="border border-purple-700 p-2 align-top hidden md:table-cell"><FlagList flags={redFlags} type="red" /></td>
       </tr>
 
-      {isOpen && (
+      {/* Collapsible row for details */}
+      {/* Use isExpanded prop to determine visibility */}
+      {isExpanded && (
         <tr className="bg-purple-800/90">
           <td colSpan={totalColumns} className="p-2 border border-purple-700 border-t-0">
             <div className="md:hidden max-w-[80vw]">
@@ -102,6 +109,7 @@ const CandidateRow = ({ candidate }: { candidate: Candidate }) => {
               <p className="text-xs mb-2 whitespace-normal leading-snug">{overview}</p>
 
               <div className="flex flex-col gap-2 space-y-1 mb-2 text-xs">
+                <div><span className="font-semibold text-cyan-400 w-24 inline-block">Overall Fit:</span> <span className={`p-1 rounded ${getScoreClass(overallFit)}`}>{overallFit}</span></div>
                 <div><span className="font-semibold text-cyan-400 w-24 inline-block">Weighted Score:</span> <span className={`p-1 rounded ${getWeightedScoreClass(weightedScore)}`}>{weightedScore}</span></div>
                 <div><span className="font-semibold text-cyan-400 w-24 inline-block">Culture Fit:</span> <span className={`p-1 rounded ${getScoreClass(cultureFit)}`}>{cultureFit}</span></div>
                 <div><span className="font-semibold text-cyan-400 w-24 inline-block">Seniority:</span> <span className={`p-1 rounded ${getScoreClass(seniority)}`}>{seniority}</span></div>
@@ -128,7 +136,14 @@ const CandidateRow = ({ candidate }: { candidate: Candidate }) => {
 };
 
 const RecruitmentPage = () => {
-  // Render the content directly, assuming middleware handles authorization
+  // State to track the currently expanded row rank
+  const [expandedRank, setExpandedRank] = useState<number | null>(null);
+
+  // Handler to toggle the expanded state
+  const handleToggleExpand = (rank: number) => {
+    setExpandedRank(prevRank => (prevRank === rank ? null : rank));
+  };
+
   return (
     <div className="m-5 font-sans leading-relaxed from-gray-950 to-purple-950 text-gray-300 p-1 rounded-lg">
       <h1 className="text-center text-cyan-500 mb-8 text-3xl font-bold tracking-wider">CXO Candidate Compatibility Matrix</h1>
@@ -151,14 +166,20 @@ const RecruitmentPage = () => {
               <th className="border border-purple-700 p-2 text-left align-top text-xs font-bold whitespace-nowrap uppercase tracking-wider hidden md:table-cell">Culture (/10)</th>
               <th className="border border-purple-700 p-2 text-left align-top text-xs font-bold whitespace-nowrap uppercase tracking-wider hidden md:table-cell">Seniority (/10)</th>
               <th className="border border-purple-700 p-2 text-left align-top text-xs font-bold whitespace-nowrap uppercase tracking-wider hidden md:table-cell">Health Yrs (/10)</th>
-              <th className="border border-purple-700 p-2 text-left align-top text-xs font-bold whitespace-nowrap uppercase tracking-wider">Overall (/10)</th>
+              <th className="border border-purple-700 p-2 text-left align-top text-xs font-bold whitespace-nowrap uppercase tracking-wider hidden md:table-cell">Overall (/10)</th>
               <th className="border border-purple-700 p-2 text-left align-top text-xs font-bold whitespace-nowrap uppercase tracking-wider hidden md:table-cell">Green Flags</th>
               <th className="border border-purple-700 p-2 text-left align-top text-xs font-bold whitespace-nowrap uppercase tracking-wider hidden md:table-cell">Red Flags</th>
             </tr>
           </thead>
           <tbody>
             {candidatesData.map(candidate => (
-              <CandidateRow key={candidate.rank} candidate={candidate} />
+              // Pass down relevant props
+              <CandidateRow
+                key={candidate.rank}
+                candidate={candidate}
+                isExpanded={expandedRank === candidate.rank}
+                onToggleExpand={handleToggleExpand}
+              />
             ))}
           </tbody>
         </table>
