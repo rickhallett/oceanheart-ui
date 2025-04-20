@@ -145,7 +145,7 @@ const RecruitmentPage = () => {
   };
 
   return (
-    <div className="m-5 font-sans leading-relaxed from-gray-950 to-purple-950 text-gray-300 p-1 rounded-lg">
+    <div className="m-3 md:m-5 font-sans leading-relaxed from-gray-950 to-purple-950 text-gray-300 p-1 rounded-lg">
       <h1 className="text-center text-cyan-500 mb-8 text-3xl font-bold tracking-wider">CXO Candidate Compatibility Matrix</h1>
       <p className="text-center text-gray-400 mb-8 text-sm">
         This is a list of candidates that we have reviewed for the CXO role.
