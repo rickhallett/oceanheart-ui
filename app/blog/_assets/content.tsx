@@ -205,7 +205,7 @@ export const authors: authorType[] = [
     job: "Psychologist, engineer and founder of oceanheart.ai",
     // The description of the author to display in the author's bio. Up to 160 characters.
     description:
-      "Kai has 15 years of experience in solutions-focused, mindfulness-centric psychotherapeutics. A self-taught software engineer, he has worked primarily in the big data sector, with notable roles at Brandwatch and EDITED. Seeing a growing need for psychotherapeutic tools in a rapidly evolving world, he founded oceanheart.ai to bridge the gap. When he couldn’t find a solution that met his needs, he leveraged a year of AI exploration to enhance his private practice — now extending those innovations to therapists everywhere.",
+      "Kai has 15 years of experience in solutions-focused, mindfulness-centric psychotherapeutics. A self-taught software engineer, he has worked primarily in the big data sector, with notable roles at Brandwatch and EDITED. Seeing a growing need for psychotherapeutic tools in a rapidly evolving world, he founded oceanheart.ai to bridge the gap. When he couldn't find a solution that met his needs, he leveraged a year of AI exploration to enhance his private practice — now extending those innovations to therapists everywhere.",
     // The avatar of the author to display in the author's bio and avatar badge. It's better to use a local image, but you can also use an external image (https://...)
     avatar: kaiImg,
     // A list of social links to display in the author's bio.
@@ -241,8 +241,7 @@ export type articleType = {
   author: authorType;
   publishedAt: string;
   image: {
-    src?: StaticImageData;
-    urlRelative: string;
+    urlRelative: string; // Path to image in public directory (no src import)
     alt: string;
   };
   content: JSX.Element;
@@ -264,42 +263,31 @@ const styles: {
     "text-sm font-mono bg-base-300 px-1 py-0.5 rounded-box select-all",
 };
 
-// All the blog articles data display in the /blog/[articleId].js pages.
+// List of articles displayed on the blog.
 export const articles: articleType[] = [
   {
-    // The unique slug to use in the URL. It's also used to generate the canonical URL.
     slug: "introducing-oceanheart-ai",
-    // The title to display in the article page (h1). Less than 60 characters. It's also used to generate the meta title.
     title: "Introducing oceanheart.ai",
-    // The description of the article to display in the article page. Up to 160 characters. It's also used to generate the meta description.
     description:
       "oceanheart.ai is a new AI-powered therapy platform combining a unique toolset to enhance your effectiveness and efficiency as a clinician",
-    // An array of categories of the article. It's used to generate the category badges, the category filter, and more.
     categories: [
       categories.find((category) => category.slug === categorySlugs.feature),
     ],
-    // The author of the article. It's used to generate a link to the author's bio page.
     author: authors.find((author) => author.slug === authorSlugs.kai),
-    // The date of the article. It's used to generate the meta date.
     publishedAt: "2025-02-18",
     image: {
-      // The image to display in <CardArticle /> components.
-      src: introducingOceanheartAiImg,
-      // The relative URL of the same image to use in the Open Graph meta tags & the Schema Markup JSON-LD. It should be the same image as the src above.
-      urlRelative: "/blog/introducing-oceanheart-ai/header.jpg",
+      urlRelative: "/blog/introducing-oceanheart-ai/header.png",
       alt: "oceanheart.ai logo",
     },
-    // The actual content of the article that will be shown under the <h1> title in the article page.
     content: (
       <>
         <Image
-          src={introducingOceanheartAiImg}
+          src="/blog/introducing-oceanheart-ai/header.png"
           alt="oceanheart.ai logo"
           width={700}
           height={500}
           priority={true}
           className="rounded-box"
-          placeholder="blur"
         />
         <section>
           <h2 className={styles.h2}>Introduction</h2>
@@ -330,33 +318,23 @@ export const articles: articleType[] = [
     published: true,
   },
   {
-    // The unique slug to use in the URL
     slug: "composable-agent-systems-1",
-    // The title to display in the article page (h1)
     title: "Composable Agent Systems: Lessons Learned",
-    // The description of the article
     description:
       "Reflections on keeping overhead low and agility high when designing agent systems.",
-    // Example category usage (replace with valid references if needed)
     categories: [
       categories.find((category) => category.slug === categorySlugs.learning),
     ],
-    // Example author usage (replace with valid references if needed)
     author: authors.find((author) => author.slug === authorSlugs.kai),
-    // Publish date
     publishedAt: "2025-02-19",
-    // Image metadata
     image: {
-      // Replace with a valid import or reference to your own image
-      src: composableAgentSystemsImg,
-      urlRelative: "/blog/composable-agent-systems-1/header.jpg",
+      urlRelative: "/blog/composable-agent-systems-1/header.png",
       alt: "composable agent systems cover image",
     },
-    // The article content
     content: (
       <>
         <Image
-          src={composableAgentSystemsImg}
+          src="/blog/composable-agent-systems-1/header.png"
           alt="composable agent systems cover image"
           width={700}
           height={500}
@@ -364,46 +342,36 @@ export const articles: articleType[] = [
         />
         <h2 className={styles.h2}>Why Simple, Composable Designs Work</h2>
         <p className={styles.p}>
-          Over time, I’ve noticed that the most successful agent systems often emerge from simple, composable designs rather than sprawling frameworks. Early on, I made the mistake of trying to stitch together complex chains of tools and prompts, hoping that more moving parts would give me more robust results. In practice, it just made my code harder to maintain and debug.
+          Over time, I've noticed that the most successful agent systems often emerge from simple, composable designs rather than sprawling frameworks. Early on, I made the mistake of trying to stitch together complex chains of tools and prompts, hoping that more moving parts would give me more robust results. In practice, it just made my code harder to maintain and debug.
         </p>
         <p className={styles.p}>
-          A lean, single-file approach taught me to focus on clear tool definitions, straightforward loops, and minimal overhead. Each agent can stay tightly scoped to one responsibility: for instance, handling a database query or executing a code transformation. By composing small, purpose-driven scripts, I can quickly pivot if a certain idea doesn’t pan out. That flexibility proved invaluable when deadlines were tight or when new project requirements popped up unexpectedly.
+          A lean, single-file approach taught me to focus on clear tool definitions, straightforward loops, and minimal overhead. Each agent can stay tightly scoped to one responsibility: for instance, handling a database query or executing a code transformation. By composing small, purpose-driven scripts, I can quickly pivot if a certain idea doesn't pan out. That flexibility proved invaluable when deadlines were tight or when new project requirements popped up unexpectedly.
         </p>
         <p className={styles.p}>
-          The essence of this approach is to provide just enough capabilities—like retrieval, memory, or step-by-step prompts—to achieve the task at hand. Without the baggage of excess tools or overly fancy frameworks, it’s easier to see where an agent adds value and where a single prompt might suffice. In short, a direct and simple structure provides clarity, reduces hidden complexity, and keeps the path from input to output transparent at every step.
+          The essence of this approach is to provide just enough capabilities—like retrieval, memory, or step-by-step prompts—to achieve the task at hand. Without the baggage of excess tools or overly fancy frameworks, it's easier to see where an agent adds value and where a single prompt might suffice. In short, a direct and simple structure provides clarity, reduces hidden complexity, and keeps the path from input to output transparent at every step.
         </p>
       </>
     ),
     published: true,
   },
   {
-    // The unique slug to use in the URL
     slug: "iterative-verification",
-    // The title to display in the article page (h1)
     title: "Iterative Verification in Agent Loops",
-    // The description of the article
     description:
       "Reflections on adding a quick test step before final outputs to ensure accuracy and save time.",
-    // Example category usage (replace with valid references if needed)
     categories: [
       categories.find((category) => category.slug === categorySlugs.learning),
     ],
-    // Example author usage (replace with valid references if needed)
     author: authors.find((author) => author.slug === authorSlugs.kai),
-    // Publish date
     publishedAt: "2025-02-19",
-    // Image metadata
     image: {
-      // Replace with a valid import or reference to your own image
-      src: iterativeVerificationImg,
-      urlRelative: "/blog/iterative-verification/header.jpg",
+      urlRelative: "/blog/iterative-verification/header.jpeg",
       alt: "iterative verification image",
     },
-    // The article content
     content: (
       <>
         <Image
-          src={iterativeVerificationImg}
+          src="/blog/iterative-verification/header.jpeg"
           alt="iterative verification image"
           width={700}
           height={500}
@@ -411,10 +379,10 @@ export const articles: articleType[] = [
         />
         <h2 className={styles.h2}>Adding a Quick Test Step</h2>
         <p className={styles.p}>
-          I’ve learned that giving an agent a way to test partial results before finalizing them is a game-changer. At first, I would just run a single pass—hand the model some instructions, watch it produce an outcome, and hope for the best. But inevitably, small errors crept in: malformed queries, incomplete code blocks, or confusing logic.
+          I've learned that giving an agent a way to test partial results before finalizing them is a game-changer. At first, I would just run a single pass—hand the model some instructions, watch it produce an outcome, and hope for the best. But inevitably, small errors crept in: malformed queries, incomplete code blocks, or confusing logic.
         </p>
         <p className={styles.p}>
-          The simple fix was to add a lightweight “trial run” step in the middle of the loop. For instance, if the agent needs to craft a database query, it first attempts a test version, collects feedback about errors or table schemas, and only then produces the final query. In other words, it actively checks its own work.
+          The simple fix was to add a lightweight "trial run" step in the middle of the loop. For instance, if the agent needs to craft a database query, it first attempts a test version, collects feedback about errors or table schemas, and only then produces the final query. In other words, it actively checks its own work.
         </p>
         <p className={styles.p}>
           What I found most effective is to keep the verification step as short and clear as possible. If it returns too much noise or tries to do half a dozen different checks, the original problem just gets buried. But with a focused test, the agent can refine its approach and avoid repeated dead ends. This little tweak not only tightened reliability but also cut down on wasted compute and time.
@@ -424,33 +392,23 @@ export const articles: articleType[] = [
     published: true,
   },
   {
-    // The unique slug to use in the URL
     slug: "single-file-agents",
-    // The title to display in the article page (h1)
     title: "Single-File Agent Architecture",
-    // The description of the article
     description:
-      "How embedding an agent’s logic, prompts, and dependencies into a single script can streamline development.",
-    // Example category usage (replace with valid references if needed)
+      "How embedding an agent's logic, prompts, and dependencies into a single script can streamline development.",
     categories: [
       categories.find((category) => category.slug === categorySlugs.feature),
     ],
-    // Example author usage (replace with valid references if needed)
     author: authors.find((author) => author.slug === authorSlugs.kai),
-    // Publish date
     publishedAt: "2025-02-19",
-    // Image metadata
     image: {
-      // Replace with a valid import or reference to your own image
-      src: singleFileAgentsImg,
-      urlRelative: "/blog/single-file-agents/header.jpg",
+      urlRelative: "/blog/single-file-agents/header.png",
       alt: "single file agents image",
     },
-    // The article content
     content: (
       <>
         <Image
-          src={singleFileAgentsImg}
+          src="/blog/single-file-agents/header.png"
           alt="single file agents image"
           width={700}
           height={500}
@@ -458,13 +416,13 @@ export const articles: articleType[] = [
         />
         <h2 className={styles.h2}>Embracing the Single-File Approach</h2>
         <p className={styles.p}>
-          Over time, I discovered that packing an entire agent—its logic, prompt handling, and dependencies—into a single script can be surprisingly powerful. Having everything in one place makes it easier to see exactly what’s happening at each step. It also means I can drop the file into a fresh environment, run it, and get immediate results without fussing over separate config files or environment mismatches.
+          Over time, I discovered that packing an entire agent—its logic, prompt handling, and dependencies—into a single script can be surprisingly powerful. Having everything in one place makes it easier to see exactly what's happening at each step. It also means I can drop the file into a fresh environment, run it, and get immediate results without fussing over separate config files or environment mismatches.
         </p>
         <p className={styles.p}>
-          To pull this off, I rely on an approach that <a href="https://docs.astral.sh/uv/guides/scripts/#declaring-script-dependencies" className="link link-primary">embeds dependencies right in the file</a> and organizes each tool through a simple interface. The tools themselves are just small functions or classes with clear parameters. Each loop of the agent is straightforward too: parse arguments, pick a tool, return the result, and repeat. It’s a no-frills way to stay transparent about what’s being called and why.
+          To pull this off, I rely on an approach that <a href="https://docs.astral.sh/uv/guides/scripts/#declaring-script-dependencies" className="link link-primary">embeds dependencies right in the file</a> and organizes each tool through a simple interface. The tools themselves are just small functions or classes with clear parameters. Each loop of the agent is straightforward too: parse arguments, pick a tool, return the result, and repeat. It's a no-frills way to stay transparent about what's being called and why.
         </p>
         <p className={styles.p}>
-          Going single-file helped me move faster because I could quickly clone or tweak agents for different tasks: swap out one database library for another, or replace a single prompt step without tearing apart a big codebase. It feels modular despite being self-contained. The key is to keep tools minimal, keep prompts well-scoped, and treat your main loop like a conversation with bite-sized steps. The end result is a system that’s easy to grasp, fast to iterate on, and surprisingly robust.
+          Going single-file helped me move faster because I could quickly clone or tweak agents for different tasks: swap out one database library for another, or replace a single prompt step without tearing apart a big codebase. It feels modular despite being self-contained. The key is to keep tools minimal, keep prompts well-scoped, and treat your main loop like a conversation with bite-sized steps. The end result is a system that's easy to grasp, fast to iterate on, and surprisingly robust.
         </p>
         <p className={styles.p}>
           As Big Tech continues to scale up their AI tooling, every developer focusing on agentic systems faces the threat of their custom code being crushed overnight. By keeping systems modular and - more crucially - composable, we can reduce our exposure to technical risk. The uber models will provide an ever more capable orchestration layer that we can use to play our single file systems like a well-tuned orchestra.
@@ -491,33 +449,23 @@ export const articles: articleType[] = [
     published: true,
   },
   {
-    // The unique slug to use in the URL
     slug: "scaling-agent-compute",
-    // The title to display in the article page (h1)
     title: "Scaling Agent Compute Through Multi-Step Reasoning",
-    // The description of the article
     description:
       "Reflections on how multiple loops of context gathering let agents refine their output while controlling cost.",
-    // Example category usage (replace with valid references if needed)
     categories: [
       categories.find((category) => category.slug === categorySlugs.feature),
     ],
-    // Example author usage (replace with valid references if needed)
     author: authors.find((author) => author.slug === authorSlugs.kai),
-    // Publish date
     publishedAt: "2025-02-19",
-    // Image metadata
     image: {
-      // Replace with a valid import or reference to your own image
-      src: scalableAgentSystemsImg,
       urlRelative: "/blog/scaling-agent-compute/header.jpg",
       alt: "scaling agent compute image",
     },
-    // The article content
     content: (
       <>
         <Image
-          src={scalableAgentSystemsImg}
+          src="/blog/scaling-agent-compute/header.jpg"
           alt="scaling agent compute image"
           width={700}
           height={500}
@@ -525,13 +473,13 @@ export const articles: articleType[] = [
         />
         <h2 className={styles.h2}>Reasoning Over Multiple Steps</h2>
         <p className={styles.p}>
-          When I realized that chaining multiple steps of reasoning together could unlock more advanced outcomes, it changed how I thought about compute usage. Instead of a single-pass approach, I started letting the agent run through multiple loops—each one gathering new information, refining context, and deciding on the next tool to call. This multi-step pattern didn’t just give better results; it let me dial in exactly how much “thinking time” to invest.
+          When I realized that chaining multiple steps of reasoning together could unlock more advanced outcomes, it changed how I thought about compute usage. Instead of a single-pass approach, I started letting the agent run through multiple loops—each one gathering new information, refining context, and deciding on the next tool to call. This multi-step pattern didn't just give better results; it let me dial in exactly how much "thinking time" to invest.
         </p>
         <p className={styles.p}>
-          By capping the number of loops, I could keep costs in check, while still allowing for deeper logic. If a problem was simple, I’d limit iterations to keep it quick. If it was complex, I’d give the agent more room to explore. On top of that, I can easily switch out the LLM model to use; whilst it is tempting to hit o1 for everything, you take a financial and performance hit. Gemini Flash 2, or it's equivalent cousins from the other mega corps is a fraction of the cost and yet still very capable for well defined tasks. This fine-grained control became invaluable, since I could balance performance against the budget for each task.
+          By capping the number of loops, I could keep costs in check, while still allowing for deeper logic. If a problem was simple, I'd limit iterations to keep it quick. If it was complex, I'd give the agent more room to explore. On top of that, I can easily switch out the LLM model to use; whilst it is tempting to hit o1 for everything, you take a financial and performance hit. Gemini Flash 2, or it's equivalent cousins from the other mega corps is a fraction of the cost and yet still very capable for well defined tasks. This fine-grained control became invaluable, since I could balance performance against the budget for each task.
         </p>
         <p className={styles.p}>
-          An added benefit was the clarity: with each step explicitly logged or stored, debugging felt more like watching a conversation unfold than sifting through an opaque black box. In the end, I found that scaling compute gradually, tied to clear intermediate steps, gave me a more intelligent system without blowing up my runtime costs. It’s a natural way to refine solutions: each extra turn in the loop can mean one more shot at getting things right.
+          An added benefit was the clarity: with each step explicitly logged or stored, debugging felt more like watching a conversation unfold than sifting through an opaque black box. In the end, I found that scaling compute gradually, tied to clear intermediate steps, gave me a more intelligent system without blowing up my runtime costs. It's a natural way to refine solutions: each extra turn in the loop can mean one more shot at getting things right.
         </p>
         <p className={styles.p}>
           Credit to <a href="https://www.youtube.com/@indydevdan" className="link link-primary">IndyDevDan</a> for laying out clear groundwork for this approach; see his Github <a href="https://github.com/disler/single-file-agents" className="link link-primary">here</a>.
@@ -552,7 +500,7 @@ export const articles: articleType[] = [
   },
   {
     slug: "no-perfect-idea",
-    title: "There’s No Perfect Idea",
+    title: "There's No Perfect Idea",
     description:
       "Reflecting on why the initial concept rarely matters as much as you think.",
     categories: [
@@ -561,33 +509,32 @@ export const articles: articleType[] = [
     author: authors.find((author) => author.slug === authorSlugs.kai),
     publishedAt: "2025-02-21",
     image: {
-      src: scalableAgentSystemsImg,
       urlRelative: "/blog/no-perfect-idea/header.jpg",
       alt: "lightbulb moments",
     },
     content: (
       <>
         <Image
-          src={scalableAgentSystemsImg}
+          src="/blog/no-perfect-idea/header.jpg"
           alt="lightbulb moments"
           width={700}
           height={500}
           priority={true}
         />
         <p className={styles.p}>
-          Early on, I spent weeks obsessing over “the perfect idea” for my side
+          Early on, I spent weeks obsessing over "the perfect idea" for my side
           business. Then it hit me: no matter how ingenious my concept was, it
           would inevitably change once real users got involved. Every product
-          pivot or feedback session proved that ideas aren’t static. What truly
+          pivot or feedback session proved that ideas aren't static. What truly
           matters is the willingness to adapt, respond to feedback, and keep
           iterating.
         </p>
         <p className={styles.p}>
-          My biggest learning? Don’t let yourself stall at the “thinking phase.”
-          If you’re aiming for perfection before you even launch, you’ll never
+          My biggest learning? Don't let yourself stall at the "thinking phase."
+          If you're aiming for perfection before you even launch, you'll never
           get anything out the door. At some point, you just have to start
           building. Seeing how users actually interact with your creation
-          reveals flaws and opportunities you never anticipated. That’s where
+          reveals flaws and opportunities you never anticipated. That's where
           the real growth begins.
         </p>
         <p className={styles.p}>
@@ -610,14 +557,13 @@ export const articles: articleType[] = [
     author: authors.find((author) => author.slug === authorSlugs.kai),
     publishedAt: "2025-02-21",
     image: {
-      src: scalableAgentSystemsImg,
       urlRelative: "/blog/embracing-minimalism/header.jpg",
       alt: "minimal product focus",
     },
     content: (
       <>
         <Image
-          src={scalableAgentSystemsImg}
+          src="/blog/embracing-minimalism/header.jpg"
           alt="minimal product focus"
           width={700}
           height={500}
@@ -625,16 +571,16 @@ export const articles: articleType[] = [
         />
         <p className={styles.p}>
           When I first set out to build my own SaaS, I felt the urge to stuff
-          it with every feature I could imagine. It wasn’t long before I found
+          it with every feature I could imagine. It wasn't long before I found
           myself buried in complexity, chasing my tail and losing momentum.
-          That’s when I discovered the power of an absolute bare-bones MVP.
+          That's when I discovered the power of an absolute bare-bones MVP.
         </p>
         <p className={styles.p}>
           Stripping down to essential functionality not only kept my stress
           levels in check, but also sped up my release cycle. Once I launched, I
-          realized many of my “must-have” features were irrelevant. Users
-          gravitated to a core set of tools I almost hadn’t built. Every extra
-          feature I had planned would’ve wasted precious time and energy.
+          realized many of my "must-have" features were irrelevant. Users
+          gravitated to a core set of tools I almost hadn't built. Every extra
+          feature I had planned would've wasted precious time and energy.
         </p>
         <p className={styles.p}>
           Learning point: <strong>Less is more.</strong> Start small, ship it,
@@ -647,7 +593,7 @@ export const articles: articleType[] = [
   },
   {
     slug: "avoid-needless-complexity",
-    title: "Avoiding Complexity That Doesn’t Matter",
+    title: "Avoiding Complexity That Doesn't Matter",
     description:
       "Why offloading and skipping unneeded tasks can save your side business.",
     categories: [
@@ -656,14 +602,13 @@ export const articles: articleType[] = [
     author: authors.find((author) => author.slug === authorSlugs.kai),
     publishedAt: "2025-02-21",
     image: {
-      src: scalableAgentSystemsImg,
       urlRelative: "/blog/avoid-needless-complexity/header.jpg",
       alt: "steering away from complexity",
     },
     content: (
       <>
         <Image
-          src={scalableAgentSystemsImg}
+          src="/blog/avoid-needless-complexity/header.jpg"
           alt="steering away from complexity"
           width={700}
           height={500}
@@ -672,9 +617,9 @@ export const articles: articleType[] = [
         <p className={styles.p}>
           In my early attempts at side ventures, I insisted on coding every
           piece myself—user authentication, email systems, analytics—because I
-          thought being “full stack” meant doing it all. But the deeper I got,
+          thought being "full stack" meant doing it all. But the deeper I got,
           the more it felt like pushing a boulder uphill. Customer feedback
-          forms? Email queues? They weren’t my app’s core value, yet they ate
+          forms? Email queues? They weren't my app's core value, yet they ate
           major chunks of time.
         </p>
         <p className={styles.p}>
@@ -704,14 +649,13 @@ export const articles: articleType[] = [
     author: authors.find((author) => author.slug === authorSlugs.kai),
     publishedAt: "2025-02-21",
     image: {
-      src: scalableAgentSystemsImg,
       urlRelative: "/blog/embracing-rework/header.jpg",
       alt: "embracing rework",
     },
     content: (
       <>
         <Image
-          src={scalableAgentSystemsImg}
+          src="/blog/embracing-rework/header.jpg"
           alt="embracing rework"
           width={700}
           height={500}
@@ -726,14 +670,14 @@ export const articles: articleType[] = [
         </p>
         <p className={styles.p}>
           It was a revelation when I started to see rework as a form of
-          “productive iteration.” By expecting to refactor, I wrote simpler
-          first drafts, knowing they weren’t the final word. Each revision
+          "productive iteration." By expecting to refactor, I wrote simpler
+          first drafts, knowing they weren't the final word. Each revision
           improved my design based on reality, not assumptions.
         </p>
         <p className={styles.p}>
           Learning point:{" "}
-          <strong>Don’t fear rebuilding; embrace it as part of evolving.</strong>{" "}
-          Better to iterate fast and adjust than to cling to a “perfect” plan
+          <strong>Don't fear rebuilding; embrace it as part of evolving.</strong>{" "}
+          Better to iterate fast and adjust than to cling to a "perfect" plan
           that never survives contact with users.
         </p>
       </>
@@ -751,14 +695,13 @@ export const articles: articleType[] = [
     author: authors.find((author) => author.slug === authorSlugs.kai),
     publishedAt: "2025-02-21",
     image: {
-      src: scalableAgentSystemsImg,
       urlRelative: "/blog/finding-a-niche/header.jpg",
       alt: "small market advantage",
     },
     content: (
       <>
         <Image
-          src={scalableAgentSystemsImg}
+          src="/blog/finding-a-niche/header.jpg"
           alt="small market advantage"
           width={700}
           height={500}
@@ -766,20 +709,20 @@ export const articles: articleType[] = [
         />
         <p className={styles.p}>
           There was a time I believed my side project had to disrupt an entire
-          industry to be “worth it.” That mindset is exhausting. When I finally
+          industry to be "worth it." That mindset is exhausting. When I finally
           shifted to serving a tightly focused audience, I noticed something
           wonderful: fewer big competitors bothered to move in.
         </p>
         <p className={styles.p}>
           Sure, my user base was smaller, but it was more committed. I could
-          charge a fair price for specialized value, and my platform’s overhead
-          didn’t need to be massive to sustain me. It was liberating to realize
+          charge a fair price for specialized value, and my platform's overhead
+          didn't need to be massive to sustain me. It was liberating to realize
           I could build something profitable without chasing millions of
           customers.
         </p>
         <p className={styles.p}>
           Learning point: <strong>Small can be sustainable.</strong> Aim to
-          serve a distinct group with a real need, and you’ll avoid the brutal
+          serve a distinct group with a real need, and you'll avoid the brutal
           slugfest that comes with hyper-competitive markets.
         </p>
       </>
@@ -797,23 +740,22 @@ export const articles: articleType[] = [
     author: authors.find((author) => author.slug === authorSlugs.kai),
     publishedAt: "2025-02-21",
     image: {
-      src: scalableAgentSystemsImg,
       urlRelative: "/blog/mvp-marathon/header.jpg",
       alt: "long distance run",
     },
     content: (
       <>
         <Image
-          src={scalableAgentSystemsImg}
+          src="/blog/mvp-marathon/header.jpg"
           alt="long distance run"
           width={700}
           height={500}
           priority={true}
         />
         <p className={styles.p}>
-          I can’t count how many times I’ve tried to sprint through a weekend of
+          I can't count how many times I've tried to sprint through a weekend of
           coding, only to crash hard on Monday. The reality is that building a
-          side business isn’t a quick dash; it’s an ongoing process. Spreading
+          side business isn't a quick dash; it's an ongoing process. Spreading
           out the workload, staying mindful of rest, and celebrating small wins
           keeps it sustainable.
         </p>
@@ -825,7 +767,7 @@ export const articles: articleType[] = [
         </p>
         <p className={styles.p}>
           Learning point: <strong>Consistency beats intensity.</strong> Treat
-          your project like a long-distance run. You’ll evolve, learn, and build
+          your project like a long-distance run. You'll evolve, learn, and build
           resilience along the way.
         </p>
       </>
