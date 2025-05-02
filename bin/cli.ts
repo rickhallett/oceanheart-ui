@@ -81,6 +81,69 @@ async function displayPractices() {
   console.log(table.toString());
 }
 
+async function displayMonthlyLeaderboard() {
+  const now = new Date();
+  const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+
+  const { data, error } = await supabase
+    .from('practices')
+    .select(`
+      user_id,
+      points,
+      saigo_user:saigo_users!practices_user_id_fkey (
+        username
+      )
+    `)
+    .gte('created_at', startOfMonth.toISOString()); // Filter for practices this month
+
+  if (error) {
+    console.error('Error fetching monthly leaderboard data:', error);
+    return;
+  }
+
+  if (!data || data.length === 0) {
+    console.log('No practice points recorded yet for the current month.');
+    return;
+  }
+
+  // Aggregate points per user
+  const leaderboard = data.reduce((acc, practice) => {
+    const userId = practice.user_id;
+    if (!userId) return acc; // Skip if user_id is null
+
+    // Adjust type assertion for potential array from relation
+    const userRelation = practice.saigo_user as { username: string | null }[] | { username: string | null } | null;
+    let username = `User ID: ${userId}`;
+    if (Array.isArray(userRelation) && userRelation.length > 0) {
+      username = userRelation[0].username || username;
+    } else if (userRelation && !Array.isArray(userRelation)) {
+      username = userRelation.username || username;
+    }
+
+    acc[userId] = acc[userId] || { username: username, totalPoints: 0 };
+    acc[userId].totalPoints += practice.points || 0;
+    return acc;
+  }, {} as { [userId: string]: { username: string; totalPoints: number } });
+
+  // Sort by points descending
+  const sortedLeaderboard = Object.values(leaderboard).sort((a, b) => b.totalPoints - a.totalPoints);
+
+  const table = new Table({
+    head: ['Rank', 'User', 'Monthly Points']
+  });
+
+  sortedLeaderboard.forEach((entry, index) => {
+    table.push([
+      index + 1,
+      entry.username,
+      entry.totalPoints
+    ]);
+  });
+
+  console.log(`\n--- Monthly Leaderboard (${now.toLocaleString('default', { month: 'long', year: 'numeric' })}) ---`);
+  console.log(table.toString());
+}
+
 async function deletePractice() {
   const { practiceId } = await inquirer.prompt([
     {
@@ -100,6 +163,75 @@ async function deletePractice() {
   } else {
     console.log('Practice deleted successfully');
   }
+}
+
+async function resetMonthlyPoints() {
+  console.log('Calculating points from the previous month...');
+
+  const now = new Date();
+  const firstDayOfCurrentMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+  // Go back one millisecond to get the end of the previous month
+  const lastDayOfPreviousMonth = new Date(firstDayOfCurrentMonth.getTime() - 1);
+  // Get the first day of the previous month
+  const firstDayOfPreviousMonth = new Date(lastDayOfPreviousMonth.getFullYear(), lastDayOfPreviousMonth.getMonth(), 1);
+
+  console.log(`Calculating points between ${firstDayOfPreviousMonth.toISOString()} and ${lastDayOfPreviousMonth.toISOString()}`);
+
+  const { data: monthlyTotals, error: totalsError } = await supabase
+    .from('practices')
+    .select('user_id, points')
+    .gte('created_at', firstDayOfPreviousMonth.toISOString())
+    .lte('created_at', lastDayOfPreviousMonth.toISOString());
+
+  if (totalsError) {
+    console.error('Error fetching previous month\'s practice data:', totalsError);
+    return;
+  }
+
+  if (!monthlyTotals || monthlyTotals.length === 0) {
+    console.log('No practices recorded in the previous month. No forces updated.');
+    return;
+  }
+
+  // Aggregate points per user
+  const userTotals = monthlyTotals.reduce((acc, practice) => {
+    if (practice.user_id) {
+      acc[practice.user_id] = (acc[practice.user_id] || 0) + (practice.points || 0);
+    }
+    return acc;
+  }, {} as { [userId: string]: number });
+
+  console.log(`Found points for ${Object.keys(userTotals).length} users from the previous month.`);
+
+  let successCount = 0;
+  let errorCount = 0;
+
+  // Update force for each user
+  for (const userId in userTotals) {
+    const pointsToAdd = userTotals[userId];
+    if (pointsToAdd > 0) {
+      console.log(`Adding ${pointsToAdd} points to force for user ${userId}...`);
+      // Revert to object, but order keys as potentially expected by the first error message
+      const { error: updateError } = await supabase.rpc('increment_user_force', {
+        points_to_add: pointsToAdd, // Key order swapped
+        user_id_param: userId
+      });
+
+      if (updateError) {
+        console.error(`Failed to update force for user ${userId}:`, updateError.message);
+        errorCount++;
+      } else {
+        successCount++;
+      }
+    }
+  }
+
+  console.log(`\nMonthly points reset complete.`);
+  console.log(`Successfully updated force for ${successCount} users.`);
+  if (errorCount > 0) {
+    console.log(`Failed to update force for ${errorCount} users.`);
+  }
+  console.log(`The leaderboard will now show points accumulated from ${firstDayOfCurrentMonth.toLocaleDateString()} onwards.`);
 }
 
 async function addPracticeEntry() {
@@ -243,9 +375,11 @@ async function main() {
         choices: [
           'Add Practice Entry for kai@oceanheart.ai',
           'Add Practice Entry for Another User',
-          'List Recent Practices',
+          'Show Monthly Leaderboard',
+          'List Recent Practice Entries',
           'List Users',
           'Delete Practice',
+          'Reset Monthly Points',
           'Exit'
         ]
       }
@@ -255,7 +389,10 @@ async function main() {
       case 'List Users':
         await displayUsers();
         break;
-      case 'List Recent Practices':
+      case 'Show Monthly Leaderboard':
+        await displayMonthlyLeaderboard();
+        break;
+      case 'List Recent Practice Entries':
         await displayPractices();
         break;
       case 'Delete Practice':
@@ -266,6 +403,9 @@ async function main() {
         break;
       case 'Add Practice Entry for Another User':
         await addPracticeEntryForOtherUser();
+        break;
+      case 'Reset Monthly Points':
+        await resetMonthlyPoints();
         break;
       case 'Exit':
         process.exit(0);

@@ -8,7 +8,7 @@ import LineGraph from "@/components/LineGraph";
 import PracticeTypesStackedBarChart from "@/components/PracticeTypesStackedBarChart";
 import CumulativePointsAreaChart from "@/components/CumulativePointsAreaChart";
 import PracticeTypesRadarChart from "@/components/PracticeTypesRadarChart";
-import Countdown from "@/components/Countdown";
+import Timer from "@/components/Timer";
 import Image from "next/image";
 import { Legend, Cell, PieChart, Pie, Tooltip, ResponsiveContainer } from "recharts";
 import SaigoAnimatedText from "@/components/SaigoAnimatedText";
@@ -145,8 +145,9 @@ const LiveLeaderboard: React.FC = () => {
           <Image src="/images/hbi_transparent.webp" alt="Saigo Logo" width={200} height={200} />
         </div>
         {showCountdown && (
-          <div className="flex flex-row items-center justify-center w-full py-5">
-            <Countdown enhanced={true} />
+          <div className="flex flex-col items-center justify-center w-full py-5">
+            <div className="text-center mb-2 text-xl font-bold">Time Elapsed</div>
+            <Timer enhanced={true} />
           </div>
         )}
 

@@ -67,4 +67,4 @@ const Timer: React.FC<TimerProps> = ({ enhanced = false }) => {
   );
 };
 
-export default Timer;
+export default Timer; 

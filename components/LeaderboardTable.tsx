@@ -12,6 +12,18 @@ interface LeaderboardTableProps {
   data: LeaderboardEntry[];
 }
 
+// Helper to get the first day of the current month
+export const getFirstDayOfMonth = (): Date => {
+  const now = new Date();
+  return new Date(now.getFullYear(), now.getMonth(), 1);
+};
+
+// Format the current month period for display
+const formatMonthPeriod = (): string => {
+  const now = new Date();
+  return now.toLocaleString('default', { month: 'long', year: 'numeric' });
+};
+
 const LeaderboardTable: React.FC<LeaderboardTableProps> = ({ data }) => {
   const columns = [
     {
@@ -69,37 +81,55 @@ const LeaderboardTable: React.FC<LeaderboardTableProps> = ({ data }) => {
   const rightData = data.slice(mid);
   const isRightDisplayed = rightData.length > 0;
 
+  const monthPeriod = formatMonthPeriod();
+
   if (data.length <= 5) {
     return (
-      <div className="w-full max-w-4xl mx-auto bg-gray-800 rounded-lg overflow-hidden">
-        <DataTable columns={columns} data={data} customStyles={customStyles} pagination theme="dark" />
+      <div className="w-full max-w-4xl mx-auto">
+        <h2 className="text-center text-xl font-semibold text-white mb-3">
+          Leaderboard - {monthPeriod}
+          <div className="text-sm font-normal text-gray-300">
+            Points accumulated since {getFirstDayOfMonth().toLocaleDateString()}
+          </div>
+        </h2>
+        <div className="bg-gray-800 rounded-lg overflow-hidden">
+          <DataTable columns={columns} data={data} customStyles={customStyles} pagination theme="dark" />
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="w-full max-w-4xl mx-auto bg-gray-800 rounded-lg overflow-hidden">
-      <div className="flex flex-col md:flex-row">
-        <div className="flex-1">
-          <DataTable
-            columns={columns}
-            data={leftData}
-            customStyles={customStyles}
-            pagination
-            theme="dark"
-          />
+    <div className="w-full max-w-4xl mx-auto">
+      <h2 className="text-center text-xl font-semibold text-white mb-3">
+        Leaderboard - {monthPeriod}
+        <div className="text-sm font-normal text-gray-300">
+          Points accumulated since {getFirstDayOfMonth().toLocaleDateString()}
         </div>
-        {isRightDisplayed && (
+      </h2>
+      <div className="bg-gray-800 rounded-lg overflow-hidden">
+        <div className="flex flex-col md:flex-row">
           <div className="flex-1">
             <DataTable
               columns={columns}
-              data={rightData}
+              data={leftData}
               customStyles={customStyles}
               pagination
               theme="dark"
             />
           </div>
-        )}
+          {isRightDisplayed && (
+            <div className="flex-1">
+              <DataTable
+                columns={columns}
+                data={rightData}
+                customStyles={customStyles}
+                pagination
+                theme="dark"
+              />
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
