@@ -27,13 +27,16 @@ const LineGraph: React.FC<LineGraphProps> = ({ data }) => {
   });
 
   return (
-    <div className="w-full max-w-4xl mx-auto p-0 bg-gray-800 rounded-lg shadow-md">
-      <div className="text-center font-semibold mb-4 text-gray-200">
+    <>
+      <h3 className="text-center font-semibold mb-4 text-white">
         Points per Day (Past Week)
-      </div>
-      <div className="w-full h-94 md:h-64 md:h-96 p-0 md:p-6">
-        <ResponsiveContainer width="100%" height={300} minWidth={300} aspect={0} style={{ padding: 0 }}>
-          <LineChart data={chartData} margin={{ top: 5, right: 5, left: 0, bottom: 5 }}>
+      </h3>
+      <div className="w-full overflow-x-auto">
+        <ResponsiveContainer width="100%" height={350}>
+          <LineChart
+            data={chartData}
+            margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
+          >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis
               dataKey="day"
@@ -74,7 +77,7 @@ const LineGraph: React.FC<LineGraphProps> = ({ data }) => {
           </LineChart>
         </ResponsiveContainer>
       </div>
-    </div>
+    </>
   );
 };
 

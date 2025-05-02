@@ -30,13 +30,16 @@ const CumulativePointsAreaChart: React.FC<CumulativePointsAreaChartProps> = ({ d
   }, []);
 
   return (
-    <div className="w-full max-w-4xl mx-auto p-4 bg-gray-800 rounded-lg shadow-md">
-      <div className="text-center font-semibold mb-4 text-white">
+    <>
+      <h3 className="text-center font-semibold mb-4 text-white">
         Cumulative Practice Points (Past Week)
-      </div>
-      <div className="h-[300px] w-[300px] md:w-[600px]">
-        <ResponsiveContainer minWidth={300} minHeight={300} aspect={0}>
-          <AreaChart data={chartData} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
+      </h3>
+      <div className="w-full overflow-x-auto">
+        <ResponsiveContainer width="100%" height={350}>
+          <AreaChart
+            data={chartData}
+            margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
+          >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="day" stroke="#F3F4F6" />
             <YAxis stroke="#F3F4F6" />
@@ -54,7 +57,7 @@ const CumulativePointsAreaChart: React.FC<CumulativePointsAreaChartProps> = ({ d
           </AreaChart>
         </ResponsiveContainer>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -55,8 +55,7 @@ export const PRACTICE_TYPES = [
   "Seeing Auras",
   "Watching Static",
   "Prana Walking",
-  "Cloud Busting",
-  "HDI"
+  "Cloud Busting"
 ];
 
 export const PRACTICE_TYPES_COLORS = PRACTICE_TYPES.map((type, index) => ({

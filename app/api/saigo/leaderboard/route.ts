@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createServiceClient } from "@/libs/supabase/server";
+import { PRACTICE_TYPES } from "@/libs/chartColors";
 
 // --- Type Definitions ---
 
@@ -29,13 +30,6 @@ interface PracticeSummaryEntry {
 }
 
 // --- Helper Functions ---
-
-/**
- * Filters out practice entries with type 'HDI'.
- */
-const filterHdiPractices = (practices: PracticeEntry[]): PracticeEntry[] => {
-  return practices.filter((practice) => practice.type !== 'HDI');
-};
 
 /**
  * Aggregates points per user and sorts for the leaderboard.
@@ -125,15 +119,14 @@ const calculateDailyPoints = (practices: PracticeEntry[], startDate: Date, days:
  */
 const calculateStackedData = (practices: PracticeEntry[], startDate: Date, days: number): StackedDayData[] => {
   const orderedDates = getOrderedDates(startDate, days);
-  const practiceTypesInPeriod = Array.from(new Set(practices.map(p => p.type).filter(Boolean))) as string[];
 
   return orderedDates.map(date => {
     const dayData: StackedDayData = {
       day: new Date(date + 'T00:00:00Z').toLocaleDateString('en-US', { weekday: 'short' })
     };
 
-    // Initialize all practice types found in the period to 0 for this day
-    practiceTypesInPeriod.forEach(type => {
+    // Initialize all practice types to 0 for this day
+    PRACTICE_TYPES.forEach(type => {
       dayData[type] = 0;
     });
 
@@ -151,22 +144,34 @@ const calculateStackedData = (practices: PracticeEntry[], startDate: Date, days:
 };
 
 /**
- * Extracts unique practice types from a list of practices.
+ * Returns all practice types from the PRACTICE_TYPES constant.
  */
-const getUniquePracticeTypes = (practices: PracticeEntry[]): string[] => {
-  return Array.from(new Set(practices.map(p => p.type).filter(Boolean))) as string[];
+const getAllPracticeTypes = (): string[] => {
+  return PRACTICE_TYPES;
 };
 
 /**
  * Aggregates total points per practice type and sorts the summary.
  */
 const calculatePracticeSummary = (practices: PracticeEntry[]): PracticeSummaryEntry[] => {
-  const practiceSummaryMap = practices.reduce<Record<string, number>>((acc, practice) => {
-    const type = practice.type || "Unknown";
-    const points = practice.points || 0;
-    acc[type] = (acc[type] || 0) + points;
-    return acc;
-  }, {});
+  // Initialize with all practice types set to 0
+  const practiceSummaryMap: Record<string, number> = {};
+
+  // Initialize all practice types with 0 points
+  PRACTICE_TYPES.forEach(type => {
+    practiceSummaryMap[type] = 0;
+  });
+
+  // Add points from actual practices
+  practices.forEach(practice => {
+    if (practice.type) {
+      const points = practice.points || 0;
+      // Only add points for types defined in PRACTICE_TYPES
+      if (PRACTICE_TYPES.includes(practice.type)) {
+        practiceSummaryMap[practice.type] += points;
+      }
+    }
+  });
 
   const practiceSummary = Object.entries(practiceSummaryMap).map(([type, totalPoints]) => ({
     type,
@@ -193,7 +198,7 @@ export async function GET() {
   ));
   const endDateStr = new Date(today.getTime() + 86400000 - 1).toISOString(); // End of today UTC
 
-  const { data: rawPracticesData, error: practicesError } = await supabase
+  const { data: practicesData, error: practicesError } = await supabase
     .from('practices')
     .select(`
       user_id,
@@ -217,24 +222,21 @@ export async function GET() {
     );
   }
 
-  if (!rawPracticesData) {
+  if (!practicesData) {
     return NextResponse.json({ error: "No practice data found" }, { status: 404 });
   }
 
-  // --- 2. Initial Filtering ---
-  const allValidPractices = filterHdiPractices(rawPracticesData);
-
   // --- 3. Calculate All-Time Data ---
-  const leaderboardData = calculateLeaderboardData(allValidPractices);
-  const practiceSummary = calculatePracticeSummary(allValidPractices);
+  const leaderboardData = calculateLeaderboardData(practicesData);
+  const practiceSummary = calculatePracticeSummary(practicesData);
 
   // --- 4. Calculate 7-Day Graph Data ---
   const last7DaysStartDate = getStartDateNDaysAgo(today, daysForGraphs);
-  const last7DaysPractices = filterPracticesLastNDays(allValidPractices, today, daysForGraphs);
+  const last7DaysPractices = filterPracticesLastNDays(practicesData, today, daysForGraphs);
 
   const dailyPoints = calculateDailyPoints(last7DaysPractices, last7DaysStartDate, daysForGraphs);
   const stackedData = calculateStackedData(last7DaysPractices, last7DaysStartDate, daysForGraphs);
-  const practiceTypes = getUniquePracticeTypes(last7DaysPractices);
+  const practiceTypes = getAllPracticeTypes();
 
   // --- 5. Return Response ---
   return NextResponse.json({
@@ -242,6 +244,6 @@ export async function GET() {
     practiceSummary, // All-time practice summary for pie chart
     dailyPoints,     // 7-day graph data
     stackedData,     // 7-day graph data
-    practiceTypes    // 7-day practice types for stacked chart keys
+    practiceTypes    // All practice types for stacked chart keys
   });
 }

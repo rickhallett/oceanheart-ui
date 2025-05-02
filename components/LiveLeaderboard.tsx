@@ -247,11 +247,12 @@ const LiveLeaderboard: React.FC = () => {
         </div>
 
         {/* Practice Summary Panel */}
-        <div className="w-full max-w-4xl mx-auto mt-4 bg-gray-800 rounded-lg p-4">
+        <div className="w-full max-w-4xl mx-auto mt-6 bg-gray-800 rounded-lg p-4 mb-8">
           <h2 className="text-2xl font-bold text-white mb-4">Practice Summary</h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            {practiceSummary.map((practice, index) => (
-              practice.totalPoints > 0 && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            {practiceSummary
+              .filter(practice => practice.totalPoints > 0)
+              .map((practice, index) => (
                 <div key={index} className="bg-gray-700 rounded-lg p-4">
                   <div
                     className="text-gray-300 font-medium mb-1"
@@ -270,27 +271,32 @@ const LiveLeaderboard: React.FC = () => {
                     <div className="text-xs opacity-50">({Math.floor(practice.totalPoints / 7)} pts/d)</div>
                   </div>
                 </div>
-              )))}
+              ))}
           </div>
         </div>
 
         {/* Pie Chart Panel */}
-        <div className="w-full max-w-4xl mx-auto mt-4 bg-gray-800 rounded-lg p-4">
+        <div className="w-full max-w-4xl mx-auto mt-8 bg-gray-800 rounded-lg p-4 mb-8">
           <h2 className="text-2xl font-bold text-white mb-4">Practice Distribution</h2>
-          <div className="flex justify-center min-h-[540px]">
-            <div className="w-full h-[300px] md:h-[400px]">
+
+          <div className="flex flex-col md:flex-row">
+            {/* Left side: Pie chart only */}
+            <div className="w-full md:w-1/2 h-[300px] md:h-[400px] flex justify-center items-center">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
-                    data={practiceSummary}
+                    data={practiceSummary.filter(practice => practice.totalPoints > 0)}
                     dataKey="totalPoints"
                     nameKey="type"
                     cx="50%"
                     cy="50%"
-                    outerRadius="70%"
-                    label
+                    outerRadius={90}
+                    innerRadius={0}
+                    // No labels on the chart itself
+                    label={false}
+                    labelLine={false}
                   >
-                    {practiceSummary.map((entry) => {
+                    {practiceSummary.filter(practice => practice.totalPoints > 0).map((entry) => {
                       const colorObj = PRACTICE_TYPES_COLORS.find(
                         (item) => item.type === entry.type
                       );
@@ -298,28 +304,73 @@ const LiveLeaderboard: React.FC = () => {
                       return <Cell key={entry.type} fill={fillColor} />;
                     })}
                   </Pie>
-                  <Tooltip />
-                  <Legend verticalAlign="bottom" height={36} />
+                  <Tooltip
+                    formatter={(value, name) => {
+                      const numValue = Number(value);
+                      const percent = Math.round((numValue / totalPoints) * 100);
+                      return [`${numValue} minutes (${percent}%)`, name];
+                    }}
+                    contentStyle={{
+                      backgroundColor: "#1F2937",
+                      border: "none",
+                      borderRadius: "0.5rem",
+                      color: "#F3F4F6",
+                    }}
+                  />
                 </PieChart>
               </ResponsiveContainer>
+            </div>
+
+            {/* Right side: Custom legend */}
+            <div className="w-full md:w-1/2 overflow-y-auto" style={{ maxHeight: "400px" }}>
+              <div className="grid grid-cols-1 gap-2 p-2">
+                {practiceSummary
+                  .filter(practice => practice.totalPoints > 0)
+                  .sort((a, b) => b.totalPoints - a.totalPoints) // Sort by points descending
+                  .map((practice, index) => {
+                    const colorObj = PRACTICE_TYPES_COLORS.find(item => item.type === practice.type);
+                    const fillColor = colorObj ? colorObj.color : "#000000";
+                    const practicePoints = Number(practice.totalPoints);
+                    const percentage = Math.round((practicePoints / totalPoints) * 100);
+
+                    return (
+                      <div key={index} className="flex items-center p-1 hover:bg-gray-700 rounded">
+                        <div
+                          className="w-4 h-4 mr-2 rounded-sm"
+                          style={{ backgroundColor: fillColor }}
+                        ></div>
+                        <div className="flex-1 text-sm">{practice.type}</div>
+                        <div className="text-sm font-medium whitespace-nowrap">
+                          {practice.totalPoints} mins
+                        </div>
+                        <div className="ml-2 text-sm font-bold whitespace-nowrap">
+                          {percentage}%
+                        </div>
+                      </div>
+                    );
+                  })
+                }
+              </div>
             </div>
           </div>
         </div>
 
         {/* Points Per Day Panel */}
-        <div className="w-full max-w-4xl mx-auto mt-4 bg-gray-800 rounded-lg p-4">
-          <h2 className="text-2xl font-bold text-white mb-4">Points Per Day</h2>
-          <div className="w-full min-h-[370px]">
-            <LineGraph data={dailyPoints} />
-          </div>
+        <div className="w-full max-w-4xl mx-auto mt-8 bg-gray-800 rounded-lg p-4 mb-8">
+          <h2 className="text-2xl font-bold text-white mb-4">Daily Activity</h2>
+          <LineGraph data={dailyPoints} />
+        </div>
+
+        {/* Practice Types Stacked Chart */}
+        <div className="w-full max-w-4xl mx-auto mt-8 bg-gray-800 rounded-lg p-4 mb-8">
+          <h2 className="text-2xl font-bold text-white mb-4">Practice Types Breakdown</h2>
+          <PracticeTypesStackedBarChart data={stackedData} practiceTypes={practiceTypes} />
         </div>
 
         {/* Cumulative Points Panel */}
-        <div className="w-full max-w-4xl mx-auto mt-4 bg-gray-800 rounded-lg p-4 min-h-[500px]">
+        <div className="w-full max-w-4xl mx-auto mt-8 bg-gray-800 rounded-lg p-4 mb-8">
           <h2 className="text-2xl font-bold text-white mb-4">Cumulative Progress</h2>
-          <div className="w-full h-[300px] md:h-[400px]">
-            <CumulativePointsAreaChart dailyPoints={dailyPoints} />
-          </div>
+          <CumulativePointsAreaChart dailyPoints={dailyPoints} />
         </div>
 
         {/* Mach Rank Table - Toggleable */}
