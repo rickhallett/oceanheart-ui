@@ -75,7 +75,7 @@ const SuspendedFooter = ({ showHDIForm = false }: FooterProps) => {
               {config.appDescription}
             </p>
             <p className="mt-3 text-sm text-base-content/60">
-              Copyright © {new Date().getFullYear()} - All rights reserved
+              Copyright © {new Date().getFullYear()} - <a href="https://rickhallett.github.io/kaishin-roku/" target="_blank" rel="noopener noreferrer" className="no-underline" style={{ textDecoration: "none" }}>All rights reserved</a>
             </p>
 
           </div>
