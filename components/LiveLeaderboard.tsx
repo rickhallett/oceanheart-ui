@@ -32,6 +32,13 @@ import { PRACTICE_TYPES_COLORS } from "@/libs/chartColors";
 import LoadingPage from "@/components/LoadingPage";
 const fetcher = (url: string) => fetch(url).then(res => res.json());
 
+// Helper to get the fixed competition start date (May 1st of the current year)
+const getCompetitionStartDate = (): Date => {
+  const now = new Date();
+  // May is month 4 (zero-indexed)
+  return new Date(Date.UTC(now.getUTCFullYear(), 4, 1));
+};
+
 // Function to trigger Instagram check
 const triggerInstagramCheck = async () => {
   try {
@@ -126,6 +133,9 @@ const LiveLeaderboard: React.FC = () => {
   };
   const totalPoints = leaderboardData.reduce((sum: number, user) => sum + user.totalPoints, 0);
 
+  // Get the competition start date for the timer
+  const competitionStartDate = getCompetitionStartDate();
+
   return (
     <div className="mockup-window border bg-base-300 border m-4">
       <div className="flex flex-row items-end justify-end mr-4 gap-0 md:gap-4">
@@ -147,7 +157,7 @@ const LiveLeaderboard: React.FC = () => {
         {showCountdown && (
           <div className="flex flex-col items-center justify-center w-full py-5">
             <div className="text-center mb-2 text-xl font-bold">Time Elapsed</div>
-            <Timer enhanced={true} />
+            <Timer enhanced={true} startDate={competitionStartDate} />
           </div>
         )}
 

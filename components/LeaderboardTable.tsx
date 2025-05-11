@@ -24,6 +24,13 @@ const formatMonthPeriod = (): string => {
   return now.toLocaleString('default', { month: 'long', year: 'numeric' });
 };
 
+// Helper to get the fixed competition start date (May 1st of the current year)
+const getCompetitionStartDate = (): Date => {
+  const now = new Date();
+  // May is month 4 (zero-indexed)
+  return new Date(Date.UTC(now.getUTCFullYear(), 4, 1));
+};
+
 const LeaderboardTable: React.FC<LeaderboardTableProps> = ({ data }) => {
   const columns = [
     {
@@ -81,15 +88,17 @@ const LeaderboardTable: React.FC<LeaderboardTableProps> = ({ data }) => {
   const rightData = data.slice(mid);
   const isRightDisplayed = rightData.length > 0;
 
-  const monthPeriod = formatMonthPeriod();
+  // Use the fixed competition start date for display
+  const competitionStartDate = getCompetitionStartDate();
+  const competitionStartDateString = competitionStartDate.toLocaleDateString();
 
   if (data.length <= 5) {
     return (
       <div className="w-full max-w-4xl mx-auto">
         <h2 className="text-center text-xl font-semibold text-white mb-3">
-          Leaderboard - {monthPeriod}
+          Leaderboard
           <div className="text-sm font-normal text-gray-300">
-            Points accumulated since {getFirstDayOfMonth().toLocaleDateString()}
+            Points accumulated since {competitionStartDateString}
           </div>
         </h2>
         <div className="bg-gray-800 rounded-lg overflow-hidden">
@@ -102,9 +111,9 @@ const LeaderboardTable: React.FC<LeaderboardTableProps> = ({ data }) => {
   return (
     <div className="w-full max-w-4xl mx-auto">
       <h2 className="text-center text-xl font-semibold text-white mb-3">
-        Leaderboard - {monthPeriod}
+        Leaderboard
         <div className="text-sm font-normal text-gray-300">
-          Points accumulated since {getFirstDayOfMonth().toLocaleDateString()}
+          Points accumulated since {competitionStartDateString}
         </div>
       </h2>
       <div className="bg-gray-800 rounded-lg overflow-hidden">

@@ -106,7 +106,7 @@ const calculateDailyPoints = (practices: PracticeEntry[], startDate: Date, days:
 
   practices.forEach((practice) => {
     const dateStr = new Date(practice.created_at).toISOString().split('T')[0];
-    if (dailyPointsMap.hasOwnProperty(dateStr)) {
+    if (Object.prototype.hasOwnProperty.call(dailyPointsMap, dateStr)) {
       dailyPointsMap[dateStr] += practice.points || 0;
     }
   });
@@ -190,13 +190,13 @@ export async function GET() {
   const daysForGraphs = 7;
 
   // --- 1. Fetch Data ---
-  const competitionStartDate = new Date("2025-03-18T09:30:00Z");
+  const currentYear = new Date().getFullYear();
+  const competitionStartDate = new Date(Date.UTC(currentYear, 4, 1)); // May is month 4 (zero-indexed)
   const today = new Date(Date.UTC(
     new Date().getUTCFullYear(),
     new Date().getUTCMonth(),
     new Date().getUTCDate()
   ));
-  const endDateStr = new Date(today.getTime() + 86400000 - 1).toISOString(); // End of today UTC
 
   const { data: practicesData, error: practicesError } = await supabase
     .from('practices')
@@ -210,7 +210,6 @@ export async function GET() {
       )
     `)
     .gte('created_at', competitionStartDate.toISOString())
-    .lte('created_at', endDateStr)
     // Cast the fetched data to our defined type
     .returns<PracticeEntry[]>();
 

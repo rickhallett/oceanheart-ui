@@ -4,11 +4,12 @@ import React, { useState, useEffect, CSSProperties } from "react";
 
 interface TimerProps {
   enhanced?: boolean;
+  startDate?: Date;
 }
 
-const Timer: React.FC<TimerProps> = ({ enhanced = false }) => {
-  // Reset the start date to now (current time)
-  const [startDate] = useState<Date>(new Date());
+const Timer: React.FC<TimerProps> = ({ enhanced = false, startDate: propStartDate }) => {
+  // Use the propStartDate if provided, otherwise reset to now (current time) as before
+  const [startDate] = useState<Date>(propStartDate || new Date());
 
   const [timeElapsed, setTimeElapsed] = useState<number>(0);
 
