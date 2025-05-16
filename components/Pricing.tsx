@@ -23,7 +23,9 @@ const isAvailable = (plan: any) => {
 
 const Pricing = () => {
   return (
+
     <section className="bg-base-200 overflow-hidden px-0 md:px-24" id="pricing">
+      <MailingListForm />
       <div className="py-24 px-8 max-w-8xl mx-auto">
         <div className="flex flex-col text-center w-full mb-20">
           <p className="font-medium text-primary mb-8">Pricing</p>
@@ -104,7 +106,7 @@ const Pricing = () => {
                   </ul>
                 )}
                 <div className="space-y-2">
-                  <ButtonCheckout priceId={plan.priceId} mode="payment" monzoLink={plan.monzoLink} />
+                  <ButtonCheckout priceId={plan.priceId} mode="payment" monzoLink={plan.monzoLink} inDevelopment={plan.inDevelopment} />
 
                   {/* <p className="flex items-center justify-center gap-2 text-sm text-center text-base-content/80 font-medium relative">
                     Pay once. Access forever.
@@ -127,7 +129,7 @@ const Pricing = () => {
           ))}
         </div>
       </div>
-      <MailingListForm />
+
     </section>
   );
 };

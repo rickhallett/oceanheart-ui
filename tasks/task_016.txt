@@ -1,0 +1,47 @@
+# Task ID: 16
+# Title: Generate and Use Supabase Types
+# Status: pending
+# Dependencies: 15
+# Priority: medium
+# Description: Generate TypeScript types from the Supabase database schema and use them for database operations.
+# Details:
+1. Install the Supabase CLI:
+```bash
+npm install -g supabase
+```
+
+2. Generate types from the database schema:
+```bash
+supabase gen types typescript --project-id your-project-id --schema public > types/supabase/database.types.ts
+```
+
+3. Create a typed Supabase client:
+```typescript
+// utils/supabase/client.ts
+import { createClient } from '@supabase/supabase-js';
+import { Database } from '@/types/supabase/database.types';
+
+export const supabase = createClient<Database>(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
+```
+
+4. Use the typed client for database operations:
+```typescript
+// Before
+const { data: users } = await supabase
+  .from('users')
+  .select('*');
+
+// After (with proper typing)
+const { data: users } = await supabase
+  .from('users')
+  .select('id, name, email, created_at');
+// users will be properly typed based on the database schema
+```
+
+5. Set up a GitHub Action to regenerate types when the database schema changes.
+
+# Test Strategy:
+Verify that the generated types match the actual database schema. Write tests that use the typed Supabase client to ensure type safety. Create a process for updating types when the database schema changes.

@@ -1,0 +1,71 @@
+# Task ID: 2
+# Title: Create Component Directory Structure
+# Status: pending
+# Dependencies: 1
+# Priority: high
+# Description: Reorganize the flat components directory into logical subdirectories based on component purpose and functionality.
+# Details:
+Create the following directory structure in the components folder:
+
+```
+components/
+  ui/           # Basic UI components
+  layout/       # Header, Footer, Container components
+  charts/       # All chart-related components
+  features/     # Feature-specific components
+    saigo/      # Saigo feature components
+    hdi/        # HDI feature components
+  forms/        # Form components and related logic
+```
+
+Update imports throughout the codebase to reflect the new structure. Use a script to automate import path updates where possible.
+
+# Test Strategy:
+Verify that the application builds successfully after restructuring. Create a script to validate that all components are properly imported and that there are no broken references. Run the application locally to ensure all pages render correctly.
+
+# Subtasks:
+## 1. Create directory structure and analyze component classification [pending]
+### Dependencies: None
+### Description: Create the specified directory structure and analyze all existing components to determine their appropriate categorization
+### Details:
+1. Create the new directory structure in the components folder with the specified subdirectories (ui, layout, charts, features/saigo, features/hdi, forms).
+2. Analyze all existing components in the flat structure to determine which new directory each component should be moved to.
+3. Create a mapping document (JSON or CSV) that lists each component and its target directory.
+4. Validate the mapping with the team to ensure components are properly categorized.
+5. Test that the new directories are created successfully and accessible.
+
+Testing approach: Verify directory structure exists and that the component mapping document is complete and accurate.
+
+## 2. Move components to new directory structure and update internal imports [pending]
+### Dependencies: 2.1
+### Description: Physically move each component to its appropriate directory and update imports within each component file
+### Details:
+1. Using the mapping document from subtask 1, move each component file to its designated directory.
+2. For each moved component, update any import statements within that file that reference other components.
+3. Create a script that helps identify and update relative import paths. The script should:
+   - Scan each moved component file
+   - Identify import statements referencing other components
+   - Calculate and update the new relative path based on the component's new location
+4. Run the script on each component after moving it.
+5. Test each component individually to ensure it still renders correctly after the move.
+
+Testing approach: For each component, verify it imports its dependencies correctly and renders without errors in isolation.
+
+## 3. Update application-wide imports and verify functionality [pending]
+### Dependencies: 2.2
+### Description: Update all remaining imports throughout the codebase and verify the application works correctly with the new structure
+### Details:
+1. Create a comprehensive script to update all remaining import statements throughout the codebase:
+   - Scan all files in the project (excluding node_modules)
+   - Identify import statements that reference components from the old flat structure
+   - Update these imports to reference the new directory structure
+2. Run the script and review the changes before committing.
+3. Implement and run tests to verify that:
+   - All pages render correctly
+   - All components load properly
+   - No console errors related to missing imports
+4. Create a rollback plan in case issues are discovered.
+5. Update any build configurations or path aliases that might reference specific component paths.
+
+Testing approach: Run the full test suite, manually test key application flows, and verify the application builds successfully with the new directory structure.
+

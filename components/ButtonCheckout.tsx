@@ -17,12 +17,14 @@ const ButtonCheckout = ({
   disabled = false,
   donate = false,
   monzoLink,
+  inDevelopment = false,
 }: {
   priceId: string;
   mode?: "payment" | "subscription";
   disabled?: boolean;
   donate?: boolean;
   monzoLink?: string;
+  inDevelopment?: boolean;
 }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const supabase = createClient();
@@ -78,7 +80,7 @@ const ButtonCheckout = ({
     <button
       className="btn btn-primary btn-block group"
       onClick={() => handlePayment()}
-      disabled={disabled}
+      disabled={disabled || inDevelopment}
     >
       {isLoading ? (
         <span className="loading loading-spinner loading-xs"></span>
@@ -94,6 +96,7 @@ const ButtonCheckout = ({
       )}
       {/* {donate ? "Donate" : "Get " + config?.appName} */}
       {monzoLink ? "Easy Pay" : "Get " + config?.appName}
+      {inDevelopment && <span className="text-xs text-gray-500">In Development</span>}
     </button>
   );
 };

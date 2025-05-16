@@ -21,10 +21,10 @@ const links: {
       href: "/about",
       label: "Why Oceanheart?",
     },
-    {
-      href: "/somatic-bournemouth",
-      label: "Somatic Bournemouth",
-    },
+    // {
+    //   href: "/somatic-bournemouth",
+    //   label: "Somatic Bournemouth",
+    // },
     {
       href: "https://www.oceanheart.blog/",
       label: "Blog",
@@ -33,11 +33,11 @@ const links: {
       href: "/conversations",
       label: "Conversations",
     },
-    {
-      href: "/consulting",
-      label: "AI Consulting",
-      className: "hdi-nav-link relative"
-    },
+    // {
+    //   href: "/consulting",
+    //   label: "AI Consulting",
+    //   className: "hdi-nav-link relative"
+    // },
     // {
     //   href: "/contact",
     //   label: "Contact",

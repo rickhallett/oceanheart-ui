@@ -21,11 +21,17 @@ const Arrow = ({ extraStyle }: { extraStyle: string }) => {
     </svg>
   );
 };
-const Step = ({ emoji, text }: { emoji: string; text: string }) => {
+
+const ExperienceBox = ({ title, text }: { title: string; text: string }) => {
   return (
     <div className="w-full md:w-64 flex flex-col gap-2 items-center justify-center">
-      <span className="text-5xl mb-2">{emoji}</span>
-      <h3 className="font-bold text-center">{text}</h3>
+      <div className="bg-blue-400 bg-opacity-10 p-2 rounded-full w-14 h-14 flex items-center justify-center mb-2">
+        <div className="bg-blue-400 bg-opacity-20 p-1 rounded-full w-10 h-10 flex items-center justify-center">
+          <div className="bg-blue-400 w-6 h-6 rounded-full"></div>
+        </div>
+      </div>
+      <h3 className="font-bold text-center text-lg">{title}</h3>
+      <p className="text-center text-sm opacity-90">{text}</p>
     </div>
   );
 };
@@ -51,15 +57,24 @@ const Problem = () => {
         </p>
 
         <div className="flex flex-col md:flex-row justify-center items-center md:items-start gap-6 mb-0">
-          <Step emoji="🧠" text="Psychotherapist: 15 years in CBT, mindfulness & somatic therapies" />
+          <ExperienceBox
+            title="Psychotherapist"
+            text="15 years in CBT, mindfulness & somatic therapies"
+          />
 
           <Arrow extraStyle="max-md:-scale-x-100 md:-rotate-90" />
 
-          <Step emoji="💻" text="Software Engineer: 5 years creating enterprise-grade solutions" />
+          <ExperienceBox
+            title="Software Engineer"
+            text="5 years creating enterprise-grade solutions"
+          />
 
           <Arrow extraStyle="md:-scale-x-100 md:-rotate-90" />
 
-          <Step emoji="🧘" text="Contemplative: 25 years across wisdom traditions" />
+          <ExperienceBox
+            title="Contemplative"
+            text="25 years across wisdom traditions"
+          />
         </div>
       </div>
     </section>
