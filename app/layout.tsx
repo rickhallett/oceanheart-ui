@@ -7,6 +7,7 @@ import { getSEOTags } from "@/libs/seo";
 import ClientLayout from "@/components/LayoutClient";
 import config from "@/config";
 import Script from "next/script";
+import { ABTestProvider } from "@/libs/abTesting";
 import "./globals.css";
 
 const font = Inter({ subsets: ["latin"] });
@@ -33,7 +34,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 			<body>
 				<Script src="/scripts/anime.min.js" strategy="beforeInteractive" />
 				{/* ClientLayout contains all the client wrappers (Crisp chat support, toast messages, tooltips, etc.) */}
-				<ClientLayout>{children}</ClientLayout>
+				<ClientLayout>
+					<ABTestProvider>
+						{children}
+					</ABTestProvider>
+				</ClientLayout>
 				{process.env.NODE_ENV === "production" && <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />}
 				<SpeedInsights />
 			</body>

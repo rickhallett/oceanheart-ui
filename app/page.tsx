@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import Header from "@/components/Header";
-import Hero from "@/components/Hero";
+import HeroABTest from "@/components/HeroABTest";
 import Problem from "@/components/Problem";
 import FeaturesAccordion from "@/components/FeaturesAccordion";
 import Pricing from "@/components/Pricing";
@@ -15,7 +15,7 @@ export default function Home() {
         <Header />
       </Suspense>
       <main>
-        <Hero />
+        <HeroABTest />
         <Problem />
         <FeaturesAccordion />
         <Pricing />
