@@ -3,7 +3,7 @@
 import { useState, useRef } from "react";
 import type { JSX } from "react";
 import Image from "next/image";
-import { FaBook, FaBrain, FaChartLine, FaCloud, FaFile, FaLock, FaLaptop, FaFileAlt, FaUserShield, FaMoneyBillWave, FaHandHoldingHeart, FaCompass, FaRegLightbulb, FaEthernet, FaUserGraduate } from "react-icons/fa";
+import { FaBook, FaBrain, FaChartLine, FaCloud, FaFile, FaLock, FaLaptop, FaFileAlt, FaUserShield, FaMoneyBillWave, FaHandHoldingHeart, FaCompass, FaRegLightbulb, FaEthernet, FaUserGraduate, FaQuestion, FaTools, FaRobot } from "react-icons/fa";
 
 interface Feature {
   title: string;
@@ -17,13 +17,40 @@ interface Feature {
 
 const features = [
   {
+    title: "The Challenge We All Face",
+    description:
+      "Let's be honest. The world of Artificial Intelligence is exhilarating, but it's also overwhelming. It feels like a relentless online scramble, with new tools, 'latest things,' and complex jargon appearing daily. Technology is changing at a pace that can make even the developments from three months ago seem outdated. Many people are using these advancements successfully, but it's easy to wonder: Will Big Tech swallow everything? And more importantly, where does this leave you? How do you keep up, make sense of it all, and find your place without sacrificing your human values or well-being?",
+    svg: <FaQuestion />,
+    type: "image",
+    format: "webp",
+    path: "/images/keyboard.webp"
+  },
+  {
+    title: "The Art of Personal AI",
+    description:
+      "The era of intimate human-AI cooperation isn't coming, it's here. You needed to understand this yesterday. As a psychotherapist and engineer of a different path, I help you cut through the clutter and understand AI's fundamental core – which is not so different from your own – turning it into your intuitive, universal translator. This isn't about another course; it's about true understanding that unleashes your ability to leverage AI effectively. That's why I created The Art of Personal AI, my unique framework for Conscious AI Integration for AI & You. We go beyond surface-level tactics to: Attune your Consciousness, Embody your lived Sensitivity, and Amplify your Intelligence.",
+    svg: <FaRobot />,
+    type: "image",
+    format: "avif",
+    path: "/images/noid.avif"
+  },
+  {
+    title: "How I Help You Navigate AI",
+    description:
+      "As your AI coach, I don't just focus on the 'what' of the latest tools; I focus on the 'how' and 'why' for you. My coaching is built on: Demystifying AI by breaking down complex concepts into understandable language; Personalized Roadmaps exploring how AI can specifically benefit your goals; Developing Core AI Literacies like effective prompting and critical evaluation; and Building Adaptive Mindsets to help you develop psychological flexibility. This integrated approach fuses deep human understanding with technological power, helping you overcome emotional bottlenecks and turning AI overwhelm into fluent skill-building.",
+    svg: <FaTools />,
+    type: "image",
+    format: "jpg",
+    path: "/images/handshake.jpg"
+  },
+  {
     title: "Mission & Vision",
     description:
       "My mission is to educate, guide and inspire fellow wellbeing professionals – therapists, coaches, healers, leaders – in navigating AI not just effectively, but ethically and authentically. It's about moving beyond the hype and fear to find ways AI can genuinely support, not supplant, our work and values.",
     svg: <FaHandHoldingHeart />,
     type: "image",
     format: "webp",
-    path: "/images/keyboard.webp"
+    path: "/images/phonelock.webp"
   },
   {
     title: "Big Tech meets Big Heart",
@@ -32,7 +59,7 @@ const features = [
     svg: <FaRegLightbulb />,
     type: "image",
     format: "avif",
-    path: "/images/noid.avif"
+    path: "/images/mind-cloud.avif"
   },
   {
     title: "First Principles Approach",
@@ -41,7 +68,7 @@ const features = [
     svg: <FaCompass />,
     type: "image",
     format: "jpg",
-    path: "/images/handshake.jpg"
+    path: "/images/universe.jpg"
   },
   {
     title: "Ethical Integration",

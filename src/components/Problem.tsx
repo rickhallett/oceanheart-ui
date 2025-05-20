@@ -31,37 +31,38 @@ const Problem = () => {
   return (
     <section className="bg-neutral text-neutral-content">
       <div className="max-w-7xl mx-auto px-8 py-16 md:py-32 text-center">
-        {/* UPDATED Headline */}
+        {/* Headline */}
         <h2 className="max-w-3xl mx-auto font-extrabold text-4xl md:text-5xl tracking-tight mb-6 md:mb-12">
           We Need <span className="text-secondary underline">Big Heart</span> to Meet Big Tech
         </h2>
 
-        {/* UPDATED Agitation Points */}
+        {/* Agitation Points */}
         <h2 className="max-w-xl mx-auto font-extrabold text-2xl tracking-tight mb-6 md:mb-12">
           Tired of simplistic, tech-first approaches that overlook the <span className="text-error">complexity of human connection</span>?
         </h2>
 
+        {/* Problem Block */}
         <p className="max-w-xl mx-auto text-lg opacity-90 leading-relaxed mb-6 md:mb-16">
-          The AI revolution offers immense possibilities, but most guidance focuses solely on technical implementation, ignoring the deeper ethical and relational implications for wellbeing professionals.
+          The AI revolution is here—fast, furious, and often confusing. Endless tools, shifting jargon, and the pressure to adapt can feel like drowning.
         </p>
 
         <p className="max-w-xl mx-auto text-lg opacity-90 leading-relaxed mb-6 md:mb-16">
-          Without proper integration, these powerful tools risk undermining the very foundations of your practice—authenticity, presence, and the safe container you've worked so hard to create.
+          You know AI is vital, but how do you engage meaningfully without losing your human core or your sanity?
         </p>
 
         <p className="max-w-xl mx-auto text-lg opacity-90 leading-relaxed mb-6 md:mb-20">
           Finding guidance that truly spans both <span className="text-info">technological fluency</span> and <span className="text-success">depth of human understanding</span> is nearly impossible. Most "experts" only speak one language, leaving you to navigate the chasm alone.
         </p>
 
-        {/* UPDATED Steps - reflecting the journey from confusion to integration */}
+        {/* Steps - reflecting the journey from confusion to integration */}
         <div className="flex flex-col md:flex-row justify-center items-center md:items-start gap-6">
-          <Step emoji="🌊" text="Overwhelm & Confusion" />
+          <Step emoji="🌊" text="AI Overwhelm" />
           <Arrow extraStyle="max-md:-scale-x-100 md:-rotate-90" />
-          <Step emoji="⚖️" text="Ethical Dilemmas" />
+          <Step emoji="⚖️" text="Ethical Fog" />
           <Arrow extraStyle="md:-scale-x-100 md:-rotate-90" />
-          <Step emoji="🤖" text="Authenticity Concerns" />
+          <Step emoji="🤖" text="Human Disconnect" />
           <Arrow extraStyle="max-md:-scale-x-100 md:-rotate-90" />
-          <Step emoji="🧭" text="Need for Integration" />
+          <Step emoji="🧭" text="Seeking Clarity" />
         </div>
       </div>
     </section>

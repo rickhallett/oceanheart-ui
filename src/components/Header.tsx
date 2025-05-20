@@ -6,42 +6,44 @@ import ButtonSignin from "@/components/ButtonSignin";
 import logo from "@/app/icon.png"; // Consider updating if you have a new logo
 import config from "@/config";
 
-// UPDATED links to reflect new focus
+// Links reflecting "The Art of Personal AI" focus
 const links: { href: string; label: string; className?: string }[] = [
   {
-    href: "/#pricing", // Link to new pricing section
-    label: "Offerings", // Renamed from Pricing
+    href: "/#pricing",
+    label: "Offerings",
   },
   {
-    href: "/about", // Keep 'Why Oceanheart?' or rename to 'About Kai' / 'My Approach'
-    label: "Why Oceanheart?",
+    href: "/about",
+    label: "About Kai",
   },
-  // Removed Somatic Bournemouth - too specific for main nav? Consider moving to Footer or separate page.
   {
-    href: "https://www.oceanheart.blog/", // Keep Blog link
+    href: "https://www.oceanheart.blog/",
     label: "Blog",
   },
   {
-    href: "/#contact", // Combine Consulting/Contact or keep separate if needed
-    label: "Consulting / Contact", // UPDATED
+    href: "/consulting",
+    label: "Consulting",
+  },
+  {
+    href: "/#contact",
+    label: "Contact",
     className: "hdi-nav-link relative",
   },
-  // Removed /contact if combined above
 ];
 
 const cta = (
   <Suspense fallback="Loading...">
-    <ButtonSignin extraStyle="btn-primary" />
+    <Link
+      href="https://calendar.app.google/85ZdaqYK5vfNk4aH9"
+      className="btn btn-primary"
+    >
+      Book a Call
+    </Link>
   </Suspense>
 );
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
-  // const { data: session } = useSession();
-
-  // useEffect(() => {
-  //   // Add HDI script loading if needed here
-  // }, []);
 
   return (
     <header className="bg-base-200">
@@ -108,7 +110,6 @@ const Header = () => {
         </div>
 
         {/* CTA on large screens */}
-        {/* Consider if ButtonSignin is still the right primary CTA here, or maybe "Book a Call" */}
         <div className="hidden lg:flex lg:justify-end lg:flex-1">{cta}</div>
       </nav>
 

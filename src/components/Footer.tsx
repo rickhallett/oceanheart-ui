@@ -2,13 +2,10 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Suspense, useEffect, useState } from "react"; // Kept imports
-import { useSearchParams, usePathname } from "next/navigation"; // Kept imports
-// Removed dotenv import - usually not needed/used client-side in Next.js
+import { Suspense, useEffect, useState } from "react";
+import { useSearchParams, usePathname } from "next/navigation";
 import config from "@/config";
-import logo from "@/app/icon.png"; // Consider updating logo
-
-// Removed HDINameForm unless specifically needed elsewhere
+import logo from "@/app/icon.png";
 
 
 interface FooterProps {
@@ -28,8 +25,6 @@ const SuspendedFooter = ({ showHDIForm = false }: FooterProps) => {
 
   const privacyLink = hiddenKey ? `/privacy-policy?hiddenKey=${hiddenKey}` : "/privacy-policy";
 
-  // // Logic to show/hide HDI form - may not be needed anymore
-  // const shouldShowHDIForm = showHDIForm && pathname === '/'; // Example logic
 
   return (
     <footer className="bg-base-200 border-t border-base-content/10">
@@ -55,16 +50,12 @@ const SuspendedFooter = ({ showHDIForm = false }: FooterProps) => {
               </strong>
             </Link>
 
-            {/* UPDATED App Description from config */}
             <p className="mt-3 text-sm text-base-content/80">
               {config.appDescription}
             </p>
             <p className="mt-3 text-sm text-base-content/60">
               Copyright © {new Date().getFullYear()} - All rights reserved
             </p>
-
-            {/* Removed HDI form rendering */}
-            {/* Removed Built with ShipFast badge - replace if desired */}
 
           </div>
           <div className="flex-grow flex flex-wrap justify-center -mb-10 md:mt-0 mt-10 text-center">
@@ -78,23 +69,24 @@ const SuspendedFooter = ({ showHDIForm = false }: FooterProps) => {
                   <a
                     href={`mailto:${config.resend.supportEmail}`}
                     target="_blank"
-                    rel="noopener noreferrer" // Added rel attribute
+                    rel="noopener noreferrer"
                     className="link link-hover"
                     aria-label="Contact Support"
                   >
                     Support
                   </a>
                 )}
-                {/* UPDATED Pricing link label */}
                 <Link href="/#pricing" className="link link-hover">
                   Offerings
                 </Link>
-                {/* Keep Blog link */}
                 <Link href="https://www.oceanheart.blog/" target="_blank" rel="noopener noreferrer" className="link link-hover">
                   Blog
                 </Link>
-                <Link href="/about" className="link link-hover"> {/* Added About Link */}
+                <Link href="/about" className="link link-hover">
                   About Kai
+                </Link>
+                <Link href="/consulting" className="link link-hover">
+                  Consulting
                 </Link>
               </div>
             </div>
@@ -108,7 +100,6 @@ const SuspendedFooter = ({ showHDIForm = false }: FooterProps) => {
                 <Link href="/tos" className="link link-hover">
                   Terms of Service
                 </Link>
-                {/* Ensure privacyLink logic is still correct */}
                 <Link href={privacyLink} className="link link-hover">
                   Privacy Policy
                 </Link>

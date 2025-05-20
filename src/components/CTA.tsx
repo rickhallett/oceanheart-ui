@@ -5,32 +5,31 @@ import Link from "next/link"; // Added Link import
 const CTA = () => {
   return (
     <section className="relative hero overflow-hidden min-h-screen">
-      {/* Background Image - Choose something evocative */}
+      {/* Background Image */}
       <Image
-        // Replace with a suitable background image
-        src="/images/placeholder_cta_background.jpg" // Placeholder
-        alt="Evocative background image suggesting growth, connection or clarity" // UPDATED Alt
+        src="/images/universe.jpg"
+        alt="Cosmic background representing the vast potential of conscious AI integration"
         className="object-cover w-full"
         fill
       />
       <div className="relative hero-overlay bg-neutral bg-opacity-70"></div>
       <div className="relative hero-content text-center text-neutral-content p-8">
         <div className="flex flex-col items-center max-w-xl p-8 md:p-0">
-          {/* UPDATED Headline */}
+          {/* Headline */}
           <h2 className="font-bold text-3xl md:text-5xl tracking-tight mb-8 md:mb-12">
-            Ready to Navigate AI with <span className="text-blue-400">Confidence & Integrity</span>?
+            Ready to Integrate AI <span className="text-blue-400">Consciously</span>?
           </h2>
-          {/* UPDATED Subheading */}
+          {/* Subheading */}
           <p className="text-lg opacity-90 mb-12 md:mb-16">
-            Move beyond overwhelm. Embrace the future of wellbeing, grounded in wisdom and authentic human connection.
+            Move from AI overwhelm to amplified human potential. Book your discovery call with Kai.
           </p>
 
-          {/* UPDATED Button - Link to primary call to action */}
+          {/* Primary CTA Button */}
           <a href="https://calendar.app.google/85ZdaqYK5vfNk4aH9" target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-wide">
             Book Your Free Discovery Call
           </a>
-          <Link href="/#pricing" className="link link-hover text-blue-200 mt-4"> {/* Adjusted color for contrast */}
-            Or Explore Workshops & Courses
+          <Link href="/#pricing" className="link link-hover text-blue-200 mt-4">
+            View All Offerings
           </Link>
         </div>
       </div>

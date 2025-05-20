@@ -10,39 +10,30 @@ interface FAQItemProps {
   answer: JSX.Element;
 }
 
-// 🚨 MAJOR UPDATE NEEDED HERE 🚨 - Update questions and answers
+// New Q&A content for "The Art of Personal AI"
 const faqList: FAQItemProps[] = [
   {
-    question: "What is Oceanheart.ai?", // UPDATED Q&A
-    answer: <div className="space-y-2 leading-relaxed">Oceanheart.ai offers human-centred guidance, training, and consulting for wellbeing professionals navigating the complexities of Artificial Intelligence. We focus on integrating technical understanding ('Science'), human experience ('Story'), and ethical wisdom ('Spirit').</div>,
+    question: "What is 'The Art of Personal AI'?",
+    answer: <div className="space-y-2 leading-relaxed">It's Kai's unique 3-layer framework (Story/Spirit/Science, Prompt/Context/Model, IQ/EQ/AI) for integrating AI consciously, amplifying your human intelligence and sensitivity.</div>,
   },
   {
-    question: "How is this different from typical AI consulting or therapy?", // UPDATED Q&A
-    answer: <div className="space-y-2 leading-relaxed">Our approach is unique due to Kai's rare background blending deep software engineering, psychotherapy, and spiritual practice. We don't just offer tech advice OR therapeutic support; we integrate them, focusing on ethical use, psychological impact, and maintaining human connection in the age of AI.</div>,
+    question: "Who is this AI coaching for?",
+    answer: <div className="space-y-2 leading-relaxed">Smart professionals, therapists, coaches, and creatives feeling overwhelmed by AI, who seek to understand and use it meaningfully without losing their human core.</div>,
   },
   {
-    question: "Who is this best suited for?", // NEW Q&A
-    answer: (<div className="space-y-2 leading-relaxed">Therapists, coaches, counsellors, healers, and other wellbeing leaders who want to engage with AI thoughtfully, ethically, and effectively. It's for those seeking deeper understanding and practical skills beyond surface-level tech tutorials.</div>),
+    question: "How is this different from other AI courses?",
+    answer: (<div className="space-y-2 leading-relaxed">We focus on <em>your</em> integration of AI, blending deep human understanding (from psychotherapy & contemplative practice) with practical tech know-how, rather than just listing tools.</div>),
   },
   {
-    question: "Is this therapy?", // NEW Q&A
-    answer: (<div className="space-y-2 leading-relaxed">While informed by deep psychotherapeutic principles, the consulting and training are *not* therapy. The focus is on navigating AI in your professional practice. However, the approach inherently supports personal integration and wellbeing in relation to technology.</div>),
+    question: "What if I'm not technical?",
+    answer: (<div className="space-y-2 leading-relaxed">Perfect. This coaching is designed to demystify AI. Kai translates complex concepts into your language, focusing on principles over fleeting tech trends.</div>),
   },
   {
-    question: "What does 'Science, Story, Spirit' mean practically?", // NEW Q&A
-    answer: (<div className="space-y-2 leading-relaxed">It means we look at AI with technical clarity ('Science'), understand its impact on human feelings and relationships ('Story'), and ground our choices in timeless ethics and values ('Spirit'). Our offerings provide practical ways to apply this framework.</div>),
-  },
-  // Removed specific hardware/refund Qs about 'Data Angel' - update refund policy based on new offerings
-  // {
-  //   question: "Can I get a refund?",
-  //   answer: ( <p> Refund policies vary by offering (course, workshop, 1:1 package). Please see specific terms upon enrollment or contact us for details. </p> ),
-  // },
-  {
-    question: "I have more questions / Want to discuss 1:1 Guidance", // UPDATED Q
+    question: "How do I get started?",
     answer: (
       <div className="space-y-2 leading-relaxed">
-        We'd love to connect! Please book a free discovery call <a href="https://calendar.app.google/85ZdaqYK5vfNk4aH9" target="_blank" rel="noopener noreferrer" className="text-primary underline">here</a> or email us at <a href={`mailto:${config.resend.supportEmail}`} className="text-primary underline">{config.resend.supportEmail}</a>.
-      </div> // UPDATED A
+        Book a free, no-obligation 20-minute Clarity Call with Kai to discuss your needs and see if this is the right fit for you. <a href="https://calendar.app.google/85ZdaqYK5vfNk4aH9" target="_blank" rel="noopener noreferrer" className="text-primary underline">Click here to book a call</a>.
+      </div>
     ),
   },
 ];
@@ -100,7 +91,7 @@ const FAQ = () => {
         <div className="flex flex-col text-left basis-1/2">
           <p className="inline-block font-semibold text-primary mb-4">FAQ</p>
           <p className="sm:text-4xl text-3xl font-extrabold text-base-content">
-            Your Questions Answered
+            Common Questions About Conscious AI Integration
           </p>
         </div>
 

@@ -22,14 +22,6 @@ const SuspendedFooter = ({ showHDIForm = false }: FooterProps) => {
 
   useEffect(() => {
     const checkSaigoKey = async () => {
-      console.log("🔑 Checking Saigo key");
-
-      console.log("🔑 Hidden key param:", hiddenKeyParam);
-      if (!hiddenKeyParam) {
-        console.log("🔑 No hidden key param found");
-        return;
-      }
-
       const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/saigo/key`, {
         method: "POST",
         headers: {
@@ -41,7 +33,6 @@ const SuspendedFooter = ({ showHDIForm = false }: FooterProps) => {
       });
       const data = await res.json();
       if (data.success) {
-        console.log("🔑 Successfully checked Saigo key");
         setHiddenKey(hiddenKeyParam);
       }
     }

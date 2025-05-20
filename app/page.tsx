@@ -1,12 +1,12 @@
 import { Suspense } from "react";
-import Header from "@/components/Header";
-import HeroABTest from "@/components/HeroABTest";
-import Problem from "@/components/Problem";
-import FeaturesAccordion from "@/components/FeaturesAccordion";
-import Pricing from "@/components/Pricing";
-import FAQ from "@/components/FAQ";
-import CTA from "@/components/CTA";
-import Footer from "@/components/Footer";
+import Header from "@/src/components/Header";
+import Problem from "@/src/components/Problem";
+import FeaturesAccordion from "@/src/components/FeaturesAccordion";
+import Pricing from "@/src/components/Pricing";
+import FAQ from "@/src/components/FAQ";
+import CTA from "@/src/components/CTA";
+import Footer from "@/src/components/Footer";
+import Hero from "@/src/components/Hero";
 
 export default function Home() {
   return (
@@ -15,7 +15,7 @@ export default function Home() {
         <Header />
       </Suspense>
       <main>
-        <HeroABTest />
+        <Hero />
         <Problem />
         <FeaturesAccordion />
         <Pricing />

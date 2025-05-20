@@ -1,74 +1,80 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState, useRef } from "react";
 
-type Variant = "A" | "B";
+type Variant = "A" | "B" | "C" | "D";
 type TestID = string;
 type EventType = "view" | "click" | "conversion";
 
 interface ABTestContextType {
-  getVariant: (testId: TestID) => Variant;
+  variant: Variant;
   recordEvent: (testId: TestID, event: EventType) => void;
 }
 
 // Create context with default values
 const ABTestContext = createContext<ABTestContextType>({
-  getVariant: () => "A",
+  variant: "A",
   recordEvent: () => { },
 });
 
-// Get variant for a test (with cookie persistence)
-const getVariantFromCookie = (testId: TestID): Variant => {
-  if (typeof window === "undefined") return "A";
-
-  const cookies = document.cookie.split("; ");
-  const testCookie = cookies.find(cookie => cookie.startsWith(`ab_${testId}=`));
-
-  if (testCookie) {
-    return testCookie.split("=")[1] as Variant;
-  }
-
-  // Assign variant randomly if not found (50/50 split)
-  const variant: Variant = Math.random() < 0.5 ? "A" : "B";
-
-  // Store in cookie for 30 days
-  const expiryDate = new Date();
-  expiryDate.setDate(expiryDate.getDate() + 30);
-  document.cookie = `ab_${testId}=${variant};expires=${expiryDate.toUTCString()};path=/`;
-
-  return variant;
-};
-
 // Provider component
 export const ABTestProvider = ({ children }: { children: React.ReactNode }) => {
-  const [tracked, setTracked] = useState<Record<string, Set<EventType>>>({});
+  // Start with variant A to match server-side rendering
+  const [variant, setVariant] = useState<Variant>("A");
+  const [trackedEvents, setTrackedEvents] = useState<Set<string>>(new Set());
+  const isInitializedRef = useRef(false);
 
-  // Function to get variant
-  const getVariant = (testId: TestID): Variant => {
-    return getVariantFromCookie(testId);
-  };
+  // Initialize variant after first render (client-side only)
+  useEffect(() => {
+    if (isInitializedRef.current) return;
+    isInitializedRef.current = true;
+
+    // Only run on client-side
+    if (typeof window === "undefined") return;
+
+    // Try to get variant from cookie for "landing_headline_test"
+    const testId = "landing_headline_test"; // Hardcoded for simplicity
+
+    const cookies = document.cookie.split("; ");
+    const testCookie = cookies.find(cookie => cookie.startsWith(`ab_${testId}=`));
+
+    if (testCookie) {
+      setVariant(testCookie.split("=")[1] as Variant);
+    } else {
+      // Assign variant randomly with equal distribution (25% each)
+      const random = Math.random();
+      const newVariant: Variant =
+        random < 0.25 ? "A" :
+          random < 0.5 ? "B" :
+            random < 0.75 ? "C" : "D";
+
+      // Store in cookie for 30 days
+      const expiryDate = new Date();
+      expiryDate.setDate(expiryDate.getDate() + 30);
+      document.cookie = `ab_${testId}=${newVariant};expires=${expiryDate.toUTCString()};path=/`;
+
+      setVariant(newVariant);
+    }
+  }, []);
 
   // Function to record events
   const recordEvent = async (testId: TestID, event: EventType) => {
     if (typeof window === "undefined") return;
 
-    const variant = getVariant(testId);
+    // Create a unique key for deduplication
+    const eventKey = `${testId}:${event}:${variant}`;
 
-    // Prevent duplicate tracking of the same event type for the same test
-    if (!tracked[testId]) {
-      setTracked(prev => ({ ...prev, [testId]: new Set([event]) }));
-    } else if (!tracked[testId].has(event)) {
-      setTracked(prev => {
-        const newSet = new Set(prev[testId]);
-        newSet.add(event);
-        return { ...prev, [testId]: newSet };
-      });
-    } else {
-      // Already tracked this event for this test
-      return;
-    }
+    // Skip if already tracked
+    if (trackedEvents.has(eventKey)) return;
 
-    // Send to API endpoint
+    // Add to tracked events
+    setTrackedEvents(prev => {
+      const newSet = new Set(prev);
+      newSet.add(eventKey);
+      return newSet;
+    });
+
+    // Send to API
     try {
       await fetch('/api/ab-tracking', {
         method: 'POST',
@@ -81,7 +87,7 @@ export const ABTestProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <ABTestContext.Provider value={{ getVariant, recordEvent }}>
+    <ABTestContext.Provider value={{ variant, recordEvent }}>
       {children}
     </ABTestContext.Provider>
   );

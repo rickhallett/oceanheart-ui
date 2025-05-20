@@ -16,52 +16,51 @@ interface Feature {
   svg?: JSX.Element;
 }
 
-// Updated offerings to reflect Kai's new positioning
+// The Art of Personal AI framework and offerings
 const features: Feature[] = [
+  {
+    title: "Your Guide: Conscious AI Integration with Kai",
+    description:
+      "I'm Kai, your specialist in Conscious AI Integration. With 15 years as a psychotherapist, 5 as a software engineer, and two decades of contemplative practice, I bridge the technical with the deeply human. 'The Art of Personal AI' isn't another course; it's my framework to help you intuitively understand and master AI.",
+    svg: <FaUserTie className="w-6 h-6" />,
+    type: "image",
+    path: "/images/kai_profile.jpeg",
+    alt: "Kai, Conscious AI Integration Specialist",
+  },
+  {
+    title: "The Framework: The Art of Personal AI",
+    description:
+      "Unlock your potential with a 3-layer model:\n• Story · Spirit · Science → Amplified Consciousness\n• Prompt · Context · Model → Amplified Sensitivity\n• IQ · EQ · AI → Amplified Intelligence",
+    svg: <FaCompass className="w-6 h-6" />,
+    type: "svg",
+    alt: "The Art of Personal AI Framework",
+  },
   {
     title: "Executive Guidance Partnership",
     description:
-      "One-on-one strategic partnership for wellbeing leaders navigating complex AI implementation. Combines technical assessment, ethical frameworks, and transformative coaching to create your personalized roadmap for AI integration with integrity.",
+      "1:1 strategic partnership for wellbeing leaders. Personalized AI strategy with ethical framework integration and transformative coaching to create your roadmap for conscious AI integration that amplifies your human edge.",
     svg: <FaUserTie className="w-6 h-6" />,
     type: "image",
-    path: "/images/placeholder_guidance.jpg",
-    alt: "Strategic partnership for wellbeing leaders",
+    path: "/images/handshake.jpg",
+    alt: "Strategic partnership for conscious AI integration",
   },
   {
-    title: "'Bridging Worlds' Immersive Workshop",
+    title: "'Bridging Worlds' Workshop",
     description:
-      "Experience the integration of technology and wisdom traditions in this transformative group setting. Learn to speak both languages—technical and human-centered—building discernment and confidence across the divide, while connecting with like-minded practitioners.",
+      "Immersive group learning for AI discernment. Connect with peers while integrating technology and wisdom traditions in a transformative setting. Build confidence and clarity in your relationship with AI.",
     svg: <FaUsers className="w-6 h-6" />,
     type: "image",
-    path: "/images/placeholder_workshop.jpg",
-    alt: "Group transformation through integrated learning",
+    path: "/images/hands.jpeg",
+    alt: "Group workshop for AI integration",
   },
   {
-    title: "First Principles AI Framework",
+    title: "First Principles AI Course",
     description:
-      "Master the foundational concepts that transcend trending tools and platforms. This educational journey equips you with timeless understanding of AI's capabilities, limitations, and ethical integration with therapeutic and coaching practices.",
-    svg: <FaCompass className="w-6 h-6" />,
-    type: "image",
-    path: "/images/placeholder_course.jpg",
-    alt: "First principles educational framework",
-  },
-  {
-    title: "Translational Speaking & Consulting",
-    description:
-      "Invite Kai to your organization or event to bridge the language gap between technological innovation and human-centered practice. Custom presentations designed to make complex concepts accessible while honoring the depth of both worlds.",
-    svg: <FaMicrophone className="w-6 h-6" />,
-    type: "image",
-    path: "/images/placeholder_framework.jpg",
-    alt: "Professional speaking and consulting services",
-  },
-  {
-    title: "Deep Dive Resources & Community",
-    description:
-      "Join a growing ecosystem of thoughtful practitioners exploring the frontier where technology meets human wisdom. Access curated articles, research summaries, and reflection practices that foster discernment in an increasingly AI-driven world.",
+      "Self-paced foundational AI learning with lifetime access. Master core AI concepts, ethical integration practices, and the Story, Spirit, Science framework that transcends trending tools and platforms.",
     svg: <FaBook className="w-6 h-6" />,
     type: "image",
-    path: "/images/placeholder_content.jpg",
-    alt: "Educational resources and community connection",
+    path: "/images/spirit_book.png",
+    alt: "First principles AI course",
   },
 ];
 
@@ -175,7 +174,7 @@ const Item = ({
         }
       >
         <div className="pb-2 pl-14">
-          <p className="text-base-content/80 leading-relaxed">
+          <p className="text-base-content/80 leading-relaxed whitespace-pre-line">
             {description}
           </p>
         </div>
@@ -194,11 +193,11 @@ const FeaturesAccordion = () => {
       id="features"
     >
       <div className="px-8">
-        {/* Updated Headline */}
+        {/* Headline */}
         <h2 className="font-extrabold text-4xl lg:text-6xl tracking-tight mb-12 md:mb-24">
-          Navigating AI with <span className="text-blue-400">Wisdom & Integrity</span>
+          The Art of Personal AI: <span className="text-blue-400">Your Path to Conscious Integration</span>
           <span className="bg-neutral text-neutral-content px-2 md:px-4 ml-1 md:ml-1.5 leading-relaxed block sm:inline-block mt-2 sm:mt-0">
-            Where Technical Fluency Meets Human Depth
+            Where Human Wisdom Meets Technical Fluency
           </span>
         </h2>
         <div className="flex flex-col md:flex-row gap-12 md:gap-24">

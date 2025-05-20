@@ -1,17 +1,30 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/libs/supabase/server";
 
+type TrackEvent = {
+  testId: string;
+  variant: string;
+  event: 'view' | 'click' | 'conversion';
+};
+
+// In-memory storage for demo purposes
+// In production, you'd use a database
+const trackingData: TrackEvent[] = [];
+
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
-    const { testId, variant, event } = body;
+    const { testId, variant, event } = await request.json() as TrackEvent;
 
-    if (!testId || !variant || !event) {
-      return NextResponse.json(
-        { error: "Missing required fields" },
-        { status: 400 }
-      );
-    }
+    // Log the event
+    console.log(`A/B Test: ${testId}, Variant: ${variant}, Event: ${event}`);
+
+    // Store the event in our in-memory array
+    // In a real application, you would store this in a database
+    trackingData.push({
+      testId,
+      variant,
+      event,
+    });
 
     // Create a Supabase client
     const supabase = createClient();
@@ -38,12 +51,24 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error("Error in AB testing endpoint:", error);
+    console.error("Error tracking A/B test event:", error);
     return NextResponse.json(
-      { error: "Internal server error" },
+      { success: false, error: "Failed to track event" },
       { status: 500 }
     );
   }
+}
+
+// Optional: Add a GET method to retrieve stats (for admin purposes)
+export async function GET() {
+  // Count events by test ID, variant, and event type
+  const stats = trackingData.reduce((acc, { testId, variant, event }) => {
+    const key = `${testId}_${variant}_${event}`;
+    acc[key] = (acc[key] || 0) + 1;
+    return acc;
+  }, {} as Record<string, number>);
+
+  return NextResponse.json({ stats });
 }
 
 // Simple hash function to anonymize IPs

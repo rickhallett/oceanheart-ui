@@ -1,0 +1,78 @@
+# Task ID: 19
+# Title: Implement Consistent Code Formatting and Linting
+# Status: pending
+# Dependencies: None
+# Priority: medium
+# Description: Set up and enforce consistent code formatting and linting rules across the codebase.
+# Details:
+1. Configure Prettier for code formatting:
+```json
+// .prettierrc
+{
+  "semi": true,
+  "singleQuote": true,
+  "tabWidth": 2,
+  "trailingComma": "es5",
+  "printWidth": 80
+}
+```
+
+2. Configure ESLint for code linting:
+```json
+// .eslintrc.json
+{
+  "extends": [
+    "next/core-web-vitals",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
+  ],
+  "plugins": ["@typescript-eslint"],
+  "rules": {
+    // Custom rules
+  }
+}
+```
+
+3. Set up pre-commit hooks with Husky and lint-staged:
+```bash
+npm install --save-dev husky lint-staged
+npx husky install
+npx husky add .husky/pre-commit "npx lint-staged"
+```
+
+```json
+// package.json
+{
+  "lint-staged": {
+    "*.{ts,tsx}": ["eslint --fix", "prettier --write"],
+    "*.{css,scss}": ["prettier --write"]
+  }
+}
+```
+
+4. Add npm scripts for linting and formatting:
+```json
+// package.json
+{
+  "scripts": {
+    "lint": "next lint",
+    "format": "prettier --write ."
+  }
+}
+```
+
+5. Configure VS Code settings for the project:
+```json
+// .vscode/settings.json
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
+}
+```
+
+# Test Strategy:
+Run linting and formatting checks in CI to ensure all code meets the standards. Create a process for team members to propose changes to linting rules. Document the code style guidelines for the team.

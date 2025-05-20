@@ -3,9 +3,9 @@ import { ConfigProps } from "./types/config";
 
 const config = {
   // REQUIRED
-  appName: "Oceanheart.ai",
+  appName: "Oceanheart.ai - Conscious AI Integration",
   // REQUIRED: a short description of your app for SEO tags (can be overwritten)
-  appDescription: "Human-Centred AI Guidance for Wellbeing Professionals. Integrating Science, Story & Spirit.",
+  appDescription: "Human-centric AI coaching with Kai. Master AI with heart, clarity, and purpose using 'The Art of Personal AI' framework. Integrate Story, Spirit, and Science.",
   // REQUIRED (no https://, not trailing slash at the end, just the naked domain)
   domainName: "oceanheart.ai",
   crisp: {
@@ -15,89 +15,59 @@ const config = {
     onlyShowOnRoutes: ["/"],
   },
   stripe: {
-    // 🚨 MAJOR UPDATE NEEDED HERE 🚨
-    // These plans now reflect the NEW service structure (1:1, Workshop, Course).
-    // Replace placeholders with your actual offerings, pricing, and Stripe IDs IF using Stripe checkout directly.
-    // 1:1 guidance might use a different onboarding flow (e.g., application/call).
+    // These plans reflect "The Art of Personal AI" service offerings
     plans: [
-      // {
-      //   // Option 2: Representing a Workshop
-      //   // Replace with actual Price ID if applicable
-      //   priceId: "price_workshop_conversations_ai", // EXAMPLE placeholder
-      //   name: "Conversations with AI: Feel the AI", // UPDATED
-      //   description: "Experiential group learning for safe & insightful AI use.", // UPDATED
-      //   price: 95, // EXAMPLE price - set based on your strategy
-      //   frequency: "per workshop", // UPDATED
-      //   features: [
-      //     { name: "2x live guided sessions to build confidence & intuition" },
-      //     { name: "Practice AI interaction using your core skills" },
-      //     { name: "Discover AI insights naturally through guided experience" },
-      //     { name: "Stand together - connect with peers in a supportive space" },
-      //     { name: "Navigate ethical AI use with clarity and integrity" },
-      //     { name: "Receive practical workbooks & resources to support your journey" },
-      //     { name: "Move from uncertainty to empowered exploration" }
-      //   ],
-      //   isFeatured: true, // Highlight workshop as a good entry point
-      //   monzoLink: "https://monzo.com/pay/r/oceanheartai-ltd_0Tl8iggjemzSXq"
-      // },
       {
-        // Option 1: Representing an Online Course / Digital Product
-        // Replace with actual Price ID if applicable
-        priceId: "price_course_humanos_foundations", // EXAMPLE placeholder
-        name: "HumanOS Foundations Course", // UPDATED
-        description: "Self-paced learning for mindful, effective AI engagement.", // UPDATED
-        price: 199, // EXAMPLE price - set based on your strategy
-        frequency: "one-time", // UPDATED (or /month if subscription)
+        priceId: "price_executive_guidance", 
+        name: "Executive Guidance Partnership",
+        description: "1:1 strategic partnership for wellbeing leaders.",
+        price: 1200,
+        frequency: "per month",
         features: [
-          { name: "Core principles of Science, Story & Spirit" },
-          { name: "Practical exercises for safe AI interaction" },
-          { name: "Gain a balanced perspective on AI's risks & potential" },
-          { name: "Lifetime access to evolving course materials" },
-          { name: "Learn with others: Oceanheart.ai community access" },
-          { name: "Build a solid foundation for mindful AI integration" },
+          { name: "Personalized AI strategy" },
+          { name: "Ethical framework integration" },
+          { name: "Transformative coaching" },
+          { name: "Between-session support" },
+          { name: "Human-centered approach to AI" },
+          { name: "Strategic implementation guidance" }
+        ],
+        cta: "Book a Discovery Call",
+        ctaUrl: "https://calendar.app.google/85ZdaqYK5vfNk4aH9",
+        isFeatured: true
+      },
+      {
+        priceId: "price_bridging_worlds_workshop",
+        name: "'Bridging Worlds' Workshop",
+        description: "Immersive group learning for AI discernment.",
+        price: 197,
+        frequency: "per workshop",
+        features: [
+          { name: "Integrate tech & wisdom" },
+          { name: "Build confidence" },
+          { name: "Connect with peers" },
+          { name: "Practical exercises" },
+          { name: "Ethical considerations" },
+          { name: "Take-home resources" }
+        ],
+        monzoLink: "https://monzo.com/pay/r/oceanheartai-ltd_0Tl8iggjemzSXq"
+      },
+      {
+        priceId: "price_first_principles_course",
+        name: "First Principles AI Course",
+        description: "Self-paced foundational AI learning.",
+        price: 299,
+        frequency: "one-time",
+        features: [
+          { name: "Core AI concepts" },
+          { name: "Ethical integration practices" },
+          { name: "Lifetime access" },
+          { name: "Story, Spirit & Science framework" },
+          { name: "Practical application guides" },
+          { name: "Community discussions" }
         ],
         monzoLink: "https://monzo.com/pay/r/oceanheartai-ltd_4RBZXMqYRMfBgb",
-        inDevelopment: true,
-      },
-      {
-        // Option 3: AI Recovery Therapy
-        priceId: "price_package_ai_recovery_therapy", // EXAMPLE placeholder
-        name: "Personalised AI Integration Therapy", // UPDATED
-        description: "Confused? Need help? Your AI journey is as unique as your mental health. Let's chat.", // UPDATED
-        price: 639, // EXAMPLE price - set based on your strategy
-        frequency: "one-time", // UPDATED
-        features: [
-          { name: "120 min initial clinical consultation" },
-          { name: "6 x 60 min tailored treatment sessions" },
-          { name: "Integrates mind-body techniques (CBT, ACT, Somatic) for holistic recovery" },
-          { name: "Deeply experiential and designed uniquely for you" },
-          { name: "Receive personalised resources & materials created just for you" },
-          { name: "Navigate AI-related distress with expert therapeutic support" },
-        ],
-        monzoLink: "https://monzo.com/pay/r/oceanheartai-ltd_koKjOdUifKfCmu"
-
-      },
-      {
-        // Option 3: Representing Premium 1:1 Package (May not use direct checkout)
-        // Price ID might be irrelevant if using an application/call flow
-        priceId: "price_package_premium_3mo", // EXAMPLE placeholder
-        name: "Navigator: 3-Month Masterclass", // UPDATED
-        description: "For health & wellbeing leaders who want to navigate AI with confidence.", // UPDATED
-        price: 879, // EXAMPLE price - set based on your strategy (£800/mo)
-        frequency: "total package", // UPDATED
-        features: [
-          { name: "Deeply personalised strategy, coaching & partnership" },
-          { name: "6 x 90 min one-to-one strategy consultations" },
-          { name: "Master AI integration while strengthening your core human values & leadership" },
-          { name: "Between-session support: this is a lasting partnership" },
-          { name: "Find your strategic edge, free up your time & energy" },
-        ],
-        monzoLink: "https://monzo.com/pay/r/oceanheartai-ltd_uku1DkkJjLypsD",
-        inDevelopment: true,
-        // Might add a CTA like "Book a Discovery Call" instead of direct checkout
-        // cta: "Book a Discovery Call",
-        // ctaUrl: "https://calendar.app.google/your-booking-link" // EXAMPLE
-      },
+        inDevelopment: true
+      }
     ]
   },
   aws: {

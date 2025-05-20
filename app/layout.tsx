@@ -4,7 +4,7 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Viewport } from "next";
 import { getSEOTags } from "@/libs/seo";
-import ClientLayout from "@/components/LayoutClient";
+import ClientLayout from "@/src/components/LayoutClient";
 import config from "@/config";
 import Script from "next/script";
 import { ABTestProvider } from "@/libs/abTesting";

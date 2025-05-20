@@ -1,0 +1,56 @@
+# Task ID: 8
+# Title: Add Authentication Middleware for API Routes
+# Status: pending
+# Dependencies: 6, 7
+# Priority: high
+# Description: Ensure all API routes have proper authentication checks using middleware.
+# Details:
+Create a middleware function to handle authentication for API routes:
+
+```typescript
+// middleware/auth.ts
+import { NextRequest, NextResponse } from 'next/server';
+import { createApiResponse } from '@/utils/api';
+import { createError, ErrorCode } from '@/utils/errors';
+import { createClient } from '@/utils/supabase/server';
+
+export async function withAuth(
+  req: NextRequest,
+  handler: (req: NextRequest, user: any) => Promise<Response>
+) {
+  const supabase = createClient();
+  const { data: { session } } = await supabase.auth.getSession();
+  
+  if (!session) {
+    const error = createError(
+      ErrorCode.UNAUTHORIZED,
+      'Authentication required',
+      null,
+      401
+    );
+    return NextResponse.json(
+      createApiResponse(null, error, error.statusCode),
+      { status: error.statusCode }
+    );
+  }
+  
+  return handler(req, session.user);
+}
+```
+
+Implement in API routes:
+
+```typescript
+// app/api/protected-route/route.ts
+import { withAuth } from '@/middleware/auth';
+
+export async function GET(req: NextRequest) {
+  return withAuth(req, async (req, user) => {
+    // Implementation with authenticated user
+    return NextResponse.json({ data: 'Protected data' });
+  });
+}
+```
+
+# Test Strategy:
+Write unit tests for the authentication middleware. Create integration tests that verify protected routes reject unauthenticated requests and allow authenticated requests. Test with various authentication scenarios including expired tokens and invalid credentials.
