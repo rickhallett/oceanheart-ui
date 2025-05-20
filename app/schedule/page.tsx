@@ -1,24 +1,10 @@
 'use client';
 
-import React, { useEffect } from 'react';
-import { useABTest } from '@/libs/abTesting';
+import React from 'react';
 import { useSearchParams } from 'next/navigation';
 
 export default function SchedulePage() {
-  const { recordEvent } = useABTest();
   const searchParams = useSearchParams();
-
-  useEffect(() => {
-    // Extract the test information from UTM parameters
-    const campaign = searchParams.get('utm_campaign');
-    const content = searchParams.get('utm_content');
-
-    if (campaign === 'landing_test' && content?.startsWith('variant_')) {
-      // Record the conversion
-      recordEvent('landing_headline_test', 'conversion');
-      console.log(`Conversion recorded for ${content}`);
-    }
-  }, [recordEvent, searchParams]);
 
   return (
     <div className="container mx-auto px-4 py-10">
@@ -55,4 +41,4 @@ export default function SchedulePage() {
       </div>
     </div>
   );
-} 
+}

@@ -10,10 +10,10 @@ Here is a Product Requirements Document (PRD) designed to guide the repositionin
 1.  **Reposition Oceanheart.ai:** Implement new branding and messaging centered around "The Art of Personal AI" framework and Kai's human-centric AI coaching services. This involves shifting from a philosophical AI safety focus to practical, conscious AI integration guidance.
 2.  **Redesign Landing Page (`/`):** Update the main landing page with new copy and a focused hero section reflecting the "Art of Personal AI" branding. Decommission the previous A/B tested hero section.
 3.  **Revamp About Page (`/about`):** Update the "About Me" page to align with the new coaching focus, highlighting Kai's unique background (Psychotherapist, Software Engineer, Contemplative Practitioner) and "The Art of Personal AI" philosophy.
-4.  **Update Core UI Components:** Modify shared components (`Hero`, `Problem`, `FeaturesAccordion`, `Pricing`, `FAQ`, `CTA`, `Header`, `Footer`) with the new copy, branding, and offerings. Ensure import paths for these components in `app/page.tsx` and `app/layout.tsx` point to their updated locations in `src/components/`.
+4.  **Update Core UI Components:** Modify shared components (`Hero`, `Problem`, `FeaturesAccordion`, `Pricing`, `FAQ`, `CTA`, `Header`, `Footer`) with the new copy, branding, and offerings. Ensure import paths for these components in `app/page.tsx` and `app/layout.tsx` point to their updated locations in `components/`.
 5.  **Configuration & Content Alignment:**
     *   Update `config.ts` (appName, appDescription, Stripe plans, potentially theme) to match the new positioning and service offerings.
-    *   Ensure content in `src/components/Pricing.tsx` accurately reflects the new coaching packages/services derived from "The Art of Personal AI".
+    *   Ensure content in `components/Pricing.tsx` accurately reflects the new coaching packages/services derived from "The Art of Personal AI".
 6.  **A/B Testing Infrastructure:** Preserve the existing A/B testing framework (`libs/abTesting.tsx`, `/api/ab-tracking` route, `/app/ab-testing/page.tsx` dashboard) for potential future use. The current A/B test for landing page headlines will be superseded by the new single, focused landing page design.
 
 ## 2. Mid-Level Objectives
@@ -21,19 +21,19 @@ Here is a Product Requirements Document (PRD) designed to guide the repositionin
 ### 2.1. Landing Page Content Implementation
     *   Implement the new headline, sub-headline, problem block, solution block (introducing "The Art of Personal AI" & Kai's role), and framework snapshot (3 layers) on the landing page.
     *   Update the primary Call to Action (CTA) button text and the secondary link ("Learn about Kai →").
-    *   Ensure `app/page.tsx` imports and uses the updated `Hero`, `Problem`, `FeaturesAccordion`, `Pricing`, `FAQ`, and `CTA` components from the `src/components/` directory.
+    *   Ensure `app/page.tsx` imports and uses the updated `Hero`, `Problem`, `FeaturesAccordion`, `Pricing`, `FAQ`, and `CTA` components from the `components/` directory.
 
 ### 2.2. About Me Page Content Implementation
     *  use the about_me_page_content.md file for copy and structure, and add a call-out box CTA on the "About Me" page (`app/about/page.tsx`).
 
 ### 2.3. Core Component Updates
-    *   **`src/components/Hero.tsx`**: Replace content with the new landing page headline, sub-headline, and introductory paragraphs.
-    *   **`src/components/Problem.tsx`**: Update with the new "Problem Block" copy.
-    *   **`src/components/FeaturesAccordion.tsx`**: Adapt to showcase the new core offerings/services derived from "The Art of Personal AI" (e.g., Executive Guidance, Workshops, Courses), or create a new dedicated "Offerings" component if `FeaturesAccordion` is not suitable for this.
-    *   **`src/components/Pricing.tsx`**: Update content and structure to reflect the new service packages. This will require new data for `config.ts` under `stripe.plans`.
-    *   **`src/components/FAQ.tsx`**: Update with new questions and answers relevant to the AI coaching services.
-    *   **`src/components/CTA.tsx`**: Update with the new primary and secondary call-to-action buttons.
-    *   **`src/components/Header.tsx` & `src/components/Footer.tsx`**: Review and update links, branding, and potentially the theme reference for a lighter aesthetic. Ensure `app/page.tsx` and `app/layout.tsx` correctly import these from `src/components/`.
+    *   **`components/Hero.tsx`**: Replace content with the new landing page headline, sub-headline, and introductory paragraphs.
+    *   **`components/Problem.tsx`**: Update with the new "Problem Block" copy.
+    *   **`components/FeaturesAccordion.tsx`**: Adapt to showcase the new core offerings/services derived from "The Art of Personal AI" (e.g., Executive Guidance, Workshops, Courses), or create a new dedicated "Offerings" component if `FeaturesAccordion` is not suitable for this.
+    *   **`components/Pricing.tsx`**: Update content and structure to reflect the new service packages. This will require new data for `config.ts` under `stripe.plans`.
+    *   **`components/FAQ.tsx`**: Update with new questions and answers relevant to the AI coaching services.
+    *   **`components/CTA.tsx`**: Update with the new primary and secondary call-to-action buttons.
+    *   **`components/Header.tsx` & `components/Footer.tsx`**: Review and update links, branding, and potentially the theme reference for a lighter aesthetic. Ensure `app/page.tsx` and `app/layout.tsx` correctly import these from `components/`.
 
 ### 2.4. Configuration Updates
     *   Modify `config.ts`:
@@ -42,19 +42,19 @@ Here is a Product Requirements Document (PRD) designed to guide the repositionin
         *   Consider changing `colors.theme` to a lighter theme (e.g., "cupcake", "emerald", or a custom light theme) if "synthwave" doesn't align with the "light palette, ample whitespace" aesthetic.
 
 ### 2.5. A/B Testing System Management
-    *   Remove or refactor `components/HeroABTest.tsx`. The landing page will use `src/components/Hero.tsx` directly.
+    *   Remove or refactor `components/HeroABTest.tsx`. The landing page will use `components/Hero.tsx` directly.
     *   Ensure `app/page.tsx` no longer attempts to use `HeroABTest.tsx` for variant display.
     *   Verify that `libs/abTesting.tsx` and related API/dashboard pages remain functional but are not actively splitting traffic for the main hero section without new configuration.
 
 ## 3. Implementation Notes
 
-*   **Target Component Location:** All primary UI component updates (Hero, Problem, etc.) should target the files located in `src/components/`. Import paths in `app/page.tsx` and other layout/page files must be updated accordingly (e.g., from `@/components/` to `@/src/components/`).
+*   **Target Component Location:** All primary UI component updates (Hero, Problem, etc.) should target the files located in `components/`. Import paths in `app/page.tsx` and other layout/page files must be updated accordingly (e.g., from `@/components/` to `@/components/`).
 *   **Copy Integration:** Use the exact copy provided in the "elite brand copywriter" prompt for the landing page and "About Me" page sections.
 *   **Styling & Theme:**
     *   Adhere to the desired aesthetic: "minimal, clean, light palette, ample whitespace, micro-humor, calm authority."
     *   If the current DaisyUI theme (`synthwave` in `config.ts`) conflicts with this, update `config.ts` to a more suitable light theme, or customize Tailwind/DaisyUI.
 *   **A/B Testing:** The immediate goal is to launch the *new, single version* of the landing page. The existing A/B testing infrastructure (`libs/abTesting.tsx`, API, dashboard) should be preserved for *future* A/B tests on the new content, not for deploying multiple versions of this initial rebrand. If future tests require more than 2 variants, `libs/abTesting.tsx` will need the previously discussed modification.
-*   **Pricing Section:** The `src/components/Pricing.tsx` component and the `config.ts` `stripe.plans` section will require significant updates to reflect the new coaching offerings. The PRD assumes new plan details (names, prices, features) will be provided or developed as part of implementing these tasks.
+*   **Pricing Section:** The `components/Pricing.tsx` component and the `config.ts` `stripe.plans` section will require significant updates to reflect the new coaching offerings. The PRD assumes new plan details (names, prices, features) will be provided or developed as part of implementing these tasks.
 *   **Responsive Design:** Ensure all updated pages and components are fully responsive.
 *   **Accessibility:** Maintain or improve accessibility standards.
 
@@ -100,16 +100,16 @@ Here is a Product Requirements Document (PRD) designed to guide the repositionin
 ### 5.1. Beginning Context
 *   Current website focused on AI Safety, Consciousness, AGI with a philosophical tone.
 *   Landing page may be using `components/HeroABTest.tsx` or a different Hero component.
-*   Core components exist in `components/` and `src/components/` (PRD targets `src/components/` for updates).
+*   Core components exist in `components/` and `components/` (PRD targets `components/` for updates).
 *   `config.ts` has existing appName, appDescription, and Stripe plans.
 *   A/B testing infrastructure (`libs/abTesting.tsx`, API, dashboard) is present.
 *   `app/page.tsx` and `app/layout.tsx` import components, likely from root `components/`.
 
 ### 5.2. Ending Context
 *   Website repositioned to human-centric AI coaching with "The Art of Personal AI" framework.
-*   Landing page (`app/page.tsx` using `src/components/Hero.tsx`) and About page (`app/about/page.tsx`) updated with new copy.
-*   Core UI components in `src/components/` (Hero, Problem, FeaturesAccordion, Pricing, FAQ, CTA, Header, Footer) updated with new content and styling.
-*   `app/page.tsx` and relevant layouts import components from `src/components/`.
+*   Landing page (`app/page.tsx` using `components/Hero.tsx`) and About page (`app/about/page.tsx`) updated with new copy.
+*   Core UI components in `components/` (Hero, Problem, FeaturesAccordion, Pricing, FAQ, CTA, Header, Footer) updated with new content and styling.
+*   `app/page.tsx` and relevant layouts import components from `components/`.
 *   `config.ts` reflects new appName, appDescription, and crucially, new Stripe plans for coaching services.
 *   A/B testing infrastructure is preserved but the previous headline test is inactive.
 
@@ -133,10 +133,10 @@ Here is a Product Requirements Document (PRD) designed to guide the repositionin
     - Consider `colors.theme`: If 'synthwave' is too dark, suggest changing to a lighter theme like 'cupcake' or 'emerald' to align with "light palette." For now, retain 'synthwave' but note for review.
     ```
 
-2.  **Update `src/components/Header.tsx` Content and Styling**
+2.  **Update `components/Header.tsx` Content and Styling**
     ```aider
-    What prompt would you run to complete this task? Refactor src/components/Header.tsx with updated links and ensure it aligns with the new branding.
-    What file do you want to CREATE or UPDATE? -> src/components/Header.tsx
+    What prompt would you run to complete this task? Refactor components/Header.tsx with updated links and ensure it aligns with the new branding.
+    What file do you want to CREATE or UPDATE? -> components/Header.tsx
     What function do you want to CREATE or UPDATE? -> Header component
     What are details you want to add to drive the code changes? ->
     - Update `links` array:
@@ -149,10 +149,10 @@ Here is a Product Requirements Document (PRD) designed to guide the repositionin
     - Verify CTA button (`ButtonSignin`) is appropriate or if it should be a "Book a Call" link. For header, `ButtonSignin` is likely fine.
     ```
 
-3.  **Update `src/components/Footer.tsx` Content and Styling**
+3.  **Update `components/Footer.tsx` Content and Styling**
     ```aider
-    What prompt would you run to complete this task? Refactor src/components/Footer.tsx with updated links and ensure it aligns with the new branding.
-    What file do you want to CREATE or UPDATE? -> src/components/Footer.tsx
+    What prompt would you run to complete this task? Refactor components/Footer.tsx with updated links and ensure it aligns with the new branding.
+    What file do you want to CREATE or UPDATE? -> components/Footer.tsx
     What function do you want to CREATE or UPDATE? -> SuspendedFooter component
     What are details you want to add to drive the code changes? ->
     - Update displayed links to be consistent with Header and new offerings.
@@ -164,10 +164,10 @@ Here is a Product Requirements Document (PRD) designed to guide the repositionin
     - Confirm `privacyLink` logic is still appropriate.
     ```
 
-4.  **Update `src/components/Hero.tsx` with New Landing Page Copy**
+4.  **Update `components/Hero.tsx` with New Landing Page Copy**
     ```aider
-    What prompt would you run to complete this task? Implement the new landing page hero copy in src/components/Hero.tsx.
-    What file do you want to CREATE or UPDATE? -> src/components/Hero.tsx
+    What prompt would you run to complete this task? Implement the new landing page hero copy in components/Hero.tsx.
+    What file do you want to CREATE or UPDATE? -> components/Hero.tsx
     What function do you want to CREATE or UPDATE? -> Hero component
     What are details you want to add to drive the code changes? ->
     - Replace existing h1 with: "Conscious AI Integration: Your Human Edge, Amplified."
@@ -178,10 +178,10 @@ Here is a Product Requirements Document (PRD) designed to guide the repositionin
     - Update placeholder image `src="/images/placeholder_hero.png"` and alt text if a more suitable image is available or to match the new theme.
     ```
 
-5.  **Update `src/components/Problem.tsx` with New Problem Block Copy**
+5.  **Update `components/Problem.tsx` with New Problem Block Copy**
     ```aider
-    What prompt would you run to complete this task? Implement the new problem statement in src/components/Problem.tsx.
-    What file do you want to CREATE or UPDATE? -> src/components/Problem.tsx
+    What prompt would you run to complete this task? Implement the new problem statement in components/Problem.tsx.
+    What file do you want to CREATE or UPDATE? -> components/Problem.tsx
     What function do you want to CREATE or UPDATE? -> Problem component
     What are details you want to add to drive the code changes? ->
     - Replace the main h2 headline with: "We Need Big Heart to Meet Big Tech".
@@ -190,10 +190,10 @@ Here is a Product Requirements Document (PRD) designed to guide the repositionin
     - Update the "Step" components if the emojis/text need to align better with the new problem statement (e.g., "AI Overwhelm", "Ethical Fog", "Human Disconnect", "Seeking Clarity"). For now, use the provided copy verbatim.
     ```
 
-6.  **Update `src/components/FeaturesAccordion.tsx` (or create new component for Solution/Framework)**
+6.  **Update `components/FeaturesAccordion.tsx` (or create new component for Solution/Framework)**
     ```aider
-    What prompt would you run to complete this task? Adapt src/components/FeaturesAccordion.tsx to present the 'Solution Block' and 'Framework Snapshot' from the new copy, or advise if a new component is better.
-    What file do you want to CREATE or UPDATE? -> src/components/FeaturesAccordion.tsx
+    What prompt would you run to complete this task? Adapt components/FeaturesAccordion.tsx to present the 'Solution Block' and 'Framework Snapshot' from the new copy, or advise if a new component is better.
+    What file do you want to CREATE or UPDATE? -> components/FeaturesAccordion.tsx
     What function do you want to CREATE or UPDATE? -> FeaturesAccordion component and its `features` data array.
     What are details you want to add to drive the code changes? ->
     - Current `FeaturesAccordion` lists specific services. The new requirement is to show the "Solution Block" and "Framework Snapshot".
@@ -230,10 +230,10 @@ Here is a Product Requirements Document (PRD) designed to guide the repositionin
     - The `FeaturesAccordion.tsx` component might need its internal structure reviewed if it's hardcoded for 5 features or if the display style (accordion vs. static block) is not ideal for the new content. For now, assume content replacement.
     ```
 
-7.  **Update `src/components/Pricing.tsx` Content**
+7.  **Update `components/Pricing.tsx` Content**
     ```aider
-    What prompt would you run to complete this task? Update src/components/Pricing.tsx to reflect the new service offerings based on config.ts.
-    What file do you want to CREATE or UPDATE? -> src/components/Pricing.tsx
+    What prompt would you run to complete this task? Update components/Pricing.tsx to reflect the new service offerings based on config.ts.
+    What file do you want to CREATE or UPDATE? -> components/Pricing.tsx
     What function do you want to CREATE or UPDATE? -> Pricing component
     What are details you want to add to drive the code changes? ->
     - This component dynamically renders plans from `config.stripe.plans`.
@@ -242,10 +242,10 @@ Here is a Product Requirements Document (PRD) designed to guide the repositionin
     - Update any introductory text or section headline within `Pricing.tsx` to align with the "Offerings" terminology. Example headline: "Explore Your Path to Conscious AI Integration".
     ```
 
-8.  **Update `src/components/FAQ.tsx` Content**
+8.  **Update `components/FAQ.tsx` Content**
     ```aider
-    What prompt would you run to complete this task? Update the questions and answers in src/components/FAQ.tsx.
-    What file do you want to CREATE or UPDATE? -> src/components/FAQ.tsx
+    What prompt would you run to complete this task? Update the questions and answers in components/FAQ.tsx.
+    What file do you want to CREATE or UPDATE? -> components/FAQ.tsx
     What function do you want to CREATE or UPDATE? -> N/A (Data update in `faqList` array)
     What are details you want to add to drive the code changes? ->
     - Replace the existing `faqList` with new Q&A relevant to AI coaching:
@@ -261,10 +261,10 @@ Here is a Product Requirements Document (PRD) designed to guide the repositionin
           A: "Book a free, no-obligation 20-minute Clarity Call with Kai to discuss your needs and see if this is the right fit for you. [Link to calendar]"
     ```
 
-9.  **Update `src/components/CTA.tsx` Content**
+9.  **Update `components/CTA.tsx` Content**
     ```aider
-    What prompt would you run to complete this task? Update the Call To Action content in src/components/CTA.tsx.
-    What file do you want to CREATE or UPDATE? -> src/components/CTA.tsx
+    What prompt would you run to complete this task? Update the Call To Action content in components/CTA.tsx.
+    What file do you want to CREATE or UPDATE? -> components/CTA.tsx
     What function do you want to CREATE or UPDATE? -> CTA component
     What are details you want to add to drive the code changes? ->
     - Update Headline: "Ready to Integrate AI Consciously?"
@@ -292,12 +292,12 @@ Here is a Product Requirements Document (PRD) designed to guide the repositionin
 
 11. **Update `app/page.tsx` and `app/layout.tsx` Component Import Paths**
     ```aider
-    What prompt would you run to complete this task? Update import paths in app/page.tsx and app/layout.tsx to point to src/components/.
+    What prompt would you run to complete this task? Update import paths in app/page.tsx and app/layout.tsx to point to components/.
     What file do you want to CREATE or UPDATE? -> app/page.tsx AND app/layout.tsx
     What function do you want to CREATE or UPDATE? -> N/A (Import path updates)
     What are details you want to add to drive the code changes? ->
-    - In `app/page.tsx`: Change imports for `Header`, `Hero`, `Problem`, `FeaturesAccordion`, `Pricing`, `FAQ`, `CTA`, `Footer` from ` "@/components/..."` to ` "@/src/components/..."`.
-    - In `app/layout.tsx`: If `Header` or `Footer` are imported there (they are via `ClientLayout`, which might import them, or directly), update those paths too. The current `app/layout.tsx` imports `ClientLayout from "@/components/LayoutClient"`. If `LayoutClient.tsx` imports Header/Footer from root `components/`, its imports need to change too, or the components need to be moved to `src/components` and `LayoutClient.tsx` updated.
+    - In `app/page.tsx`: Change imports for `Header`, `Hero`, `Problem`, `FeaturesAccordion`, `Pricing`, `FAQ`, `CTA`, `Footer` from ` "@/components/..."` to ` "@/components/..."`.
+    - In `app/layout.tsx`: If `Header` or `Footer` are imported there (they are via `ClientLayout`, which might import them, or directly), update those paths too. The current `app/layout.tsx` imports `ClientLayout from "@/components/LayoutClient"`. If `LayoutClient.tsx` imports Header/Footer from root `components/`, its imports need to change too, or the components need to be moved to `components` and `LayoutClient.tsx` updated.
     - **Focus for this task:** Directly update `app/page.tsx`. Analyze `ClientLayout` if it also uses these components and update its imports if necessary. If `Header` and `Footer` are directly in `app/layout.tsx`, update them there.
     - For `app/page.tsx`:
         ```diff
@@ -315,14 +315,14 @@ Here is a Product Requirements Document (PRD) designed to guide the repositionin
         -import Footer from "@/components/Footer";
         -// import LandingHero from "@/docs/components/LandingHero"; // Likely unused now
         -import Hero from "@/components/Hero";
-        +import Header from "@/src/components/Header";
-        +import Problem from "@/src/components/Problem";
-        +import FeaturesAccordion from "@/src/components/FeaturesAccordion";
-        +import Pricing from "@/src/components/Pricing";
-        +import FAQ from "@/src/components/FAQ";
-        +import CTA from "@/src/components/CTA";
-        +import Footer from "@/src/components/Footer";
-        +import Hero from "@/src/components/Hero";
+        +import Header from "@/components/Header";
+        +import Problem from "@/components/Problem";
+        +import FeaturesAccordion from "@/components/FeaturesAccordion";
+        +import Pricing from "@/components/Pricing";
+        +import FAQ from "@/components/FAQ";
+        +import CTA from "@/components/CTA";
+        +import Footer from "@/components/Footer";
+        +import Hero from "@/components/Hero";
          
          export default function Home() {
            return (
@@ -336,12 +336,12 @@ Here is a Product Requirements Document (PRD) designed to guide the repositionin
          import { Viewport } from "next";
          import { getSEOTags } from "@/libs/seo";
         -import ClientLayout from "@/components/LayoutClient";
-        +import ClientLayout from "@/src/components/LayoutClient"; // Assuming LayoutClient is moved or its internal imports are updated
+        +import ClientLayout from "@/components/LayoutClient"; // Assuming LayoutClient is moved or its internal imports are updated
          import config from "@/config";
          import Script from "next/script";
          import { ABTestProvider } from "@/libs/abTesting";
         ```
-        (This assumes `LayoutClient.tsx` is also moved to `src/components` or its internal imports are updated if it uses Header/Footer from the root `components` dir). It is safer to assume `LayoutClient` will be moved to `src/components/LayoutClient.tsx` and its internal imports (if any to Header/Footer) will be from `src/components/`.
+        (This assumes `LayoutClient.tsx` is also moved to `components` or its internal imports are updated if it uses Header/Footer from the root `components` dir). It is safer to assume `LayoutClient` will be moved to `components/LayoutClient.tsx` and its internal imports (if any to Header/Footer) will be from `components/`.
 
 12. **Decommission Old Hero A/B Test and Update `app/page.tsx`**
     ```aider
@@ -350,8 +350,8 @@ Here is a Product Requirements Document (PRD) designed to guide the repositionin
     What function do you want to CREATE or UPDATE? -> Home component rendering
     What are details you want to add to drive the code changes? ->
     - Remove the import for `HeroABTest`.
-    - Ensure the page directly renders the updated `Hero` component (imported from `src/components/Hero.tsx`).
-    - Delete `components/HeroABTest.tsx` if it's no longer needed, or refactor its content if any part is reusable in the new `src/components/Hero.tsx`. For this PRD, assume removal/replacement.
+    - Ensure the page directly renders the updated `Hero` component (imported from `components/Hero.tsx`).
+    - Delete `components/HeroABTest.tsx` if it's no longer needed, or refactor its content if any part is reusable in the new `components/Hero.tsx`. For this PRD, assume removal/replacement.
     ```
 
 13. **Review and Test**

@@ -1,36 +1,20 @@
 import config from "@/config";
-import ButtonCheckout from "./ButtonCheckout";
-import MailingListForm from "@/components/MailingListForm";
+import ButtonCheckout from "@/components/ButtonCheckout";
+import Link from "next/link";
 
 // Format price with thousand separators (e.g., 1000 -> 1,000)
 const formatPrice = (price: number): string => {
   return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 
-// <Pricing/> displays the pricing plans for your app
-// It's your Stripe config in config.js.stripe.plans[] that will be used to display the plans
-// <ButtonCheckout /> renders a button that will redirect the user to Stripe checkout called the /api/stripe/create-checkout API endpoint with the correct priceId
-
-const isAvailable = (plan: any) => {
-  if (plan.isFeatured) {
-    return true;
-  }
-
-  const today = new Date();
-  const availableDate = new Date(plan.availableFrom);
-  return availableDate < today;
-}
-
 const Pricing = () => {
   return (
-
     <section className="bg-base-200 overflow-hidden px-0 md:px-24" id="pricing">
-      <MailingListForm />
-      <div className="py-24 px-8 max-w-8xl mx-auto">
+      <div className="py-24 px-8 max-w-7xl mx-auto">
         <div className="flex flex-col text-center w-full mb-20">
-          <p className="font-medium text-primary mb-8">Pricing</p>
+          <p className="font-medium text-primary mb-8">Offerings</p>
           <h2 className="font-bold text-3xl lg:text-5xl tracking-tight">
-            Choose the plan that&apos;s right for you
+            Explore Your Path to Conscious AI Integration
           </h2>
         </div>
 
@@ -42,7 +26,7 @@ const Pricing = () => {
                   <span
                     className={`badge text-xs text-primary-content font-semibold border-0 bg-primary`}
                   >
-                    POPULAR
+                    RECOMMENDED
                   </span>
                 </div>
               )}
@@ -79,7 +63,8 @@ const Pricing = () => {
                     £{formatPrice(plan.price)}
                   </p>
                   <div className="flex flex-col justify-end mb-[4px]">
-                    <p className="text-xs text-base-content/60 font-semibold">
+                    <p className="text-xs text-base-content/60 font-medium">
+                      {plan.frequency && <span>{plan.frequency}</span>}
                     </p>
                   </div>
                 </div>
@@ -100,36 +85,44 @@ const Pricing = () => {
                           />
                         </svg>
 
-                        <span>{feature.name} </span>
+                        <span>{feature.name}</span>
                       </li>
                     ))}
                   </ul>
                 )}
                 <div className="space-y-2">
-                  <ButtonCheckout priceId={plan.priceId} mode="payment" monzoLink={plan.monzoLink} inDevelopment={plan.inDevelopment} />
-
-                  {/* <p className="flex items-center justify-center gap-2 text-sm text-center text-base-content/80 font-medium relative">
-                    Pay once. Access forever.
-                  </p> */}
-                </div>
-                <div className="flex flex-col gap-2">
-                  {plan.availableFrom && (
-                    <p className="text-xs text-center text-base-content/80 font-medium relative">
-                      Available from {new Date(plan.availableFrom).toLocaleDateString()}
-                    </p>
-                  )}
-                  {plan.limitedTo && (
-                    <p className="text-xs text-center text-base-content/80 text-orange-700 font-medium relative">
-                      {plan.remaining} of {plan.limitedTo} remaining
-                    </p>
+                  {plan.cta ? (
+                    <Link href={plan.ctaUrl || "#"} className="btn btn-primary w-full">
+                      {plan.cta}
+                    </Link>
+                  ) : (
+                    <ButtonCheckout 
+                      priceId={plan.priceId} 
+                      mode="payment" 
+                      monzoLink={plan.monzoLink} 
+                      inDevelopment={plan.inDevelopment} 
+                    />
                   )}
                 </div>
+                {(plan.inDevelopment || plan.limitedTo) && (
+                  <div className="flex flex-col gap-2">
+                    {plan.inDevelopment && (
+                      <p className="text-xs text-center text-base-content/80 font-medium relative">
+                        Coming soon - join the waitlist
+                      </p>
+                    )}
+                    {plan.limitedTo && (
+                      <p className="text-xs text-center text-base-content/80 text-orange-700 font-medium relative">
+                        {plan.remaining} of {plan.limitedTo} spaces remaining
+                      </p>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
           ))}
         </div>
       </div>
-
     </section>
   );
 };

@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useMemo } from "react";
 import type { JSX } from "react";
 import Image from "next/image";
-import { FaBook, FaBrain, FaChartLine, FaCloud, FaFile, FaLock, FaLaptop, FaFileAlt, FaUserShield, FaMoneyBillWave, FaHandHoldingHeart, FaCompass, FaRegLightbulb, FaEthernet, FaUserGraduate, FaQuestion, FaTools, FaRobot } from "react-icons/fa";
+// Updated Icons to better reflect the new offerings
+import { FaUserTie, FaUsers, FaBook, FaCompass, FaMicrophone } from "react-icons/fa";
 
 interface Feature {
   title: string;
@@ -15,185 +16,174 @@ interface Feature {
   svg?: JSX.Element;
 }
 
-const features = [
+// The Art of Personal AI framework and offerings
+const features: Feature[] = [
   {
-    title: "The Challenge We All Face",
+    title: "Your Guide: Conscious AI Integration with Kai",
     description:
-      "Let's be honest. The world of Artificial Intelligence is exhilarating, but it's also overwhelming. It feels like a relentless online scramble, with new tools, 'latest things,' and complex jargon appearing daily. Technology is changing at a pace that can make even the developments from three months ago seem outdated. Many people are using these advancements successfully, but it's easy to wonder: Will Big Tech swallow everything? And more importantly, where does this leave you? How do you keep up, make sense of it all, and find your place without sacrificing your human values or well-being?",
-    svg: <FaQuestion />,
+      "I'm Kai, your specialist in Conscious AI Integration. With 15 years as a psychotherapist, 5 as a software engineer, and two decades of contemplative practice, I bridge the technical with the deeply human. 'The Art of Personal AI' isn't another course; it's my framework to help you intuitively understand and master AI.",
+    svg: <FaUserTie className="w-6 h-6" />,
     type: "image",
-    format: "webp",
-    path: "/images/keyboard.webp"
+    path: "/images/kai_profile.jpeg",
+    alt: "Kai, Conscious AI Integration Specialist",
   },
   {
-    title: "The Art of Personal AI",
+    title: "The Framework: The Art of Personal AI",
     description:
-      "The era of intimate human-AI cooperation isn't coming, it's here. You needed to understand this yesterday. As a psychotherapist and engineer of a different path, I help you cut through the clutter and understand AI's fundamental core – which is not so different from your own – turning it into your intuitive, universal translator. This isn't about another course; it's about true understanding that unleashes your ability to leverage AI effectively. That's why I created The Art of Personal AI, my unique framework for Conscious AI Integration for AI & You. We go beyond surface-level tactics to: Attune your Consciousness, Embody your lived Sensitivity, and Amplify your Intelligence.",
-    svg: <FaRobot />,
-    type: "image",
-    format: "avif",
-    path: "/images/noid.avif"
+      "Unlock your potential with a 3-layer model:\n• Story · Spirit · Science → Amplified Consciousness\n• Prompt · Context · Model → Amplified Sensitivity\n• IQ · EQ · AI → Amplified Intelligence",
+    svg: <FaCompass className="w-6 h-6" />,
+    type: "svg",
+    alt: "The Art of Personal AI Framework",
   },
   {
-    title: "How I Help You Navigate AI",
+    title: "Executive Guidance Partnership",
     description:
-      "As your AI coach, I don't just focus on the 'what' of the latest tools; I focus on the 'how' and 'why' for you. My coaching is built on: Demystifying AI by breaking down complex concepts into understandable language; Personalized Roadmaps exploring how AI can specifically benefit your goals; Developing Core AI Literacies like effective prompting and critical evaluation; and Building Adaptive Mindsets to help you develop psychological flexibility. This integrated approach fuses deep human understanding with technological power, helping you overcome emotional bottlenecks and turning AI overwhelm into fluent skill-building.",
-    svg: <FaTools />,
+      "1:1 strategic partnership for wellbeing leaders. Personalized AI strategy with ethical framework integration and transformative coaching to create your roadmap for conscious AI integration that amplifies your human edge.",
+    svg: <FaUserTie className="w-6 h-6" />,
     type: "image",
-    format: "jpg",
-    path: "/images/handshake.jpg"
+    path: "/images/handshake.jpg",
+    alt: "Strategic partnership for conscious AI integration",
   },
   {
-    title: "Mission & Vision",
+    title: "'Bridging Worlds' Workshop",
     description:
-      "My mission is to educate, guide and inspire fellow wellbeing professionals – therapists, coaches, healers, leaders – in navigating AI not just effectively, but ethically and authentically. It's about moving beyond the hype and fear to find ways AI can genuinely support, not supplant, our work and values.",
-    svg: <FaHandHoldingHeart />,
+      "Immersive group learning for AI discernment. Connect with peers while integrating technology and wisdom traditions in a transformative setting. Build confidence and clarity in your relationship with AI.",
+    svg: <FaUsers className="w-6 h-6" />,
     type: "image",
-    format: "webp",
-    path: "/images/phonelock.webp"
+    path: "/images/hands.jpeg",
+    alt: "Group workshop for AI integration",
   },
   {
-    title: "Big Tech meets Big Heart",
+    title: "First Principles AI Course",
     description:
-      "While \"Big Tech\" isn't going anywhere soon, I want to make sure we meet it with \"Big Heart\" too. By integrating technical expertise with deep human understanding, we can harness AI's potential in service of genuine human flourishing.",
-    svg: <FaRegLightbulb />,
+      "Self-paced foundational AI learning with lifetime access. Master core AI concepts, ethical integration practices, and the Story, Spirit, Science framework that transcends trending tools and platforms.",
+    svg: <FaBook className="w-6 h-6" />,
     type: "image",
-    format: "avif",
-    path: "/images/mind-cloud.avif"
+    path: "/images/spirit_book.png",
+    alt: "First principles AI course",
   },
-  {
-    title: "First Principles Approach",
-    description:
-      "My approach involves cutting through the noise to focus on the signal – understanding AI through lived experience, critical reflection, and developing our human capacity. Stop chasing trends, learn from first principles and keep your hard-won expertise on the steering wheel.",
-    svg: <FaCompass />,
-    type: "image",
-    format: "jpg",
-    path: "/images/universe.jpg"
-  },
-  {
-    title: "Ethical Integration",
-    description:
-      "Navigate this new territory with courage, discernment and trusted guidance. If you're a wellbeing leader looking to integrate AI with integrity and wisdom, seeking clarity beyond surface-level solutions, I can help you build an ethical framework that honors your values.",
-    svg: <FaEthernet />,
-    type: "image",
-    format: "webp",
-    path: "/images/phonelock.webp"
-  },
-  {
-    title: "Tailored Leadership Development",
-    description:
-      "Develop your capacity to lead in the AI era with personalized support that combines technical literacy, ethical frameworks, and practical implementation strategies specific to wellbeing contexts.",
-    svg: <FaUserGraduate />,
-    type: "image",
-    format: "avif",
-    path: "/images/mind-cloud.avif"
-  },
-  {
-    title: "Human-Centered Design",
-    description:
-      "Explore how AI can enhance rather than replace human connection, with methodologies that prioritize the therapeutic relationship, ethical practice, and authentic engagement in all digital innovations.",
-    svg: <FaBrain />,
-    type: "image",
-    format: "jpg",
-    path: "/images/universe.jpg"
-  },
-] as Feature[];
+];
 
 
-// An SEO-friendly accordion component including the title and a description (when clicked.)
+// The component to display the media on large screen. It remains the same structurally.
+const Media = ({ feature, key }: { feature: Feature; key: number }): JSX.Element => {
+  const { type, path, format, alt, svg } = feature;
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const handleMouseEnter = () => {
+    if (videoRef.current) {
+      videoRef.current.play();
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (videoRef.current) {
+      videoRef.current.pause();
+    }
+  };
+
+  return (
+    <div
+      className="relative w-full h-96 lg:h-auto lg:aspect-square bg-base-300 rounded-2xl overflow-hidden"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      key={key}
+    >
+      {type === "video" && path ? (
+        <video
+          ref={videoRef}
+          className="absolute inset-0 w-full h-full object-cover object-center"
+          src={path}
+          muted
+          loop
+          playsInline
+        >
+          {format && <source src={path} type={format} />}
+        </video>
+      ) : type === "image" && path ? (
+        <Image
+          src={path}
+          alt={alt || "Feature image"}
+          className="absolute inset-0 w-full h-full object-cover object-center"
+          fill={true}
+        />
+      ) : svg ? (
+        <div className="absolute inset-0 w-full h-full flex items-center justify-center">
+          <span className="text-5xl opacity-50">{svg}</span>
+        </div>
+      ) : (
+        <div className="absolute inset-0 w-full h-full bg-base-300"></div> // Fallback placeholder
+      )}
+    </div>
+  );
+};
+
+
+// The component to display the feature accordion item. It remains the same structurally.
 const Item = ({
   feature,
   isOpen,
   setFeatureSelected,
+  index,
 }: {
-  index: number;
   feature: Feature;
   isOpen: boolean;
   setFeatureSelected: () => void;
+  index: number;
 }) => {
-  const accordion = useRef(null);
+  const accordion = useRef<HTMLDivElement>(null);
   const { title, description, svg } = feature;
 
   return (
-    <li>
+    <li className="py-4 border-b border-base-content/10 last:border-none">
       <button
-        className="relative flex gap-2 items-center w-full py-5 text-base font-medium text-left md:text-lg"
-        onClick={(e) => {
-          e.preventDefault();
-          setFeatureSelected();
-        }}
-        aria-expanded={isOpen}
+        className="flex items-center w-full group py-2"
+        onClick={setFeatureSelected}
       >
-        <span className={`duration-100 ${isOpen ? "text-primary" : ""}`}>
-          {svg}
-        </span>
-        <span
-          className={`flex-1 text-base-content ${isOpen ? "text-primary font-semibold" : ""
+        <div className="flex items-center justify-center shrink-0 mr-4 w-10 h-10 rounded-full bg-base-300 text-primary">
+          {svg ? (
+            svg
+          ) : (
+            <span className="text-2xl">{index + 1}</span>
+          )}
+        </div>
+        <div className="text-left">
+          <h3 className="font-semibold text-lg">{title}</h3>
+        </div>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+          className={`w-5 h-5 ml-auto transition-transform duration-300 shrink-0 ${isOpen ? "transform rotate-90" : ""
             }`}
         >
-          <h3 className="inline">{title}</h3>
-        </span>
+          <path
+            fillRule="evenodd"
+            d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
+            clipRule="evenodd"
+          />
+        </svg>
       </button>
-
       <div
         ref={accordion}
-        className={`transition-all duration-300 ease-in-out text-base-content-secondary overflow-hidden`}
+        className="transition-all duration-300 overflow-hidden"
         style={
           isOpen
-            ? { maxHeight: accordion?.current?.scrollHeight, opacity: 1 }
+            ? { maxHeight: accordion.current?.scrollHeight, opacity: 1 }
             : { maxHeight: 0, opacity: 0 }
         }
       >
-        <div className="pb-5 leading-relaxed">{description}</div>
+        <div className="pb-2 pl-14">
+          <p className="text-base-content/80 leading-relaxed whitespace-pre-line">
+            {description}
+          </p>
+        </div>
       </div>
     </li>
   );
 };
 
-// A component to display the media (video or image) of the feature. If the type is not specified, it will display an empty div.
-// Video are set to autoplay for best UX.
-const Media = ({ feature }: { feature: Feature }) => {
-  const { type, path, format, alt } = feature;
-  const style = "rounded-2xl aspect-square w-full sm:w-[26rem]";
-  const size = {
-    width: 500,
-    height: 500,
-  };
-
-  if (type === "video") {
-    return (
-      <video
-        className={style}
-        autoPlay
-        muted
-        loop
-        playsInline
-        controls
-        width={size.width}
-        height={size.height}
-      >
-        <source src={path} type={format} />
-      </video>
-    );
-  } else if (type === "image") {
-    return (
-      <Image
-        src={path}
-        alt={alt || "Feature illustration"}
-        className={`${style} object-cover object-center`}
-        width={size.width}
-        height={size.height}
-      />
-    );
-  } else if (type === "svg") {
-    return <div className={`${style} !border-none`}><FaBrain /></div>;
-  } else {
-    return <div className={`${style} !border-none`}></div>;
-  }
-};
-
 // A component to display 2 to 5 features in an accordion.
-// By default, the first feature is selected. When a feature is clicked, the others are closed.
 const FeaturesAccordion = () => {
   const [featureSelected, setFeatureSelected] = useState<number>(0);
 
@@ -203,10 +193,11 @@ const FeaturesAccordion = () => {
       id="features"
     >
       <div className="px-8">
+        {/* Headline */}
         <h2 className="font-extrabold text-4xl lg:text-6xl tracking-tight mb-12 md:mb-24">
-          Oceanheart.ai <span className="text-blue-400">Approach:</span>
-          <span className="bg-neutral text-neutral-content px-2 md:px-4 ml-1 md:ml-1.5 leading-relaxed">
-            Ethical. <span className="text-blue-400">Authentic.</span> Human-Centered.
+          The Art of Personal AI: <span className="text-blue-400">Your Path to Conscious Integration</span>
+          <span className="bg-neutral text-neutral-content px-2 md:px-4 ml-1 md:ml-1.5 leading-relaxed block sm:inline-block mt-2 sm:mt-0">
+            Where Human Wisdom Meets Technical Fluency
           </span>
         </h2>
         <div className="flex flex-col md:flex-row gap-12 md:gap-24">
@@ -222,7 +213,6 @@ const FeaturesAccordion = () => {
                 />
               ))}
             </ul>
-
             <Media feature={features[featureSelected]} key={featureSelected} />
           </div>
         </div>
@@ -231,4 +221,4 @@ const FeaturesAccordion = () => {
   );
 };
 
-export default FeaturesAccordion;
+export default FeaturesAccordion; 

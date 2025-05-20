@@ -7,43 +7,31 @@ import { useSearchParams, usePathname } from "next/navigation";
 import config from "@/config";
 import logo from "@/app/icon.png";
 
+
 interface FooterProps {
   showHDIForm?: boolean;
 }
 
-// Add the Footer to the bottom of your landing page and more.
-// The support link is connected to the config.js file. If there's no config.resend.supportEmail, the link won't be displayed.
-
+// Use Suspense to load useSearchParams() only on the client side
 const SuspendedFooter = ({ showHDIForm = false }: FooterProps) => {
-  const hiddenKeyParam = useSearchParams().get("hiddenKey");
-  const [hiddenKey, setHiddenKey] = useState<string>("");
+  const searchParams = useSearchParams();
   const pathname = usePathname();
-  const privacyLink = hiddenKey ? config.auth.saigo.loginUrl + `?hiddenKey=${hiddenKeyParam}` : "/privacy-policy";
+  const [hiddenKey, setHiddenKey] = useState<string | null>(null);
 
+  // Use effect to get the hidden key from search params
   useEffect(() => {
-    const checkSaigoKey = async () => {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/saigo/key`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          hiddenKeyParam
-        })
-      });
-      const data = await res.json();
-      if (data.success) {
-        setHiddenKey(hiddenKeyParam);
-      }
-    }
-    checkSaigoKey();
-  }, [hiddenKeyParam]);
+    setHiddenKey(searchParams?.get("hiddenKey") || null);
+  }, [searchParams]);
+
+  const privacyLink = hiddenKey ? `/privacy-policy?hiddenKey=${hiddenKey}` : "/privacy-policy";
+
 
   return (
     <footer className="bg-base-200 border-t border-base-content/10">
       <div className="max-w-7xl mx-auto px-8 py-24">
         <div className=" flex lg:items-start md:flex-row md:flex-nowrap flex-wrap flex-col">
           <div className="w-64 flex-shrink-0 md:mx-0 mx-auto text-center md:text-left">
+            {/* Logo and App Name using config */}
             <Link
               href="/#"
               aria-current="page"
@@ -66,21 +54,22 @@ const SuspendedFooter = ({ showHDIForm = false }: FooterProps) => {
               {config.appDescription}
             </p>
             <p className="mt-3 text-sm text-base-content/60">
-              Copyright © {new Date().getFullYear()} - <a href="https://rickhallett.github.io/kaishin-roku/" target="_blank" rel="noopener noreferrer" className="no-underline" style={{ textDecoration: "none" }}>All rights reserved</a>
+              Copyright © {new Date().getFullYear()} - All rights reserved
             </p>
 
           </div>
           <div className="flex-grow flex flex-wrap justify-center -mb-10 md:mt-0 mt-10 text-center">
+            {/* LINKS Section - Update links if needed */}
             <div className="lg:w-1/3 md:w-1/2 w-full px-4">
               <div className="footer-title font-semibold text-base-content tracking-widest text-sm md:text-left mb-3">
                 LINKS
               </div>
-
               <div className="flex flex-col justify-center items-center md:items-start gap-2 mb-10 text-sm">
                 {config.resend.supportEmail && (
                   <a
                     href={`mailto:${config.resend.supportEmail}`}
                     target="_blank"
+                    rel="noopener noreferrer"
                     className="link link-hover"
                     aria-label="Contact Support"
                   >
@@ -93,17 +82,20 @@ const SuspendedFooter = ({ showHDIForm = false }: FooterProps) => {
                 <Link href="https://www.oceanheart.blog/" target="_blank" rel="noopener noreferrer" className="link link-hover">
                   Blog
                 </Link>
-                <Link href="https://www.github.com/rickhallett/symbiotic-intelligence" target="_blank" rel="noopener noreferrer" className="link link-hover">
+                <Link href="/about" className="link link-hover">
                   About Kai
+                </Link>
+                <Link href="/consulting" className="link link-hover">
+                  Consulting
                 </Link>
               </div>
             </div>
 
+            {/* LEGAL Section - Keep as is */}
             <div className="lg:w-1/3 md:w-1/2 w-full px-4">
               <div className="footer-title font-semibold text-base-content tracking-widest text-sm md:text-left mb-3">
                 LEGAL
               </div>
-
               <div className="flex flex-col justify-center items-center md:items-start gap-2 mb-10 text-sm">
                 <Link href="/tos" className="link link-hover">
                   Terms of Service
@@ -120,12 +112,13 @@ const SuspendedFooter = ({ showHDIForm = false }: FooterProps) => {
   );
 };
 
-const Footer = ({ showHDIForm = false }: FooterProps) => {
+// Footer component wrapper with Suspense
+const Footer = (props: FooterProps) => {
   return (
     <Suspense>
-      <SuspendedFooter showHDIForm={showHDIForm} />
+      <SuspendedFooter {...props} />
     </Suspense>
-  )
-}
+  );
+};
 
-export default Footer;
+export default Footer; 

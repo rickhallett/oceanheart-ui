@@ -1,84 +1,72 @@
-const Arrow = ({ extraStyle }: { extraStyle: string }) => {
-  return (
-    <svg
-      className={`shrink-0 w-12 fill-neutral-content opacity-70 ${extraStyle}`}
-      viewBox="0 0 138 138"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <g>
-        <path
-          fillRule="evenodd"
-          clipRule="evenodd"
-          d="M72.9644 5.31431C98.8774 43.8211 83.3812 88.048 54.9567 120.735C54.4696 121.298 54.5274 122.151 55.0896 122.639C55.6518 123.126 56.5051 123.068 56.9922 122.506C86.2147 88.9044 101.84 43.3918 75.2003 3.80657C74.7866 3.18904 73.9486 3.02602 73.3287 3.44222C72.7113 3.85613 72.5484 4.69426 72.9644 5.31431Z"
-        />
-        <path
-          fillRule="evenodd"
-          clipRule="evenodd"
-          d="M56.5084 121.007C56.9835 118.685 57.6119 115.777 57.6736 115.445C59.3456 106.446 59.5323 97.67 58.4433 88.5628C58.3558 87.8236 57.6824 87.2948 56.9433 87.3824C56.2042 87.4699 55.6756 88.1435 55.7631 88.8828C56.8219 97.7138 56.6432 106.225 55.0203 114.954C54.926 115.463 53.5093 121.999 53.3221 123.342C53.2427 123.893 53.3688 124.229 53.4061 124.305C53.5887 124.719 53.8782 124.911 54.1287 125.015C54.4123 125.13 54.9267 125.205 55.5376 124.926C56.1758 124.631 57.3434 123.699 57.6571 123.487C62.3995 120.309 67.4155 116.348 72.791 113.634C77.9171 111.045 83.3769 109.588 89.255 111.269C89.9704 111.475 90.7181 111.057 90.9235 110.342C91.1288 109.626 90.7117 108.878 89.9963 108.673C83.424 106.794 77.3049 108.33 71.5763 111.223C66.2328 113.922 61.2322 117.814 56.5084 121.007Z"
-        />
-      </g>
-    </svg>
-  );
-};
+import React from 'react';
+import type { JSX } from 'react';
 
-const ExperienceBox = ({ title, text }: { title: string; text: string }) => {
-  return (
-    <div className="w-full md:w-64 flex flex-col gap-2 items-center justify-center">
-      <div className="bg-blue-400 bg-opacity-10 p-2 rounded-full w-14 h-14 flex items-center justify-center mb-2">
-        <div className="bg-blue-400 bg-opacity-20 p-1 rounded-full w-10 h-10 flex items-center justify-center">
-          <div className="bg-blue-400 w-6 h-6 rounded-full"></div>
-        </div>
-      </div>
-      <h3 className="font-bold text-center text-lg">{title}</h3>
-      <p className="text-center text-sm opacity-90">{text}</p>
-    </div>
-  );
-};
+// Helper component for steps
+const Step = ({ emoji, text }: { emoji: string; text: string }) => (
+  <div className="flex flex-col items-center text-center">
+    <span className="text-3xl mb-2">{emoji}</span>
+    <p className="font-semibold text-lg">{text}</p>
+  </div>
+);
 
-// Problem Agitation: A crucial, yet overlooked, component for a landing page that sells.
-// It goes under your Hero section, and above your Features section.
-// Your Hero section makes a promise to the customer: "Our product will help you achieve XYZ".
-// Your Problem section explains what happens to the customer if its problem isn't solved.
-// The copy should NEVER mention your product. Instead, it should dig the emotional outcome of not fixing a problem.
-// For instance:
-// - Hero: "ShipFast helps developers launch startups fast"
-// - Problem Agitation: "Developers spend too much time adding features, get overwhelmed, and quit." (not about ShipFast at all)
-// - Features: "ShipFast has user auth, Stripe, emails all set up for you"
+// Helper component for arrows
+const Arrow = ({ extraStyle }: { extraStyle?: string }): JSX.Element => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    strokeWidth={1.5}
+    stroke="currentColor"
+    className={`w-6 h-6 shrink-0 text-primary ${extraStyle || ''}`}
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+    />
+  </svg>
+);
+
 const Problem = () => {
   return (
     <section className="bg-neutral text-neutral-content">
-      <div className="max-w-7xl mx-auto px-8 py-12 md:py-24 text-center">
-        <h2 className="max-w-3xl mx-auto font-extrabold text-4xl md:text-5xl tracking-tight mb-6 md:mb-10">
-          My Unique Synthesis
+      <div className="max-w-7xl mx-auto px-8 py-16 md:py-32 text-center">
+        {/* Headline */}
+        <h2 className="max-w-3xl mx-auto font-extrabold text-4xl md:text-5xl tracking-tight mb-6 md:mb-12">
+          We Need <span className="text-secondary underline">Big Heart</span> to Meet Big Tech
         </h2>
-        <p className="max-w-xl mx-auto text-lg opacity-90 leading-relaxed mb-10">
-          A rare combination of expertise that bridges technology, human experience, and spiritual wisdom.
+
+        {/* Agitation Points */}
+        <h2 className="max-w-xl mx-auto font-extrabold text-2xl tracking-tight mb-6 md:mb-12">
+          Tired of simplistic, tech-first approaches that overlook the <span className="text-error">complexity of human connection</span>?
+        </h2>
+
+        {/* Problem Block */}
+        <p className="max-w-xl mx-auto text-lg opacity-90 leading-relaxed mb-6 md:mb-16">
+          The AI revolution is here—fast, furious, and often confusing. Endless tools, shifting jargon, and the pressure to adapt can feel like drowning.
         </p>
 
-        <div className="flex flex-col md:flex-row justify-center items-center md:items-start gap-6 mb-0">
-          <ExperienceBox
-            title="Psychotherapist"
-            text="15 years in CBT, mindfulness & somatic therapies"
-          />
+        <p className="max-w-xl mx-auto text-lg opacity-90 leading-relaxed mb-6 md:mb-16">
+          You know AI is vital, but how do you engage meaningfully without losing your human core or your sanity?
+        </p>
 
+        <p className="max-w-xl mx-auto text-lg opacity-90 leading-relaxed mb-6 md:mb-20">
+          Finding guidance that truly spans both <span className="text-info">technological fluency</span> and <span className="text-success">depth of human understanding</span> is nearly impossible. Most "experts" only speak one language, leaving you to navigate the chasm alone.
+        </p>
+
+        {/* Steps - reflecting the journey from confusion to integration */}
+        <div className="flex flex-col md:flex-row justify-center items-center md:items-start gap-6">
+          <Step emoji="🌊" text="AI Overwhelm" />
           <Arrow extraStyle="max-md:-scale-x-100 md:-rotate-90" />
-
-          <ExperienceBox
-            title="Software Engineer"
-            text="5 years creating enterprise-grade solutions"
-          />
-
+          <Step emoji="⚖️" text="Ethical Fog" />
           <Arrow extraStyle="md:-scale-x-100 md:-rotate-90" />
-
-          <ExperienceBox
-            title="Contemplative"
-            text="25 years across wisdom traditions"
-          />
+          <Step emoji="🤖" text="Human Disconnect" />
+          <Arrow extraStyle="max-md:-scale-x-100 md:-rotate-90" />
+          <Step emoji="🧭" text="Seeking Clarity" />
         </div>
       </div>
     </section>
   );
 };
 
-export default Problem;
+export default Problem; 
