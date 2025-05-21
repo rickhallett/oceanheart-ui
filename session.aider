@@ -1,9 +1,0 @@
-/drop
-/add       app/api/saigo/leaderboard/route.ts
-/add       app/saigo/leaderboard/page.tsx
-/add       app/saigo/lib/seed_practices_last7days.ts
-/read-only app/saigo/lib/testdb.ts
-/read-only components/FeaturesAccordion.tsx
-/read-only components/Hero.tsx
-/read-only components/Pricing.tsx
-/read-only prompts/saigo_username_prompt.xml
