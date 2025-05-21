@@ -43,7 +43,7 @@ const Hero = () => {
           </a>
 
           {/* Secondary CTA */}
-          <Link href="/about" className="link link-hover text-blue-400 glow-blue mt-2">
+          <Link href="/about-alt" className="link link-hover text-blue-400 glow-blue mt-2">
             Learn about Kai →
           </Link>
 

@@ -30,10 +30,10 @@ const Arrow = ({ extraStyle }: { extraStyle?: string }): JSX.Element => (
 const Problem = () => {
   return (
     <section className="bg-neutral text-neutral-content">
-      <div className="max-w-7xl mx-auto px-8 py-16 md:py-32 text-center">
+      <div className="max-w-7xl mx-auto px-8 py-16 md:py-24 text-center">
         {/* Headline */}
-        <h2 className="max-w-3xl mx-auto font-extrabold text-4xl md:text-5xl tracking-tight mb-6 md:mb-12">
-          We Need <span className="text-secondary underline">Big Heart</span> to Meet Big Tech
+        <h2 className="max-w-4xl mx-auto font-extrabold text-4xl md:text-5xl tracking-tight mb-6 md:mb-12">
+          We Need <span className="text-primary">Big Heart</span> to Meet <span className="text-secondary">Big Tech</span>
         </h2>
 
         {/* Agitation Points */}
@@ -55,7 +55,7 @@ const Problem = () => {
         </p>
 
         {/* Steps - reflecting the journey from confusion to integration */}
-        <div className="flex flex-col md:flex-row justify-center items-center md:items-start gap-6">
+        {/* <div className="flex flex-col md:flex-row justify-center items-center md:items-start gap-6">
           <Step emoji="🌊" text="AI Overwhelm" />
           <Arrow extraStyle="max-md:-scale-x-100 md:-rotate-90" />
           <Step emoji="⚖️" text="Ethical Fog" />
@@ -63,7 +63,7 @@ const Problem = () => {
           <Step emoji="🤖" text="Human Disconnect" />
           <Arrow extraStyle="max-md:-scale-x-100 md:-rotate-90" />
           <Step emoji="🧭" text="Seeking Clarity" />
-        </div>
+        </div> */}
       </div>
     </section>
   );

@@ -13,7 +13,7 @@ const links: { href: string; label: string; className?: string }[] = [
     label: "Offerings",
   },
   {
-    href: "/about",
+    href: "/about-alt",
     label: "About Kai",
   },
   {

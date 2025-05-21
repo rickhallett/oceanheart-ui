@@ -11,8 +11,11 @@ const KnowledgeGapSection = () => (
     <div className="px-8 max-w-7xl mx-auto">
       {/* 1. Map metaphor */}
       <div className="max-w-5xl mx-auto text-center mb-16">
+        <h2 className="text-3xl lg:text-6xl font-bold mb-12  tracking-tight">
+          What <span className="text-red-500">Unconscious</span> AI Integration is Really <span className="text-yellow-500">Costing You</span>
+        </h2>
         <h2 className="text-3xl lg:text-5xl font-bold mb-6 tracking-tight">
-          From Paper Maps ➜ Pocket GPS ➜ <span className="text-primary">Next?</span>
+          Paper Maps ➜ Pocket GPS ➜ <span className="text-primary">Next?</span>
         </h2>
         <p className="text-lg lg:text-xl text-base-content/80 max-w-3xl mx-auto">
           In 2005 you needed an A–Z and ten spare minutes to navigate London. Today one tap does the work.

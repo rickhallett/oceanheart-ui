@@ -23,12 +23,12 @@ const Pricing = () => {
           <div className="absolute inset-0 bg-primary-content/5 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)]"></div>
           <div className="relative z-10 flex flex-col items-center gap-6">
             <h3 className="text-2xl md:text-3xl font-bold text-center">
-              ⚡ Founding Sprint (7-Day Application Window) – Apply by
-              <span className="underline ml-1">27 May 2025</span>
+              ⚡ Founding Sprint (14-Day Application Window) –
+              <span className="underline ml-1 text-secondary">Apply by 27 May 2025</span>
             </h3>
-            <p className="max-w-2xl text-center text-primary-content text-lg">
+            <p className="max-w-2xl text-center text-white text-lg">
               I&apos;m opening <span className="font-bold">4 free seats</span> for the Integration Sprint beta.
-              Use coupon <span className="font-mono bg-primary-content/20 text-primary-content px-3 py-1 rounded-md mx-1">FOUNDER100</span>
+              Use coupon <span className="font-mono bg-black text-yellow-500 px-3 py-1 rounded-md mx-1">FOUNDER100</span>
               to drop the fee to £0. Every week you wait is five hours lost to workaround tasks—keep that time instead.
             </p>
             <div className="flex flex-wrap gap-4 justify-center">

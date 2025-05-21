@@ -1,0 +1,22 @@
+# Commit Messages for Cleanup Tasks
+
+## 1. After removing Aider-related files
+git commit -m "chore: remove Aider-related files and tooling"
+
+## 2. After removing duplicate Next.js files
+git commit -m "chore: remove duplicate Next.js files from root directory"
+
+## 3. After removing temporary and test files
+git commit -m "chore: remove temporary and test files"
+
+## 4. After moving documentation files
+git commit -m "docs: reorganize documentation files into appropriate directories"
+
+## 5. After updating ARCHITECTURE.md
+git commit -m "docs: update architecture documentation with comprehensive overview"
+
+## 6. After consolidating task directories
+git commit -m "chore: consolidate task directories and remove duplicates"
+
+## 7. Final cleanup commit
+git commit -m "chore: final cleanup and code organization"
