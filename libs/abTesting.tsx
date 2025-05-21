@@ -9,12 +9,14 @@ type EventType = "view" | "click" | "conversion";
 interface ABTestContextType {
   variant: Variant;
   recordEvent: (testId: TestID, event: EventType) => void;
+  getVariant: (testId: TestID) => Variant;
 }
 
 // Create context with default values
 const ABTestContext = createContext<ABTestContextType>({
   variant: "A",
   recordEvent: () => { },
+  getVariant: () => "A",
 });
 
 // Provider component
@@ -86,8 +88,13 @@ export const ABTestProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
+  // Function to get variant for a specific test
+  const getVariant = (testId: TestID): Variant => {
+    return variant;
+  };
+
   return (
-    <ABTestContext.Provider value={{ variant, recordEvent }}>
+    <ABTestContext.Provider value={{ variant, recordEvent, getVariant }}>
       {children}
     </ABTestContext.Provider>
   );

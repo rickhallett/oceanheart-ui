@@ -48,18 +48,18 @@ const Hero = () => {
           </Link>
 
         </div>
-        {/* Image Section zoom in */}
+        {/* Image Section zoom in rounded */}
         <div className="lg:w-1/2 flex justify-center items-center">
-          <div className="image-container">
+          <div className="image-container rounded-full overflow-hidden">
             <Image
-              src="/images/greece_profile2.jpeg"
+              src="/images/kai_profile.jpeg"
               alt="Kai - Conscious AI Integration Specialist"
-              className="kai-image"
+              className="kai-image rounded-full object-cover"
               priority={true}
               width={500}
               height={500}
               style={{
-                transform: "scale(1.2)",
+                transform: "scale(1.01)",
                 transformOrigin: "center",
                 transition: "transform 0.5s ease-in-out",
               }}

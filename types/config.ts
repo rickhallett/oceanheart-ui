@@ -48,6 +48,8 @@ export interface ConfigProps {
       monzoLink?: string;
       inDevelopment?: boolean;
       disabled?: boolean;
+      cta?: string;
+      ctaUrl?: string;
     }[];
   };
   aws?: {

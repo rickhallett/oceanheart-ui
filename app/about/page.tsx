@@ -8,14 +8,14 @@ export default function AboutPage() {
       {/* Intro Section */}
       <section className="pt-20 px-4 sm:px-8 max-w-7xl mx-auto text-center">
         <h1 className="font-extrabold text-4xl md:text-6xl tracking-tight mb-8 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent animate-gradient">
-          About Kai: Your Guide in the Age of AI
+          About Kai: Your Guide in the <span className="italic">Age of AI</span>
         </h1>
         <div className="max-w-3xl mx-auto">
           <p className="text-lg md:text-xl opacity-90 mx-auto mb-8 leading-relaxed text-left">
-            Let's be honest. The world of Artificial Intelligence is exhilarating, but it's also overwhelming. It feels like a relentless online scramble, with new tools, 'latest things,' and complex jargon appearing daily. Technology is changing at a pace that can make even the developments from three months ago seem outdated.
+            Let's be honest. The world of <span className="font-semibold text-primary">Artificial Intelligence</span> is exhilarating, but it's also overwhelming. It feels like a relentless online scramble, with new tools, 'latest things,' and complex jargon appearing daily. <span className="italic">Technology</span> is changing at a pace that can make even the developments from three months ago seem outdated.
           </p>
           <p className="text-lg md:text-xl opacity-90 mx-auto mb-8 leading-relaxed text-left">
-            Many people are using these advancements successfully, but it's easy to wonder: Will Big Tech swallow everything? And more importantly, where does this leave you? How do you keep up, make sense of it all, and find your place without sacrificing your human values or well-being?
+            Many people are using these advancements successfully, but it's easy to wonder: Will <span className="font-semibold">Big Tech</span> swallow everything? And more importantly, where does this leave <span className="italic">you</span>? How do you keep up, make sense of it all, and find your place without sacrificing your <span className="font-semibold text-secondary">human values</span> or well-being?
           </p>
         </div>
       </section>
@@ -38,24 +38,24 @@ export default function AboutPage() {
           <article className="bg-base-200 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
             <h2 className="font-bold text-2xl md:text-3xl mb-4 border-b border-primary/20 pb-2">My Origin Story</h2>
             <p className="text-base md:text-lg leading-relaxed">
-              For 15 years, I sat with human stories as a psychotherapist. Then, as a software engineer, I built with data. But it was my 20 years in contemplative practice that showed me the common thread: consciousness. Now, I fuse these worlds, guiding professionals like you to integrate AI not just as a tool, but as an extension of mindful, human-centered work.
+              For 15 years, I sat with <span className="italic">human stories</span> as a <span className="font-semibold text-primary">psychotherapist</span>. Then, as a <span className="font-semibold text-primary">software engineer</span>, I built with data. But it was my 20 years in <span className="font-semibold text-secondary">contemplative practice</span> that showed me the common thread: <span className="font-semibold text-secondary italic">consciousness</span>. Now, I fuse these worlds, guiding professionals like you to integrate AI not just as a tool, but as an extension of <span className="italic">mindful, human-centered work</span>.
             </p>
           </article>
           <article className="bg-base-200 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
             <h2 className="font-bold text-2xl md:text-3xl mb-4 border-b border-primary/20 pb-2">The Crossover Skillset</h2>
             <ul className="text-base md:text-lg leading-relaxed list-disc pl-5 space-y-4">
-              <li><span className="font-bold">Psychotherapist:</span> Deep understanding of human experience, resistance, and the relational aspects of learning.</li>
-              <li><span className="font-bold">Software Engineer:</span> Practical, first-principles grasp of AI technology, demystifying the complex.</li>
-              <li><span className="font-bold">Contemplative Practitioner:</span> Grounded in ethical awareness, fostering presence and conscious choice amidst rapid change.</li>
+              <li><span className="font-bold text-primary">Psychotherapist:</span> Deep understanding of <span className="italic">human experience</span>, resistance, and the relational aspects of learning.</li>
+              <li><span className="font-bold text-primary">Software Engineer:</span> Practical, first-principles grasp of <span className="italic">AI technology</span>, demystifying the complex.</li>
+              <li><span className="font-bold text-secondary">Contemplative Practitioner:</span> Grounded in <span className="italic">ethical awareness</span>, fostering presence and <span className="font-semibold">conscious choice</span> amidst rapid change.</li>
             </ul>
             <p className="text-base md:text-lg leading-relaxed mt-4">
-              This blend allows me to translate AI's power into your language, for your specific needs, ensuring technology serves your humanity.
+              This blend allows me to translate AI's power into <span className="italic">your language</span>, for your specific needs, ensuring technology serves your <span className="font-semibold text-secondary">humanity</span>.
             </p>
           </article>
           <article className="bg-base-200 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
             <h2 className="font-bold text-2xl md:text-3xl mb-4 border-b border-primary/20 pb-2">Philosophy Statement</h2>
             <p className="text-base md:text-lg leading-relaxed">
-              True AI mastery isn't just about clever prompts. It's about weaving your unique Story (experience) with timeless Spirit (values) and clear Science (understanding). My "Art of Personal AI" framework helps you amplify your intelligence and sensitivity by consciously engaging with AI's context, models, and your own evolving consciousness.
+              True <span className="font-semibold text-primary">AI mastery</span> isn't just about clever prompts. It's about weaving your unique <span className="font-semibold">Story</span> (experience) with timeless <span className="font-semibold text-secondary">Spirit</span> (values) and clear <span className="font-semibold text-primary">Science</span> (understanding). My "<span className="italic">Art of Personal AI</span>" framework helps you amplify your intelligence and sensitivity by <span className="font-semibold text-secondary">consciously engaging</span> with AI's context, models, and your own evolving <span className="italic font-semibold text-secondary">consciousness</span>.
             </p>
             <p className="text-base md:text-lg italic mt-4">
               I occasionally find myself explaining complex AI concepts to my cat, who remains unimpressed but a very good listener.
@@ -67,9 +67,9 @@ export default function AboutPage() {
       {/* Call-to-Action Section */}
       <section className="bg-gradient-to-r from-neutral to-neutral-focus text-neutral-content py-20 px-4 sm:px-8">
         <div className="max-w-3xl mx-auto text-center p-8 bg-black/20 backdrop-blur-sm rounded-xl">
-          <h2 className="font-bold text-3xl md:text-4xl mb-6">Ready to integrate consciously?</h2>
+          <h2 className="font-bold text-3xl md:text-4xl mb-6">Ready to <span className="text-primary italic">integrate consciously</span>?</h2>
           <p className="mb-8 text-lg md:text-xl leading-relaxed">
-            The AI revolution doesn't have to be something that happens to you. It can be something you actively and confidently participate in. Let's talk about how you can move from overwhelm to clarity.
+            The <span className="font-semibold">AI revolution</span> doesn't have to be something that happens <span className="italic">to you</span>. It can be something you <span className="font-semibold text-primary">actively</span> and <span className="font-semibold text-secondary">confidently</span> participate in. Let's talk about how you can move from overwhelm to <span className="italic font-semibold text-secondary">clarity</span>.
           </p>
           <a
             href="https://calendar.app.google/85ZdaqYK5vfNk4aH9"
