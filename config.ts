@@ -18,39 +18,60 @@ const config = {
     // These plans reflect "The Art of Personal AI" service offerings
     plans: [
       {
-        priceId: "price_executive_guidance", 
-        name: "Executive Guidance Partnership",
-        description: "1:1 strategic partnership for wellbeing leaders.",
-        price: 1200,
-        frequency: "per month",
+        priceId: "price_founder_sprint_beta",
+        name: "Founding Sprint (Beta)",
+        description:
+          "6-week 1:1 install of The Art of Personal AI. Get ahead. Stay ahead.",
+        price: 1800,          // full price, shown as “£3 000 – 100 % off with code”
+        frequency: "one-time",
         features: [
-          { name: "Personalized AI strategy" },
-          { name: "Ethical framework integration" },
-          { name: "Transformative coaching" },
-          { name: "Between-session support" },
-          { name: "Human-centered approach to AI" },
-          { name: "Strategic implementation guidance" }
+          { name: "Personal readiness audit - find your gap" },
+          { name: "Custom AI-workflow builds" },
+          { name: "6 live intensives" },
+          { name: "Unlimited async support" }
         ],
-        cta: "Book a Discovery Call",
-        ctaUrl: "https://calendar.app.google/85ZdaqYK5vfNk4aH9",
-        isFeatured: true
-      },
-      {
-        priceId: "price_bridging_worlds_workshop",
-        name: "'Bridging Worlds' Workshop",
-        description: "Immersive group learning for AI discernment.",
-        price: 197,
-        frequency: "per workshop",
-        features: [
-          { name: "Integrate tech & wisdom" },
-          { name: "Build confidence" },
-          { name: "Connect with peers" },
-          { name: "Practical exercises" },
-          { name: "Ethical considerations" },
-          { name: "Take-home resources" }
-        ],
-        monzoLink: "https://monzo.com/pay/r/oceanheartai-ltd_0Tl8iggjemzSXq"
-      },
+        cta: "Apply for Beta",
+        ctaUrl: "/founder-sprint",
+        disabled: false,
+      }
+      ,
+      // {
+      //   priceId: "price_executive_guidance",
+      //   name: "Executive Guidance Partnership",
+      //   description: "1:1 strategic partnership for wellbeing leaders.",
+      //   price: 1200,
+      //   frequency: "per month",
+      //   features: [
+      //     { name: "Personalized AI strategy" },
+      //     { name: "Ethical framework integration" },
+      //     { name: "Transformative coaching" },
+      //     { name: "Between-session support" },
+      //     { name: "Human-centered approach to AI" },
+      //     { name: "Strategic implementation guidance" }
+      //   ],
+      //   cta: "Book a Discovery Call",
+      //   ctaUrl: "https://calendar.app.google/85ZdaqYK5vfNk4aH9",
+      //   isFeatured: false,
+      //   disabled: true
+      // },
+      // {
+      //   priceId: "price_bridging_worlds_workshop",
+      //   name: "'Bridging Worlds' Workshop",
+      //   description: "Immersive group learning for AI discernment.",
+      //   price: 197,
+      //   frequency: "per workshop",
+      //   features: [
+      //     { name: "Integrate tech & wisdom" },
+      //     { name: "Build confidence" },
+      //     { name: "Connect with peers" },
+      //     { name: "Practical exercises" },
+      //     { name: "Ethical considerations" },
+      //     { name: "Take-home resources" }
+      //   ],
+      //   monzoLink: "https://monzo.com/pay/r/oceanheartai-ltd_0Tl8iggjemzSXq",
+      //   inDevelopment: true,
+      //   disabled: true
+      // },
       {
         priceId: "price_first_principles_course",
         name: "First Principles AI Course",
@@ -58,15 +79,13 @@ const config = {
         price: 299,
         frequency: "one-time",
         features: [
-          { name: "Core AI concepts" },
-          { name: "Ethical integration practices" },
+          { name: "Core Integration concepts" },
           { name: "Lifetime access" },
-          { name: "Story, Spirit & Science framework" },
           { name: "Practical application guides" },
           { name: "Community discussions" }
         ],
         monzoLink: "https://monzo.com/pay/r/oceanheartai-ltd_4RBZXMqYRMfBgb",
-        inDevelopment: true
+        disabled: true
       }
     ]
   },
@@ -87,7 +106,8 @@ const config = {
   colors: {
     // REQUIRED — The DaisyUI theme to use (added to the main layout.js). Leave blank for default (light & dark mode). If you use any theme other than light/dark, you need to add it in config.tailwind.js in daisyui.themes.
     theme: "synthwave",
-    saigoTheme: "synthwave",
+    // ARCHIVED: saigoTheme was used for the now-archived Saigo feature
+    // saigoTheme: "synthwave",
     // REQUIRED — This color will be reflected on the whole app outside of the document (loading bar, Chrome tabs, etc..). By default it takes the primary color from your DaisyUI theme (make sure to update your the theme name after "data-theme=")
     // OR you can just do this to use a custom color: main: "#f37055". HEX only.
     main: themes["light"]["primary"],
@@ -97,10 +117,11 @@ const config = {
     loginUrl: "/signin",
     // REQUIRED — the path you want to redirect users to after a successful login (i.e. /dashboard, /private). This is normally a private page for users to manage their accounts. It's used in apiClient (/libs/api.js) upon 401 errors from our API & in ButtonSignin.js
     callbackUrl: "/dashboard",
-    saigo: {
-      loginUrl: "/saigo/signin",
-      callbackUrl: "/saigo/username"
-    }
+    // ARCHIVED: Saigo auth configuration - kept commented for reference
+    // saigo: {
+    //   loginUrl: "/saigo/signin",
+    //   callbackUrl: "/saigo/username"
+    // }
   },
 } as ConfigProps;
 

@@ -4,7 +4,7 @@
 
 The frontend web application for Oceanheart.ai, built with Next.js 14 (App Router), TypeScript, Tailwind CSS, and Supabase.
 
-**For a detailed breakdown of the codebase structure, components, and data flow, please see the [Project Architecture Overview](./ARCHITECTURE.md).**
+**For a comprehensive overview of the project architecture, including directory structure, component design, data flow, and developer workflow, please see the [Architecture Documentation](./ARCHITECTURE.md).**
 
 ## Overview
 

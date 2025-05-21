@@ -1,4 +1,4 @@
-import ButtonAccount from "@/components/ButtonAccount";
+import AuthButton from "@/components/AuthButton";
 import { redirect } from "next/navigation";
 import { createClient } from "@/libs/supabase/server";
 import Link from "next/link";
@@ -11,10 +11,9 @@ export const dynamic = "force-dynamic";
 // See https://shipfa.st/docs/tutorials/private-page
 export default async function Dashboard() {
   const supabase = createClient();
-  let homepage = "/";
+  const homepage = "/";
 
   try {
-
     const {
       data: { user },
     } = await supabase.auth.getUser();
@@ -23,25 +22,16 @@ export default async function Dashboard() {
       redirect(config.auth.loginUrl);
     }
 
-    // Step 2: Verify the user exists in the "saigo_users" table.
-    const { data: saigoUser } = await supabase
-      .from("saigo_users")
-      .select("*")
-      .eq("email", user.email)
-      .maybeSingle();
-
-    if (saigoUser) {
-      homepage = "/saigo/leaderboards";
-    }
+    // Note: Saigo user check removed as part of Saigo feature archival
 
   } catch (e) {
-    console.log("An unexpected error occured", e);
+    console.log("An unexpected error occurred", e);
   }
 
   return (
     <main className="min-h-screen p-8 pb-24">
       <section className="max-w-xl mx-auto space-y-8">
-        <ButtonAccount />
+        <AuthButton mode="account" />
         <h1 className="text-3xl md:text-4xl font-extrabold">Dashboard...coming soon!</h1>
         <p>
           This is where you'll manage your account and settings.

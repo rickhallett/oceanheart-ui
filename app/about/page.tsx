@@ -28,8 +28,8 @@ export default function AboutPage() {
             <Image
               src="/images/kai_profile.jpeg"
               alt="Profile picture of Kai - Conscious AI Integration Specialist"
-              width={400}
-              height={400}
+              width={600}
+              height={600}
               className="rounded-full mx-auto relative shadow-lg hover:scale-[1.02] transition-transform duration-300"
             />
           </div>

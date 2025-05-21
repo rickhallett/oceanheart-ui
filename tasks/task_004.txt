@@ -1,86 +1,53 @@
 # Task ID: 4
-# Title: Refactor Large Components
+# Title: Consolidate Authentication Components
 # Status: pending
 # Dependencies: 2, 3
 # Priority: high
-# Description: Break down large components (LiveLeaderboard.tsx, Testimonials11.tsx, FeaturesListicle.tsx) into smaller, focused components.
+# Description: Standardize on a single authentication flow and remove duplicated auth implementations
 # Details:
-For each large component:
-1. Identify logical sections that can be extracted
-2. Create smaller components for each section
-3. Ensure proper prop passing between components
-4. Use composition to rebuild the original functionality
-
-For LiveLeaderboard.tsx specifically:
-- Extract LeaderboardHeader, LeaderboardRow, LeaderboardPagination as separate components
-- Create a LeaderboardContext if state sharing is needed
-- Move data fetching logic to a custom hook (useFetchLeaderboardData)
-
-Follow similar patterns for Testimonials11.tsx and FeaturesListicle.tsx.
+Keep only `/app/signin/page.tsx` and related components. Remove or archive duplicate implementations from `/signin/page.tsx` and `/app/saigo/signin/page.tsx`. Refactor `ButtonSignin.tsx` and `ButtonAccount.tsx` into a single component with different modes. Consolidate auth API routes, keeping only the necessary implementation. Update all references to use the standardized auth components. Ensure the authentication flow works end-to-end with Supabase.
 
 # Test Strategy:
-Write unit tests for each extracted component. Create integration tests for the composed components to ensure they function the same as the original large components. Perform visual regression testing to confirm UI appearance hasn't changed.
+Test the complete authentication flow (sign in, sign out, account management). Verify all pages that use auth components still function correctly. Test on multiple browsers and devices to ensure responsive design works.
 
 # Subtasks:
-## 1. Refactor LiveLeaderboard.tsx [pending]
+## 1. Audit and Consolidate Authentication Pages [pending]
 ### Dependencies: None
-### Description: Break down the LiveLeaderboard.tsx component into smaller, focused components and extract data fetching logic into a custom hook.
+### Description: Analyze existing authentication pages, keep only the primary implementation, and archive duplicate pages
 ### Details:
-Implementation steps:
-1. Create a useFetchLeaderboardData.ts hook that handles API calls and data manipulation
-2. Extract LeaderboardHeader component with props for title, filters, and sorting options
-3. Create LeaderboardRow component to display individual entries with props for user data, rank, and metrics
-4. Build LeaderboardPagination component with pagination controls and state
-5. Implement LeaderboardContext if multiple components need shared state access
-6. Refactor the main LiveLeaderboard component to use these new components via composition
-7. Test each component in isolation using mock data
-8. Verify the refactored implementation matches the original functionality
+1. Compare the three authentication pages (/app/signin/page.tsx, /signin/page.tsx, and /app/saigo/signin/page.tsx) to identify the most complete implementation
+2. Ensure /app/signin/page.tsx has all necessary functionality from the other implementations
+3. Archive or remove the duplicate pages at /signin/page.tsx and /app/saigo/signin/page.tsx
+4. Update any imports or references to the removed pages to use /app/signin/page.tsx
+5. Test that navigation to any of the previous sign-in URLs properly redirects to the consolidated page
+6. Verify the consolidated sign-in page loads correctly and maintains all required functionality
 
-Testing approach:
-- Unit test each extracted component independently
-- Test the custom hook with mock API responses
-- Verify event handlers and state updates work correctly
-- Ensure the refactored component renders identical output to the original
-
-## 2. Refactor Testimonials11.tsx [pending]
-### Dependencies: None
-### Description: Decompose the Testimonials11.tsx component into smaller, reusable components with clear responsibilities.
+## 2. Refactor Authentication Button Components [pending]
+### Dependencies: 4.1
+### Description: Combine ButtonSignin.tsx and ButtonAccount.tsx into a single reusable component with different modes
 ### Details:
-Implementation steps:
-1. Analyze the component structure to identify logical sections (e.g., TestimonialCard, TestimonialHeader, TestimonialCarousel)
-2. Extract TestimonialCard component with props for quote, author, image, and rating
-3. Create TestimonialHeader component for the section title and description
-4. Build TestimonialCarousel/Navigation component if testimonials are displayed in a slider
-5. Implement TestimonialContainer as the parent component that composes the smaller components
-6. Ensure proper prop drilling or context usage for shared state
-7. Maintain styling and responsive behavior across all components
-8. Verify animations and transitions work correctly after refactoring
+1. Create a new component (e.g., AuthButton.tsx) that can function in both 'signin' and 'account' modes
+2. Implement a 'mode' prop that determines the button's appearance and behavior
+3. Consolidate styling, click handlers, and state management from both original components
+4. Add appropriate TypeScript types for the component props
+5. Replace all instances of ButtonSignin and ButtonAccount with the new AuthButton component
+6. Add unit tests for the component in both modes
+7. Verify the component works correctly in all places where the original components were used
 
-Testing approach:
-- Test each component with various prop combinations
-- Verify responsive layouts at different screen sizes
-- Test any carousel/slider functionality
-- Ensure accessibility attributes are preserved
-- Compare visual output with the original component
-
-## 3. Refactor FeaturesListicle.tsx [pending]
-### Dependencies: None
-### Description: Restructure the FeaturesListicle.tsx component into smaller, focused components that handle specific aspects of the feature display.
+## 3. Consolidate Authentication API Routes [pending]
+### Dependencies: 4.1, 4.2
+### Description: Identify and standardize authentication API routes, removing duplicates and ensuring end-to-end functionality
 ### Details:
-Implementation steps:
-1. Identify distinct sections within the component (e.g., FeatureHeader, FeatureItem, FeatureList, FeatureCallToAction)
-2. Extract FeatureHeader component for the section title and introductory content
-3. Create FeatureItem component to display individual features with icons, titles, and descriptions
-4. Build FeatureList component to manage the collection of FeatureItems
-5. Extract FeatureCallToAction component if there's a CTA section
-6. Refactor the main FeaturesListicle component to compose these smaller components
-7. Ensure consistent styling and responsive behavior
-8. Optimize for reusability across the application
-
-Testing approach:
-- Test each component with various content lengths and types
-- Verify components handle edge cases (missing data, long text)
-- Test responsive behavior at different breakpoints
-- Ensure proper rendering of icons and images
-- Compare the refactored component output with the original implementation
+1. Identify all authentication-related API routes in the codebase
+2. Determine which routes are necessary for the consolidated authentication flow
+3. Update the necessary routes to work with the standardized authentication components
+4. Remove or archive duplicate or unnecessary API routes
+5. Update any client-side code to use the consolidated API routes
+6. Test the complete authentication flow end-to-end with Supabase, including:
+   - Sign in
+   - Sign out
+   - Account management
+   - Session persistence
+7. Verify that authentication state is properly maintained throughout the application
+8. Document the consolidated authentication system for future reference
 

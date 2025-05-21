@@ -1,73 +1,79 @@
-And uh, okay, yep. Subtask 1.2. Continue. create a detailed PRD document overlooking all of those from a high level architectural point of view okay and make sure you consider the pros and cons of each before any implementations general observations are welcome and fine don't move to api routes until you got that down # Task ID: 1
-# Title: Perform Comprehensive Codebase Analysis
+# Task ID: 1
+# Title: Create Archive Directory Structure
 # Status: pending
 # Dependencies: None
 # Priority: high
-# Description: Conduct a thorough analysis of the codebase to identify specific components, APIs, and code areas requiring refactoring.
+# Description: Set up the initial archive directory structure and documentation for deprecated code
 # Details:
-Create a detailed inventory of:
-1. All components in the flat structure (40+ components)
-2. Large components that need breaking down (LiveLeaderboard.tsx, Testimonials11.tsx, FeaturesListicle.tsx)
-3. API routes with inconsistent patterns
-4. Usage of 'any' type throughout the codebase
-5. State management patterns and SWR usage
-6. Dead code and outdated dependencies
-
-Use tools like `npx depcheck` for dependency analysis and TypeScript's project references to identify type issues. Document findings in a structured format for reference during implementation phases.
+Create the `/archived` top-level directory with subdirectories for each deprecated feature: `/archived/saigo`, `/archived/hdi`, and `/archived/ab-testing`. Add README.md files in each directory explaining the archival approach and the purpose of each feature. Set up documentation templates for tracking what has been moved and why. This task establishes the foundation for the entire refactoring process.
 
 # Test Strategy:
-Create a comprehensive report with metrics including:
-- Component count and size distribution
-- TypeScript 'any' usage count
-- API route patterns
-- Dependency age analysis
-- Code duplication percentage
-This report will serve as the baseline for measuring refactoring progress.
+Verify directory structure exists with proper permissions. Confirm README files are created with appropriate documentation templates. No functional testing required for this task.
 
 # Subtasks:
-## 1. Create Component and API Route Inventory [pending]
+## 1. Create base archive directory structure [pending]
 ### Dependencies: None
-### Description: Catalog all components and API routes in the codebase with metadata about size, complexity, and patterns
+### Description: Set up the top-level `/archived` directory and feature-specific subdirectories in the project repository
 ### Details:
 Implementation steps:
-1. Create a script to scan the codebase and identify all React components (look for .tsx files with component exports)
-2. For each component, record: file path, size (LOC), number of props, external dependencies, and render complexity
-3. Specifically flag the mentioned large components (LiveLeaderboard.tsx, Testimonials11.tsx, FeaturesListicle.tsx) with detailed notes on their structure
-4. Scan all API routes and document their patterns, parameters, and response formats
-5. Identify inconsistent API naming conventions or implementation patterns
-6. Store all findings in a structured JSON format for easy reference
-7. Generate a summary report highlighting the most problematic areas
+1. Create the top-level `/archived` directory at the root of the project repository
+2. Create the three feature-specific subdirectories: `/archived/saigo`, `/archived/hdi`, and `/archived/ab-testing`
+3. Set up a basic `.gitignore` file in the `/archived` directory if needed
+4. Create an empty placeholder file in each directory to ensure the directories are tracked by git
+5. Verify the directory structure is properly created and accessible
 
-Testing approach: Validate the inventory by cross-checking against directory listings and ensuring no components or routes are missed. Have another team member review the findings for accuracy.
+Testing approach:
+- Manually verify the directories exist and have correct permissions
+- Ensure the directories are properly tracked in version control
 
-## 2. Analyze TypeScript Usage and Type Issues [pending]
+## 2. Create README documentation for archived directories [pending]
 ### Dependencies: 1.1
-### Description: Perform a comprehensive analysis of TypeScript implementation, focusing on 'any' type usage and type-related code smells
+### Description: Create comprehensive README.md files for each archived directory explaining the archival approach and feature purpose
 ### Details:
 Implementation steps:
-1. Use the TypeScript compiler API to programmatically analyze the codebase for type issues
-2. Create a custom linting rule or script to identify all instances of 'any' type usage
-3. Categorize 'any' usages by context: API responses, props, state management, utility functions, etc.
-4. Run TypeScript in strict mode temporarily to identify potential type errors
-5. Analyze component prop interfaces for consistency and completeness
-6. Document findings with file locations, severity levels, and suggested fixes
-7. Prioritize issues based on risk and implementation complexity
+1. Create a main `/archived/README.md` file that explains:
+   - The purpose of the archive directory
+   - The general archival process and guidelines
+   - How to find and use archived code
+   - When and how code should be completely removed vs archived
+2. Create feature-specific README files in each subdirectory:
+   - `/archived/saigo/README.md`: Document the Saigo feature purpose, why it was deprecated, and key components
+   - `/archived/hdi/README.md`: Document the HDI feature purpose, why it was deprecated, and key components
+   - `/archived/ab-testing/README.md`: Document the AB Testing feature purpose, why it was deprecated, and key components
+3. Include in each feature README: original location of code, key developers, and potential future use cases
 
-Testing approach: Verify findings by manually checking a sample of identified issues. Create a test plan for validating type improvements in future refactoring work.
+Testing approach:
+- Review the documentation for clarity and completeness
+- Have another team member review the documentation for accuracy
 
-## 3. Evaluate Dependencies and State Management [pending]
+## 3. Create archival tracking templates and process documentation [pending]
 ### Dependencies: 1.1, 1.2
-### Description: Analyze current dependencies, state management patterns, and identify dead code across the application
+### Description: Develop templates and tracking mechanisms for documenting what code has been moved to the archive
 ### Details:
 Implementation steps:
-1. Run `npx depcheck` to identify unused dependencies in package.json
-2. Analyze dependency versions for outdated packages using `npm outdated`
-3. Create a dependency graph to visualize package relationships and identify potential consolidation opportunities
-4. Document all state management approaches currently in use (SWR, Context API, Redux, local state)
-5. Analyze SWR implementation patterns for consistency and efficiency
-6. Use a code coverage tool on the test suite to identify potentially dead code
-7. Implement a custom script to detect unused components, functions, and imports
-8. Create a comprehensive report with recommended actions for each issue
+1. Create an `/archived/TEMPLATE.md` file with standardized sections for:
+   - Feature name and description
+   - Original location in codebase
+   - Reason for deprecation/archival
+   - Date of archival
+   - Dependencies and potential impact
+   - Responsible developers
+   - Reuse considerations
+2. Create an `/archived/tracking.csv` or similar structured file to track all archived components with columns for:
+   - Component name
+   - Original path
+   - New archived path
+   - Date archived
+   - Archived by (developer)
+   - Ticket/issue reference
+3. Document the archival process in `/archived/PROCESS.md` including:
+   - Steps to properly archive code
+   - Review requirements before archiving
+   - How to update the tracking document
+   - Guidelines for when to archive vs. delete
 
-Testing approach: Validate dependency findings by attempting to remove suspected unused dependencies in a branch and running the test suite. Verify state management analysis by tracing state flow in key application features.
+Testing approach:
+- Test the templates by creating a sample entry
+- Review with team members to ensure the tracking approach meets project needs
+- Verify the process documentation is clear and actionable
 

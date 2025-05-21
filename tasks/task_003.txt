@@ -1,84 +1,62 @@
 # Task ID: 3
-# Title: Extract Reusable UI Components
+# Title: Archive HDI Feature
 # Status: pending
-# Dependencies: 2
+# Dependencies: 1
 # Priority: high
-# Description: Identify and extract common UI patterns into reusable components to be placed in the UI subdirectory.
+# Description: Move all HDI-related code to the archive directory while preserving its structure
 # Details:
-1. Create base UI components such as Button, Modal, Card, Input, etc.
-2. Ensure each component has proper TypeScript interfaces for props
-3. Implement variants using Tailwind CSS and DaisyUI
-4. Add proper documentation for each component
-
-Example Button component structure:
-```tsx
-interface ButtonProps {
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
-  size?: 'sm' | 'md' | 'lg';
-  isLoading?: boolean;
-  disabled?: boolean;
-  onClick?: () => void;
-  children: React.ReactNode;
-  className?: string;
-}
-
-export const Button: React.FC<ButtonProps> = ({
-  variant = 'primary',
-  size = 'md',
-  isLoading = false,
-  disabled = false,
-  onClick,
-  children,
-  className = '',
-}) => {
-  // Component implementation
-};
-```
+Identify and move all HDI (Human Digital Interface) experimental code to `/archived/hdi/`. Follow the same pattern as with Saigo: create subdirectories for app pages, API routes, components, and utility functions. Document any specialized functionality in the README.md. Update any imports in active code that might reference these files. Ensure database references are documented.
 
 # Test Strategy:
-Create a Storybook instance to document and test UI components in isolation. Write unit tests for each component using React Testing Library to verify proper rendering and behavior for different prop combinations.
+Verify all HDI files are moved correctly. Check that no active code references the old file locations. Confirm the application builds without errors related to missing HDI files.
 
 # Subtasks:
-## 1. Create Essential UI Base Components [pending]
+## 1. Identify and map all HDI-related code [pending]
 ### Dependencies: None
-### Description: Implement the core UI components that will serve as the foundation for the application interface. This includes Button, Input, Card, and Modal components.
+### Description: Identify all HDI-related code files and create a detailed mapping of their current locations and future archived structure
 ### Details:
-1. Create a UI directory structure with subdirectories for each component type
-2. Implement the Button component as shown in the example with proper TypeScript interfaces
-3. Create the Input component with variants for text, number, password, etc.
-4. Implement the Card component with options for headers, footers, and content areas
-5. Build the Modal component with customizable header, body, and footer sections
-6. Ensure all components use Tailwind CSS and DaisyUI for styling
-7. Add basic unit tests for each component using React Testing Library
-8. Test each component in isolation to verify proper rendering and behavior
-9. Add JSDoc comments to document component props and usage
+1. Search through the codebase for all HDI-related files and directories using grep/find commands or IDE search tools
+2. Create a comprehensive mapping document that lists:
+   - Current file path
+   - Destination path in the `/archived/hdi/` directory
+   - File type (component, page, API route, utility)
+   - Any database references contained in the file
+3. Organize the mapping to ensure the same structure is preserved in the archive
+4. Identify any active code files that import or reference HDI components
+5. Test the completeness of the mapping by verifying all HDI features are included
+6. Document any specialized or complex functionality for later documentation
 
-## 2. Implement Advanced UI Components and Variants [pending]
+## 2. Create archive structure and move HDI code [pending]
 ### Dependencies: 3.1
-### Description: Extend the component library with more advanced UI elements and add variants to existing components to support different use cases.
+### Description: Create the archive directory structure and move all HDI code while updating imports in active code
 ### Details:
-1. Build on the base components to create Dropdown, Tabs, Toggle, and Tooltip components
-2. Add additional variants to existing components (e.g., danger/success buttons, outlined cards)
-3. Implement loading states for interactive components
-4. Create compound components where needed (e.g., Form.Group, Form.Label, Form.Input)
-5. Ensure responsive behavior for all components using Tailwind's responsive classes
-6. Implement accessibility features (ARIA attributes, keyboard navigation)
-7. Add unit tests for all new components and variants
-8. Test component interactions and state changes
-9. Ensure TypeScript interfaces are comprehensive and allow for extension
+1. Create the base `/archived/hdi/` directory
+2. Create appropriate subdirectories for app pages, API routes, components, and utility functions based on the mapping
+3. Move each HDI file to its corresponding location in the archive structure
+4. Update any imports in active code that reference the moved files to either:
+   - Point to the new archived location if the functionality is still needed
+   - Remove the imports and related code if the functionality is no longer used
+5. Run linting and compilation checks to ensure no broken references remain
+6. Test the application to verify that non-HDI functionality continues to work properly
+7. Commit changes in logical groups to maintain clear version history
 
-## 3. Create Component Documentation and Storybook Integration [pending]
+## 3. Document HDI functionality and verify archive integrity [pending]
 ### Dependencies: 3.1, 3.2
-### Description: Document all components and integrate with Storybook to provide a comprehensive component library reference for developers.
+### Description: Create comprehensive documentation for the archived HDI code and verify the archive's integrity
 ### Details:
-1. Install and configure Storybook in the project
-2. Create stories for each component showing different variants and states
-3. Write comprehensive usage documentation with code examples
-4. Document prop interfaces and default values in a standardized format
-5. Create a README.md file for each component with usage instructions
-6. Add controls to Storybook stories to allow interactive testing of props
-7. Include accessibility information and best practices in the documentation
-8. Create example compositions showing how components work together
-9. Add visual regression tests using Storybook's snapshot capability
-10. Ensure documentation includes edge cases and limitations of each component
+1. Create a detailed README.md file in the `/archived/hdi/` directory that includes:
+   - Overview of the HDI feature
+   - Directory structure explanation
+   - Key components and their functionality
+   - Database references and schemas used
+   - Any special configuration or environment variables
+   - Reason for archiving
+2. Document any database references in a separate DATABASE.md file if extensive
+3. Verify the archive integrity by:
+   - Checking that all files identified in subtask 1 are properly moved
+   - Ensuring the directory structure is preserved
+   - Confirming all imports in active code are updated
+   - Running tests to ensure the main application works without HDI components
+4. Clean up any temporary files or branches created during the archiving process
+5. Create a final pull request with a complete description of changes made
 

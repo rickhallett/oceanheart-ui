@@ -2,7 +2,7 @@
 import { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import ButtonSignin from "@/components/ButtonSignin";
+import AuthButton from "@/components/AuthButton";
 import logo from "@/app/icon.png"; // Consider updating if you have a new logo
 import config from "@/config";
 

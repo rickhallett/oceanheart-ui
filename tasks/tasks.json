@@ -2,43 +2,43 @@
   "tasks": [
     {
       "id": 1,
-      "title": "Perform Comprehensive Codebase Analysis",
-      "description": "Conduct a thorough analysis of the codebase to identify specific components, APIs, and code areas requiring refactoring.",
-      "details": "Create a detailed inventory of:\n1. All components in the flat structure (40+ components)\n2. Large components that need breaking down (LiveLeaderboard.tsx, Testimonials11.tsx, FeaturesListicle.tsx)\n3. API routes with inconsistent patterns\n4. Usage of 'any' type throughout the codebase\n5. State management patterns and SWR usage\n6. Dead code and outdated dependencies\n\nUse tools like `npx depcheck` for dependency analysis and TypeScript's project references to identify type issues. Document findings in a structured format for reference during implementation phases.",
-      "testStrategy": "Create a comprehensive report with metrics including:\n- Component count and size distribution\n- TypeScript 'any' usage count\n- API route patterns\n- Dependency age analysis\n- Code duplication percentage\nThis report will serve as the baseline for measuring refactoring progress.",
-      "priority": "high",
-      "dependencies": [],
+      "title": "Create Archive Directory Structure",
+      "description": "Set up the initial archive directory structure and documentation for deprecated code",
       "status": "pending",
+      "dependencies": [],
+      "priority": "high",
+      "details": "Create the `/archived` top-level directory with subdirectories for each deprecated feature: `/archived/saigo`, `/archived/hdi`, and `/archived/ab-testing`. Add README.md files in each directory explaining the archival approach and the purpose of each feature. Set up documentation templates for tracking what has been moved and why. This task establishes the foundation for the entire refactoring process.",
+      "testStrategy": "Verify directory structure exists with proper permissions. Confirm README files are created with appropriate documentation templates. No functional testing required for this task.",
       "subtasks": [
         {
           "id": 1,
-          "title": "Create Component and API Route Inventory",
-          "description": "Catalog all components and API routes in the codebase with metadata about size, complexity, and patterns",
+          "title": "Create base archive directory structure",
+          "description": "Set up the top-level `/archived` directory and feature-specific subdirectories in the project repository",
           "dependencies": [],
-          "details": "Implementation steps:\n1. Create a script to scan the codebase and identify all React components (look for .tsx files with component exports)\n2. For each component, record: file path, size (LOC), number of props, external dependencies, and render complexity\n3. Specifically flag the mentioned large components (LiveLeaderboard.tsx, Testimonials11.tsx, FeaturesListicle.tsx) with detailed notes on their structure\n4. Scan all API routes and document their patterns, parameters, and response formats\n5. Identify inconsistent API naming conventions or implementation patterns\n6. Store all findings in a structured JSON format for easy reference\n7. Generate a summary report highlighting the most problematic areas\n\nTesting approach: Validate the inventory by cross-checking against directory listings and ensuring no components or routes are missed. Have another team member review the findings for accuracy.",
+          "details": "Implementation steps:\n1. Create the top-level `/archived` directory at the root of the project repository\n2. Create the three feature-specific subdirectories: `/archived/saigo`, `/archived/hdi`, and `/archived/ab-testing`\n3. Set up a basic `.gitignore` file in the `/archived` directory if needed\n4. Create an empty placeholder file in each directory to ensure the directories are tracked by git\n5. Verify the directory structure is properly created and accessible\n\nTesting approach:\n- Manually verify the directories exist and have correct permissions\n- Ensure the directories are properly tracked in version control",
           "status": "pending",
           "parentTaskId": 1
         },
         {
           "id": 2,
-          "title": "Analyze TypeScript Usage and Type Issues",
-          "description": "Perform a comprehensive analysis of TypeScript implementation, focusing on 'any' type usage and type-related code smells",
+          "title": "Create README documentation for archived directories",
+          "description": "Create comprehensive README.md files for each archived directory explaining the archival approach and feature purpose",
           "dependencies": [
             1
           ],
-          "details": "Implementation steps:\n1. Use the TypeScript compiler API to programmatically analyze the codebase for type issues\n2. Create a custom linting rule or script to identify all instances of 'any' type usage\n3. Categorize 'any' usages by context: API responses, props, state management, utility functions, etc.\n4. Run TypeScript in strict mode temporarily to identify potential type errors\n5. Analyze component prop interfaces for consistency and completeness\n6. Document findings with file locations, severity levels, and suggested fixes\n7. Prioritize issues based on risk and implementation complexity\n\nTesting approach: Verify findings by manually checking a sample of identified issues. Create a test plan for validating type improvements in future refactoring work.",
+          "details": "Implementation steps:\n1. Create a main `/archived/README.md` file that explains:\n   - The purpose of the archive directory\n   - The general archival process and guidelines\n   - How to find and use archived code\n   - When and how code should be completely removed vs archived\n2. Create feature-specific README files in each subdirectory:\n   - `/archived/saigo/README.md`: Document the Saigo feature purpose, why it was deprecated, and key components\n   - `/archived/hdi/README.md`: Document the HDI feature purpose, why it was deprecated, and key components\n   - `/archived/ab-testing/README.md`: Document the AB Testing feature purpose, why it was deprecated, and key components\n3. Include in each feature README: original location of code, key developers, and potential future use cases\n\nTesting approach:\n- Review the documentation for clarity and completeness\n- Have another team member review the documentation for accuracy",
           "status": "pending",
           "parentTaskId": 1
         },
         {
           "id": 3,
-          "title": "Evaluate Dependencies and State Management",
-          "description": "Analyze current dependencies, state management patterns, and identify dead code across the application",
+          "title": "Create archival tracking templates and process documentation",
+          "description": "Develop templates and tracking mechanisms for documenting what code has been moved to the archive",
           "dependencies": [
             1,
             2
           ],
-          "details": "Implementation steps:\n1. Run `npx depcheck` to identify unused dependencies in package.json\n2. Analyze dependency versions for outdated packages using `npm outdated`\n3. Create a dependency graph to visualize package relationships and identify potential consolidation opportunities\n4. Document all state management approaches currently in use (SWR, Context API, Redux, local state)\n5. Analyze SWR implementation patterns for consistency and efficiency\n6. Use a code coverage tool on the test suite to identify potentially dead code\n7. Implement a custom script to detect unused components, functions, and imports\n8. Create a comprehensive report with recommended actions for each issue\n\nTesting approach: Validate dependency findings by attempting to remove suspected unused dependencies in a branch and running the test suite. Verify state management analysis by tracing state flow in key application features.",
+          "details": "Implementation steps:\n1. Create an `/archived/TEMPLATE.md` file with standardized sections for:\n   - Feature name and description\n   - Original location in codebase\n   - Reason for deprecation/archival\n   - Date of archival\n   - Dependencies and potential impact\n   - Responsible developers\n   - Reuse considerations\n2. Create an `/archived/tracking.csv` or similar structured file to track all archived components with columns for:\n   - Component name\n   - Original path\n   - New archived path\n   - Date archived\n   - Archived by (developer)\n   - Ticket/issue reference\n3. Document the archival process in `/archived/PROCESS.md` including:\n   - Steps to properly archive code\n   - Review requirements before archiving\n   - How to update the tracking document\n   - Guidelines for when to archive vs. delete\n\nTesting approach:\n- Test the templates by creating a sample entry\n- Review with team members to ensure the tracking approach meets project needs\n- Verify the process documentation is clear and actionable",
           "status": "pending",
           "parentTaskId": 1
         }
@@ -46,44 +46,44 @@
     },
     {
       "id": 2,
-      "title": "Create Component Directory Structure",
-      "description": "Reorganize the flat components directory into logical subdirectories based on component purpose and functionality.",
-      "details": "Create the following directory structure in the components folder:\n\n```\ncomponents/\n  ui/           # Basic UI components\n  layout/       # Header, Footer, Container components\n  charts/       # All chart-related components\n  features/     # Feature-specific components\n    saigo/      # Saigo feature components\n    hdi/        # HDI feature components\n  forms/        # Form components and related logic\n```\n\nUpdate imports throughout the codebase to reflect the new structure. Use a script to automate import path updates where possible.",
-      "testStrategy": "Verify that the application builds successfully after restructuring. Create a script to validate that all components are properly imported and that there are no broken references. Run the application locally to ensure all pages render correctly.",
-      "priority": "high",
+      "title": "Archive Saigo Feature",
+      "description": "Move all Saigo-related code to the archive directory while maintaining its structure",
+      "status": "pending",
       "dependencies": [
         1
       ],
-      "status": "pending",
+      "priority": "high",
+      "details": "Identify and move all Saigo-related code to `/archived/saigo/`. This includes: app pages from `/app/saigo/`, components used exclusively by Saigo, API routes like `/app/api/auth/saigo-callback/route.ts`, and related utility functions. Create subdirectories matching the original structure: `/app`, `/api`, `/components`, `/libs`, and `/migrations`. Document database tables and relationships in the README.md. Update any imports in active code that might reference these files.",
+      "testStrategy": "Verify all Saigo files are moved correctly. Check that no active code references the old file locations. Confirm the application builds without errors related to missing Saigo files.",
       "subtasks": [
         {
           "id": 1,
-          "title": "Create directory structure and analyze component classification",
-          "description": "Create the specified directory structure and analyze all existing components to determine their appropriate categorization",
+          "title": "Identify and map all Saigo-related code files",
+          "description": "Create a comprehensive mapping of all Saigo-related code files and their target locations in the archive directory",
           "dependencies": [],
-          "details": "1. Create the new directory structure in the components folder with the specified subdirectories (ui, layout, charts, features/saigo, features/hdi, forms).\n2. Analyze all existing components in the flat structure to determine which new directory each component should be moved to.\n3. Create a mapping document (JSON or CSV) that lists each component and its target directory.\n4. Validate the mapping with the team to ensure components are properly categorized.\n5. Test that the new directories are created successfully and accessible.\n\nTesting approach: Verify directory structure exists and that the component mapping document is complete and accurate.",
+          "details": "Implementation steps:\n1. Create a spreadsheet or document to track all Saigo-related files\n2. Identify app pages in `/app/saigo/` directory\n3. Identify API routes like `/app/api/auth/saigo-callback/route.ts`\n4. Search for components used exclusively by Saigo (look for imports/usage patterns)\n5. Identify utility functions and libraries specific to Saigo\n6. For each file, document:\n   - Current path\n   - Target path in archive (maintaining structure)\n   - Any active imports that reference this file\n7. Verify the mapping is complete by checking for any missed dependencies\n\nTesting approach:\n- Manual verification that all Saigo-related files are identified\n- Review the mapping with team members familiar with the codebase\n- Ensure target paths maintain the original structure",
           "status": "pending",
           "parentTaskId": 2
         },
         {
           "id": 2,
-          "title": "Move components to new directory structure and update internal imports",
-          "description": "Physically move each component to its appropriate directory and update imports within each component file",
+          "title": "Move files to archive directory and document database structure",
+          "description": "Move all identified Saigo-related files to the archive directory and document database tables and relationships",
           "dependencies": [
             1
           ],
-          "details": "1. Using the mapping document from subtask 1, move each component file to its designated directory.\n2. For each moved component, update any import statements within that file that reference other components.\n3. Create a script that helps identify and update relative import paths. The script should:\n   - Scan each moved component file\n   - Identify import statements referencing other components\n   - Calculate and update the new relative path based on the component's new location\n4. Run the script on each component after moving it.\n5. Test each component individually to ensure it still renders correctly after the move.\n\nTesting approach: For each component, verify it imports its dependencies correctly and renders without errors in isolation.",
+          "details": "Implementation steps:\n1. Create the base archive directory structure at `/archived/saigo/`\n2. Create subdirectories matching the original structure: `/app`, `/api`, `/components`, `/libs`, and `/migrations`\n3. Move each file according to the mapping created in subtask 1\n4. Verify file integrity after moving\n5. Document database tables and relationships:\n   - Create a README.md file in the `/archived/saigo/` directory\n   - List all Saigo-related database tables\n   - Document table schemas (column names, types, constraints)\n   - Document relationships between tables\n   - Include any relevant migration information\n\nTesting approach:\n- Verify all files are moved to correct locations\n- Check that no files were corrupted during the move\n- Validate the README.md contains complete database documentation\n- Ensure the archive maintains the original directory structure",
           "status": "pending",
           "parentTaskId": 2
         },
         {
           "id": 3,
-          "title": "Update application-wide imports and verify functionality",
-          "description": "Update all remaining imports throughout the codebase and verify the application works correctly with the new structure",
+          "title": "Update imports and verify application functionality",
+          "description": "Update any imports in active code that reference archived files and verify the application still functions correctly",
           "dependencies": [
             2
           ],
-          "details": "1. Create a comprehensive script to update all remaining import statements throughout the codebase:\n   - Scan all files in the project (excluding node_modules)\n   - Identify import statements that reference components from the old flat structure\n   - Update these imports to reference the new directory structure\n2. Run the script and review the changes before committing.\n3. Implement and run tests to verify that:\n   - All pages render correctly\n   - All components load properly\n   - No console errors related to missing imports\n4. Create a rollback plan in case issues are discovered.\n5. Update any build configurations or path aliases that might reference specific component paths.\n\nTesting approach: Run the full test suite, manually test key application flows, and verify the application builds successfully with the new directory structure.",
+          "details": "Implementation steps:\n1. Using the mapping from subtask 1, identify all active code files that import Saigo-related code\n2. For each affected file:\n   - Remove or comment out imports to archived files\n   - Update any conditional logic that depends on Saigo features\n   - Consider adding comments indicating the code was removed due to archiving\n3. Run the application locally to verify it builds successfully\n4. Fix any build errors related to the archiving process\n5. Test core application functionality to ensure nothing was broken\n6. Update any relevant documentation or comments that reference Saigo features\n\nTesting approach:\n- Run automated tests to verify application functionality\n- Manually test key application features\n- Verify the application builds without errors\n- Check for any runtime errors related to missing Saigo code\n- Ensure no references to archived code remain in active codebase",
           "status": "pending",
           "parentTaskId": 2
         }
@@ -91,45 +91,45 @@
     },
     {
       "id": 3,
-      "title": "Extract Reusable UI Components",
-      "description": "Identify and extract common UI patterns into reusable components to be placed in the UI subdirectory.",
-      "details": "1. Create base UI components such as Button, Modal, Card, Input, etc.\n2. Ensure each component has proper TypeScript interfaces for props\n3. Implement variants using Tailwind CSS and DaisyUI\n4. Add proper documentation for each component\n\nExample Button component structure:\n```tsx\ninterface ButtonProps {\n  variant?: 'primary' | 'secondary' | 'outline' | 'ghost';\n  size?: 'sm' | 'md' | 'lg';\n  isLoading?: boolean;\n  disabled?: boolean;\n  onClick?: () => void;\n  children: React.ReactNode;\n  className?: string;\n}\n\nexport const Button: React.FC<ButtonProps> = ({\n  variant = 'primary',\n  size = 'md',\n  isLoading = false,\n  disabled = false,\n  onClick,\n  children,\n  className = '',\n}) => {\n  // Component implementation\n};\n```",
-      "testStrategy": "Create a Storybook instance to document and test UI components in isolation. Write unit tests for each component using React Testing Library to verify proper rendering and behavior for different prop combinations.",
-      "priority": "high",
-      "dependencies": [
-        2
-      ],
+      "title": "Archive HDI Feature",
+      "description": "Move all HDI-related code to the archive directory while preserving its structure",
       "status": "pending",
+      "dependencies": [
+        1
+      ],
+      "priority": "high",
+      "details": "Identify and move all HDI (Human Digital Interface) experimental code to `/archived/hdi/`. Follow the same pattern as with Saigo: create subdirectories for app pages, API routes, components, and utility functions. Document any specialized functionality in the README.md. Update any imports in active code that might reference these files. Ensure database references are documented.",
+      "testStrategy": "Verify all HDI files are moved correctly. Check that no active code references the old file locations. Confirm the application builds without errors related to missing HDI files.",
       "subtasks": [
         {
           "id": 1,
-          "title": "Create Essential UI Base Components",
-          "description": "Implement the core UI components that will serve as the foundation for the application interface. This includes Button, Input, Card, and Modal components.",
+          "title": "Identify and map all HDI-related code",
+          "description": "Identify all HDI-related code files and create a detailed mapping of their current locations and future archived structure",
           "dependencies": [],
-          "details": "1. Create a UI directory structure with subdirectories for each component type\n2. Implement the Button component as shown in the example with proper TypeScript interfaces\n3. Create the Input component with variants for text, number, password, etc.\n4. Implement the Card component with options for headers, footers, and content areas\n5. Build the Modal component with customizable header, body, and footer sections\n6. Ensure all components use Tailwind CSS and DaisyUI for styling\n7. Add basic unit tests for each component using React Testing Library\n8. Test each component in isolation to verify proper rendering and behavior\n9. Add JSDoc comments to document component props and usage",
+          "details": "1. Search through the codebase for all HDI-related files and directories using grep/find commands or IDE search tools\n2. Create a comprehensive mapping document that lists:\n   - Current file path\n   - Destination path in the `/archived/hdi/` directory\n   - File type (component, page, API route, utility)\n   - Any database references contained in the file\n3. Organize the mapping to ensure the same structure is preserved in the archive\n4. Identify any active code files that import or reference HDI components\n5. Test the completeness of the mapping by verifying all HDI features are included\n6. Document any specialized or complex functionality for later documentation",
           "status": "pending",
           "parentTaskId": 3
         },
         {
           "id": 2,
-          "title": "Implement Advanced UI Components and Variants",
-          "description": "Extend the component library with more advanced UI elements and add variants to existing components to support different use cases.",
+          "title": "Create archive structure and move HDI code",
+          "description": "Create the archive directory structure and move all HDI code while updating imports in active code",
           "dependencies": [
             1
           ],
-          "details": "1. Build on the base components to create Dropdown, Tabs, Toggle, and Tooltip components\n2. Add additional variants to existing components (e.g., danger/success buttons, outlined cards)\n3. Implement loading states for interactive components\n4. Create compound components where needed (e.g., Form.Group, Form.Label, Form.Input)\n5. Ensure responsive behavior for all components using Tailwind's responsive classes\n6. Implement accessibility features (ARIA attributes, keyboard navigation)\n7. Add unit tests for all new components and variants\n8. Test component interactions and state changes\n9. Ensure TypeScript interfaces are comprehensive and allow for extension",
+          "details": "1. Create the base `/archived/hdi/` directory\n2. Create appropriate subdirectories for app pages, API routes, components, and utility functions based on the mapping\n3. Move each HDI file to its corresponding location in the archive structure\n4. Update any imports in active code that reference the moved files to either:\n   - Point to the new archived location if the functionality is still needed\n   - Remove the imports and related code if the functionality is no longer used\n5. Run linting and compilation checks to ensure no broken references remain\n6. Test the application to verify that non-HDI functionality continues to work properly\n7. Commit changes in logical groups to maintain clear version history",
           "status": "pending",
           "parentTaskId": 3
         },
         {
           "id": 3,
-          "title": "Create Component Documentation and Storybook Integration",
-          "description": "Document all components and integrate with Storybook to provide a comprehensive component library reference for developers.",
+          "title": "Document HDI functionality and verify archive integrity",
+          "description": "Create comprehensive documentation for the archived HDI code and verify the archive's integrity",
           "dependencies": [
             1,
             2
           ],
-          "details": "1. Install and configure Storybook in the project\n2. Create stories for each component showing different variants and states\n3. Write comprehensive usage documentation with code examples\n4. Document prop interfaces and default values in a standardized format\n5. Create a README.md file for each component with usage instructions\n6. Add controls to Storybook stories to allow interactive testing of props\n7. Include accessibility information and best practices in the documentation\n8. Create example compositions showing how components work together\n9. Add visual regression tests using Storybook's snapshot capability\n10. Ensure documentation includes edge cases and limitations of each component",
+          "details": "1. Create a detailed README.md file in the `/archived/hdi/` directory that includes:\n   - Overview of the HDI feature\n   - Directory structure explanation\n   - Key components and their functionality\n   - Database references and schemas used\n   - Any special configuration or environment variables\n   - Reason for archiving\n2. Document any database references in a separate DATABASE.md file if extensive\n3. Verify the archive integrity by:\n   - Checking that all files identified in subtask 1 are properly moved\n   - Ensuring the directory structure is preserved\n   - Confirming all imports in active code are updated\n   - Running tests to ensure the main application works without HDI components\n4. Clean up any temporary files or branches created during the archiving process\n5. Create a final pull request with a complete description of changes made",
           "status": "pending",
           "parentTaskId": 3
         }
@@ -137,41 +137,46 @@
     },
     {
       "id": 4,
-      "title": "Refactor Large Components",
-      "description": "Break down large components (LiveLeaderboard.tsx, Testimonials11.tsx, FeaturesListicle.tsx) into smaller, focused components.",
-      "details": "For each large component:\n1. Identify logical sections that can be extracted\n2. Create smaller components for each section\n3. Ensure proper prop passing between components\n4. Use composition to rebuild the original functionality\n\nFor LiveLeaderboard.tsx specifically:\n- Extract LeaderboardHeader, LeaderboardRow, LeaderboardPagination as separate components\n- Create a LeaderboardContext if state sharing is needed\n- Move data fetching logic to a custom hook (useFetchLeaderboardData)\n\nFollow similar patterns for Testimonials11.tsx and FeaturesListicle.tsx.",
-      "testStrategy": "Write unit tests for each extracted component. Create integration tests for the composed components to ensure they function the same as the original large components. Perform visual regression testing to confirm UI appearance hasn't changed.",
-      "priority": "high",
+      "title": "Consolidate Authentication Components",
+      "description": "Standardize on a single authentication flow and remove duplicated auth implementations",
+      "status": "pending",
       "dependencies": [
         2,
         3
       ],
-      "status": "pending",
+      "priority": "high",
+      "details": "Keep only `/app/signin/page.tsx` and related components. Remove or archive duplicate implementations from `/signin/page.tsx` and `/app/saigo/signin/page.tsx`. Refactor `ButtonSignin.tsx` and `ButtonAccount.tsx` into a single component with different modes. Consolidate auth API routes, keeping only the necessary implementation. Update all references to use the standardized auth components. Ensure the authentication flow works end-to-end with Supabase.",
+      "testStrategy": "Test the complete authentication flow (sign in, sign out, account management). Verify all pages that use auth components still function correctly. Test on multiple browsers and devices to ensure responsive design works.",
       "subtasks": [
         {
           "id": 1,
-          "title": "Refactor LiveLeaderboard.tsx",
-          "description": "Break down the LiveLeaderboard.tsx component into smaller, focused components and extract data fetching logic into a custom hook.",
+          "title": "Audit and Consolidate Authentication Pages",
+          "description": "Analyze existing authentication pages, keep only the primary implementation, and archive duplicate pages",
           "dependencies": [],
-          "details": "Implementation steps:\n1. Create a useFetchLeaderboardData.ts hook that handles API calls and data manipulation\n2. Extract LeaderboardHeader component with props for title, filters, and sorting options\n3. Create LeaderboardRow component to display individual entries with props for user data, rank, and metrics\n4. Build LeaderboardPagination component with pagination controls and state\n5. Implement LeaderboardContext if multiple components need shared state access\n6. Refactor the main LiveLeaderboard component to use these new components via composition\n7. Test each component in isolation using mock data\n8. Verify the refactored implementation matches the original functionality\n\nTesting approach:\n- Unit test each extracted component independently\n- Test the custom hook with mock API responses\n- Verify event handlers and state updates work correctly\n- Ensure the refactored component renders identical output to the original",
+          "details": "1. Compare the three authentication pages (/app/signin/page.tsx, /signin/page.tsx, and /app/saigo/signin/page.tsx) to identify the most complete implementation\n2. Ensure /app/signin/page.tsx has all necessary functionality from the other implementations\n3. Archive or remove the duplicate pages at /signin/page.tsx and /app/saigo/signin/page.tsx\n4. Update any imports or references to the removed pages to use /app/signin/page.tsx\n5. Test that navigation to any of the previous sign-in URLs properly redirects to the consolidated page\n6. Verify the consolidated sign-in page loads correctly and maintains all required functionality",
           "status": "pending",
           "parentTaskId": 4
         },
         {
           "id": 2,
-          "title": "Refactor Testimonials11.tsx",
-          "description": "Decompose the Testimonials11.tsx component into smaller, reusable components with clear responsibilities.",
-          "dependencies": [],
-          "details": "Implementation steps:\n1. Analyze the component structure to identify logical sections (e.g., TestimonialCard, TestimonialHeader, TestimonialCarousel)\n2. Extract TestimonialCard component with props for quote, author, image, and rating\n3. Create TestimonialHeader component for the section title and description\n4. Build TestimonialCarousel/Navigation component if testimonials are displayed in a slider\n5. Implement TestimonialContainer as the parent component that composes the smaller components\n6. Ensure proper prop drilling or context usage for shared state\n7. Maintain styling and responsive behavior across all components\n8. Verify animations and transitions work correctly after refactoring\n\nTesting approach:\n- Test each component with various prop combinations\n- Verify responsive layouts at different screen sizes\n- Test any carousel/slider functionality\n- Ensure accessibility attributes are preserved\n- Compare visual output with the original component",
+          "title": "Refactor Authentication Button Components",
+          "description": "Combine ButtonSignin.tsx and ButtonAccount.tsx into a single reusable component with different modes",
+          "dependencies": [
+            1
+          ],
+          "details": "1. Create a new component (e.g., AuthButton.tsx) that can function in both 'signin' and 'account' modes\n2. Implement a 'mode' prop that determines the button's appearance and behavior\n3. Consolidate styling, click handlers, and state management from both original components\n4. Add appropriate TypeScript types for the component props\n5. Replace all instances of ButtonSignin and ButtonAccount with the new AuthButton component\n6. Add unit tests for the component in both modes\n7. Verify the component works correctly in all places where the original components were used",
           "status": "pending",
           "parentTaskId": 4
         },
         {
           "id": 3,
-          "title": "Refactor FeaturesListicle.tsx",
-          "description": "Restructure the FeaturesListicle.tsx component into smaller, focused components that handle specific aspects of the feature display.",
-          "dependencies": [],
-          "details": "Implementation steps:\n1. Identify distinct sections within the component (e.g., FeatureHeader, FeatureItem, FeatureList, FeatureCallToAction)\n2. Extract FeatureHeader component for the section title and introductory content\n3. Create FeatureItem component to display individual features with icons, titles, and descriptions\n4. Build FeatureList component to manage the collection of FeatureItems\n5. Extract FeatureCallToAction component if there's a CTA section\n6. Refactor the main FeaturesListicle component to compose these smaller components\n7. Ensure consistent styling and responsive behavior\n8. Optimize for reusability across the application\n\nTesting approach:\n- Test each component with various content lengths and types\n- Verify components handle edge cases (missing data, long text)\n- Test responsive behavior at different breakpoints\n- Ensure proper rendering of icons and images\n- Compare the refactored component output with the original implementation",
+          "title": "Consolidate Authentication API Routes",
+          "description": "Identify and standardize authentication API routes, removing duplicates and ensuring end-to-end functionality",
+          "dependencies": [
+            1,
+            2
+          ],
+          "details": "1. Identify all authentication-related API routes in the codebase\n2. Determine which routes are necessary for the consolidated authentication flow\n3. Update the necessary routes to work with the standardized authentication components\n4. Remove or archive duplicate or unnecessary API routes\n5. Update any client-side code to use the consolidated API routes\n6. Test the complete authentication flow end-to-end with Supabase, including:\n   - Sign in\n   - Sign out\n   - Account management\n   - Session persistence\n7. Verify that authentication state is properly maintained throughout the application\n8. Document the consolidated authentication system for future reference",
           "status": "pending",
           "parentTaskId": 4
         }
@@ -179,41 +184,44 @@
     },
     {
       "id": 5,
-      "title": "Create Custom Hooks for Repeated Logic",
-      "description": "Extract repeated logic from components into custom hooks to improve code reusability and maintainability.",
-      "details": "Identify common patterns across components such as:\n1. Form handling logic\n2. Authentication state checks\n3. Data fetching patterns\n4. Animation controls\n\nCreate custom hooks for each pattern, for example:\n```tsx\n// Authentication hook\nexport function useAuth() {\n  const [user, setUser] = useState<User | null>(null);\n  const [isLoading, setIsLoading] = useState(true);\n  \n  useEffect(() => {\n    const { data: authListener } = supabase.auth.onAuthStateChange(\n      (event, session) => {\n        setUser(session?.user ?? null);\n        setIsLoading(false);\n      }\n    );\n    \n    return () => {\n      authListener?.subscription.unsubscribe();\n    };\n  }, []);\n  \n  return { user, isLoading };\n}\n```\n\nPlace hooks in a dedicated `hooks` directory and document their usage.",
-      "testStrategy": "Write unit tests for each custom hook using React Testing Library's renderHook utility. Test different scenarios including loading states, error states, and successful operations. Document usage examples for each hook.",
-      "priority": "medium",
-      "dependencies": [
-        1,
-        4
-      ],
+      "title": "Refactor Feature Display Components",
+      "description": "Consolidate duplicate feature display and testimonial components",
       "status": "pending",
+      "dependencies": [
+        2,
+        3
+      ],
+      "priority": "medium",
+      "details": "Consolidate `FeaturesGrid.tsx`, `FeaturesListicle.tsx`, and `FeaturesAccordion.tsx` into a single component with different layout options controlled by props. Refactor testimonial components into a unified system. Evaluate and potentially consolidate `KnowledgeGapSection.tsx` and `CompoundingHoursSection.tsx`. Create a generic section component pattern for consistency. Update all imports to reference the new consolidated components.",
+      "testStrategy": "Compare visual appearance before and after refactoring to ensure consistency. Test all layout options of the consolidated components. Verify responsive behavior on different screen sizes.",
       "subtasks": [
         {
           "id": 1,
-          "title": "Create Form Handling Custom Hook",
-          "description": "Extract form handling logic into a reusable custom hook to manage form state, validation, and submission across components.",
+          "title": "Create consolidated FeatureDisplay component with layout options",
+          "description": "Consolidate the three feature display components into a single unified component that supports different layout styles through props",
           "dependencies": [],
-          "details": "Implementation steps:\n1. Create a `hooks` directory in the project structure if it doesn't exist\n2. Create a file named `useForm.ts` in the hooks directory\n3. Implement the `useForm` hook with the following features:\n   - Form state management (inputs, errors, touched fields)\n   - Validation functionality\n   - Form submission handling\n   - Reset form capability\n4. Add JSDoc comments to document parameters, return values, and usage examples\n5. Create basic tests to verify the hook works correctly\n\nExample implementation:\n```tsx\nexport function useForm<T extends Record<string, any>>(\n  initialValues: T,\n  validate?: (values: T) => Partial<Record<keyof T, string>>,\n  onSubmit?: (values: T) => void | Promise<void>\n) {\n  const [values, setValues] = useState<T>(initialValues);\n  const [errors, setErrors] = useState<Partial<Record<keyof T, string>>>({});\n  const [touched, setTouched] = useState<Partial<Record<keyof T, boolean>>>({});\n  const [isSubmitting, setIsSubmitting] = useState(false);\n\n  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {\n    const { name, value } = e.target;\n    setValues({ ...values, [name]: value });\n  };\n\n  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {\n    const { name } = e.target;\n    setTouched({ ...touched, [name]: true });\n    if (validate) {\n      setErrors(validate(values));\n    }\n  };\n\n  const handleSubmit = async (e: React.FormEvent) => {\n    e.preventDefault();\n    setTouched(Object.keys(values).reduce((acc, key) => ({ ...acc, [key]: true }), {}));\n    \n    if (validate) {\n      const validationErrors = validate(values);\n      setErrors(validationErrors);\n      \n      if (Object.keys(validationErrors).length === 0 && onSubmit) {\n        setIsSubmitting(true);\n        try {\n          await onSubmit(values);\n        } finally {\n          setIsSubmitting(false);\n        }\n      }\n    } else if (onSubmit) {\n      setIsSubmitting(true);\n      try {\n        await onSubmit(values);\n      } finally {\n        setIsSubmitting(false);\n      }\n    }\n  };\n\n  const resetForm = () => {\n    setValues(initialValues);\n    setErrors({});\n    setTouched({});\n  };\n\n  return {\n    values,\n    errors,\n    touched,\n    isSubmitting,\n    handleChange,\n    handleBlur,\n    handleSubmit,\n    resetForm,\n    setValues\n  };\n}\n```\n\nTesting approach:\n- Write unit tests using Jest/React Testing Library\n- Test form initialization, input changes, validation, and submission\n- Verify error handling and form reset functionality works as expected",
+          "details": "1. Create a new component called `FeatureDisplay.tsx` in the appropriate directory\n2. Analyze the common elements across `FeaturesGrid.tsx`, `FeaturesListicle.tsx`, and `FeaturesAccordion.tsx`\n3. Define a TypeScript interface for the component props that includes a `layout` prop with values 'grid', 'listicle', or 'accordion'\n4. Implement the core feature display logic that is shared across all layouts\n5. Create separate rendering functions for each layout type\n6. Use conditional rendering based on the `layout` prop to determine which layout to display\n7. Ensure all existing props from the original components are supported\n8. Add appropriate TypeScript types for all props and internal functions\n9. Test the component with each layout type to ensure it matches the original components' functionality\n10. Document the component API with JSDoc comments",
           "status": "pending",
           "parentTaskId": 5
         },
         {
           "id": 2,
-          "title": "Implement Authentication and User State Custom Hook",
-          "description": "Create a custom hook that manages authentication state, user data, and related authentication operations across the application.",
+          "title": "Create unified testimonial component system",
+          "description": "Refactor all testimonial components into a cohesive system with shared styling and behavior",
           "dependencies": [],
-          "details": "Implementation steps:\n1. Create a file named `useAuth.ts` in the hooks directory\n2. Implement the authentication hook to handle:\n   - User authentication state\n   - Login/logout operations\n   - Session persistence\n   - Loading states during authentication processes\n3. Ensure the hook properly cleans up subscriptions when unmounted\n4. Add comprehensive documentation with JSDoc comments\n5. Create tests to verify authentication state management\n\nExample implementation:\n```tsx\nimport { useState, useEffect } from 'react';\nimport { supabase } from '../lib/supabaseClient'; // Adjust import path as needed\nimport type { User, Session } from '@supabase/supabase-js'; // Add appropriate types\n\nexport function useAuth() {\n  const [user, setUser] = useState<User | null>(null);\n  const [session, setSession] = useState<Session | null>(null);\n  const [isLoading, setIsLoading] = useState(true);\n\n  useEffect(() => {\n    // Get initial session\n    const getInitialSession = async () => {\n      const { data } = await supabase.auth.getSession();\n      setSession(data.session);\n      setUser(data.session?.user ?? null);\n      setIsLoading(false);\n    };\n    \n    getInitialSession();\n\n    // Set up auth listener\n    const { data: authListener } = supabase.auth.onAuthStateChange(\n      async (event, session) => {\n        setSession(session);\n        setUser(session?.user ?? null);\n        setIsLoading(false);\n      }\n    );\n    \n    // Cleanup subscription\n    return () => {\n      authListener?.subscription.unsubscribe();\n    };\n  }, []);\n\n  const login = async (email: string, password: string) => {\n    setIsLoading(true);\n    const { error } = await supabase.auth.signInWithPassword({ email, password });\n    setIsLoading(false);\n    return { error };\n  };\n\n  const signUp = async (email: string, password: string) => {\n    setIsLoading(true);\n    const { error } = await supabase.auth.signUp({ email, password });\n    setIsLoading(false);\n    return { error };\n  };\n\n  const logout = async () => {\n    setIsLoading(true);\n    const { error } = await supabase.auth.signOut();\n    setIsLoading(false);\n    return { error };\n  };\n\n  return {\n    user,\n    session,\n    isLoading,\n    login,\n    signUp,\n    logout,\n    isAuthenticated: !!user\n  };\n}\n```\n\nTesting approach:\n- Mock Supabase authentication service responses\n- Test initial loading state, successful authentication, and logout\n- Verify proper cleanup of listeners\n- Test error handling during authentication operations",
+          "details": "1. Identify all testimonial-related components in the codebase\n2. Analyze their common patterns, styles, and functionality\n3. Create a base `Testimonial.tsx` component that handles core testimonial display logic\n4. Create variations or layout options as needed (e.g., single testimonial, carousel, grid)\n5. Define a consistent props interface that works across all testimonial display types\n6. Extract shared styling into a common styles file or styled components\n7. Implement responsive behavior that works across all testimonial layouts\n8. Add appropriate animation or transition effects where needed\n9. Ensure accessibility features are implemented (proper ARIA attributes, keyboard navigation)\n10. Test all testimonial layouts on different screen sizes\n11. Document the component API with usage examples",
           "status": "pending",
           "parentTaskId": 5
         },
         {
           "id": 3,
-          "title": "Develop Data Fetching Custom Hook",
-          "description": "Create a reusable data fetching hook that handles loading states, error handling, and caching for API requests throughout the application.",
-          "dependencies": [],
-          "details": "Implementation steps:\n1. Create a file named `useFetch.ts` in the hooks directory\n2. Implement the data fetching hook with features for:\n   - Handling async data fetching with loading states\n   - Error handling and retry mechanisms\n   - Optional caching of responses\n   - Support for pagination where applicable\n3. Add comprehensive JSDoc documentation\n4. Create tests to verify all data fetching scenarios\n\nExample implementation:\n```tsx\nimport { useState, useEffect, useCallback } from 'react';\n\ntype FetchState<T> = {\n  data: T | null;\n  isLoading: boolean;\n  error: Error | null;\n};\n\ntype UseFetchOptions = {\n  immediate?: boolean;\n  cacheKey?: string;\n  cacheDuration?: number; // in milliseconds\n};\n\nexport function useFetch<T>(\n  url: string,\n  options: RequestInit = {},\n  fetchOptions: UseFetchOptions = { immediate: true }\n) {\n  const [state, setState] = useState<FetchState<T>>({\n    data: null,\n    isLoading: fetchOptions.immediate ?? true,\n    error: null,\n  });\n\n  const fetchData = useCallback(async () => {\n    // Check cache if cacheKey is provided\n    if (fetchOptions.cacheKey) {\n      const cached = localStorage.getItem(fetchOptions.cacheKey);\n      if (cached) {\n        const { data, timestamp } = JSON.parse(cached);\n        const isValid = fetchOptions.cacheDuration\n          ? Date.now() - timestamp < fetchOptions.cacheDuration\n          : true;\n          \n        if (isValid) {\n          setState({ data, isLoading: false, error: null });\n          return;\n        }\n      }\n    }\n\n    setState(prev => ({ ...prev, isLoading: true }));\n    \n    try {\n      const response = await fetch(url, options);\n      \n      if (!response.ok) {\n        throw new Error(`HTTP error! Status: ${response.status}`);\n      }\n      \n      const data = await response.json();\n      \n      // Cache the result if cacheKey is provided\n      if (fetchOptions.cacheKey) {\n        localStorage.setItem(\n          fetchOptions.cacheKey,\n          JSON.stringify({ data, timestamp: Date.now() })\n        );\n      }\n      \n      setState({ data, isLoading: false, error: null });\n    } catch (error) {\n      setState({ data: null, isLoading: false, error: error as Error });\n    }\n  }, [url, options, fetchOptions.cacheKey, fetchOptions.cacheDuration]);\n\n  useEffect(() => {\n    if (fetchOptions.immediate) {\n      fetchData();\n    }\n  }, [fetchData, fetchOptions.immediate]);\n\n  const refetch = useCallback(() => {\n    fetchData();\n  }, [fetchData]);\n\n  return { ...state, refetch };\n}\n```\n\nExtended functionality for pagination:\n```tsx\nexport function usePaginatedFetch<T>(\n  baseUrl: string,\n  options: RequestInit = {},\n  pageSize: number = 10\n) {\n  const [page, setPage] = useState(1);\n  const [hasMore, setHasMore] = useState(true);\n  const url = `${baseUrl}?page=${page}&limit=${pageSize}`;\n  \n  const { data, isLoading, error, refetch } = useFetch<T[]>(url, options);\n  \n  useEffect(() => {\n    if (data && data.length < pageSize) {\n      setHasMore(false);\n    } else {\n      setHasMore(true);\n    }\n  }, [data, pageSize]);\n  \n  const nextPage = () => {\n    if (hasMore && !isLoading) {\n      setPage(prev => prev + 1);\n    }\n  };\n  \n  const prevPage = () => {\n    if (page > 1 && !isLoading) {\n      setPage(prev => prev - 1);\n    }\n  };\n  \n  return { \n    data, \n    isLoading, \n    error, \n    refetch, \n    page, \n    hasMore, \n    nextPage, \n    prevPage,\n    resetPage: () => setPage(1)\n  };\n}\n```\n\nTesting approach:\n- Mock fetch API using Jest\n- Test successful data fetching, loading states, and error handling\n- Verify caching mechanism works correctly\n- Test pagination functionality where applicable\n- Ensure refetch functionality works as expected",
+          "title": "Create generic section component and update imports",
+          "description": "Develop a generic section component pattern, evaluate specialized sections for consolidation, and update all imports throughout the codebase",
+          "dependencies": [
+            1,
+            2
+          ],
+          "details": "1. Create a `GenericSection.tsx` component that can serve as a base for all section layouts\n2. Define props for common section elements (title, subtitle, background, padding, etc.)\n3. Analyze `KnowledgeGapSection.tsx` and `CompoundingHoursSection.tsx` to determine if they can be consolidated\n4. If possible, refactor these specialized sections to use the generic section component with specific props\n5. Create a migration plan for updating imports across the codebase\n6. Update all imports that referenced the original components to use the new consolidated components\n7. Create a mapping between old component props and new component props if needed\n8. Test all affected pages to ensure they render correctly with the new components\n9. Check for any regressions in responsive behavior or animations\n10. Document the migration process and new component structure for other developers\n11. Create examples of how to use the new generic section pattern for future development",
           "status": "pending",
           "parentTaskId": 5
         }
@@ -221,238 +229,235 @@
     },
     {
       "id": 6,
-      "title": "Standardize API Response Structure",
-      "description": "Implement a consistent response structure for all API endpoints to ensure predictable data handling throughout the application.",
-      "details": "Create a standard API response wrapper:\n\n```typescript\n// types/api.ts\nexport interface ApiResponse<T> {\n  data: T | null;\n  error: {\n    code: string;\n    message: string;\n    details?: unknown;\n  } | null;\n  status: number;\n}\n\n// utils/api.ts\nexport function createApiResponse<T>(\n  data: T | null = null,\n  error: ApiResponse<T>['error'] = null,\n  status: number = 200\n): ApiResponse<T> {\n  return { data, error, status };\n}\n```\n\nRefactor all API routes to use this structure. Example implementation:\n\n```typescript\n// app/api/users/route.ts\nimport { createApiResponse } from '@/utils/api';\n\nexport async function GET() {\n  try {\n    const users = await fetchUsers();\n    return Response.json(createApiResponse(users));\n  } catch (error) {\n    return Response.json(\n      createApiResponse(null, {\n        code: 'FETCH_USERS_ERROR',\n        message: 'Failed to fetch users',\n        details: error\n      }, 500)\n    );\n  }\n}\n```",
-      "testStrategy": "Create unit tests for the API response utility functions. Write integration tests for each API route to verify they return the correct response structure in success and error scenarios. Document the standard response structure for frontend developers.",
-      "priority": "high",
-      "dependencies": [
-        1
-      ],
-      "status": "pending",
-      "subtasks": []
-    },
-    {
-      "id": 7,
-      "title": "Implement API Error Handling",
-      "description": "Standardize error handling and HTTP status code usage across all API routes.",
-      "details": "Create a centralized error handling system:\n\n1. Define error types and codes:\n```typescript\n// types/errors.ts\nexport enum ErrorCode {\n  UNAUTHORIZED = 'UNAUTHORIZED',\n  NOT_FOUND = 'NOT_FOUND',\n  VALIDATION_ERROR = 'VALIDATION_ERROR',\n  SERVER_ERROR = 'SERVER_ERROR',\n  // Add more specific error codes\n}\n\nexport interface AppError {\n  code: ErrorCode;\n  message: string;\n  details?: unknown;\n  statusCode: number;\n}\n```\n\n2. Create error handling utilities:\n```typescript\n// utils/errors.ts\nimport { ErrorCode, AppError } from '@/types/errors';\n\nexport function createError(\n  code: ErrorCode,\n  message: string,\n  details?: unknown,\n  statusCode?: number\n): AppError {\n  return {\n    code,\n    message,\n    details,\n    statusCode: statusCode || getDefaultStatusCode(code),\n  };\n}\n\nfunction getDefaultStatusCode(code: ErrorCode): number {\n  switch (code) {\n    case ErrorCode.UNAUTHORIZED: return 401;\n    case ErrorCode.NOT_FOUND: return 404;\n    case ErrorCode.VALIDATION_ERROR: return 400;\n    case ErrorCode.SERVER_ERROR: return 500;\n    default: return 500;\n  }\n}\n```\n\n3. Implement in API routes:\n```typescript\nimport { createError, ErrorCode } from '@/utils/errors';\nimport { createApiResponse } from '@/utils/api';\n\nexport async function GET(req: Request) {\n  try {\n    // Implementation\n  } catch (error) {\n    const appError = createError(\n      ErrorCode.SERVER_ERROR,\n      'Failed to process request',\n      error\n    );\n    return Response.json(createApiResponse(null, appError, appError.statusCode));\n  }\n}\n```",
-      "testStrategy": "Create unit tests for error handling utilities. Write integration tests for API routes to verify they handle different error scenarios correctly. Test that client-side code properly interprets and displays error messages from the API.",
-      "priority": "high",
-      "dependencies": [
-        6
-      ],
-      "status": "pending",
-      "subtasks": []
-    },
-    {
-      "id": 8,
-      "title": "Add Authentication Middleware for API Routes",
-      "description": "Ensure all API routes have proper authentication checks using middleware.",
-      "details": "Create a middleware function to handle authentication for API routes:\n\n```typescript\n// middleware/auth.ts\nimport { NextRequest, NextResponse } from 'next/server';\nimport { createApiResponse } from '@/utils/api';\nimport { createError, ErrorCode } from '@/utils/errors';\nimport { createClient } from '@/utils/supabase/server';\n\nexport async function withAuth(\n  req: NextRequest,\n  handler: (req: NextRequest, user: any) => Promise<Response>\n) {\n  const supabase = createClient();\n  const { data: { session } } = await supabase.auth.getSession();\n  \n  if (!session) {\n    const error = createError(\n      ErrorCode.UNAUTHORIZED,\n      'Authentication required',\n      null,\n      401\n    );\n    return NextResponse.json(\n      createApiResponse(null, error, error.statusCode),\n      { status: error.statusCode }\n    );\n  }\n  \n  return handler(req, session.user);\n}\n```\n\nImplement in API routes:\n\n```typescript\n// app/api/protected-route/route.ts\nimport { withAuth } from '@/middleware/auth';\n\nexport async function GET(req: NextRequest) {\n  return withAuth(req, async (req, user) => {\n    // Implementation with authenticated user\n    return NextResponse.json({ data: 'Protected data' });\n  });\n}\n```",
-      "testStrategy": "Write unit tests for the authentication middleware. Create integration tests that verify protected routes reject unauthenticated requests and allow authenticated requests. Test with various authentication scenarios including expired tokens and invalid credentials.",
-      "priority": "high",
-      "dependencies": [
-        6,
-        7
-      ],
-      "status": "pending",
-      "subtasks": []
-    },
-    {
-      "id": 9,
-      "title": "Optimize Database Queries and Implement Caching",
-      "description": "Improve API performance by optimizing database queries for better efficiency.",
+      "title": "Clean Up Directory Structure",
+      "description": "Remove duplicated root-level files and standardize on App Router pattern",
       "status": "pending",
       "dependencies": [
-        6,
-        7,
-        8
+        4,
+        5
       ],
       "priority": "medium",
-      "details": "Focus on optimizing Supabase queries to improve performance:\n\n1. Select only needed fields instead of using '*':\n```typescript\n// Before\nconst { data } = await supabase\n  .from('users')\n  .select('*')\n\n// After - select only needed fields\nconst { data } = await supabase\n  .from('users')\n  .select('id, name, email, created_at')\n```\n\n2. Use appropriate filters to reduce data transfer:\n```typescript\n// Before\nconst { data } = await supabase\n  .from('posts')\n  .select('*')\n\n// After - add filters\nconst { data } = await supabase\n  .from('posts')\n  .select('id, title, content, created_at')\n  .eq('status', 'published')\n  .order('created_at', { ascending: false })\n  .limit(10)\n```\n\n3. Implement pagination for large datasets:\n```typescript\nconst { data, count } = await supabase\n  .from('items')\n  .select('id, name, description', { count: 'exact' })\n  .range(0, 9) // First 10 items (0-9)\n```\n\n4. Use appropriate indexes on frequently queried columns to improve performance.",
-      "testStrategy": "Benchmark API response times before and after optimization. Create load tests to ensure optimized endpoints can handle increased traffic. Monitor database query performance in development and production environments. Verify that query results remain accurate after optimization.",
-      "subtasks": []
-    },
-    {
-      "id": 10,
-      "title": "Implement Input Validation for API Routes",
-      "description": "Enhance security by adding input validation to all API routes that accept user input.",
-      "details": "Use Zod for input validation:\n\n1. Install Zod:\n```bash\nnpm install zod\n```\n\n2. Create validation schemas:\n```typescript\n// schemas/user.ts\nimport { z } from 'zod';\n\nexport const createUserSchema = z.object({\n  name: z.string().min(2).max(100),\n  email: z.string().email(),\n  password: z.string().min(8),\n});\n\nexport type CreateUserInput = z.infer<typeof createUserSchema>;\n```\n\n3. Implement in API routes:\n```typescript\n// app/api/users/route.ts\nimport { NextRequest, NextResponse } from 'next/server';\nimport { createUserSchema } from '@/schemas/user';\nimport { createApiResponse } from '@/utils/api';\nimport { createError, ErrorCode } from '@/utils/errors';\n\nexport async function POST(req: NextRequest) {\n  try {\n    const body = await req.json();\n    \n    // Validate input\n    const result = createUserSchema.safeParse(body);\n    if (!result.success) {\n      const error = createError(\n        ErrorCode.VALIDATION_ERROR,\n        'Invalid input',\n        result.error.format(),\n        400\n      );\n      return NextResponse.json(\n        createApiResponse(null, error, error.statusCode),\n        { status: error.statusCode }\n      );\n    }\n    \n    // Proceed with validated data\n    const validatedData = result.data;\n    // Implementation\n    \n  } catch (error) {\n    // Error handling\n  }\n}\n```",
-      "testStrategy": "Write unit tests for validation schemas to verify they correctly validate various input scenarios. Create integration tests for API routes that test both valid and invalid inputs. Test edge cases such as empty strings, extremely long inputs, and special characters.",
-      "priority": "high",
-      "dependencies": [
-        6,
-        7
-      ],
-      "status": "pending",
-      "subtasks": []
-    },
-    {
-      "id": 13,
-      "title": "Optimize Server vs Client Component Boundaries",
-      "description": "Review and optimize the use of Server Components and Client Components in the Next.js 14 application.",
-      "details": "1. Identify components that should be Server Components:\n- Components that don't need interactivity\n- Components that primarily fetch and display data\n- Components that don't use browser-only APIs\n\n2. Identify components that must be Client Components:\n- Components with event listeners\n- Components using hooks\n- Components using browser-only APIs\n\n3. Create a naming convention for client components:\n```typescript\n// ClientComponent.tsx\n'use client';\n\nexport function ClientComponent() {\n  // Implementation\n}\n```\n\n4. Optimize data fetching in Server Components:\n```typescript\n// ServerComponent.tsx\nimport { getServerData } from '@/lib/data';\n\nexport async function ServerComponent() {\n  const data = await getServerData();\n  \n  return <div>{/* Render data */}</div>;\n}\n```\n\n5. Create boundary patterns for mixing Server and Client Components:\n```typescript\n// page.tsx (Server Component)\nimport { ClientInteractiveSection } from './ClientInteractiveSection';\n\nexport default async function Page() {\n  const data = await fetchData();\n  \n  return (\n    <div>\n      <ServerRenderedSection data={data} />\n      <ClientInteractiveSection initialData={data} />\n    </div>\n  );\n}\n```",
-      "testStrategy": "Create a checklist for reviewing components to ensure they're correctly implemented as Server or Client Components. Write tests that verify Server Components render correctly with server-fetched data. Test Client Components for proper interactivity and state management.",
-      "priority": "medium",
-      "dependencies": [
-        1,
-        4
-      ],
-      "status": "pending",
-      "subtasks": []
-    },
-    {
-      "id": 15,
-      "title": "Create Type Definitions for APIs and Data Models",
-      "description": "Develop comprehensive type definitions for all APIs and data models used in the application.",
-      "details": "1. Create a types directory structure:\n```\ntypes/\n  api/        # API request/response types\n  models/     # Data model types\n  supabase/   # Supabase-specific types\n  ui/         # UI component types\n```\n\n2. Define API types:\n```typescript\n// types/api/user.ts\nexport interface GetUserRequest {\n  id: string;\n}\n\nexport interface GetUserResponse {\n  id: string;\n  name: string;\n  email: string;\n  createdAt: string;\n  // Other user properties\n}\n\n// types/api/index.ts\nexport * from './user';\n// Export other API types\n```\n\n3. Define data model types:\n```typescript\n// types/models/user.ts\nexport interface User {\n  id: string;\n  name: string;\n  email: string;\n  createdAt: Date;\n  // Other user properties\n}\n\n// types/models/index.ts\nexport * from './user';\n// Export other model types\n```\n\n4. Use these types consistently throughout the application:\n```typescript\nimport { User } from '@/types/models';\nimport { GetUserResponse } from '@/types/api';\n\nfunction transformApiUser(apiUser: GetUserResponse): User {\n  return {\n    ...apiUser,\n    createdAt: new Date(apiUser.createdAt),\n  };\n}\n```",
-      "testStrategy": "Create TypeScript test files that verify type compatibility between related types. Use type assertions in tests to ensure types are correctly defined. Document the type system for developers to reference when working with the codebase.",
-      "priority": "high",
-      "dependencies": [
-        6
-      ],
-      "status": "pending",
-      "subtasks": []
-    },
-    {
-      "id": 16,
-      "title": "Generate and Use Supabase Types",
-      "description": "Generate TypeScript types from the Supabase database schema and use them for database operations.",
-      "details": "1. Install the Supabase CLI:\n```bash\nnpm install -g supabase\n```\n\n2. Generate types from the database schema:\n```bash\nsupabase gen types typescript --project-id your-project-id --schema public > types/supabase/database.types.ts\n```\n\n3. Create a typed Supabase client:\n```typescript\n// utils/supabase/client.ts\nimport { createClient } from '@supabase/supabase-js';\nimport { Database } from '@/types/supabase/database.types';\n\nexport const supabase = createClient<Database>(\n  process.env.NEXT_PUBLIC_SUPABASE_URL!,\n  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!\n);\n```\n\n4. Use the typed client for database operations:\n```typescript\n// Before\nconst { data: users } = await supabase\n  .from('users')\n  .select('*');\n\n// After (with proper typing)\nconst { data: users } = await supabase\n  .from('users')\n  .select('id, name, email, created_at');\n// users will be properly typed based on the database schema\n```\n\n5. Set up a GitHub Action to regenerate types when the database schema changes.",
-      "testStrategy": "Verify that the generated types match the actual database schema. Write tests that use the typed Supabase client to ensure type safety. Create a process for updating types when the database schema changes.",
-      "priority": "medium",
-      "dependencies": [
-        15
-      ],
-      "status": "pending",
-      "subtasks": []
-    },
-    {
-      "id": 17,
-      "title": "Remove Dead and Unused Code",
-      "description": "Identify and remove dead code, unused imports, and unnecessary dependencies from the codebase.",
-      "details": "1. Use ESLint to identify unused imports and variables:\n```bash\nnpx eslint --fix \"**/*.{ts,tsx}\"\n```\n\n2. Configure ESLint rules for unused code:\n```json\n// .eslintrc.json\n{\n  \"rules\": {\n    \"no-unused-vars\": \"error\",\n    \"no-unused-expressions\": \"error\",\n    \"import/no-unused-modules\": \"error\"\n  }\n}\n```\n\n3. Use tools to find unused files:\n```bash\nnpx depcheck\n```\n\n4. Analyze bundle size to identify unnecessary dependencies:\n```bash\nnpx next build\nnpx next analyze\n```\n\n5. Remove identified dead code and unused dependencies:\n- Delete unused files\n- Remove unused imports\n- Uninstall unnecessary dependencies\n- Remove unused functions and components",
-      "testStrategy": "Run the application thoroughly after removing code to ensure no functionality is broken. Use code coverage tools to identify untested code that might be candidates for removal. Monitor bundle size before and after cleanup to measure improvement.",
-      "priority": "low",
-      "dependencies": [
-        1
-      ],
-      "status": "pending",
+      "details": "Archive or remove duplicated root-level files that duplicate App Router functionality: `/page.tsx`, `/globals.css`, `/error.tsx`, and `/not-found.tsx`. Clean up development tool files like `/aider.session`, `/session.aider`, and `/bak.aider.model.settings.yml`. Ensure all active code follows the App Router pattern with proper directory structure. Move any remaining components from legacy locations to their appropriate directories.",
+      "testStrategy": "Verify the application builds without errors. Check that all pages still render correctly. Confirm that routes work as expected after removing duplicated files.",
       "subtasks": [
         {
           "id": 1,
-          "title": "Analyze and list unused dependencies",
-          "description": "Run dependency checking tools to identify unused packages in the project",
+          "title": "Identify and Archive Duplicate Root-Level Files",
+          "description": "Identify, document, and archive duplicate root-level files that overlap with App Router functionality",
           "dependencies": [],
-          "details": "1. Run `npx depcheck` to scan the project\n2. Capture the raw output in a markdown file\n3. Create a table listing each unused dependency, its version, and potential impact of removal\n4. Check package.json for dev dependencies that might be consolidated or removed\n5. Document any dependencies that appear unused but might have side effects if removed",
-          "status": "in-progress",
-          "testStrategy": "Verify findings by temporarily removing one non-critical dependency and ensuring the application still builds and functions correctly"
+          "details": "1. Create a backup directory named 'archived_files' at the project root\n2. Identify the root-level files that duplicate App Router functionality: '/page.tsx', '/globals.css', '/error.tsx', and '/not-found.tsx'\n3. For each file, verify if equivalent functionality exists in the App Router structure (e.g., 'app/page.tsx')\n4. Document each file's purpose and its App Router replacement in a markdown file 'archived_files/MIGRATION_NOTES.md'\n5. Move the duplicate files to the 'archived_files' directory\n6. Test the application to ensure no functionality is broken after removing these files\n7. Update any imports that might be referencing these files to their new App Router equivalents",
+          "status": "pending",
+          "parentTaskId": 6
         },
         {
           "id": 2,
-          "title": "Configure and run ESLint for unused code detection",
-          "description": "Set up and execute ESLint with specific rules to detect unused variables, imports, and expressions throughout the codebase",
+          "title": "Clean Up Development Tool Files",
+          "description": "Remove or organize development tool files that are cluttering the root directory",
           "dependencies": [],
-          "details": "1. Update .eslintrc.json with the rules specified in the task description\n2. Add additional rules for detecting dead code patterns:\n   - `no-unreachable`: to detect unreachable code\n   - `import/no-unused-modules`: to detect unused exports\n3. Run ESLint across the entire codebase: `npx eslint --fix \"**/*.{ts,tsx}\" > unused-code-report.txt`\n4. Parse the output to create a structured list of files with unused code elements\n5. Categorize findings by type (unused imports, variables, expressions)\n<info added on 2025-05-06T13:12:41.437Z>\n1. Update .eslintrc.json with the rules specified in the task description\\n2. Add additional rules for detecting dead code patterns:\\n   - `no-unreachable`: to detect unreachable code\\n   - `import/no-unused-modules`: to detect unused exports\\n3. Run ESLint across the entire codebase: `npx eslint --fix \\\"**/*.{ts,tsx}\\\" > unused-code-report.txt`\\n4. Parse the output to create a structured list of files with unused code elements\\n5. Categorize findings by type (unused imports, variables, expressions)\\n\\nUpdate: The project is using ESLint v9+, which requires a flat config format with `eslint.config.js` instead of the legacy `.eslintrc.json`. To proceed:\\n\\n1. Create a new `eslint.config.js` file in the project root with the following structure:\\n```javascript\\nimport js from '@eslint/js';\\nimport tseslint from 'typescript-eslint';\\n\\nexport default [\\n  js.configs.recommended,\\n  ...tseslint.configs.recommended,\\n  {\\n    rules: {\\n      'no-unused-vars': 'error',\\n      'no-unreachable': 'error',\\n    },\\n    linterOptions: {\\n      reportUnusedDisableDirectives: true,\\n    },\\n  },\\n];\\n```\\n\\n2. Install any missing dependencies:\\n```bash\\nnpm install -D @eslint/js typescript-eslint\\n```\\n\\n3. If needed, use the official ESLint migration tool to help with the transition:\\n```bash\\nnpx eslint-migrate-config .eslintrc.json\\n```\\n\\n4. After migration, add the specific rules for dead code detection to the config\\n\\n5. Run ESLint with the new configuration:\\n```bash\\nnpx eslint --fix \\\"**/*.{ts,tsx}\\\" > unused-code-report.txt\\n```\\n\\n6. Continue with the original plan to parse and categorize the findings\n</info added on 2025-05-06T13:12:41.437Z>",
-          "status": "in-progress",
-          "testStrategy": "Run a sample fix on a non-critical file and verify the application still functions correctly"
+          "details": "1. Identify development tool files in the root directory: '/aider.session', '/session.aider', '/bak.aider.model.settings.yml', and any similar files\n2. Determine which files are safe to delete and which need to be preserved\n3. For files that need to be preserved, create a '.devtools' directory at the project root\n4. Move necessary development tool files to the '.devtools' directory\n5. Delete unnecessary development tool files\n6. Update any tool configurations or scripts that might reference these files in their original locations\n7. Document the new organization structure in the project README or a dedicated development documentation file\n8. Add appropriate entries to .gitignore for development tool files that shouldn't be tracked",
+          "status": "pending",
+          "parentTaskId": 6
         },
         {
           "id": 3,
-          "title": "Analyze bundle for unused code and large modules",
-          "description": "Use Next.js build tools to analyze the application bundle and identify potentially unused or oversized modules",
-          "dependencies": [],
-          "details": "1. Run `npx next build` to generate production build\n2. Execute `npx next analyze` to generate bundle analysis\n3. Examine the bundle visualization to identify:\n   - Unusually large modules that could be optimized\n   - Modules that appear in the bundle but shouldn't be needed\n   - Duplicate dependencies\n4. Document findings with screenshots of the bundle analysis\n5. Create a list of specific modules to investigate further",
-          "status": "in-progress",
-          "testStrategy": "Compare bundle size before and after removing identified unused code to measure impact"
-        },
-        {
-          "id": 4,
-          "title": "Perform heuristic search for unreferenced code",
-          "description": "Use code search tools to identify potentially unused files, components, and functions that might not be detected by static analysis",
-          "dependencies": [],
-          "details": "1. Use grep or similar tools to find files that aren't imported anywhere:\n   `find src -type f -name \"*.tsx\" | xargs -I{} sh -c 'grep -l \"import.*from.*$(basename {} .tsx)\" src --include=\"*.{ts,tsx}\" || echo {}'`\n2. Search for exported functions/components with low usage counts\n3. Identify utility functions that might be duplicated or obsolete\n4. Look for commented-out code blocks that should be removed\n5. Document all findings in a structured format with file paths and line numbers",
-          "status": "pending",
-          "testStrategy": "For each potentially unused file, temporarily rename it and run the application to verify it's truly unused"
-        },
-        {
-          "id": 5,
-          "title": "Compile consolidated zombie code report",
-          "description": "Gather and organize all findings from previous subtasks into a comprehensive report of potential dead code for review",
+          "title": "Migrate Legacy Components to App Router Structure",
+          "description": "Identify and move components from legacy locations to their appropriate directories in the App Router pattern",
           "dependencies": [
-            1,
-            2,
-            3,
-            4
+            1
           ],
-          "details": "1. Create a single markdown document with sections for each type of unused code:\n   - Unused npm dependencies\n   - Unused imports and variables\n   - Unreferenced files and components\n   - Large/inefficient bundle modules\n   - Commented-out code blocks\n2. For each item, include:\n   - Location (file path, line numbers)\n   - Type of issue\n   - Confidence level (high/medium/low)\n   - Potential impact of removal\n3. Add summary statistics at the top of the report\n4. Include recommendations for prioritization",
+          "details": "1. Scan the codebase for components not following the App Router pattern\n2. Create a migration plan that maps each component to its appropriate destination in the App Router structure\n3. For UI components, move them to appropriate directories under 'app/components' or 'components'\n4. For page-specific components, move them to their corresponding page directories\n5. For layout components, move them to appropriate layout files\n6. Update all import statements throughout the codebase to reference the new component locations\n7. Ensure component props and interfaces remain consistent during migration\n8. Test each migrated component to verify it functions correctly in its new location\n9. Run the full application test suite to ensure no regressions\n10. Document the new component organization in a project architecture document",
           "status": "pending",
-          "testStrategy": "Have another team member review the report to validate findings before proceeding with removal"
-        },
-        {
-          "id": 6,
-          "title": "Remove confirmed dead code",
-          "description": "Systematically remove the dead code identified and confirmed in the previous steps",
-          "dependencies": [
-            5
-          ],
-          "details": "1. Create a new git branch for the cleanup\n2. Implement removals in the following order:\n   - Unused imports and variables (can often be auto-fixed with ESLint)\n   - Unreferenced functions and components\n   - Entire unused files\n   - Unnecessary npm dependencies (update package.json and lock files)\n3. After each significant removal, run the test suite and verify the application still works\n4. Update any documentation that referenced removed code\n5. Create a PR with before/after bundle size comparisons",
-          "status": "pending",
-          "testStrategy": "1. Run the full test suite after each significant removal\n2. Perform manual testing of features that might be affected\n3. Compare bundle size metrics before and after changes"
+          "parentTaskId": 6
         }
       ]
     },
     {
-      "id": 18,
-      "title": "Update Outdated Dependencies",
-      "description": "Identify and update outdated dependencies to their latest compatible versions.",
-      "details": "1. Check for outdated dependencies:\n```bash\nnpm outdated\n```\n\n2. Update dependencies one at a time, testing after each update:\n```bash\nnpm update dependency-name\n```\n\n3. For major version updates, check migration guides and make necessary code changes.\n\n4. Update Next.js and React carefully, following their migration guides:\n- [Next.js Upgrade Guide](https://nextjs.org/docs/upgrading)\n- [React Upgrade Guide](https://react.dev/blog/2023/03/16/introducing-react-dev)\n\n5. Update TypeScript and adjust code for any breaking changes:\n```bash\nnpm install typescript@latest\n```\n\n6. Create a dependency update strategy for the future:\n- Regular scheduled updates\n- Automated dependency updates with tools like Dependabot\n- Security vulnerability monitoring",
-      "testStrategy": "Run the full test suite after each significant dependency update. Perform manual testing of key features after updates. Monitor for any performance regressions or visual changes. Create a rollback plan in case updates cause unexpected issues.",
-      "priority": "medium",
-      "dependencies": [
-        17
-      ],
+      "id": 7,
+      "title": "Enhance Core Pages",
+      "description": "Update and optimize the landing page, about page, privacy policy, and terms of service pages",
       "status": "pending",
-      "subtasks": []
-    },
-    {
-      "id": 19,
-      "title": "Implement Consistent Code Formatting and Linting",
-      "description": "Set up and enforce consistent code formatting and linting rules across the codebase.",
-      "details": "1. Configure Prettier for code formatting:\n```json\n// .prettierrc\n{\n  \"semi\": true,\n  \"singleQuote\": true,\n  \"tabWidth\": 2,\n  \"trailingComma\": \"es5\",\n  \"printWidth\": 80\n}\n```\n\n2. Configure ESLint for code linting:\n```json\n// .eslintrc.json\n{\n  \"extends\": [\n    \"next/core-web-vitals\",\n    \"eslint:recommended\",\n    \"plugin:@typescript-eslint/recommended\",\n    \"prettier\"\n  ],\n  \"plugins\": [\"@typescript-eslint\"],\n  \"rules\": {\n    // Custom rules\n  }\n}\n```\n\n3. Set up pre-commit hooks with Husky and lint-staged:\n```bash\nnpm install --save-dev husky lint-staged\nnpx husky install\nnpx husky add .husky/pre-commit \"npx lint-staged\"\n```\n\n```json\n// package.json\n{\n  \"lint-staged\": {\n    \"*.{ts,tsx}\": [\"eslint --fix\", \"prettier --write\"],\n    \"*.{css,scss}\": [\"prettier --write\"]\n  }\n}\n```\n\n4. Add npm scripts for linting and formatting:\n```json\n// package.json\n{\n  \"scripts\": {\n    \"lint\": \"next lint\",\n    \"format\": \"prettier --write .\"\n  }\n}\n```\n\n5. Configure VS Code settings for the project:\n```json\n// .vscode/settings.json\n{\n  \"editor.formatOnSave\": true,\n  \"editor.defaultFormatter\": \"esbenp.prettier-vscode\",\n  \"editor.codeActionsOnSave\": {\n    \"source.fixAll.eslint\": true\n  }\n}\n```",
-      "testStrategy": "Run linting and formatting checks in CI to ensure all code meets the standards. Create a process for team members to propose changes to linting rules. Document the code style guidelines for the team.",
-      "priority": "medium",
-      "dependencies": [],
-      "status": "pending",
-      "subtasks": []
-    },
-    {
-      "id": 20,
-      "title": "Improve Documentation and Comments",
-      "description": "Enhance code documentation, add JSDoc comments, and create developer guides for the refactored codebase.",
-      "details": "1. Add JSDoc comments to functions and components:\n```typescript\n/**\n * Fetches user data from the API\n * @param userId - The ID of the user to fetch\n * @returns A promise that resolves to the user data\n * @throws Will throw an error if the user is not found\n */\nasync function fetchUser(userId: string): Promise<User> {\n  // Implementation\n}\n```\n\n2. Create README files for major directories:\n```\ncomponents/README.md\nlib/README.md\nhooks/README.md\n```\n\n3. Create a developer guide in the project root:\n```\nDEVELOPER.md\n```\n\n4. Document architectural decisions:\n```\ndocs/architecture/\n  component-structure.md\n  state-management.md\n  api-patterns.md\n```\n\n5. Create onboarding documentation for new developers:\n```\ndocs/onboarding.md\n```\n\n6. Add inline comments for complex logic:\n```typescript\n// This algorithm uses a modified version of binary search\n// to efficiently find the closest match in the sorted array\nfunction findClosestMatch(array, target) {\n  // Implementation with comments explaining each step\n}\n```",
-      "testStrategy": "Review documentation for completeness and accuracy. Create a checklist for documentation standards. Have team members review documentation for clarity and usefulness. Set up a process for keeping documentation updated as the codebase evolves.",
-      "priority": "medium",
       "dependencies": [
-        2,
-        3,
-        4,
         5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        13,
-        15,
-        16,
-        17,
-        18,
-        19
+        6
       ],
+      "priority": "high",
+      "details": "Update the landing page to reflect new branding using the consolidated components. Optimize the about page with latest content. Ensure privacy policy and terms pages are consistent, up-to-date, and use the same component structure. Implement a consistent header and footer across all pages. Remove any duplicate implementations of these pages (like those in both root and `/app` directories). Focus on performance and visual consistency.",
+      "testStrategy": "Verify all core pages render correctly. Check for visual consistency across pages. Test page load performance using Lighthouse. Ensure responsive design works on various screen sizes.",
+      "subtasks": [
+        {
+          "id": 1,
+          "title": "Implement Consistent Header and Footer Components",
+          "description": "Create reusable header and footer components that will be shared across all core pages to ensure visual consistency.",
+          "dependencies": [],
+          "details": "1. Review existing header and footer implementations across the site.\n2. Design and implement a consolidated Header component that:\n   - Incorporates the new branding elements\n   - Includes navigation links to all core pages\n   - Is responsive across all device sizes\n   - Uses design system components\n3. Design and implement a consolidated Footer component that:\n   - Contains links to Privacy Policy and Terms of Service\n   - Includes copyright information and other standard footer elements\n   - Matches the new branding guidelines\n4. Remove any duplicate header/footer implementations\n5. Test the components across different screen sizes and browsers\n6. Verify that navigation links work correctly\n7. Test for accessibility compliance (keyboard navigation, screen reader compatibility)",
+          "status": "pending",
+          "parentTaskId": 7
+        },
+        {
+          "id": 2,
+          "title": "Update Landing and About Pages with New Branding",
+          "description": "Redesign and optimize the landing page and about page using the new branding guidelines and consolidated components.",
+          "dependencies": [
+            1
+          ],
+          "details": "1. Update the landing page:\n   - Implement the new header and footer components from subtask 1\n   - Update hero section with new branding elements and messaging\n   - Optimize images for performance (use responsive images, proper formats)\n   - Ensure all CTAs follow the new design system\n   - Remove any duplicate implementations (e.g., in both root and /app directories)\n2. Optimize the about page:\n   - Implement the new header and footer components\n   - Update content with latest company information\n   - Ensure consistent styling with the landing page\n   - Optimize any media elements for performance\n3. Test both pages for:\n   - Performance using Lighthouse or similar tools\n   - Responsive behavior across device sizes\n   - Accessibility compliance\n   - SEO best practices\n4. Implement analytics tracking on key page elements",
+          "status": "pending",
+          "parentTaskId": 7
+        },
+        {
+          "id": 3,
+          "title": "Standardize Privacy Policy and Terms of Service Pages",
+          "description": "Update the privacy policy and terms of service pages to ensure consistency, compliance, and optimal user experience.",
+          "dependencies": [
+            1
+          ],
+          "details": "1. Review current privacy policy and terms of service content for accuracy and compliance\n2. Create standardized page templates for legal content that:\n   - Use the header and footer components from subtask 1\n   - Have consistent typography and spacing\n   - Include proper section navigation for long documents\n   - Implement print-friendly styling\n3. Update the privacy policy page:\n   - Implement using the new standardized template\n   - Ensure content is up-to-date with current practices and regulations\n   - Add last-updated timestamp\n4. Update the terms of service page:\n   - Implement using the new standardized template\n   - Ensure content is up-to-date\n   - Add last-updated timestamp\n5. Remove any duplicate implementations of these pages\n6. Test both pages for:\n   - Consistent styling across browsers\n   - Accessibility compliance\n   - Proper rendering of legal formatting (lists, sections, etc.)\n   - Mobile-friendly reading experience",
+          "status": "pending",
+          "parentTaskId": 7
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Remove Unused and Commented Code",
+      "description": "Clean up commented-out code and unused components",
       "status": "pending",
-      "subtasks": []
+      "dependencies": [
+        6
+      ],
+      "priority": "low",
+      "details": "Remove commented code blocks in `/libs/instagram-service.ts`, `/libs/gpt.ts`, and various components. Identify and archive components that have no imports anywhere in the codebase. Clean up TODOs and other code comments that are no longer relevant. Focus on improving code readability and maintainability without affecting functionality.",
+      "testStrategy": "Verify the application builds without errors. Run existing tests to ensure functionality is preserved. Check that bundle size is reduced after removing unused code.",
+      "subtasks": [
+        {
+          "id": 1,
+          "title": "Remove Commented Code from Service Files",
+          "description": "Clean up commented-out code blocks in the service files to improve readability and maintainability",
+          "dependencies": [],
+          "details": "Implementation steps:\n1. Scan through `/libs/instagram-service.ts` and `/libs/gpt.ts` to identify commented-out code blocks\n2. For each commented block, evaluate if it contains any useful information that should be preserved in documentation\n3. Remove all commented-out code that is no longer needed\n4. If any commented code contains important information about implementation choices, convert it to proper JSDoc comments\n5. Remove outdated TODOs and irrelevant comments\n6. Run tests to ensure services still function correctly after cleanup\n\nTesting approach:\n- Run the existing test suite for these services\n- Manually verify that all service functionality works as expected\n- Ensure no regressions in the application's behavior",
+          "status": "pending",
+          "parentTaskId": 8
+        },
+        {
+          "id": 2,
+          "title": "Clean Up Component Files and Remove Commented Code",
+          "description": "Identify and clean up commented code and outdated TODOs in component files throughout the codebase",
+          "dependencies": [],
+          "details": "Implementation steps:\n1. Create a list of all component files in the codebase\n2. Systematically review each component file to identify:\n   - Commented-out code blocks\n   - Outdated TODOs\n   - Irrelevant comments\n3. For each identified item:\n   - Evaluate if it contains useful information\n   - Remove if no longer needed\n   - Convert important information to proper documentation\n4. Focus on React components, ensuring any removed code doesn't affect component functionality\n5. Update any comments that are still relevant but need clarification\n\nTesting approach:\n- After cleaning each component, render it to ensure it still functions correctly\n- Check that component props and behavior remain unchanged\n- Run the application to verify visual and functional integrity",
+          "status": "pending",
+          "parentTaskId": 8
+        },
+        {
+          "id": 3,
+          "title": "Identify and Archive Unused Components",
+          "description": "Find components that have no imports anywhere in the codebase and archive them appropriately",
+          "dependencies": [
+            2
+          ],
+          "details": "Implementation steps:\n1. Create a script or use a code analysis tool to identify all component files in the codebase\n2. For each component, search the entire codebase for imports of that component\n3. Create a list of components with zero imports\n4. Verify each potentially unused component:\n   - Confirm it's not dynamically imported\n   - Check it's not referenced in a way the static analysis missed\n5. Create an 'archived' directory to store unused components instead of deleting them immediately\n6. Move verified unused components to the archive with a comment indicating when and why they were archived\n7. Update any relevant documentation to reflect the component changes\n\nTesting approach:\n- After archiving components, run the full test suite\n- Perform a comprehensive smoke test of the application\n- Verify no console errors appear related to missing components\n- Ensure the application builds successfully without the removed components",
+          "status": "pending",
+          "parentTaskId": 8
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "title": "Implement Redirects for Removed Routes",
+      "description": "Create redirects for deprecated routes to maintain user experience",
+      "status": "pending",
+      "dependencies": [
+        7,
+        8
+      ],
+      "priority": "medium",
+      "details": "Implement Next.js redirects in `next.config.js` for all deprecated routes, pointing to appropriate active pages. Create a custom 404 page that helps users find what they need. Update any internal links that might point to deprecated pages. Consider implementing a temporary banner on the homepage explaining any significant changes to returning users.",
+      "testStrategy": "Test all deprecated URLs to verify they redirect correctly. Check that the custom 404 page works and provides helpful navigation. Verify that search engine crawlers will understand the redirects (check HTTP status codes).",
+      "subtasks": [
+        {
+          "id": 1,
+          "title": "Configure Next.js Redirects in next.config.js",
+          "description": "Implement redirects for all deprecated routes by updating the Next.js configuration file",
+          "dependencies": [],
+          "details": "1. Create a comprehensive list of all deprecated routes and their corresponding active destinations\n2. Update next.config.js to include redirects array with source, destination, and permanent status for each route\n3. Use the format: { source: '/old-route', destination: '/new-route', permanent: true }\n4. Group redirects logically (e.g., by feature area)\n5. Add comments explaining each redirect group\n6. Test each redirect by accessing old routes and verifying proper redirection\n7. Verify HTTP status codes (301 for permanent, 302 for temporary redirects)\n8. Document all redirects in a separate markdown file for future reference",
+          "status": "pending",
+          "parentTaskId": 9
+        },
+        {
+          "id": 2,
+          "title": "Create Custom 404 Page with Navigation Assistance",
+          "description": "Design and implement a user-friendly 404 page that helps users find content when they encounter missing pages",
+          "dependencies": [
+            1
+          ],
+          "details": "1. Create pages/404.js custom error page\n2. Design a user-friendly layout with clear messaging about the page being unavailable\n3. Implement a search functionality that allows users to search for content\n4. Add a list of popular/common pages for quick navigation\n5. Include links to main site sections (sitemap approach)\n6. Add analytics tracking to capture which URLs are resulting in 404 errors\n7. Implement suggestions for similar pages based on the URL path when possible\n8. Test the 404 page by accessing non-existent routes\n9. Ensure mobile responsiveness of the 404 page",
+          "status": "pending",
+          "parentTaskId": 9
+        },
+        {
+          "id": 3,
+          "title": "Update Internal Links and Add Change Notification Banner",
+          "description": "Scan and update internal links pointing to deprecated routes and implement a temporary banner explaining changes",
+          "dependencies": [
+            1,
+            2
+          ],
+          "details": "1. Use a tool or script to scan the codebase for internal links pointing to deprecated routes\n2. Update all identified internal links to point to the new correct routes\n3. Create a dismissible banner component for the homepage\n4. Implement banner content explaining significant site changes to returning users\n5. Add functionality to dismiss and remember dismissal using localStorage\n6. Set an expiration date for the banner (e.g., display for 2 weeks after deployment)\n7. Make the banner responsive for all device sizes\n8. Add analytics tracking to measure banner interactions\n9. Test banner appearance and dismissal functionality across browsers\n10. Verify all internal links work correctly after updates",
+          "status": "pending",
+          "parentTaskId": 9
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "title": "Final Testing and Performance Optimization",
+      "description": "Comprehensive testing of all features and performance optimization",
+      "status": "pending",
+      "dependencies": [
+        9
+      ],
+      "priority": "high",
+      "details": "Conduct end-to-end testing of all user flows. Optimize bundle size and load times through code splitting and lazy loading where appropriate. Run Lighthouse audits and address any performance, accessibility, or SEO issues. Verify that the refactored codebase meets all success criteria defined in the PRD: reduced line count, fewer similar components, improved code quality metrics, maintained or improved page load times, reduced bundle size, and better Lighthouse scores.",
+      "testStrategy": "Run comprehensive tests on all pages and features. Perform cross-browser testing. Measure performance metrics before and after optimization. Conduct accessibility testing. Compare final metrics against the success criteria defined in the PRD.",
+      "subtasks": [
+        {
+          "id": 1,
+          "title": "End-to-End Testing Implementation",
+          "description": "Set up and execute comprehensive end-to-end testing for all user flows to ensure application functionality remains intact after refactoring",
+          "dependencies": [],
+          "details": "1. Define test scenarios covering all key user flows identified in the PRD\n2. Implement end-to-end tests using Cypress or similar testing framework\n3. Create test cases for happy paths and edge cases for each feature\n4. Set up test data fixtures and mocks as needed\n5. Implement test reporting to track test coverage and results\n6. Run tests against the refactored codebase and document any failures\n7. Fix any issues discovered during testing\n8. Verify that all features work as expected after fixes\n9. Testing approach: Compare test results against pre-refactoring baseline to ensure no regressions",
+          "status": "pending",
+          "parentTaskId": 10
+        },
+        {
+          "id": 2,
+          "title": "Bundle Size and Load Time Optimization",
+          "description": "Implement code splitting, lazy loading, and other techniques to optimize bundle size and improve application load times",
+          "dependencies": [
+            1
+          ],
+          "details": "1. Analyze current bundle size using webpack-bundle-analyzer or similar tool\n2. Identify large dependencies and opportunities for code splitting\n3. Implement React.lazy() and Suspense for component-level code splitting\n4. Set up dynamic imports for route-based code splitting\n5. Optimize image assets using compression and proper sizing\n6. Implement resource hints (preload, prefetch) for critical resources\n7. Configure proper caching strategies for static assets\n8. Measure load time improvements using Chrome DevTools and Performance API\n9. Testing approach: Compare bundle size and load times before and after optimization using metrics from webpack-bundle-analyzer and Lighthouse",
+          "status": "pending",
+          "parentTaskId": 10
+        },
+        {
+          "id": 3,
+          "title": "Lighthouse Audit and Success Criteria Verification",
+          "description": "Run Lighthouse audits to identify and fix performance, accessibility, and SEO issues, and verify that all success criteria from the PRD are met",
+          "dependencies": [
+            1,
+            2
+          ],
+          "details": "1. Run Lighthouse audits for Performance, Accessibility, Best Practices, and SEO\n2. Document all issues identified by Lighthouse\n3. Prioritize and fix critical issues affecting performance scores\n4. Implement accessibility improvements (ARIA attributes, color contrast, etc.)\n5. Address SEO recommendations (meta tags, semantic HTML, etc.)\n6. Verify all PRD success criteria are met:\n   - Measure and compare code line count before and after refactoring\n   - Count reduction in similar components\n   - Run code quality metrics (complexity, maintainability)\n   - Compare page load times before and after\n   - Verify bundle size reduction\n   - Compare Lighthouse scores\n7. Create a final report documenting all improvements and metrics\n8. Testing approach: Use before/after comparisons of all metrics to demonstrate improvements",
+          "status": "pending",
+          "parentTaskId": 10
+        }
+      ]
     }
-  ]
+  ],
+  "metadata": {
+    "projectName": "Oceanheart.ai Refactoring",
+    "totalTasks": 10,
+    "sourceFile": "docs/refactor_prd.md",
+    "generatedAt": "2023-11-09"
+  }
 }

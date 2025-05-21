@@ -7,6 +7,8 @@ import FAQ from "@/components/FAQ";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
+import KnowledgeGapSection from "@/components/KnowledgeGapSection";
+import CompoundingHoursSection from "@/components/CompoundingHoursSection";
 
 export default function Home() {
   return (
@@ -18,6 +20,8 @@ export default function Home() {
         <Hero />
         <Problem />
         <FeaturesAccordion />
+        <KnowledgeGapSection />
+        <CompoundingHoursSection />
         <Pricing />
         <FAQ />
         <CTA />
