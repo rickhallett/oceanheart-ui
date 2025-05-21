@@ -114,12 +114,12 @@ const FeaturesAccordion = () => {
 
   return (
     <section
-      className="py-24 md:py-32 space-y-24 md:space-y-32 max-w-7xl mx-auto bg-base-100"
+      className="py-12 md:py-24 space-y-12 md:space-y-24 max-w-7xl mx-auto bg-base-100"
       id="features"
     >
       <div className="px-4 sm:px-6 lg:px-8">
         {/* Headline */}
-        <h2 className="font-extrabold text-4xl lg:text-6xl tracking-tight mb-12 md:mb-24">
+        <h2 className="font-extrabold text-3xl lg:text-6xl tracking-tight mb-8 md:mb-16">
           The Art of Personal AI: <span className="text-blue-400">Your Path to Conscious Integration</span>
           <span className="bg-neutral text-neutral-content px-2 md:px-4 ml-1 md:ml-1.5 leading-relaxed block sm:inline-block mt-2 sm:mt-0">
             Where Human Wisdom Meets Technical Fluency

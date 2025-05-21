@@ -82,11 +82,8 @@ const SuspendedFooter = ({ showHDIForm = false }: FooterProps) => {
                 <Link href="https://www.oceanheart.blog/" target="_blank" rel="noopener noreferrer" className="link link-hover">
                   Blog
                 </Link>
-                <Link href="/about" className="link link-hover">
+                <Link href="/about-alt" className="link link-hover">
                   About Kai
-                </Link>
-                <Link href="/consulting" className="link link-hover">
-                  Consulting
                 </Link>
               </div>
             </div>

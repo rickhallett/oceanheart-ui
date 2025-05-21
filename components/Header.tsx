@@ -37,8 +37,19 @@ const cta = (
   </Suspense>
 );
 
+// Function to split appName into main title and subtitle
+const getAppNameParts = () => {
+  // Split the appName at the hyphen if it exists
+  const parts = config.appName.split(" - ");
+  return {
+    mainTitle: parts[0] || config.appName, // First part or full name if no hyphen
+    subtitle: parts[1] || "", // Second part or empty if no hyphen
+  };
+};
+
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { mainTitle, subtitle } = getAppNameParts();
 
   return (
     <header className="bg-base-200">
@@ -49,19 +60,24 @@ const Header = () => {
         {/* Your logo/name on large screens */}
         <div className="flex lg:flex-1">
           <Link
-            className="flex items-center gap-2 shrink-0 "
+            className="flex items-center gap-2 shrink-0"
             href="/"
-            title={`${config.appName} homepage`} // Uses updated appName
+            title={config.appName}
           >
             <Image
               src={logo}
-              alt={`${config.appName} logo`} // Uses updated appName
+              alt={`${mainTitle} logo`}
               className="w-8"
               priority={true}
               width={32}
               height={32}
             />
-            <span className="font-extrabold text-lg">{config.appName}</span> {/* Uses updated appName */}
+            <div className="flex flex-col">
+              <span className="font-extrabold text-lg">{mainTitle}</span>
+              {subtitle && (
+                <span className="text-xs">{subtitle}</span>
+              )}
+            </div>
           </Link>
         </div>
         {/* Burger button to open menu on mobile */}
@@ -116,19 +132,24 @@ const Header = () => {
           {/* Your logo/name on small screens */}
           <div className="flex items-center justify-between">
             <Link
-              className="flex items-center gap-2 shrink-0 "
-              title={`${config.appName} homepage`}
+              className="flex items-center gap-2 shrink-0"
+              title={config.appName}
               href="/"
             >
               <Image
                 src={logo}
-                alt={`${config.appName} logo`}
+                alt={`${mainTitle} logo`}
                 className="w-8"
                 priority={true}
                 width={32}
                 height={32}
               />
-              <span className="font-extrabold text-lg">{config.appName}</span>
+              <div className="flex flex-col">
+                <span className="font-extrabold text-lg">{mainTitle}</span>
+                {subtitle && (
+                  <span className="text-xs">{subtitle}</span>
+                )}
+              </div>
             </Link>
             {/* Close button */}
             <button
