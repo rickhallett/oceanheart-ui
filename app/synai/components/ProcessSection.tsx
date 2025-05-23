@@ -13,7 +13,7 @@ export default function ProcessSection() {
     {
       number: "3",
       title: "Ongoing Partnership",
-      description: "Your personal AI coach guides you through life&apos;s challenges, helping you make decisions aligned with your deepest values and highest potential."
+      description: "Your personal AI coach guides you through life's challenges, helping you make decisions aligned with your deepest values and highest potential."
     }
   ];
 
@@ -25,7 +25,7 @@ export default function ProcessSection() {
         <div className="absolute bottom-20 right-10 w-40 h-40 bg-white rounded-full blur-3xl"></div>
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-white rounded-full blur-3xl"></div>
       </div>
-      
+
       <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
         <div className="text-center mb-24 synai-fade-in">
@@ -48,11 +48,11 @@ export default function ProcessSection() {
               <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 w-16 h-16 bg-gradient-to-br from-yellow-400 to-orange-500 text-white rounded-full flex items-center justify-center font-bold text-2xl shadow-xl">
                 {step.number}
               </div>
-              
+
               {/* Decorative elements */}
               <div className="absolute -top-2 -right-2 w-6 h-6 bg-blue-400 rounded-full opacity-60"></div>
               <div className="absolute -bottom-2 -left-2 w-4 h-4 bg-purple-400 rounded-full opacity-60"></div>
-              
+
               {/* Step Content */}
               <div className="pt-8">
                 <h4 className="text-2xl font-bold text-gray-900 mb-6">

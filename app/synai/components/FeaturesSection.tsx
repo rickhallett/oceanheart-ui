@@ -2,11 +2,11 @@ export default function FeaturesSection() {
   const features = [
     {
       title: "Clinical Foundation",
-      description: "Starts with Kai&apos;s professional assessment of your patterns, values, and goals using evidence-based therapeutic frameworks.",
+      description: "Starts with Kai's professional assessment of your patterns, values, and goals using evidence-based therapeutic frameworks.",
       color: "from-blue-400 to-blue-600"
     },
     {
-      title: "Advanced Prompt Engineering", 
+      title: "Advanced Prompt Engineering",
       description: "Your assessment becomes a sophisticated AI prompt—not just instructions, but a living knowledge graph of who you are.",
       color: "from-purple-400 to-purple-600"
     },
@@ -17,17 +17,17 @@ export default function FeaturesSection() {
     },
     {
       title: "Continuous Evolution",
-      description: "Your AI coach learns and adapts, updating its understanding as you grow and change through life&apos;s journey.",
+      description: "Your AI coach learns and adapts, updating its understanding as you grow and change through life's journey.",
       color: "from-orange-400 to-orange-600"
     },
     {
-      title: "Private & Secure",
-      description: "Your personal AI exists only for you. Complete privacy, with all the depth of understanding you&apos;d expect from years of therapy.",
+      title: "Contained & Secure",
+      description: "Your personal AI exists only for you. Your own container, with all the depth of understanding you'd expect from years of therapy.",
       color: "from-red-400 to-red-600"
     },
     {
       title: "Unprecedented Quality",
-      description: "This isn&apos;t ChatGPT with a nice interface. It&apos;s a professionally engineered system that represents the cutting edge of personalized AI.",
+      description: "This isn't ChatGPT with a nice interface. It's a professionally engineered system that represents the cutting edge of personalized AI.",
       color: "from-indigo-400 to-indigo-600"
     }
   ];
@@ -55,17 +55,17 @@ export default function FeaturesSection() {
               {/* Animated Feature Icon */}
               <div className="relative w-20 h-20 mx-auto mb-8">
                 <div className={`absolute inset-0 bg-gradient-to-br ${feature.color} rounded-full animate-pulse`}></div>
-                <div className={`absolute inset-2 bg-gradient-to-br ${feature.color} rounded-full opacity-70 animate-spin`} style={{animationDuration: '8s'}}></div>
-                <div className={`absolute inset-4 bg-gradient-to-br ${feature.color} rounded-full animate-ping`} style={{animationDuration: '3s'}}></div>
+                <div className={`absolute inset-2 bg-gradient-to-br ${feature.color} rounded-full opacity-70 animate-spin`} style={{ animationDuration: '8s' }}></div>
+                <div className={`absolute inset-4 bg-gradient-to-br ${feature.color} rounded-full animate-ping`} style={{ animationDuration: '3s' }}></div>
                 <div className={`absolute inset-6 bg-white rounded-full shadow-lg`}></div>
                 <div className={`absolute inset-7 bg-gradient-to-br ${feature.color} rounded-full`}></div>
               </div>
-              
+
               {/* Feature Title */}
               <h4 className="text-2xl font-bold text-gray-900 mb-6">
                 {feature.title}
               </h4>
-              
+
               {/* Feature Description */}
               <p className="text-gray-600 leading-relaxed text-lg">
                 {feature.description}
