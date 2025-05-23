@@ -18,9 +18,9 @@ const config = {
     // Synai Personalized AI Coaching Tiers
     plans: [
       {
-        priceId: "price_synai_ai_led_foundation_onetime", // New unique Price ID
+        priceId: "price_1RRzzLRVLr5O3VRE5yZYNd5u", // New unique Price ID
         name: "Synai AI-Led Foundation",
-        description: "Start with an AI-powered assessment, reviewed by Kai, leading to your custom Synai AI coach.",
+        description: "AI-powered assessment -> pro review -> custom Synai AI coach.",
         price: 199, // Scaled from $150 base
         frequency: "one-time",
         features: [
@@ -32,9 +32,9 @@ const config = {
         disabled: false,
       },
       {
-        priceId: "price_synai_core_onetime", // New unique Price ID
+        priceId: "price_1RRzzqRVLr5O3VREwOFUX7M0", // New unique Price ID
         name: "Synai Core",
-        description: "Personal professional assessment with Kai, Synai creation, and a follow-up session to optimize your integration.",
+        description: "1:1 pro assessment -> Synai creation -> follow-up integration.",
         price: 499, // Scaled from $400 base
         frequency: "one-time",
         features: [
@@ -46,9 +46,9 @@ const config = {
         disabled: false,
       },
       {
-        priceId: "price_synai_deep_integration_package", // New unique Price ID
+        priceId: "price_1RS01PRVLr5O3VREMLZQlizL", // New unique Price ID
         name: "Synai Deep Integration",
-        description: "An advanced Synai experience: personal assessment, a deeply integrated Synai coach, and three monthly 90-minute sessions with Kai.",
+        description: "1:1 pro assessment -> Synai creation -> 3x 90-min sessions.",
         price: 997, // Scaled from $750 base
         frequency: "3-month engagement", // Package price, sessions unfold monthly
         features: [
@@ -61,17 +61,17 @@ const config = {
         disabled: false,
       },
       {
-        priceId: "price_synai_transformation_program_8week", // New unique Price ID
+        priceId: "price_1RS02qRVLr5O3VRE0uRCrWkc", // New unique Price ID
         name: "Synai Transformation Program",
-        description: "An 8-week intensive: assessment, Synai creation, weekly coaching, psychotherapeutic integration, and Conscious AI mastery.",
-        price: 2497, // Scaled from $1450 base
+        description: "8-week AI intensive: assessment, Synai, weekly coaching, psychotherapeutic integration, and Conscious AI Mastery.",
+        price: 2199, // Scaled from $1450 base
         frequency: "8-week program",
         features: [
           { name: "Comprehensive Professional Assessment with Kai (90 min)" },
           { name: "Custom Synai AI Coach Creation" },
           { name: "8 Weekly 90-minute Intensive Coaching & Psychotherapeutic Sessions" },
           { name: "Personalized Conscious AI Workflow Development" },
-          { name: "Ongoing Synai AI Coach Refinement" }
+          { name: "Synai MAX - Your Personalized AI Integration Coach" }
         ],
         disabled: false,
       }

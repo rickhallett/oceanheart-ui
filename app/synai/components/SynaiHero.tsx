@@ -22,7 +22,7 @@ export default function SynaiHero() {
       </div>
 
       {/* Hero content */}
-      <div className="relative z-10 text-center max-w-4xl mx-auto px-4">
+      <div className="relative z-10 text-center max-w-4xl mx-auto px-6 md:px-4">
         <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
           Meet Synai
         </h1>
@@ -31,14 +31,14 @@ export default function SynaiHero() {
           Your Personal AI Coach, Engineered for You
         </p>
         
-        <p className="text-lg md:text-xl lg:text-2xl mb-12 opacity-80 max-w-3xl mx-auto leading-relaxed">
+        <p className="text-base md:text-xl lg:text-2xl mb-12 opacity-80 max-w-3xl mx-auto leading-relaxed">
           What if you had an AI that truly understood your unique patterns, values, and goals?
           Not generic advice, but deeply personalized guidance built from a clinical assessment of who you are.
         </p>
         
         <Link
-          href="https://calendar.app.google/85ZdaqYK5vfNk4aH9"
-          className="inline-block bg-white text-primary px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 hover:transform hover:-translate-y-1 hover:shadow-2xl hover:shadow-white/20"
+          href="/#pricing"
+          className="inline-block bg-white text-primary px-8 py-4 rounded-full text-base md:text-lg font-semibold transition-all duration-300 hover:transform hover:-translate-y-1 hover:shadow-2xl hover:shadow-white/20"
         >
           Discover Your Personal AI
         </Link>

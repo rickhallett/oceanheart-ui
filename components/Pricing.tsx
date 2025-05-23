@@ -22,19 +22,17 @@ const Pricing = () => {
         </div>
 
         {/* Synai Introduction */}
-        <div className="mb-16 rounded-2xl p-8 shadow-2xl bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-700 text-white relative overflow-hidden">
-          <div className="absolute inset-0 bg-white/10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:20px_20px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_70%,transparent_100%)]"></div>
-          <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/5 to-transparent"></div>
+        <div className="mb-16 rounded-2xl p-8 shadow-2xl bg-gradient-to-br from-primary to-secondary text-white relative overflow-hidden">
           <div className="relative z-10 flex flex-col items-center gap-6 text-center">
             <h3 className="text-2xl md:text-3xl font-bold">
-              🧠 Introducing <span className="text-yellow-300 font-extrabold">Synai</span>: Your Personal AI Coach
+              Introducing <span className="text-white font-extrabold">Synai</span>: Your Personal AI Coach
             </h3>
             <p className="max-w-3xl text-lg text-white/95 leading-relaxed">
-              Unlike <span className="text-red-300 font-semibold">generic AI</span> that gives one-size-fits-all advice, <span className="text-yellow-300 font-semibold">Synai</span> is built from your unique clinical assessment. 
-              Each tier includes <span className="text-green-300 font-semibold">comprehensive psychological profiling</span> with Kai to create an AI coach that truly understands 
+              Unlike generic AI that gives one-size-fits-all advice, <span className="text-white font-semibold">Synai</span> is built from your unique clinical assessment. 
+              Each tier includes comprehensive psychological profiling with Kai to create an AI coach that truly understands 
               your patterns, values, and goals.
             </p>
-            <Link href="/synai" className="btn btn-white text-blue-600 btn-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 font-bold border-2 border-white/20">
+            <Link href="/synai" className="btn btn-white text-primary btn-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 font-bold border-2 border-white/20">
               Learn More About Synai
             </Link>
           </div>
@@ -109,59 +107,68 @@ const Pricing = () => {
                 </>
               )}
 
-              <div className={`relative z-20 flex flex-col h-full gap-6 p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 ${plan.isFeatured ? 'bg-base-100 mt-4' : 'bg-base-100'}`}>
-                {/* plan name & desc */}
-                <div>
+              <div className={`relative z-20 h-full p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 ${plan.isFeatured ? 'bg-base-100 mt-4' : 'bg-base-100'}`} style={{display: 'grid', gridTemplateRows: 'auto auto auto 1fr auto'}}>
+                
+                {/* Row 1: Title - Fixed Height */}
+                <div className="h-16 flex items-center mb-4">
                   <p className="text-xl lg:text-2xl font-bold">
                     <span className="text-secondary">Synai</span> <span className="text-primary">{plan.name.replace('Synai ', '')}</span>
                   </p>
+                </div>
+
+                {/* Row 2: Description - Fixed Height */}
+                <div className="h-20 flex items-center mb-6">
                   {plan.description && (
-                    <p className="text-base-content/80 mt-3 leading-relaxed text-base">{plan.description}</p>
+                    <p className="text-base-content/80 leading-relaxed text-base">{plan.description}</p>
                   )}
                 </div>
 
-                {/* price */}
-                <div className="flex items-end gap-2">
-                  {plan.priceAnchor && (
-                    <span className="relative text-lg text-base-content/80 mr-1">
-                      <span className="absolute inset-x-0 top-1/2 h-[1.5px] bg-base-content" />
-                      £{formatPrice(plan.priceAnchor)}
-                    </span>
-                  )}
-                  <p className="text-5xl lg:text-6xl font-extrabold tracking-tight bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                    £{formatPrice(plan.price)}
-                  </p>
-                  {plan.frequency && (
-                    <span className="text-sm text-base-content/70 mb-2 font-medium">{plan.frequency}</span>
-                  )}
+                {/* Row 3: Price - Fixed Height */}
+                <div className="h-24 flex items-end mb-6">
+                  <div className="flex items-end gap-2">
+                    {plan.priceAnchor && (
+                      <span className="relative text-lg text-base-content/80 mr-1">
+                        <span className="absolute inset-x-0 top-1/2 h-[1.5px] bg-base-content" />
+                        £{formatPrice(plan.priceAnchor)}
+                      </span>
+                    )}
+                    <p className="text-5xl lg:text-6xl font-extrabold tracking-tight bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                      £{formatPrice(plan.price)}
+                    </p>
+                    {plan.frequency && (
+                      <span className="text-sm text-base-content/70 mb-2 font-medium">{plan.frequency}</span>
+                    )}
+                  </div>
                 </div>
 
-                {/* features */}
+                {/* Row 4: Features - Flexible Height (fills remaining space) */}
                 {plan.features && (
-                  <ul className="flex-1 space-y-3 leading-relaxed text-base">
-                    {plan.features.map((feature, i) => (
-                      <li key={i} className="flex items-start gap-3">
-                        <div className="w-5 h-5 rounded-full bg-gradient-to-r from-green-400 to-green-600 flex items-center justify-center shrink-0 mt-0.5">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                            className="w-3 h-3 text-white"
-                          >
-                            <path
-                              fillRule="evenodd"
-                              d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-                              clipRule="evenodd"
-                            />
-                          </svg>
-                        </div>
-                        <span className="text-gray-700 font-medium">{feature.name}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  <div className="mb-6">
+                    <ul className="space-y-3 leading-relaxed text-base">
+                      {plan.features.map((feature, i) => (
+                        <li key={i} className="flex items-start gap-3">
+                          <div className="w-5 h-5 rounded-full bg-gradient-to-r from-green-400 to-green-600 flex items-center justify-center shrink-0 mt-0.5">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 20 20"
+                              fill="currentColor"
+                              className="w-3 h-3 text-white"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                                clipRule="evenodd"
+                              />
+                            </svg>
+                          </div>
+                          <span className="text-gray-600 font-medium">{feature.name}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 )}
 
-                {/* CTA */}
+                {/* Row 5: CTA - Fixed Height */}
                 <div className="space-y-2">
                   {plan.cta ? (
                     <Link href={plan.ctaUrl || "#"} className="btn btn-primary w-full">
