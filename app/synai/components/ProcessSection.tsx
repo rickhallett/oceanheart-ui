@@ -26,7 +26,7 @@ export default function ProcessSection() {
             Your Journey to Personal AI
           </h2>
           <p className="text-xl md:text-2xl text-base-content/70 max-w-3xl mx-auto">
-            From clinical assessment to your private AI coach in three steps
+            From professional assessment to your private AI coach in three steps
           </p>
         </div>
 
@@ -35,19 +35,19 @@ export default function ProcessSection() {
           {steps.map((step, index) => (
             <div
               key={index}
-              className={`relative bg-white rounded-2xl p-8 shadow-lg text-center transition-transform duration-300 hover:-translate-y-2 synai-fade-in synai-fade-in-delay-${index + 1} text-base-content`}
+              className={`relative bg-black rounded-2xl p-8 shadow-lg text-center transition-transform duration-300 hover:-translate-y-2 synai-fade-in synai-fade-in-delay-${index + 1} text-base-content`}
             >
               {/* Step Number Badge */}
-              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-semibold text-lg">
+              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-8 h-8 bg-yellow-500 text-black rounded-full flex items-center justify-center font-semibold text-lg">
                 {step.number}
               </div>
-              
+
               {/* Step Content */}
               <div className="pt-4">
-                <h4 className="text-xl font-semibold text-base-content mb-4">
+                <h4 className="text-xl font-semibold text-secondary mb-4">
                   {step.title}
                 </h4>
-                <p className="text-base-content/70 leading-relaxed">
+                <p className="text-secondary/80 leading-relaxed">
                   {step.description}
                 </p>
               </div>

@@ -8,11 +8,11 @@ export default function CTASection() {
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
             Ready for AI That Actually Knows You?
           </h2>
-          
+
           <p className="text-xl md:text-2xl mb-12 opacity-90 max-w-3xl mx-auto">
             Stop settling for generic advice. Experience what&apos;s possible when AI meets deep human understanding.
           </p>
-          
+
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
             {/* Primary CTA */}
             <Link
@@ -21,7 +21,7 @@ export default function CTASection() {
             >
               Book Your Discovery Call
             </Link>
-            
+
             {/* Secondary CTA */}
             <Link
               href="/about-alt"
@@ -30,7 +30,7 @@ export default function CTASection() {
               Learn About Kai
             </Link>
           </div>
-          
+
           {/* Trust Indicators */}
           <div className="mt-16 grid md:grid-cols-3 gap-8 text-center opacity-80">
             <div>
@@ -42,8 +42,8 @@ export default function CTASection() {
               <div className="text-sm">Tailored to your psychology</div>
             </div>
             <div>
-              <div className="text-3xl font-bold mb-2">Private</div>
-              <div className="text-sm">Your AI coach, exclusively</div>
+              <div className="text-3xl font-bold mb-2">Contained</div>
+              <div className="text-sm">Your exclusive AI container</div>
             </div>
           </div>
         </div>
