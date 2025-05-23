@@ -15,7 +15,7 @@ export default function ComparisonSection() {
         {/* Comparison Grid */}
         <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {/* Generic AI Card */}
-          <div className="bg-white rounded-2xl p-8 shadow-lg border-l-4 border-red-500 transition-transform duration-300 hover:-translate-y-2 synai-fade-in synai-fade-in-delay-1">
+          <div className="bg-white rounded-2xl p-8 shadow-lg border-l-4 border-red-500 transition-transform duration-300 hover:-translate-y-2 synai-fade-in synai-fade-in-delay-1 text-base-content">
             <h3 className="text-2xl font-semibold text-red-600 mb-6">
               Generic AI Coaching
             </h3>
@@ -48,7 +48,7 @@ export default function ComparisonSection() {
           </div>
 
           {/* Synai Card */}
-          <div className="bg-white rounded-2xl p-8 shadow-lg border-l-4 border-primary transition-transform duration-300 hover:-translate-y-2 synai-fade-in synai-fade-in-delay-2">
+          <div className="bg-white rounded-2xl p-8 shadow-lg border-l-4 border-primary transition-transform duration-300 hover:-translate-y-2 synai-fade-in synai-fade-in-delay-2 text-base-content">
             <h3 className="text-2xl font-semibold text-primary mb-6">
               Synai: Your Personal AI
             </h3>
