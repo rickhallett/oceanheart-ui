@@ -1,3 +1,5 @@
+import TechnicalDeepDive from './TechnicalDeepDive';
+
 export default function TechnicalSection() {
   return (
     <section className="py-24 bg-base-300 text-white">
@@ -104,6 +106,9 @@ export default function TechnicalSection() {
             </p>
           </div>
         </div>
+
+        {/* Technical Deep Dive Component */}
+        <TechnicalDeepDive />
       </div>
     </section>
   );
