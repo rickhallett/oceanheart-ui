@@ -3,7 +3,7 @@ export default function FeaturesSection() {
     {
       icon: "🧠",
       title: "Clinical Foundation",
-      description: "Starts with Kai's professional assessment of your patterns, values, and goals using evidence-based therapeutic frameworks."
+      description: "Starts with Kai&apos;s professional assessment of your patterns, values, and goals using evidence-based therapeutic frameworks."
     },
     {
       icon: "⚡",
@@ -18,17 +18,17 @@ export default function FeaturesSection() {
     {
       icon: "📈",
       title: "Continuous Evolution",
-      description: "Your AI coach learns and adapts, updating its understanding as you grow and change through life's journey."
+      description: "Your AI coach learns and adapts, updating its understanding as you grow and change through life&apos;s journey."
     },
     {
       icon: "🛡️",
       title: "Private & Secure",
-      description: "Your personal AI exists only for you. Complete privacy, with all the depth of understanding you'd expect from years of therapy."
+      description: "Your personal AI exists only for you. Complete privacy, with all the depth of understanding you&apos;d expect from years of therapy."
     },
     {
       icon: "💎",
       title: "Unprecedented Quality",
-      description: "This isn't ChatGPT with a nice interface. It's a professionally engineered system that represents the cutting edge of personalized AI."
+      description: "This isn&apos;t ChatGPT with a nice interface. It&apos;s a professionally engineered system that represents the cutting edge of personalized AI."
     }
   ];
 
