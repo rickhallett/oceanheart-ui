@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import SynaiHero from "./components/SynaiHero";
 
 export const metadata: Metadata = {
   title: "Synai: Your Personal AI Coach | Oceanheart.ai",
@@ -20,13 +21,7 @@ export const metadata: Metadata = {
 export default function SynaiPage() {
   return (
     <main className="min-h-screen">
-      {/* Page content will be added in subsequent phases */}
-      <div className="container mx-auto px-4 py-16">
-        <h1 className="text-4xl font-bold text-center">Synai Page - Under Development</h1>
-        <p className="text-center mt-4 text-lg text-base-content/70">
-          Your Personal AI Coach page is being built...
-        </p>
-      </div>
+      <SynaiHero />
     </main>
   );
 }
