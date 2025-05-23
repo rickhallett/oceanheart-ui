@@ -16,9 +16,8 @@ export default function SynaiHero() {
       </div>
 
       {/* Floating animation container */}
-      <div className="absolute inset-0 animate-pulse" style={{
-        background: `url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='1' fill='white' opacity='0.1'/><circle cx='20' cy='20' r='0.5' fill='white' opacity='0.15'/><circle cx='80' cy='30' r='0.8' fill='white' opacity='0.12'/><circle cx='30' cy='80' r='0.6' fill='white' opacity='0.1'/></svg>")`,
-        animation: 'float 20s ease-in-out infinite'
+      <div className="absolute inset-0 synai-float" style={{
+        background: `url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='1' fill='white' opacity='0.1'/><circle cx='20' cy='20' r='0.5' fill='white' opacity='0.15'/><circle cx='80' cy='30' r='0.8' fill='white' opacity='0.12'/><circle cx='30' cy='80' r='0.6' fill='white' opacity='0.1'/></svg>")`
       }}>
       </div>
 

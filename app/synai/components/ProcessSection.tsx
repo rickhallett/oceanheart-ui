@@ -21,7 +21,7 @@ export default function ProcessSection() {
     <section className="py-24 bg-base-100">
       <div className="container mx-auto px-4">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 synai-fade-in">
           <h2 className="text-4xl md:text-5xl font-bold text-base-content mb-6">
             Your Journey to Personal AI
           </h2>
@@ -35,7 +35,7 @@ export default function ProcessSection() {
           {steps.map((step, index) => (
             <div
               key={index}
-              className="relative bg-white rounded-2xl p-8 shadow-lg text-center transition-transform duration-300 hover:-translate-y-2"
+              className={`relative bg-white rounded-2xl p-8 shadow-lg text-center transition-transform duration-300 hover:-translate-y-2 synai-fade-in synai-fade-in-delay-${index + 1}`}
             >
               {/* Step Number Badge */}
               <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-semibold text-lg">
