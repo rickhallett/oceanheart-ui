@@ -10,7 +10,7 @@ export default function CTASection() {
           </h2>
 
           <p className="text-xl md:text-2xl mb-12 opacity-90 max-w-3xl mx-auto">
-            Stop settling for generic advice. Experience what&apos;s possible when AI meets deep human understanding.
+            Stop settling for generic advice. Experience what's possible when AI meets deep human understanding.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
