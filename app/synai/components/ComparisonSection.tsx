@@ -8,7 +8,7 @@ export default function ComparisonSection() {
             Generic AI vs. Personal AI
           </h2>
           <p className="text-xl md:text-2xl text-base-content/70 max-w-3xl mx-auto">
-            The difference between asking ChatGPT for life advice and having a coach who's studied you for years
+            The difference between asking ChatGPT for life advice and having a coach who&apos;s studied you for years
           </p>
         </div>
 
@@ -30,7 +30,7 @@ export default function ComparisonSection() {
               </li>
               <li className="flex items-start">
                 <span className="text-red-500 font-bold mr-3 mt-1">✗</span>
-                <span className="text-base-content/80">Surface-level advice that sounds good but doesn't fit</span>
+                <span className="text-base-content/80">Surface-level advice that sounds good but doesn&apos;t fit</span>
               </li>
               <li className="flex items-start">
                 <span className="text-red-500 font-bold mr-3 mt-1">✗</span>

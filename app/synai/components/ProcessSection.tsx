@@ -13,7 +13,7 @@ export default function ProcessSection() {
     {
       number: "3",
       title: "Ongoing Partnership",
-      description: "Your personal AI coach guides you through life's challenges, helping you make decisions aligned with your deepest values and highest potential."
+      description: "Your personal AI coach guides you through life&apos;s challenges, helping you make decisions aligned with your deepest values and highest potential."
     }
   ];
 

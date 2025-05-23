@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Synai: Your Personal AI Coach | Oceanheart.ai</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+    :root {
+      --primary-color: #1a1f2e;
+      --accent-color: #4f6df5;
+      --secondary-color: #7c3aed;
+      --light-blue: #e0e7ff;
+      --cosmic-purple: #6366f1;
+      --text-light: #64748b;
+      --text-dark: #0f172a;
+      --bg-light: #f8fafc;
+      --bg-white: #ffffff;
+      --gradient-cosmic: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --gradient-hero: linear-gradient(135deg, #4f6df5 0%, #7c3aed 100%);
+      --shadow-soft: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --shadow-large: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      color: var(--text-dark);
+      background-color: var(--bg-white);
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      padding: 1rem 0;
+      transition: all 0.3s ease;
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-light);
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent-color);
+    }
+
+    /* Hero Section */
+    .hero {
+      background: var(--gradient-hero);
+      color: white;
+      padding: 8rem 0 6rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="1" fill="white" opacity="0.1"/><circle cx="20" cy="20" r="0.5" fill="white" opacity="0.15"/><circle cx="80" cy="30" r="0.8" fill="white" opacity="0.12"/><circle cx="30" cy="80" r="0.6" fill="white" opacity="0.1"/></svg>');
+      animation: float 20s ease-in-out infinite;
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0px) rotate(0deg);
+      }
+
+      50% {
+        transform: translateY(-20px) rotate(2deg);
+      }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      line-height: 1.1;
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+      font-weight: 400;
+    }
+
+    .hero-description {
+      font-size: 1.1rem;
+      margin-bottom: 3rem;
+      opacity: 0.8;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-primary {
+      display: inline-block;
+      background: white;
+      color: var(--accent-color);
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow-medium);
+    }
+
+    .cta-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-large);
+    }
+
+    /* Problem Section */
+    .problem-section {
+      padding: 6rem 0;
+      background: var(--bg-light);
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+
+    .section-subtitle {
+      font-size: 1.2rem;
+      color: var(--text-light);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      margin-top: 3rem;
+    }
+
+    .comparison-card {
+      background: white;
+      padding: 2.5rem;
+      border-radius: 1rem;
+      box-shadow: var(--shadow-soft);
+      transition: transform 0.3s ease;
+    }
+
+    .comparison-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .comparison-card.generic {
+      border-left: 4px solid #ef4444;
+    }
+
+    .comparison-card.synai {
+      border-left: 4px solid var(--accent-color);
+    }
+
+    .comparison-card h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+
+    .comparison-card.generic h3 {
+      color: #dc2626;
+    }
+
+    .comparison-card.synai h3 {
+      color: var(--accent-color);
+    }
+
+    .comparison-list {
+      list-style: none;
+    }
+
+    .comparison-list li {
+      margin-bottom: 0.75rem;
+      padding-left: 1.5rem;
+      position: relative;
+      color: var(--text-light);
+    }
+
+    .comparison-card.generic .comparison-list li::before {
+      content: '✗';
+      position: absolute;
+      left: 0;
+      color: #dc2626;
+      font-weight: bold;
+    }
+
+    .comparison-card.synai .comparison-list li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--accent-color);
+      font-weight: bold;
+    }
+
+    /* Solution Section */
+    .solution-section {
+      padding: 6rem 0;
+      background: white;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .feature-card {
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .feature-icon {
+      width: 4rem;
+      height: 4rem;
+      background: var(--gradient-cosmic);
+      border-radius: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      font-size: 1.5rem;
+    }
+
+    .feature-card h4 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+
+    .feature-card p {
+      color: var(--text-light);
+    }
+
+    /* Process Section */
+    .process-section {
+      padding: 6rem 0;
+      background: var(--bg-light);
+    }
+
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .process-step {
+      background: white;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: var(--shadow-soft);
+      text-align: center;
+      position: relative;
+    }
+
+    .step-number {
+      position: absolute;
+      top: -1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2rem;
+      height: 2rem;
+      background: var(--accent-color);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+    }
+
+    .process-step h4 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--primary-color);
+      margin: 1rem 0;
+    }
+
+    /* Technical Details */
+    .technical-section {
+      padding: 6rem 0;
+      background: var(--primary-color);
+      color: white;
+    }
+
+    .technical-visualization {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 2rem;
+      border-radius: 1rem;
+      margin-top: 3rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .prompt-structure {
+      font-family: 'Courier New', monospace;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .xml-tag {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 0.5rem 1rem;
+      margin: 0.25rem 0;
+      border-radius: 0.5rem;
+      border-left: 3px solid var(--cosmic-purple);
+    }
+
+    .xml-tag.nested {
+      margin-left: 1.5rem;
+      border-left-color: #10b981;
+    }
+
+    .xml-tag.deep-nested {
+      margin-left: 3rem;
+      border-left-color: #f59e0b;
+    }
+
+    /* CTA Section */
+    .final-cta {
+      padding: 6rem 0;
+      background: var(--gradient-hero);
+      color: white;
+      text-align: center;
+    }
+
+    .cta-secondary {
+      display: inline-block;
+      background: transparent;
+      color: white;
+      padding: 1rem 2rem;
+      border: 2px solid white;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      margin: 0 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .cta-secondary:hover {
+      background: white;
+      color: var(--accent-color);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--primary-color);
+      color: white;
+      padding: 2rem 0;
+      text-align: center;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .comparison-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .section-title {
+        font-size: 2rem;
+      }
+    }
+
+    /* Scroll animations */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <a href="https://oceanheart.ai" class="logo">Oceanheart.ai</a>
+        <nav>
+          <ul class="nav-links">
+            <li><a href="https://oceanheart.ai/#pricing">Offerings</a></li>
+            <li><a href="https://oceanheart.ai/about-alt">About Kai</a></li>
+            <li><a href="https://calendar.app.google/85ZdaqYK5vfNk4aH9">Book Call</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1>Meet Synai</h1>
+        <p class="hero-subtitle">Your Personal AI Coach, Engineered for You</p>
+        <p class="hero-description">
+          What if you had an AI that truly understood your unique patterns, values, and goals?
+          Not generic advice, but deeply personalized guidance built from a clinical assessment of who you are.
+        </p>
+        <a href="https://calendar.app.google/85ZdaqYK5vfNk4aH9" class="cta-primary">Discover Your Personal AI</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="problem-section">
+    <div class="container">
+      <div class="section-header fade-in">
+        <h2 class="section-title">Generic AI vs. Personal AI</h2>
+        <p class="section-subtitle">
+          The difference between asking ChatGPT for life advice and having a coach who's studied you for years
+        </p>
+      </div>
+
+      <div class="comparison-grid">
+        <div class="comparison-card generic fade-in">
+          <h3>Generic AI Coaching</h3>
+          <ul class="comparison-list">
+            <li>One-size-fits-all responses</li>
+            <li>No memory of your unique context</li>
+            <li>Surface-level advice that sounds good but doesn't fit</li>
+            <li>No understanding of your values or patterns</li>
+            <li>Starts from zero every conversation</li>
+            <li>Treats symptoms, not root causes</li>
+          </ul>
+        </div>
+
+        <div class="comparison-card synai fade-in">
+          <h3>Synai: Your Personal AI</h3>
+          <ul class="comparison-list">
+            <li>Built from your clinical assessment</li>
+            <li>Knows your history, values, and goals</li>
+            <li>Guidance tailored to your specific patterns</li>
+            <li>Grounded in ACT (Acceptance & Commitment Therapy)</li>
+            <li>Evolves with you through ongoing dialogue</li>
+            <li>Addresses root causes and unconscious blocks</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="solution-section">
+    <div class="container">
+      <div class="section-header fade-in">
+        <h2 class="section-title">How Synai Works</h2>
+        <p class="section-subtitle">
+          A fusion of clinical expertise, advanced AI engineering, and your unique psychological fingerprint
+        </p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card fade-in">
+          <div class="feature-icon">🧠</div>
+          <h4>Clinical Foundation</h4>
+          <p>Starts with Kai's professional assessment of your patterns, values, and goals using evidence-based
+            therapeutic frameworks.</p>
+        </div>
+
+        <div class="feature-card fade-in">
+          <div class="feature-icon">⚡</div>
+          <h4>Advanced Prompt Engineering</h4>
+          <p>Your assessment becomes a sophisticated AI prompt—not just instructions, but a living knowledge graph of
+            who you are.</p>
+        </div>
+
+        <div class="feature-card fade-in">
+          <div class="feature-icon">🎯</div>
+          <h4>Personalized Guidance</h4>
+          <p>Every conversation builds on deep understanding of your unique context, helping you uncover "unknown
+            unknowns" about yourself.</p>
+        </div>
+
+        <div class="feature-card fade-in">
+          <div class="feature-icon">📈</div>
+          <h4>Continuous Evolution</h4>
+          <p>Your AI coach learns and adapts, updating its understanding as you grow and change through life's journey.
+          </p>
+        </div>
+
+        <div class="feature-card fade-in">
+          <div class="feature-icon">🛡️</div>
+          <h4>Private & Secure</h4>
+          <p>Your personal AI exists only for you. Complete privacy, with all the depth of understanding you'd expect
+            from years of therapy.</p>
+        </div>
+
+        <div class="feature-card fade-in">
+          <div class="feature-icon">💎</div>
+          <h4>Unprecedented Quality</h4>
+          <p>This isn't ChatGPT with a nice interface. It's a professionally engineered system that represents the
+            cutting edge of personalized AI.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="process-section">
+    <div class="container">
+      <div class="section-header fade-in">
+        <h2 class="section-title">Your Journey to Personal AI</h2>
+        <p class="section-subtitle">From clinical assessment to your private AI coach in three steps</p>
+      </div>
+
+      <div class="process-steps">
+        <div class="process-step fade-in">
+          <div class="step-number">1</div>
+          <h4>Deep Assessment</h4>
+          <p>Kai conducts a comprehensive clinical evaluation, mapping your values, patterns, goals, and unconscious
+            blocks using proven therapeutic frameworks.</p>
+        </div>
+
+        <div class="process-step fade-in">
+          <div class="step-number">2</div>
+          <h4>AI Engineering</h4>
+          <p>Your assessment becomes a sophisticated prompt system—a private AI that understands you at a level that
+            generic tools simply cannot match.</p>
+        </div>
+
+        <div class="process-step fade-in">
+          <div class="step-number">3</div>
+          <h4>Ongoing Partnership</h4>
+          <p>Your personal AI coach guides you through life's challenges, helping you make decisions aligned with your
+            deepest values and highest potential.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="technical-section">
+    <div class="container">
+      <div class="section-header fade-in">
+        <h2 class="section-title">The Engineering Behind the Magic</h2>
+        <p class="section-subtitle">
+          For those who appreciate technical excellence: this is prompt engineering at its finest
+        </p>
+      </div>
+
+      <div class="technical-visualization fade-in">
+        <h4 style="text-align: center; margin-bottom: 2rem;">Simplified Prompt Architecture</h4>
+        <div class="prompt-structure">
+          <div class="xml-tag">
+            &lt;SYNAI_PERSONAL_COACH_SYSTEM&gt;
+          </div>
+          <div class="xml-tag nested">
+            &lt;ClientIdentity&gt; Your unique psychological profile &lt;/ClientIdentity&gt;
+          </div>
+          <div class="xml-tag nested">
+            &lt;CoreFramework&gt; ACT-based therapeutic approach &lt;/CoreFramework&gt;
+          </div>
+          <div class="xml-tag nested">
+            &lt;KnowledgeGraph&gt; Living map of your patterns and goals &lt;/KnowledgeGraph&gt;
+          </div>
+          <div class="xml-tag nested">
+            &lt;AdaptiveLearning&gt; Continuous integration of new insights &lt;/AdaptiveLearning&gt;
+          </div>
+          <div class="xml-tag nested">
+            &lt;PersonalizedGuidance&gt; Tailored responses to your context &lt;/PersonalizedGuidance&gt;
+          </div>
+          <div class="xml-tag">
+            &lt;/SYNAI_PERSONAL_COACH_SYSTEM&gt;
+          </div>
+        </div>
+        <p style="text-align: center; margin-top: 2rem; opacity: 0.8;">
+          <em>This represents months of R&D, clinical expertise, and advanced AI engineering—all focused on
+            understanding you.</em>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="final-cta">
+    <div class="container">
+      <div class="fade-in">
+        <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Ready for AI That Actually Knows You?</h2>
+        <p style="font-size: 1.2rem; margin-bottom: 3rem; opacity: 0.9;">
+          Stop settling for generic advice. Experience what's possible when AI meets deep human understanding.
+        </p>
+        <a href="https://calendar.app.google/85ZdaqYK5vfNk4aH9" class="cta-primary">Book Your Discovery Call</a>
+        <a href="https://oceanheart.ai" class="cta-secondary">Learn About Kai</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2024 Oceanheart.ai. Conscious AI Integration for the discerning mind.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Smooth scroll animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-in').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Header scroll effect
+    window.addEventListener('scroll', () => {
+      const header = document.querySelector('header');
+      if (window.scrollY > 100) {
+        header.style.background = 'rgba(255, 255, 255, 0.98)';
+        header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+      } else {
+        header.style.background = 'rgba(255, 255, 255, 0.95)';
+        header.style.boxShadow = 'none';
+      }
+    });
+  </script>
+</body>
+
+</html>
