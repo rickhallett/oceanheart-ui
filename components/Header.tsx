@@ -23,6 +23,11 @@ const links: { href: string; label: string; className?: string }[] = [
   {
     href: "/consulting",
     label: "Consulting",
+  },
+  {
+    href: "/synai",
+    label: "Synai",
+    className: "synai-nav-link",
   }
 ];
 
