@@ -3,7 +3,7 @@ export default function TechnicalSection() {
     <section className="py-24 bg-base-300 text-white">
       <div className="container mx-auto px-4">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 synai-fade-in">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             The Engineering Behind the Magic
           </h2>
@@ -13,7 +13,7 @@ export default function TechnicalSection() {
         </div>
 
         {/* Technical Visualization */}
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-4xl mx-auto synai-fade-in synai-fade-in-delay-1">
           <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20">
             <h4 className="text-center text-2xl font-semibold mb-8">
               Simplified Prompt Architecture
@@ -61,7 +61,7 @@ export default function TechnicalSection() {
         </div>
 
         {/* Additional Technical Details */}
-        <div className="grid md:grid-cols-3 gap-8 mt-16 max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-8 mt-16 max-w-6xl mx-auto synai-fade-in synai-fade-in-delay-2">
           <div className="text-center">
             <div className="w-16 h-16 bg-gradient-to-br from-primary to-secondary rounded-2xl flex items-center justify-center text-2xl mb-4 mx-auto">
               🔬

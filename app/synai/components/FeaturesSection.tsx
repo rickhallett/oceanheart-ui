@@ -36,7 +36,7 @@ export default function FeaturesSection() {
     <section className="py-24 bg-white">
       <div className="container mx-auto px-4">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 synai-fade-in">
           <h2 className="text-4xl md:text-5xl font-bold text-base-content mb-6">
             How Synai Works
           </h2>
@@ -50,7 +50,7 @@ export default function FeaturesSection() {
           {features.map((feature, index) => (
             <div
               key={index}
-              className="text-center p-8 transition-transform duration-300 hover:-translate-y-2"
+              className={`text-center p-8 transition-transform duration-300 hover:-translate-y-2 synai-fade-in ${index < 3 ? 'synai-fade-in-delay-1' : index < 6 ? 'synai-fade-in-delay-2' : 'synai-fade-in-delay-3'}`}
             >
               {/* Feature Icon */}
               <div className="w-16 h-16 bg-gradient-to-br from-primary to-secondary rounded-2xl flex items-center justify-center text-2xl mb-6 mx-auto">
