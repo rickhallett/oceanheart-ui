@@ -3,7 +3,7 @@ export default function FeaturesSection() {
     {
       icon: "🧠",
       title: "Clinical Foundation",
-      description: "Starts with Kai&apos;s professional assessment of your patterns, values, and goals using evidence-based therapeutic frameworks."
+      description: "Starts with Kai's unique professional assessment of your patterns, values, and goals using evidence-based therapeutic frameworks."
     },
     {
       icon: "⚡",
@@ -18,17 +18,17 @@ export default function FeaturesSection() {
     {
       icon: "📈",
       title: "Continuous Evolution",
-      description: "Your AI coach learns and adapts, updating its understanding as you grow and change through life&apos;s journey."
+      description: "Your AI coach learns and adapts, updating its understanding as you grow and change through life's journey."
     },
     {
       icon: "🛡️",
-      title: "Private & Secure",
-      description: "Your personal AI exists only for you. Complete privacy, with all the depth of understanding you&apos;d expect from years of therapy."
+      title: "Contained & Secure",
+      description: "Your personal AI exists only for you. Your own container, with all the depth of understanding you'd expect from years of therapy."
     },
     {
       icon: "💎",
       title: "Unprecedented Quality",
-      description: "This isn&apos;t ChatGPT with a nice interface. It&apos;s a professionally engineered system that represents the cutting edge of personalized AI."
+      description: "This isn't ChatGPT with pretty colors. It's a professionally engineered system that represents the cutting edge of personalized AI."
     }
   ];
 
@@ -56,14 +56,14 @@ export default function FeaturesSection() {
               <div className="w-16 h-16 bg-gradient-to-br from-primary to-secondary rounded-2xl flex items-center justify-center text-2xl mb-6 mx-auto">
                 {feature.icon}
               </div>
-              
+
               {/* Feature Title */}
-              <h4 className="text-xl font-semibold text-base-content mb-4">
+              <h4 className="text-xl font-semibold text-primary mb-4">
                 {feature.title}
               </h4>
-              
+
               {/* Feature Description */}
-              <p className="text-base-content/70 leading-relaxed">
+              <p className="text-primary/80 leading-relaxed">
                 {feature.description}
               </p>
             </div>

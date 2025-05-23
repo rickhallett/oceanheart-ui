@@ -22,27 +22,23 @@ export default function ComparisonSection() {
             <ul className="space-y-4">
               <li className="flex items-start">
                 <span className="text-red-500 font-bold mr-3 mt-1">✗</span>
-                <span className="text-base-content/80">One-size-fits-all responses</span>
+                <span className="text-red-500/80 font-bold">One-size-fits-all responses</span>
               </li>
               <li className="flex items-start">
                 <span className="text-red-500 font-bold mr-3 mt-1">✗</span>
-                <span className="text-base-content/80">No memory of your unique context</span>
+                <span className="text-red-500/80 font-bold">Surface-level advice that sounds good but doesn&apos;t fit</span>
               </li>
               <li className="flex items-start">
                 <span className="text-red-500 font-bold mr-3 mt-1">✗</span>
-                <span className="text-base-content/80">Surface-level advice that sounds good but doesn&apos;t fit</span>
+                <span className="text-red-500/80 font-bold">No understanding of your values or patterns</span>
               </li>
               <li className="flex items-start">
                 <span className="text-red-500 font-bold mr-3 mt-1">✗</span>
-                <span className="text-base-content/80">No understanding of your values or patterns</span>
+                <span className="text-red-500/80 font-bold">Starts from zero every conversation</span>
               </li>
               <li className="flex items-start">
                 <span className="text-red-500 font-bold mr-3 mt-1">✗</span>
-                <span className="text-base-content/80">Starts from zero every conversation</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-red-500 font-bold mr-3 mt-1">✗</span>
-                <span className="text-base-content/80">Treats symptoms, not root causes</span>
+                <span className="text-red-500/80 font-bold">Looks at symptoms, not root causes</span>
               </li>
             </ul>
           </div>
@@ -55,27 +51,27 @@ export default function ComparisonSection() {
             <ul className="space-y-4">
               <li className="flex items-start">
                 <span className="text-primary font-bold mr-3 mt-1">✓</span>
-                <span className="text-base-content/80">Built from your clinical assessment</span>
+                <span className="text-primary shadow-md font-bold">Built from your personal assessment</span>
               </li>
               <li className="flex items-start">
                 <span className="text-primary font-bold mr-3 mt-1">✓</span>
-                <span className="text-base-content/80">Knows your history, values, and goals</span>
+                <span className="text-primary shadow-md font-bold">Knows your history, values, and goals</span>
               </li>
               <li className="flex items-start">
                 <span className="text-primary font-bold mr-3 mt-1">✓</span>
-                <span className="text-base-content/80">Guidance tailored to your specific patterns</span>
+                <span className="text-primary shadow-md font-bold">Guidance tailored to your specific patterns</span>
               </li>
               <li className="flex items-start">
                 <span className="text-primary font-bold mr-3 mt-1">✓</span>
-                <span className="text-base-content/80">Grounded in ACT (Acceptance & Commitment Therapy)</span>
+                <span className="text-primary shadow-md font-bold">Grounded in ACT (Acceptance & Commitment Therapy)</span>
               </li>
               <li className="flex items-start">
                 <span className="text-primary font-bold mr-3 mt-1">✓</span>
-                <span className="text-base-content/80">Evolves with you through ongoing dialogue</span>
+                <span className="text-primary shadow-md font-bold">Evolves with you through ongoing dialogue</span>
               </li>
               <li className="flex items-start">
                 <span className="text-primary font-bold mr-3 mt-1">✓</span>
-                <span className="text-base-content/80">Addresses root causes and unconscious blocks</span>
+                <span className="text-primary shadow-md font-bold">Addresses root causes and unconscious blocks</span>
               </li>
             </ul>
           </div>
