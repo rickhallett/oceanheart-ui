@@ -1,13 +1,13 @@
 export default function ComparisonSection() {
   return (
-    <section className="py-24 bg-base-100">
+    <section className="py-24 bg-base-300">
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <div className="text-center mb-16 synai-fade-in">
-          <h2 className="text-4xl md:text-5xl font-bold text-base-content mb-6">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
             Generic AI vs. Personal AI
           </h2>
-          <p className="text-xl md:text-2xl text-base-content/70 max-w-3xl mx-auto">
+          <p className="text-xl md:text-2xl text-white/70 max-w-3xl mx-auto">
             The difference between asking ChatGPT for life advice and having a coach who&apos;s studied you for years
           </p>
         </div>
@@ -15,7 +15,7 @@ export default function ComparisonSection() {
         {/* Comparison Grid */}
         <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {/* Generic AI Card */}
-          <div className="bg-white rounded-2xl p-8 shadow-lg border-l-4 border-red-500 transition-transform duration-300 hover:-translate-y-2 synai-fade-in synai-fade-in-delay-1 text-base-content">
+          <div className="bg-black rounded-2xl p-8 shadow-lg border-l-4 border-red-500 transition-transform duration-300 hover:-translate-y-2 synai-fade-in synai-fade-in-delay-1">
             <h3 className="text-2xl font-semibold text-red-600 mb-6">
               Generic AI Coaching
             </h3>
@@ -44,7 +44,7 @@ export default function ComparisonSection() {
           </div>
 
           {/* Synai Card */}
-          <div className="bg-white rounded-2xl p-8 shadow-lg border-l-4 border-primary transition-transform duration-300 hover:-translate-y-2 synai-fade-in synai-fade-in-delay-2 text-base-content">
+          <div className="bg-black rounded-2xl p-8 shadow-lg border-l-4 border-accent transition-transform duration-300 hover:-translate-y-2 synai-fade-in synai-fade-in-delay-2">
             <h3 className="text-2xl font-semibold text-primary mb-6">
               Synai: Your Personal AI
             </h3>

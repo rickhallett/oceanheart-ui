@@ -18,14 +18,14 @@ export default function ProcessSection() {
   ];
 
   return (
-    <section className="py-24 bg-base-100">
+    <section className="py-24 bg-base-300">
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <div className="text-center mb-16 synai-fade-in">
-          <h2 className="text-4xl md:text-5xl font-bold text-base-content mb-6">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
             Your Journey to Personal AI
           </h2>
-          <p className="text-xl md:text-2xl text-base-content/70 max-w-3xl mx-auto">
+          <p className="text-xl md:text-2xl text-white/70 max-w-3xl mx-auto">
             From professional assessment to your private AI coach in three steps
           </p>
         </div>
