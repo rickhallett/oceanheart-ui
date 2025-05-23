@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import SynaiHero from "./components/SynaiHero";
 import ComparisonSection from "./components/ComparisonSection";
 import FeaturesSection from "./components/FeaturesSection";
+import ProcessSection from "./components/ProcessSection";
 
 export const metadata: Metadata = {
   title: "Synai: Your Personal AI Coach | Oceanheart.ai",
@@ -26,6 +27,7 @@ export default function SynaiPage() {
       <SynaiHero />
       <ComparisonSection />
       <FeaturesSection />
+      <ProcessSection />
     </main>
   );
 }
