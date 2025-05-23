@@ -15,77 +15,65 @@ const config = {
     onlyShowOnRoutes: ["/"],
   },
   stripe: {
-    // These plans reflect "The Art of Personal AI" service offerings
+    // Synai Personalized AI Coaching Tiers
     plans: [
       {
-        priceId: "price_founder_sprint_beta",
-        name: "Founding Sprint (Beta)",
-        description:
-          "6-week 1:1 install of The Art of Personal AI. Get ahead. Stay ahead.",
-        price: 1800,          // full price, shown as “£3 000 – 100 % off with code”
+        priceId: "price_synai_ai_led_foundation_onetime", // New unique Price ID
+        name: "Synai AI-Led Foundation",
+        description: "Start with an AI-powered assessment, reviewed by Kai, leading to your custom Synai AI coach.",
+        price: 199, // Scaled from $150 base
         frequency: "one-time",
         features: [
-          { name: "Personal readiness audit - find your gap" },
-          { name: "Custom AI-workflow builds" },
-          { name: "6 live intensives" },
-          { name: "Unlimited async support" }
+          { name: "AI-Powered Synai Assessment" },
+          { name: "Professional Review & Synai Blueprint by Kai" },
+          { name: "Custom Synai AI Coach Creation" },
+          { name: "ACT-based therapeutic framework foundation" } // Keeping this as a core element
         ],
-        cta: "Apply for Beta",
-        ctaUrl: "/founder-sprint",
         disabled: false,
-      }
-      ,
-      // {
-      //   priceId: "price_executive_guidance",
-      //   name: "Executive Guidance Partnership",
-      //   description: "1:1 strategic partnership for wellbeing leaders.",
-      //   price: 1200,
-      //   frequency: "per month",
-      //   features: [
-      //     { name: "Personalized AI strategy" },
-      //     { name: "Ethical framework integration" },
-      //     { name: "Transformative coaching" },
-      //     { name: "Between-session support" },
-      //     { name: "Human-centered approach to AI" },
-      //     { name: "Strategic implementation guidance" }
-      //   ],
-      //   cta: "Book a Discovery Call",
-      //   ctaUrl: "https://calendar.app.google/85ZdaqYK5vfNk4aH9",
-      //   isFeatured: false,
-      //   disabled: true
-      // },
-      // {
-      //   priceId: "price_bridging_worlds_workshop",
-      //   name: "'Bridging Worlds' Workshop",
-      //   description: "Immersive group learning for AI discernment.",
-      //   price: 197,
-      //   frequency: "per workshop",
-      //   features: [
-      //     { name: "Integrate tech & wisdom" },
-      //     { name: "Build confidence" },
-      //     { name: "Connect with peers" },
-      //     { name: "Practical exercises" },
-      //     { name: "Ethical considerations" },
-      //     { name: "Take-home resources" }
-      //   ],
-      //   monzoLink: "https://monzo.com/pay/r/oceanheartai-ltd_0Tl8iggjemzSXq",
-      //   inDevelopment: true,
-      //   disabled: true
-      // },
+      },
       {
-        priceId: "price_first_principles_course",
-        name: "First Principles AI Course",
-        description: "Self-paced foundational AI learning.",
-        price: 299,
+        priceId: "price_synai_core_onetime", // New unique Price ID
+        name: "Synai Core",
+        description: "Personal professional assessment with Kai, Synai creation, and a follow-up session to optimize your integration.",
+        price: 499, // Scaled from $400 base
         frequency: "one-time",
         features: [
-          { name: "Core Integration concepts" },
-          { name: "Lifetime access" },
-          { name: "Practical application guides" },
-          { name: "Community discussions" }
+          { name: "Personalized Professional Assessment with Kai (90 min)" },
+          { name: "Custom Synai AI Coach Creation" },
+          { name: "One 90-minute Follow-up Session (Optimization & Integration)" },
+          { name: "Personal psychological profile integration" }
         ],
-        monzoLink: "https://monzo.com/pay/r/oceanheartai-ltd_4RBZXMqYRMfBgb",
-        disabled: true
+        disabled: false,
+      },
+      {
+        priceId: "price_synai_deep_integration_package", // New unique Price ID
+        name: "Synai Deep Integration",
+        description: "An advanced Synai experience: personal assessment, a deeply integrated Synai coach, and three monthly 90-minute sessions with Kai.",
+        price: 997, // Scaled from $750 base
+        frequency: "3-month engagement", // Package price, sessions unfold monthly
+        features: [
+          { name: "Personalized Professional Assessment with Kai (90 min)" },
+          { name: "Advanced Custom Synai AI Coach (Deep Psychotherapeutic Integration)" },
+          { name: "Three Monthly 90-minute Deep Dive Sessions with Kai" },
+          { name: "Conscious AI Methodology Integration" }
+        ],
+        isFeatured: true, // This is a substantial offering.
+        disabled: false,
+      },
+      {
+        priceId: "price_synai_transformation_program_8week", // New unique Price ID
+        name: "Synai Transformation Program",
+        description: "An 8-week intensive: assessment, Synai creation, weekly coaching, psychotherapeutic integration, and Conscious AI mastery.",
+        price: 2497, // Scaled from $1450 base
+        frequency: "8-week program",
+        features: [
+          { name: "Comprehensive Professional Assessment with Kai (90 min)" },
+          { name: "Custom Synai AI Coach Creation" },
+          { name: "8 Weekly 90-minute Intensive Coaching & Psychotherapeutic Sessions" },
+          { name: "Personalized Conscious AI Workflow Development" },
+          { name: "Ongoing Synai AI Coach Refinement" }
+        ],
+        disabled: false,
       }
     ]
   },

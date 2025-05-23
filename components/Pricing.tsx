@@ -12,33 +12,31 @@ const Pricing = () => {
       <div className="py-24 px-8 max-w-7xl mx-auto">
         {/* Offerings header */}
         <div className="flex flex-col text-center w-full mb-12">
-          <p className="font-medium text-primary mb-4">Offerings</p>
+          <p className="font-medium text-primary mb-4 text-lg">Synai Coaching Tiers</p>
           <h2 className="font-bold text-3xl lg:text-5xl tracking-tight">
-            Conscious AI Integration: Choose Your Path
+            Your <span className="text-primary font-extrabold">Personal AI Coach</span>: Choose Your <span className="text-secondary font-extrabold">Journey</span>
           </h2>
+          <p className="text-xl text-base-content/70 mt-6 max-w-3xl mx-auto leading-relaxed">
+            From <span className="text-primary font-semibold">clinical assessment</span> to ongoing <span className="text-secondary font-semibold">mastery</span> - each tier builds on comprehensive psychological profiling to create your unique AI coaching experience.
+          </p>
         </div>
 
-        {/* ⚡ Founding Sprint banner */}
-        <div className="mb-16 rounded-xl p-8 shadow-xl bg-gradient-to-r from-primary to-primary-focus text-primary-content relative overflow-hidden">
-          <div className="absolute inset-0 bg-primary-content/5 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)]"></div>
-          <div className="relative z-10 flex flex-col items-center gap-6">
-            <h3 className="text-2xl md:text-3xl font-bold text-center">
-              ⚡ Founding Sprint (14-Day Application Window) –
-              <span className="underline ml-1 text-secondary">Apply by 27 May 2025</span>
+        {/* Synai Introduction */}
+        <div className="mb-16 rounded-2xl p-8 shadow-2xl bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-700 text-white relative overflow-hidden">
+          <div className="absolute inset-0 bg-white/10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:20px_20px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_70%,transparent_100%)]"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/5 to-transparent"></div>
+          <div className="relative z-10 flex flex-col items-center gap-6 text-center">
+            <h3 className="text-2xl md:text-3xl font-bold">
+              🧠 Introducing <span className="text-yellow-300 font-extrabold">Synai</span>: Your Personal AI Coach
             </h3>
-            <p className="max-w-2xl text-center text-white text-lg">
-              I&apos;m opening <span className="font-bold">4 free seats</span> for the Integration Sprint beta.
-              Use coupon <span className="font-mono bg-black text-yellow-500 px-3 py-1 rounded-md mx-1">FOUNDER100</span>
-              to drop the fee to £0. Every week you wait is five hours lost to workaround tasks—keep that time instead.
+            <p className="max-w-3xl text-lg text-white/95 leading-relaxed">
+              Unlike <span className="text-red-300 font-semibold">generic AI</span> that gives one-size-fits-all advice, <span className="text-yellow-300 font-semibold">Synai</span> is built from your unique clinical assessment. 
+              Each tier includes <span className="text-green-300 font-semibold">comprehensive psychological profiling</span> with Kai to create an AI coach that truly understands 
+              your patterns, values, and goals.
             </p>
-            <div className="flex flex-wrap gap-4 justify-center">
-              <Link href="https://forms.gle/your-google-form" className="btn btn-secondary btn-lg shadow-md hover:shadow-lg transition-all">
-                Apply via Google Form
-              </Link>
-              <Link href="/blog/founding-sprint" className="btn btn-outline btn-lg btn-primary-content hover:bg-primary-content/10">
-                Live Updates & Resources
-              </Link>
-            </div>
+            <Link href="/synai" className="btn btn-white text-blue-600 btn-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 font-bold border-2 border-white/20">
+              Learn More About Synai
+            </Link>
           </div>
         </div>
 
@@ -102,21 +100,23 @@ const Pricing = () => {
             <div key={plan.priceId} className="relative w-full max-w-lg">
               {plan.isFeatured && (
                 <>
-                  <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
-                    <span className="badge text-xs font-semibold border-0 bg-secondary text-secondary-content">
-                      RECOMMENDED
-                    </span>
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-30">
+                    <div className="bg-gradient-to-r from-secondary to-secondary-focus text-secondary-content px-6 py-2 rounded-full shadow-lg font-bold text-sm uppercase tracking-wider border-2 border-white">
+                      ⭐ Most Popular
+                    </div>
                   </div>
-                  <div className="absolute -inset-[1px] rounded-[9px] bg-secondary z-10" />
+                  <div className="absolute -inset-[2px] rounded-xl bg-gradient-to-br from-secondary to-secondary-focus z-10 shadow-xl" />
                 </>
               )}
 
-              <div className="relative z-20 flex flex-col h-full gap-6 bg-base-100 p-8 rounded-lg">
+              <div className={`relative z-20 flex flex-col h-full gap-6 p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 ${plan.isFeatured ? 'bg-base-100 mt-4' : 'bg-base-100'}`}>
                 {/* plan name & desc */}
                 <div>
-                  <p className="text-lg lg:text-xl font-bold">{plan.name}</p>
+                  <p className="text-xl lg:text-2xl font-bold">
+                    <span className="text-secondary">Synai</span> <span className="text-primary">{plan.name.replace('Synai ', '')}</span>
+                  </p>
                   {plan.description && (
-                    <p className="text-base-content/80 mt-2">{plan.description}</p>
+                    <p className="text-base-content/80 mt-3 leading-relaxed text-base">{plan.description}</p>
                   )}
                 </div>
 
@@ -128,32 +128,34 @@ const Pricing = () => {
                       £{formatPrice(plan.priceAnchor)}
                     </span>
                   )}
-                  <p className="text-5xl font-extrabold tracking-tight">
+                  <p className="text-5xl lg:text-6xl font-extrabold tracking-tight bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
                     £{formatPrice(plan.price)}
                   </p>
                   {plan.frequency && (
-                    <span className="text-xs text-base-content/60 mb-1">{plan.frequency}</span>
+                    <span className="text-sm text-base-content/70 mb-2 font-medium">{plan.frequency}</span>
                   )}
                 </div>
 
                 {/* features */}
                 {plan.features && (
-                  <ul className="flex-1 space-y-2.5 leading-relaxed text-base">
+                  <ul className="flex-1 space-y-3 leading-relaxed text-base">
                     {plan.features.map((feature, i) => (
-                      <li key={i} className="flex items-center gap-2">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 20 20"
-                          fill="currentColor"
-                          className="w-4 h-4 opacity-80 shrink-0"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                        <span>{feature.name}</span>
+                      <li key={i} className="flex items-start gap-3">
+                        <div className="w-5 h-5 rounded-full bg-gradient-to-r from-green-400 to-green-600 flex items-center justify-center shrink-0 mt-0.5">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                            className="w-3 h-3 text-white"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        </div>
+                        <span className="text-gray-700 font-medium">{feature.name}</span>
                       </li>
                     ))}
                   </ul>
