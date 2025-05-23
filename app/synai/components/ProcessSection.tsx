@@ -26,13 +26,13 @@ export default function ProcessSection() {
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-white rounded-full blur-3xl"></div>
       </div>
 
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="container mx-auto px-6 md:px-4 relative z-10">
         {/* Section Header */}
         <div className="text-center mb-24 synai-fade-in">
-          <h2 className="text-5xl md:text-6xl font-bold text-white mb-8">
+          <h2 className="text-4xl md:text-6xl font-bold text-white mb-8">
             Your Journey to Personal AI
           </h2>
-          <p className="text-2xl md:text-3xl text-white/90 max-w-4xl mx-auto leading-relaxed">
+          <p className="text-xl md:text-3xl text-white/90 max-w-4xl mx-auto leading-relaxed">
             From clinical assessment to your private AI coach in three steps
           </p>
         </div>
@@ -45,7 +45,7 @@ export default function ProcessSection() {
               className={`relative bg-white/95 backdrop-blur-lg rounded-3xl p-10 shadow-2xl text-center transition-all duration-500 hover:-translate-y-4 hover:shadow-3xl synai-fade-in synai-fade-in-delay-${index + 1}`}
             >
               {/* Step Number Badge */}
-              <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 w-16 h-16 bg-gradient-to-br from-yellow-400 to-orange-500 text-white rounded-full flex items-center justify-center font-bold text-2xl shadow-xl">
+              <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 w-16 h-16 bg-gradient-to-br from-yellow-400 to-orange-500 text-white rounded-full flex items-center justify-center font-bold text-xl md:text-2xl shadow-xl">
                 {step.number}
               </div>
 
@@ -55,10 +55,10 @@ export default function ProcessSection() {
 
               {/* Step Content */}
               <div className="pt-8">
-                <h4 className="text-2xl font-bold text-gray-900 mb-6">
+                <h4 className="text-xl md:text-2xl font-bold text-gray-900 mb-6">
                   {step.title}
                 </h4>
-                <p className="text-gray-700 leading-relaxed text-lg">
+                <p className="text-gray-700 leading-relaxed text-base md:text-lg">
                   {step.description}
                 </p>
               </div>

@@ -120,7 +120,7 @@ export default function TechnicalDeepDive() {
             <p className="text-xl text-cyan-200 max-w-3xl mx-auto">
               A systematic review of the advanced techniques powering Synai's personalized AI architecture
             </p>
-            <div className="mt-6 inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-600 rounded-full text-white font-bold text-lg">
+            <div className="mt-6 inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-600 rounded-full text-white font-bold text-base md:text-lg">
               <span>Professional Grade Score: 95/100</span>
             </div>
           </div>
@@ -153,7 +153,7 @@ export default function TechnicalDeepDive() {
                 >
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex-1">
-                      <h5 className="text-lg font-bold text-white mb-2">
+                      <h5 className="text-base md:text-lg font-bold text-white mb-2">
                         {technique.name}
                       </h5>
                       <span className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${
@@ -191,7 +191,7 @@ export default function TechnicalDeepDive() {
             </h4>
             <div className="grid md:grid-cols-2 gap-8">
               <div>
-                <h5 className="text-lg font-semibold text-white mb-3">Architecture Excellence</h5>
+                <h5 className="text-base md:text-lg font-semibold text-white mb-3">Architecture Excellence</h5>
                 <ul className="space-y-2 text-gray-300">
                   <li className="flex items-center">
                     <span className="w-2 h-2 bg-green-400 rounded-full mr-3"></span>
@@ -208,7 +208,7 @@ export default function TechnicalDeepDive() {
                 </ul>
               </div>
               <div>
-                <h5 className="text-lg font-semibold text-white mb-3">Professional Indicators</h5>
+                <h5 className="text-base md:text-lg font-semibold text-white mb-3">Professional Indicators</h5>
                 <ul className="space-y-2 text-gray-300">
                   <li className="flex items-center">
                     <span className="w-2 h-2 bg-cyan-400 rounded-full mr-3"></span>

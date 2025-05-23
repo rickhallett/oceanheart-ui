@@ -34,13 +34,13 @@ export default function FeaturesSection() {
 
   return (
     <section className="py-24 bg-white">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-6 md:px-4">
         {/* Section Header */}
         <div className="text-center mb-20 synai-fade-in">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+          <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6">
             How Synai Works
           </h2>
-          <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+          <p className="text-lg md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
             A fusion of clinical expertise, advanced AI engineering, and your unique psychological fingerprint
           </p>
         </div>
@@ -62,12 +62,12 @@ export default function FeaturesSection() {
               </div>
 
               {/* Feature Title */}
-              <h4 className="text-2xl font-bold text-gray-900 mb-6">
+              <h4 className="text-xl md:text-2xl font-bold text-gray-900 mb-6">
                 {feature.title}
               </h4>
 
               {/* Feature Description */}
-              <p className="text-gray-600 leading-relaxed text-lg">
+              <p className="text-gray-600 leading-relaxed text-base md:text-lg">
                 {feature.description}
               </p>
             </div>
