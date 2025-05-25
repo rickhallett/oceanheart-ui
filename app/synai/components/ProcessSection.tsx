@@ -42,7 +42,7 @@ export default function ProcessSection() {
           {steps.map((step, index) => (
             <div
               key={index}
-              className={`relative bg-white/95 backdrop-blur-lg rounded-3xl p-10 shadow-2xl text-center transition-all duration-500 hover:-translate-y-4 hover:shadow-3xl synai-fade-in synai-fade-in-delay-${index + 1}`}
+              className={`relative bg-white/95 backdrop-blur-lg rounded-3xl p-10 shadow-2xl text-center synai-fade-in synai-fade-in-delay-${index + 1}`}
             >
               {/* Step Number Badge */}
               <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 w-16 h-16 bg-gradient-to-br from-yellow-400 to-orange-500 text-white rounded-full flex items-center justify-center font-bold text-xl md:text-2xl shadow-xl">
