@@ -54,7 +54,7 @@ const config = {
         features: [
           { name: "Personalized Professional Assessment with Kai (90 min)" },
           { name: "Advanced Custom Synai AI Coach (Deep Psychotherapeutic Integration)" },
-          { name: "Three Monthly 90-minute Deep Dive Sessions with Kai" },
+          { name: "Three Monthly 90-minute " },
           { name: "Conscious AI Methodology Integration" }
         ],
         isFeatured: true, // This is a substantial offering.

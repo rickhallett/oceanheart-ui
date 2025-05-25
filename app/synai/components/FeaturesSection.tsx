@@ -50,7 +50,7 @@ export default function FeaturesSection() {
           {features.map((feature, index) => (
             <div
               key={index}
-              className={`text-center p-8 transition-all duration-500 hover:-translate-y-3 hover:shadow-lg synai-fade-in ${index < 3 ? 'synai-fade-in-delay-1' : index < 6 ? 'synai-fade-in-delay-2' : 'synai-fade-in-delay-3'}`}
+              className={`text-center p-8 synai-fade-in ${index < 3 ? 'synai-fade-in-delay-1' : index < 6 ? 'synai-fade-in-delay-2' : 'synai-fade-in-delay-3'}`}
             >
               {/* Animated Feature Icon */}
               <div className="relative w-20 h-20 mx-auto mb-8">

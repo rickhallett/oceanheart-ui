@@ -15,7 +15,7 @@ export default function ComparisonSection() {
         {/* Comparison Grid */}
         <div className="grid md:grid-cols-2 gap-12 max-w-7xl mx-auto">
           {/* Generic AI Card */}
-          <div className="relative bg-gradient-to-br from-red-50 to-red-100 rounded-3xl p-10 shadow-xl border border-red-200 transition-all duration-500 hover:-translate-y-3 hover:shadow-2xl synai-fade-in synai-fade-in-delay-1">
+          <div className="relative bg-gradient-to-br from-red-50 to-red-100 rounded-3xl p-10 shadow-xl border border-red-200 synai-fade-in synai-fade-in-delay-1">
             <div className="absolute -top-4 -right-4 w-8 h-8 bg-red-500 rounded-full opacity-20"></div>
             <div className="absolute -bottom-4 -left-4 w-6 h-6 bg-red-400 rounded-full opacity-30"></div>
 
@@ -58,7 +58,7 @@ export default function ComparisonSection() {
           </div>
 
           {/* Synai Card */}
-          <div className="relative bg-gradient-to-br from-blue-50 to-indigo-100 rounded-3xl p-10 shadow-xl border border-blue-200 transition-all duration-500 hover:-translate-y-3 hover:shadow-2xl synai-fade-in synai-fade-in-delay-2">
+          <div className="relative bg-gradient-to-br from-blue-50 to-indigo-100 rounded-3xl p-10 shadow-xl border border-blue-200 synai-fade-in synai-fade-in-delay-2">
             <div className="absolute -top-4 -right-4 w-8 h-8 bg-blue-500 rounded-full opacity-20"></div>
             <div className="absolute -bottom-4 -left-4 w-6 h-6 bg-indigo-400 rounded-full opacity-30"></div>
 

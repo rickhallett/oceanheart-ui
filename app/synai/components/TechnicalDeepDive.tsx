@@ -149,7 +149,7 @@ export default function TechnicalDeepDive() {
               {engineeringTechniques.map((technique, index) => (
                 <div 
                   key={index}
-                  className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10 hover:border-cyan-400/50 transition-all duration-300"
+                  className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10"
                 >
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex-1">
