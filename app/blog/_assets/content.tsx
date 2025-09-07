@@ -37,79 +37,38 @@ export const categories: categoryType[] = [
     // The slug to use in the URL, from the categorySlugs object above.
     slug: categorySlugs.feature,
     // The title to display the category title (h1), the category badge, the category filter, and more. Less than 60 characters.
-    title: "New Features",
+    title: "Product & Features",
     // A short version of the title above, display in small components like badges. 1 or 2 words
-    titleShort: "Features",
+    titleShort: "Product",
     // The description of the category to display in the category page. Up to 160 characters.
     description:
-      "The latest features added to oceanheart.ai. I work tirelessly to bring you the latest and greatest in AI tooling.",
+      "New features, product updates, and technical deep dives into oceanheart.ai's AI-powered therapy platform.",
     // A short version of the description above, only displayed in the <Header /> on mobile. Up to 60 characters.
-    descriptionShort: "Latest features added to oceanheart.ai",
-  },
-  {
-    slug: categorySlugs.tutorials,
-    title: "How Tos & Tutorials",
-    titleShort: "Tutorials",
-    description:
-      "Learn how to use oceneaheart.ai with these step-by-step tutorials. I'll show you how to use them to create powerful, time saving, therapy enhancing workflows",
-    descriptionShort:
-      "Learn how to use oceanheart.ai with these step-by-step tutorials.",
-  },
-  {
-    slug: categorySlugs.updates,
-    title: "Updates",
-    titleShort: "Updates",
-    description:
-      "Roadmap changes, feature requests, and other updates.",
-    descriptionShort: "Roadmap changes, feature requests, and other updates.",
-  },
-  {
-    slug: categorySlugs.community,
-    title: "Community",
-    titleShort: "Community",
-    description:
-      "User feedback, networking, and other community updates.",
-    descriptionShort: "User feedback, networking, and other community updates.",
-  },
-  {
-    slug: categorySlugs.research,
-    title: "Research",
-    titleShort: "Research",
-    description:
-      "Research, studies, and other relevant content.",
-    descriptionShort: "Research, studies, and other relevant content.",
-  },
-  {
-    slug: categorySlugs.ai,
-    title: "AI",
-    titleShort: "AI",
-    description:
-      "What's hot in AI?",
-    descriptionShort: "What's hot in AI?",
-  },
-  {
-    slug: categorySlugs.therapy,
-    title: "Therapy",
-    titleShort: "Therapy",
-    description:
-      "Therapy, counseling, and other relevant content.",
-    descriptionShort: "Therapy, counseling, and other relevant content.",
-  },
-  {
-    slug: categorySlugs.psychology,
-    title: "Psychology",
-    titleShort: "Psychology",
-    description:
-      "Psychology, counseling, and other relevant content.",
-    descriptionShort: "Psychology, counseling, and other relevant content.",
+    descriptionShort: "Product updates and new features",
   },
   {
     slug: categorySlugs.learning,
-    title: "Learning",
+    title: "Learning & Insights",
     titleShort: "Learning",
     description:
-      "Reflections on my learning journey with AI, psychotherapy and software engineering.",
-    descriptionShort: "Reflections on my learning journey with AI, psychotherapy and software engineering.",
+      "Reflections on building AI systems, entrepreneurship lessons, and insights from the intersection of AI and therapy.",
+    descriptionShort: "Lessons learned and insights from building with AI",
+  },
+  {
+    slug: categorySlugs.tutorials,
+    title: "Guides & Tutorials", 
+    titleShort: "Guides",
+    description:
+      "Step-by-step tutorials and guides for using oceanheart.ai to enhance your therapy practice.",
+    descriptionShort: "How-to guides and tutorials for therapists",
+  },
+  {
+    slug: categorySlugs.research,
+    title: "Research & Industry",
+    titleShort: "Research", 
+    description:
+      "Latest research, industry trends, and developments in AI-assisted therapy and mental health technology.",
+    descriptionShort: "Research and industry insights",
   },
 ];
 
@@ -509,13 +468,13 @@ export const articles: articleType[] = [
     author: authors.find((author) => author.slug === authorSlugs.kai),
     publishedAt: "2025-02-21",
     image: {
-      urlRelative: "/blog/no-perfect-idea/header.jpg",
+      urlRelative: "/blog/no-perfect-idea/header.png",
       alt: "lightbulb moments",
     },
     content: (
       <>
         <Image
-          src="/blog/no-perfect-idea/header.jpg"
+          src="/blog/no-perfect-idea/header.png"
           alt="lightbulb moments"
           width={700}
           height={500}

@@ -25,8 +25,8 @@ export default async function Blog() {
         <h1 className="font-extrabold text-3xl lg:text-5xl tracking-tight mb-6">
           The {config.appName} Blog
         </h1>
-        <p className="text-lg opacity-80 leading-relaxed">
-          Here you can find <span className="font-bold text-primary-content">feature releases</span>, <span className="font-bold text-accent-content">roadmap updates</span>, <span className="font-bold text-primary-content">community survey research</span>, the <span className="font-bold text-success">ups</span> and <span className="font-bold text-error">downs</span> of building a startup, and a <span className="font-bold text-info-content">magical breadcrumb trail</span> of the latest developments at the intersection of AI and therapy.
+        <p className="text-lg text-base-content opacity-80 leading-relaxed">
+          Here you can find <span className="font-bold text-primary">feature releases</span>, <span className="font-bold text-accent">roadmap updates</span>, <span className="font-bold text-primary">community survey research</span>, the <span className="font-bold text-success">ups</span> and <span className="font-bold text-error">downs</span> of building a startup, and a <span className="font-bold text-info">magical breadcrumb trail</span> of the latest developments at the intersection of AI and therapy.
         </p>
       </section>
 
@@ -41,11 +41,16 @@ export default async function Blog() {
       </section>
 
       <section>
-        <p className="font-bold text-2xl lg:text-4xl tracking-tight text-center mb-8 md:mb-12">
-          Browse articles by category
-        </p>
+        <div className="text-center mb-12">
+          <h2 className="font-bold text-2xl lg:text-4xl tracking-tight mb-4">
+            Browse by Category
+          </h2>
+          <p className="text-base-content/70 max-w-2xl mx-auto">
+            Discover articles organized by topics that matter most to therapy professionals and AI enthusiasts.
+          </p>
+        </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 max-w-4xl mx-auto">
           {categories.map((category) => (
             <CardCategory key={category.slug} category={category} tag="div" />
           ))}
