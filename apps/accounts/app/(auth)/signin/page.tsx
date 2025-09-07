@@ -1,4 +1,5 @@
 'use client'
+import { useMemo } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 
@@ -8,10 +9,9 @@ export default function SignInPage() {
   const supabase = createClientComponentClient()
 
   async function signInWithEmail(email: string) {
-    await supabase.auth.signInWithOtp({
-      email,
-      options: { emailRedirectTo: returnTo || undefined },
-    })
+    const callback = new URL('/auth/callback', process.env.NEXT_PUBLIC_SITE_URL)
+    if (returnTo) callback.searchParams.set('returnTo', returnTo)
+    await supabase.auth.signInWithOtp({ email, options: { emailRedirectTo: callback.toString() } })
   }
 
   return (
@@ -21,4 +21,3 @@ export default function SignInPage() {
     </div>
   )
 }
-

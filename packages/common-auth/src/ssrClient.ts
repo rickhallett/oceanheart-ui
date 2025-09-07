@@ -4,6 +4,7 @@ import { createServerClient, type CookieOptions } from '@supabase/ssr'
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL!
 const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 const COOKIE_DOMAIN = process.env.COOKIE_DOMAIN // e.g., .oceanheart.ai or .lvh.me for local
+const SECURE_COOKIES = process.env.NODE_ENV === 'production'
 
 export function createSSRClient(req: NextRequest, res: NextResponse) {
   return createServerClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
@@ -17,7 +18,7 @@ export function createSSRClient(req: NextRequest, res: NextResponse) {
           value,
           ...options,
           domain: options?.domain ?? COOKIE_DOMAIN,
-          secure: true,
+          secure: SECURE_COOKIES,
           sameSite: (options?.sameSite as any) ?? 'lax',
         })
       },
@@ -27,7 +28,7 @@ export function createSSRClient(req: NextRequest, res: NextResponse) {
           value: '',
           ...options,
           domain: options?.domain ?? COOKIE_DOMAIN,
-          secure: true,
+          secure: SECURE_COOKIES,
           sameSite: (options?.sameSite as any) ?? 'lax',
           maxAge: 0,
         })
@@ -35,4 +36,3 @@ export function createSSRClient(req: NextRequest, res: NextResponse) {
     },
   })
 }
-
