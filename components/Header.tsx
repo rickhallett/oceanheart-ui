@@ -13,6 +13,10 @@ const links: { href: string; label: string; className?: string }[] = [
     label: "Offerings",
   },
   {
+    href: "/portfolio",
+    label: "Portfolio",
+  },
+  {
     href: "/about-alt",
     label: "About Kai",
   },
