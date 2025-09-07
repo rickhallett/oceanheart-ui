@@ -8,9 +8,9 @@ Oceanheart UI is a Next.js web application that serves as the frontend for Ocean
 
 ## Tech Stack
 
-- **Framework**: Next.js (App Router)
+- **Framework**: Next.js 14 (App Router)
 - **Language**: TypeScript
-- **UI**: React, Tailwind CSS, DaisyUI, Framer Motion, Recharts
+- **UI**: React 18, Tailwind CSS, DaisyUI, Framer Motion, Recharts
 - **Backend**: Next.js API Routes, Supabase (Auth, PostgreSQL)
 - **Payments**: Stripe
 - **Email**: Resend
