@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { makeProjectSlug } from "@/libs/portfolio";
 
 interface Project {
   id: number;
@@ -113,14 +115,20 @@ export default function PortfolioCarousel({
 
                 {/* Action Button - Always at bottom */}
                 <div className="pt-6">
-                  <button className="w-full btn btn-outline btn-sm group-hover:btn-primary transition-all duration-300">
-                    <span className="group-hover:scale-110 transition-transform duration-300">
-                      View Details
-                    </span>
-                    <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <Link
+                    href={`/portfolio/${makeProjectSlug(sectionId, project.title)}`}
+                    className="w-full btn btn-outline btn-sm group-hover:btn-primary transition-all duration-300"
+                  >
+                    <span className="group-hover:scale-110 transition-transform duration-300">View Details</span>
+                    <svg
+                      className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
-                  </button>
+                  </Link>
                 </div>
               </div>
             </div>
