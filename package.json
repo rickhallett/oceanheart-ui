@@ -8,6 +8,8 @@
     "postbuild": "next-sitemap",
     "start": "next start",
     "lint": "next lint",
+    "test": "bun test --preload=jest.setup.ts",
+    "test:watch": "bun test --watch --preload=jest.setup.ts",
     "cli": "ts-node bin/cli.ts",
     "add-instagram-check": "app/saigo/lib/add-instagram-check.ts",
     "add-instagram-check-with-users": "app/saigo/lib/add-instagram-check-with-users.ts"
