@@ -96,43 +96,6 @@ export default function PortfolioCarousel({
     }
   }, [translateX, projects.length]);
 
-  const handlePrevious = () => {
-    // Temporarily pause auto-scroll for manual control
-    setIsPlaying(false);
-    setIsTransitioning(true);
-    
-    const projectWidth = 320;
-    setTranslateX(prev => {
-      // Always move backward (to the right/positive direction)
-      // This preserves the user's backward navigation intent
-      return prev + projectWidth;
-    });
-    
-    // Resume after transition
-    setTimeout(() => {
-      setIsTransitioning(false);
-      setIsPlaying(true);
-    }, 500);
-  };
-
-  const handleNext = () => {
-    // Temporarily pause auto-scroll for manual control
-    setIsPlaying(false);
-    setIsTransitioning(true);
-    
-    const projectWidth = 320;
-    setTranslateX(prev => {
-      // Always move forward (to the left/negative direction)
-      // This preserves the user's forward navigation intent
-      return prev - projectWidth;
-    });
-    
-    // Resume after transition
-    setTimeout(() => {
-      setIsTransitioning(false);
-      setIsPlaying(true);
-    }, 500);
-  };
 
   const handlePlayPause = () => {
     setIsPlaying(!isPlaying);
@@ -144,18 +107,8 @@ export default function PortfolioCarousel({
 
   return (
     <div className="relative">
-      {/* Controls */}
-      <div className="flex justify-center items-center gap-4 mb-8">
-        <button
-          onClick={handlePrevious}
-          className="btn btn-circle btn-outline hover:btn-primary transition-all duration-300"
-          aria-label="Previous project"
-        >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-        </button>
-        
+      {/* Simple Play/Pause Control */}
+      <div className="flex justify-center mb-8">
         <button
           onClick={handlePlayPause}
           className="btn btn-circle btn-outline hover:btn-secondary transition-all duration-300"
@@ -167,20 +120,9 @@ export default function PortfolioCarousel({
             </svg>
           ) : (
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h6" />
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3l14 9-14 9V3z" />
             </svg>
           )}
-        </button>
-
-        <button
-          onClick={handleNext}
-          className="btn btn-circle btn-outline hover:btn-primary transition-all duration-300"
-          aria-label="Next project"
-        >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-          </svg>
         </button>
       </div>
 
@@ -215,7 +157,7 @@ export default function PortfolioCarousel({
               <div
                 key={`${project.id}-${index}`}
                 className="group bg-base-200 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 flex-shrink-0 flex flex-col"
-                style={{ width: '300px', flexShrink: 0, minHeight: '520px' }}
+                style={{ width: '300px', flexShrink: 0, minHeight: '580px' }}
               >
                 {/* Project Image */}
                 <div className="relative h-48 overflow-hidden">
@@ -229,29 +171,32 @@ export default function PortfolioCarousel({
                 </div>
 
                 {/* Project Content */}
-                <div className="p-6 space-y-4 flex-1 flex flex-col">
-                  <h3 className="font-bold text-xl text-base-content group-hover:text-primary transition-colors duration-300">
-                    {project.title}
-                  </h3>
-                  
-                  <p className="text-base-content/80 leading-relaxed text-sm">
-                    {project.description}
-                  </p>
+                <div className="p-6 flex-1 flex flex-col">
+                  {/* Main Content Area */}
+                  <div className="flex-1 space-y-4">
+                    <h3 className="font-bold text-xl text-base-content group-hover:text-primary transition-colors duration-300">
+                      {project.title}
+                    </h3>
+                    
+                    <p className="text-base-content/80 leading-relaxed text-sm">
+                      {project.description}
+                    </p>
 
-                  {/* Tech Stack */}
-                  <div className="flex flex-wrap gap-2">
-                    {project.tech.map((tech, techIndex) => (
-                      <span
-                        key={techIndex}
-                        className="inline-block px-3 py-1 text-xs font-medium bg-primary/10 text-primary rounded-full border border-primary/20 hover:bg-primary/20 transition-colors duration-300"
-                      >
-                        {tech}
-                      </span>
-                    ))}
+                    {/* Tech Stack */}
+                    <div className="flex flex-wrap gap-2">
+                      {project.tech.map((tech, techIndex) => (
+                        <span
+                          key={techIndex}
+                          className="inline-block px-3 py-1 text-xs font-medium bg-primary/10 text-primary rounded-full border border-primary/20 hover:bg-primary/20 transition-colors duration-300"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
                   </div>
 
-                  {/* Action Button - positioned at bottom */}
-                  <div className="pt-2 mt-auto">
+                  {/* Action Button - Always at bottom */}
+                  <div className="pt-6">
                     <button className="w-full btn btn-outline btn-sm group-hover:btn-primary transition-all duration-300">
                       <span className="group-hover:scale-110 transition-transform duration-300">
                         View Details
