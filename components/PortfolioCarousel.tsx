@@ -57,17 +57,17 @@ export default function PortfolioCarousel({
 
       {/* Continuous Scroll Carousel */}
       <div className="relative overflow-hidden">
-        {/* Fade gradients */}
+        {/* Enhanced vertical fade gradients on left/right edges */}
         <div 
-          className="absolute left-0 top-0 bottom-0 w-16 z-10 pointer-events-none"
+          className="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
           style={{
-            background: 'linear-gradient(to right, hsl(var(--b1)), transparent)'
+            background: 'linear-gradient(to right, hsl(var(--b1)) 0%, hsl(var(--b1)) 40%, hsl(var(--b1) / 0.1) 80%, transparent 100%)'
           }}
         ></div>
         <div 
-          className="absolute right-0 top-0 bottom-0 w-16 z-10 pointer-events-none"
+          className="absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
           style={{
-            background: 'linear-gradient(to left, hsl(var(--b1)), transparent)'
+            background: 'linear-gradient(to left, hsl(var(--b1)) 0%, hsl(var(--b1)) 40%, hsl(var(--b1) / 0.1) 80%, transparent 100%)'
           }}
         ></div>
 
