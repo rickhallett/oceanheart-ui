@@ -27,6 +27,15 @@ export default function PortfolioCarousel({
   const [isPlaying, setIsPlaying] = useState(true);
   const [visibleProjects, setVisibleProjects] = useState(1);
   const [translateX, setTranslateX] = useState(0);
+  
+  // Initialize translateX for reversed carousels
+  useEffect(() => {
+    if (isReversed && projects.length > 1) {
+      const projectWidth = 320;
+      const totalWidth = projectWidth * projects.length;
+      setTranslateX(-totalWidth);
+    }
+  }, [isReversed, projects.length]);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const animationRef = useRef<number | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -50,26 +59,33 @@ export default function PortfolioCarousel({
 
   // Smooth continuous scroll functionality
   useEffect(() => {
-    if (isPlaying && projects.length > 1 && containerRef.current) {
-      const container = containerRef.current;
-      const firstChild = container.firstElementChild as HTMLElement;
-      if (!firstChild) return;
-      
-      const projectWidth = firstChild.offsetWidth + 24; // width + gap
-      const speed = isReversed ? -0.3 : 0.3; // pixels per frame (slower for better readability)
+    if (!isPlaying || projects.length <= 1) {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+        animationRef.current = null;
+      }
+      return;
+    }
+
+    // Small delay to ensure component is mounted
+    const timeoutId = setTimeout(() => {
+      const projectWidth = 320; // Fixed width + gap
+      const speed = isReversed ? -0.8 : 0.8; // pixels per frame
       const totalWidth = projectWidth * projects.length;
       
       const animate = () => {
         setTranslateX((prev) => {
           let next = prev + speed;
           
-          // Reset position when we've scrolled one full cycle
-          if (isReversed) {
-            if (next <= -totalWidth) next = 0;
-            if (next > 0) next = -totalWidth;
+          // Reset position for infinite scroll
+          if (!isReversed) {
+            if (next <= -totalWidth) {
+              next = 0;
+            }
           } else {
-            if (next >= 0) next = -totalWidth;
-            if (next < -totalWidth) next = 0;
+            if (next >= 0) {
+              next = -totalWidth;
+            }
           }
           
           return next;
@@ -81,9 +97,10 @@ export default function PortfolioCarousel({
       };
       
       animationRef.current = requestAnimationFrame(animate);
-    }
+    }, 500);
 
     return () => {
+      clearTimeout(timeoutId);
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
         animationRef.current = null;
@@ -92,19 +109,13 @@ export default function PortfolioCarousel({
   }, [isPlaying, projects.length, isReversed]);
 
   const handlePrevious = () => {
-    if (containerRef.current) {
-      const firstChild = containerRef.current.firstElementChild as HTMLElement;
-      const projectWidth = firstChild ? firstChild.offsetWidth + 24 : 300;
-      setTranslateX(prev => prev + projectWidth);
-    }
+    const projectWidth = 320;
+    setTranslateX(prev => prev + projectWidth);
   };
 
   const handleNext = () => {
-    if (containerRef.current) {
-      const firstChild = containerRef.current.firstElementChild as HTMLElement;
-      const projectWidth = firstChild ? firstChild.offsetWidth + 24 : 300;
-      setTranslateX(prev => prev - projectWidth);
-    }
+    const projectWidth = 320;
+    setTranslateX(prev => prev - projectWidth);
   };
 
   const handlePlayPause = () => {
@@ -160,17 +171,17 @@ export default function PortfolioCarousel({
       <div className="overflow-hidden">
         <div 
           ref={containerRef}
-          className="flex gap-6 transition-none"
+          className="flex gap-6"
           style={{
             transform: `translateX(${translateX}px)`,
-            width: `${infiniteProjects.length * (100 / visibleProjects)}%`
+            transition: 'none',
           }}
         >
           {infiniteProjects.map((project, index) => (
               <div
                 key={`${project.id}-${index}`}
                 className="group bg-base-200 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 flex-shrink-0"
-                style={{ width: 'clamp(280px, 30vw, 400px)' }}
+                style={{ width: '300px', flexShrink: 0 }}
               >
                 {/* Project Image */}
                 <div className="relative h-48 overflow-hidden">
