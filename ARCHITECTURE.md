@@ -172,6 +172,12 @@ Authentication is handled through Supabase Authentication:
    - Middleware redirects unauthenticated users
    - Dashboard and user-specific pages check auth state
 
+### Subdomain SSO (Planned/Implementing)
+- Centralized auth UI on `accounts.oceanheart.ai` with domain-scoped cookies (`.oceanheart.ai`).
+- Each product app (e.g., `flowstate.oceanheart.ai`) uses shared SSR auth utilities and middleware guards.
+- Entitlements enforced server-side via `user_entitlements` table.
+- See `docs/PRD-Subdomain-SSO.md` and `packages/common-auth` for details and stubs.
+
 ## State Management
 
 1. **Server State**:
