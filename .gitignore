@@ -44,3 +44,7 @@ public/sitemap-0.xml
 
 # aider
 .aider*
+
+# local artifacts
+db_cluster.backup
+supabase/supabase/.temp/
