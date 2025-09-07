@@ -1,13 +1,7 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useState } from "react";
 import Image from "next/image";
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, FreeMode } from 'swiper/modules';
-import type { Swiper as SwiperType } from 'swiper';
-
-// Import Swiper styles
-import 'swiper/css';
 
 interface Project {
   id: number;
@@ -28,35 +22,17 @@ export default function PortfolioCarousel({
   sectionId, 
   isReversed = false 
 }: PortfolioCarouselProps) {
-  const swiperRef = useRef<SwiperType | null>(null);
   const [isPlaying, setIsPlaying] = useState(true);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
-  
-  // Custom continuous scroll since Swiper autoplay doesn't loop properly
-  useEffect(() => {
-    if (!isPlaying || !swiperRef.current) return;
-    
-    intervalRef.current = setInterval(() => {
-      if (swiperRef.current) {
-        if (isReversed) {
-          swiperRef.current.slidePrev();
-        } else {
-          swiperRef.current.slideNext();
-        }
-      }
-    }, 3000);
-    
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-        intervalRef.current = null;
-      }
-    };
-  }, [isPlaying, isReversed]);
 
   const toggleAutoplay = () => {
     setIsPlaying(!isPlaying);
   };
+
+  // Calculate total width for animation
+  const cardWidth = 320;
+  const gap = 24;
+  const totalWidth = (cardWidth + gap) * projects.length;
+  const animationDuration = Math.max(20, totalWidth / 50); // Slower for longer content
 
   return (
     <div className="relative">
@@ -79,8 +55,8 @@ export default function PortfolioCarousel({
         </button>
       </div>
 
-      {/* Swiper Carousel */}
-      <div className="relative">
+      {/* Continuous Scroll Carousel */}
+      <div className="relative overflow-hidden">
         {/* Fade gradients */}
         <div 
           className="absolute left-0 top-0 bottom-0 w-16 z-10 pointer-events-none"
@@ -95,76 +71,91 @@ export default function PortfolioCarousel({
           }}
         ></div>
 
-        <Swiper
-          onSwiper={(swiper) => {
-            swiperRef.current = swiper;
+        <div 
+          className="flex gap-6"
+          style={{
+            animation: isPlaying ? `scroll-${isReversed ? 'right' : 'left'} ${animationDuration}s linear infinite` : 'none',
           }}
-          modules={[FreeMode]}
-          spaceBetween={24}
-          slidesPerView="auto"
-          loop={true}
-          loopAdditionalSlides={3}
-          speed={1000}
-          grabCursor={true}
-          allowTouchMove={true}
-          className="!overflow-visible"
         >
-          {projects.map((project, index) => (
-            <SwiperSlide key={project.id} className="!w-[320px]">
-              <div className="group bg-base-200 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 flex flex-col h-[580px]">
-                {/* Project Image */}
-                <div className="relative h-48 overflow-hidden">
-                  <Image
-                    src={project.image}
-                    alt={project.title}
-                    fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          {/* Duplicate content twice for seamless loop */}
+          {[...projects, ...projects].map((project, index) => (
+            <div
+              key={`${project.id}-${index}`}
+              className="group bg-base-200 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 flex-shrink-0 flex flex-col"
+              style={{ width: `${cardWidth}px`, height: '580px' }}
+            >
+              {/* Project Image */}
+              <div className="relative h-48 overflow-hidden">
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  fill
+                  className="object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </div>
+
+              {/* Project Content */}
+              <div className="p-6 flex-1 flex flex-col">
+                {/* Main Content Area */}
+                <div className="flex-1 space-y-4">
+                  <h3 className="font-bold text-xl text-base-content group-hover:text-primary transition-colors duration-300">
+                    {project.title}
+                  </h3>
+                  
+                  <p className="text-base-content/80 leading-relaxed text-sm">
+                    {project.description}
+                  </p>
+
+                  {/* Tech Stack */}
+                  <div className="flex flex-wrap gap-2">
+                    {project.tech.map((tech, techIndex) => (
+                      <span
+                        key={`${tech}-${index}-${techIndex}`}
+                        className="inline-block px-3 py-1 text-xs font-medium bg-primary/10 text-primary rounded-full border border-primary/20 hover:bg-primary/20 transition-colors duration-300"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
                 </div>
 
-                {/* Project Content */}
-                <div className="p-6 flex-1 flex flex-col">
-                  {/* Main Content Area */}
-                  <div className="flex-1 space-y-4">
-                    <h3 className="font-bold text-xl text-base-content group-hover:text-primary transition-colors duration-300">
-                      {project.title}
-                    </h3>
-                    
-                    <p className="text-base-content/80 leading-relaxed text-sm">
-                      {project.description}
-                    </p>
-
-                    {/* Tech Stack */}
-                    <div className="flex flex-wrap gap-2">
-                      {project.tech.map((tech, techIndex) => (
-                        <span
-                          key={techIndex}
-                          className="inline-block px-3 py-1 text-xs font-medium bg-primary/10 text-primary rounded-full border border-primary/20 hover:bg-primary/20 transition-colors duration-300"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Action Button - Always at bottom */}
-                  <div className="pt-6">
-                    <button className="w-full btn btn-outline btn-sm group-hover:btn-primary transition-all duration-300">
-                      <span className="group-hover:scale-110 transition-transform duration-300">
-                        View Details
-                      </span>
-                      <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </button>
-                  </div>
+                {/* Action Button - Always at bottom */}
+                <div className="pt-6">
+                  <button className="w-full btn btn-outline btn-sm group-hover:btn-primary transition-all duration-300">
+                    <span className="group-hover:scale-110 transition-transform duration-300">
+                      View Details
+                    </span>
+                    <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
                 </div>
               </div>
-            </SwiperSlide>
+            </div>
           ))}
-        </Swiper>
+        </div>
       </div>
+
+      <style jsx>{`
+        @keyframes scroll-left {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-${totalWidth}px);
+          }
+        }
+
+        @keyframes scroll-right {
+          0% {
+            transform: translateX(-${totalWidth}px);
+          }
+          100% {
+            transform: translateX(0);
+          }
+        }
+      `}</style>
     </div>
   );
 }
