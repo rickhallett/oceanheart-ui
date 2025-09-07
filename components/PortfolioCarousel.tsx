@@ -24,12 +24,17 @@ export default function PortfolioCarousel({
   isReversed = false 
 }: PortfolioCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [speed, setSpeed] = useState(1); // 0 = paused, 1 = 1x, 2 = 2x, 3 = 3x
   const [visibleProjects, setVisibleProjects] = useState(1);
   const [translateX, setTranslateX] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
+  
+  // Touch gesture state
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStart, setDragStart] = useState(0);
+  const [dragOffset, setDragOffset] = useState(0);
 
   // Responsive visible projects
   useEffect(() => {
@@ -48,15 +53,15 @@ export default function PortfolioCarousel({
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Simple continuous scroll with setInterval
+  // Continuous scroll with variable speed
   useEffect(() => {
-    if (isPlaying && projects.length > 1) {
+    if (speed > 0 && projects.length > 1 && !isDragging) {
       intervalRef.current = setInterval(() => {
         setTranslateX(prev => {
           const projectWidth = 320;
           const totalWidth = projectWidth * projects.length;
-          const speed = isReversed ? 0.5 : -0.5; // pixels per interval (slower)
-          let next = prev + speed;
+          const pixelsPerFrame = (isReversed ? 0.5 : -0.5) * speed; // multiply by speed
+          let next = prev + pixelsPerFrame;
           
           // Reset for infinite scroll
           if (isReversed) {
@@ -67,7 +72,7 @@ export default function PortfolioCarousel({
           
           return next;
         });
-      }, 32); // ~30fps for smoother, slower movement
+      }, 32); // ~30fps
     } else {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
@@ -81,7 +86,7 @@ export default function PortfolioCarousel({
         intervalRef.current = null;
       }
     };
-  }, [isPlaying, projects.length, isReversed]);
+  }, [speed, projects.length, isReversed, isDragging]);
   
   // Cleanup effect to reset position when it gets too far out of bounds
   useEffect(() => {
@@ -97,8 +102,68 @@ export default function PortfolioCarousel({
   }, [translateX, projects.length]);
 
 
-  const handlePlayPause = () => {
-    setIsPlaying(!isPlaying);
+  const handleSpeedCycle = () => {
+    setSpeed(prev => (prev + 1) % 4); // Cycles: 0 → 1 → 2 → 3 → 0
+  };
+  
+  // Touch/Mouse gesture handlers
+  const handleDragStart = (clientX: number) => {
+    setIsDragging(true);
+    setDragStart(clientX);
+    setDragOffset(0);
+  };
+  
+  const handleDragMove = (clientX: number) => {
+    if (!isDragging) return;
+    const offset = clientX - dragStart;
+    setDragOffset(offset);
+  };
+  
+  const handleDragEnd = () => {
+    if (!isDragging) return;
+    setIsDragging(false);
+    
+    // If swipe/drag distance > 75px, move carousel
+    if (Math.abs(dragOffset) > 75) {
+      const projectWidth = 320;
+      setTranslateX(prev => {
+        const direction = dragOffset > 0 ? 1 : -1; // positive = right drag, negative = left drag
+        return prev + (direction * projectWidth);
+      });
+    }
+    
+    setDragOffset(0);
+  };
+  
+  // Touch event handlers
+  const handleTouchStart = (e: React.TouchEvent) => {
+    e.preventDefault();
+    handleDragStart(e.touches[0].clientX);
+  };
+  
+  const handleTouchMove = (e: React.TouchEvent) => {
+    e.preventDefault();
+    handleDragMove(e.touches[0].clientX);
+  };
+  
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    e.preventDefault();
+    handleDragEnd();
+  };
+  
+  // Mouse event handlers
+  const handleMouseDown = (e: React.MouseEvent) => {
+    e.preventDefault();
+    handleDragStart(e.clientX);
+  };
+  
+  const handleMouseMove = (e: React.MouseEvent) => {
+    handleDragMove(e.clientX);
+  };
+  
+  const handleMouseUp = (e: React.MouseEvent) => {
+    e.preventDefault();
+    handleDragEnd();
   };
 
   // Create infinite scroll by duplicating projects  
@@ -107,21 +172,19 @@ export default function PortfolioCarousel({
 
   return (
     <div className="relative">
-      {/* Simple Play/Pause Control */}
+      {/* Speed Control */}
       <div className="flex justify-center mb-8">
         <button
-          onClick={handlePlayPause}
-          className="btn btn-circle btn-outline hover:btn-secondary transition-all duration-300"
-          aria-label={isPlaying ? "Pause carousel" : "Play carousel"}
+          onClick={handleSpeedCycle}
+          className="btn btn-circle btn-outline hover:btn-secondary transition-all duration-300 relative"
+          aria-label={`Current speed: ${speed === 0 ? 'Paused' : speed + 'x'}`}
         >
-          {isPlaying ? (
+          {speed === 0 ? (
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 9v6m4-6v6" />
             </svg>
           ) : (
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3l14 9-14 9V3z" />
-            </svg>
+            <span className="font-bold text-sm">{speed}x</span>
           )}
         </button>
       </div>
@@ -146,12 +209,19 @@ export default function PortfolioCarousel({
         
         <div 
           ref={containerRef}
-          className="flex gap-6"
+          className="flex gap-6 touch-pan-y select-none cursor-grab active:cursor-grabbing" 
           style={{
-            transform: `translateX(${translateX}px)`,
-            transition: isTransitioning ? 'transform 0.3s ease-out' : 'none',
+            transform: `translateX(${translateX + dragOffset}px)`, // Add drag offset for real-time feedback
+            transition: isTransitioning || isDragging ? 'none' : 'transform 0.3s ease-out',
             willChange: 'transform'
           }}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseUp}
         >
           {infiniteProjects.map((project, index) => (
               <div
