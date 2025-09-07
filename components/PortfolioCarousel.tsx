@@ -88,8 +88,10 @@ export default function PortfolioCarousel({
     };
   }, [speed, projects.length, isReversed, isDragging]);
   
-  // Cleanup effect to reset position when it gets too far out of bounds
+  // Cleanup effect to reset position when it gets too far out of bounds (only when not dragging)
   useEffect(() => {
+    if (isDragging) return; // Don't interfere during drag interactions
+    
     const projectWidth = 320;
     const totalWidth = projectWidth * projects.length;
     
@@ -99,7 +101,7 @@ export default function PortfolioCarousel({
     } else if (translateX < -totalWidth * 2) {
       setTranslateX(translateX + totalWidth * 2);
     }
-  }, [translateX, projects.length]);
+  }, [translateX, projects.length, isDragging]);
 
 
   const handleSpeedCycle = () => {
@@ -123,12 +125,26 @@ export default function PortfolioCarousel({
     if (!isDragging) return;
     setIsDragging(false);
     
-    // If swipe/drag distance > 75px, move carousel
+    // If swipe/drag distance > 75px, move carousel with infinite scroll
     if (Math.abs(dragOffset) > 75) {
       const projectWidth = 320;
+      const totalWidth = projectWidth * projects.length;
+      
       setTranslateX(prev => {
         const direction = dragOffset > 0 ? 1 : -1; // positive = right drag, negative = left drag
-        return prev + (direction * projectWidth);
+        let next = prev + (direction * projectWidth);
+        
+        // Handle infinite scroll boundaries - allow seamless wrapping
+        // Note: We use a more flexible boundary check to prevent "rebounding"
+        if (direction > 0 && next >= 0) {
+          // Moving right past the start, wrap to end
+          next = -totalWidth + projectWidth;
+        } else if (direction < 0 && next <= -totalWidth) {
+          // Moving left past the end, wrap to start
+          next = 0 - projectWidth;
+        }
+        
+        return next;
       });
     }
     
