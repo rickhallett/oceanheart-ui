@@ -26,7 +26,10 @@ export default function PortfolioCarousel({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const [visibleProjects, setVisibleProjects] = useState(1);
+  const [translateX, setTranslateX] = useState(0);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const animationRef = useRef<number | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
   // Responsive visible projects
   useEffect(() => {
@@ -45,60 +48,71 @@ export default function PortfolioCarousel({
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Auto-play functionality
+  // Smooth continuous scroll functionality
   useEffect(() => {
-    if (isPlaying && projects.length > visibleProjects) {
-      intervalRef.current = setInterval(() => {
-        setCurrentIndex((prev) => {
-          const direction = isReversed ? -1 : 1;
-          const maxIndex = projects.length - visibleProjects;
-          let next = prev + direction;
+    if (isPlaying && projects.length > 1 && containerRef.current) {
+      const container = containerRef.current;
+      const firstChild = container.firstElementChild as HTMLElement;
+      if (!firstChild) return;
+      
+      const projectWidth = firstChild.offsetWidth + 24; // width + gap
+      const speed = isReversed ? -0.3 : 0.3; // pixels per frame (slower for better readability)
+      const totalWidth = projectWidth * projects.length;
+      
+      const animate = () => {
+        setTranslateX((prev) => {
+          let next = prev + speed;
           
-          if (next > maxIndex) next = 0;
-          if (next < 0) next = maxIndex;
+          // Reset position when we've scrolled one full cycle
+          if (isReversed) {
+            if (next <= -totalWidth) next = 0;
+            if (next > 0) next = -totalWidth;
+          } else {
+            if (next >= 0) next = -totalWidth;
+            if (next < -totalWidth) next = 0;
+          }
           
           return next;
         });
-      }, 8000);
-    } else {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-        intervalRef.current = null;
-      }
+        
+        if (isPlaying) {
+          animationRef.current = requestAnimationFrame(animate);
+        }
+      };
+      
+      animationRef.current = requestAnimationFrame(animate);
     }
 
     return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+        animationRef.current = null;
       }
     };
-  }, [isPlaying, projects.length, visibleProjects, isReversed]);
+  }, [isPlaying, projects.length, isReversed]);
 
   const handlePrevious = () => {
-    setCurrentIndex((prev) => {
-      const maxIndex = projects.length - visibleProjects;
-      return prev > 0 ? prev - 1 : maxIndex;
-    });
+    if (containerRef.current) {
+      const firstChild = containerRef.current.firstElementChild as HTMLElement;
+      const projectWidth = firstChild ? firstChild.offsetWidth + 24 : 300;
+      setTranslateX(prev => prev + projectWidth);
+    }
   };
 
   const handleNext = () => {
-    setCurrentIndex((prev) => {
-      const maxIndex = projects.length - visibleProjects;
-      return prev < maxIndex ? prev + 1 : 0;
-    });
+    if (containerRef.current) {
+      const firstChild = containerRef.current.firstElementChild as HTMLElement;
+      const projectWidth = firstChild ? firstChild.offsetWidth + 24 : 300;
+      setTranslateX(prev => prev - projectWidth);
+    }
   };
 
   const handlePlayPause = () => {
     setIsPlaying(!isPlaying);
   };
 
-  const visibleProjectsArray = projects.slice(currentIndex, currentIndex + visibleProjects);
-  
-  // Fill array if we're at the end and need to wrap around
-  if (visibleProjectsArray.length < visibleProjects) {
-    const remaining = visibleProjects - visibleProjectsArray.length;
-    visibleProjectsArray.push(...projects.slice(0, remaining));
-  }
+  // Create infinite scroll by duplicating projects
+  const infiniteProjects = [...projects, ...projects, ...projects];
 
   return (
     <div className="relative">
@@ -144,28 +158,19 @@ export default function PortfolioCarousel({
 
       {/* Carousel Container */}
       <div className="overflow-hidden">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentIndex}
-            initial={{ x: isReversed ? -100 : 100, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            exit={{ x: isReversed ? 100 : -100, opacity: 0 }}
-            transition={{ duration: 0.5, ease: "easeInOut" }}
-            className={`grid gap-6 ${
-              visibleProjects === 3 
-                ? 'grid-cols-1 lg:grid-cols-3' 
-                : visibleProjects === 2 
-                ? 'grid-cols-1 md:grid-cols-2' 
-                : 'grid-cols-1'
-            }`}
-          >
-            {visibleProjectsArray.map((project, index) => (
-              <motion.div
-                key={`${project.id}-${currentIndex}-${index}`}
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: index * 0.1, duration: 0.4 }}
-                className="group bg-base-200 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2"
+        <div 
+          ref={containerRef}
+          className="flex gap-6 transition-none"
+          style={{
+            transform: `translateX(${translateX}px)`,
+            width: `${infiniteProjects.length * (100 / visibleProjects)}%`
+          }}
+        >
+          {infiniteProjects.map((project, index) => (
+              <div
+                key={`${project.id}-${index}`}
+                className="group bg-base-200 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 flex-shrink-0"
+                style={{ width: 'clamp(280px, 30vw, 400px)' }}
               >
                 {/* Project Image */}
                 <div className="relative h-48 overflow-hidden">
@@ -212,24 +217,17 @@ export default function PortfolioCarousel({
                     </button>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
-        </AnimatePresence>
+        </div>
       </div>
 
-      {/* Progress Indicators */}
+      {/* Progress Indicators - Visual only for continuous scroll */}
       <div className="flex justify-center mt-8 space-x-2">
-        {Array.from({ length: Math.ceil(projects.length / visibleProjects) }).map((_, index) => (
-          <button
+        {projects.map((_, index) => (
+          <div
             key={index}
-            onClick={() => setCurrentIndex(index * visibleProjects)}
-            className={`w-3 h-3 rounded-full transition-all duration-300 ${
-              Math.floor(currentIndex / visibleProjects) === index
-                ? 'bg-primary scale-125'
-                : 'bg-base-300 hover:bg-base-400'
-            }`}
-            aria-label={`Go to slide ${index + 1}`}
+            className="w-2 h-2 rounded-full bg-base-300 opacity-50"
           />
         ))}
       </div>
