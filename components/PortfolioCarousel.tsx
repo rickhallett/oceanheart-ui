@@ -1,9 +1,9 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay } from 'swiper/modules';
+import { Autoplay, FreeMode } from 'swiper/modules';
 import type { Swiper as SwiperType } from 'swiper';
 
 // Import Swiper styles
@@ -30,17 +30,32 @@ export default function PortfolioCarousel({
 }: PortfolioCarouselProps) {
   const swiperRef = useRef<SwiperType | null>(null);
   const [isPlaying, setIsPlaying] = useState(true);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  
+  // Custom continuous scroll since Swiper autoplay doesn't loop properly
+  useEffect(() => {
+    if (!isPlaying || !swiperRef.current) return;
+    
+    intervalRef.current = setInterval(() => {
+      if (swiperRef.current) {
+        if (isReversed) {
+          swiperRef.current.slidePrev();
+        } else {
+          swiperRef.current.slideNext();
+        }
+      }
+    }, 3000);
+    
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+    };
+  }, [isPlaying, isReversed]);
 
   const toggleAutoplay = () => {
-    if (swiperRef.current?.autoplay) {
-      if (swiperRef.current.autoplay.running) {
-        swiperRef.current.autoplay.stop();
-        setIsPlaying(false);
-      } else {
-        swiperRef.current.autoplay.start();
-        setIsPlaying(true);
-      }
-    }
+    setIsPlaying(!isPlaying);
   };
 
   return (
@@ -84,23 +99,14 @@ export default function PortfolioCarousel({
           onSwiper={(swiper) => {
             swiperRef.current = swiper;
           }}
-          modules={[Autoplay]}
+          modules={[FreeMode]}
           spaceBetween={24}
           slidesPerView="auto"
           loop={true}
-          loopFillGroupWithBlank={false}
-          speed={3000}
-          autoplay={{
-            delay: 0,
-            disableOnInteraction: false,
-            reverseDirection: isReversed,
-            waitForTransition: false,
-          }}
-          freeMode={{
-            enabled: true,
-            momentum: true,
-          }}
+          loopAdditionalSlides={3}
+          speed={1000}
           grabCursor={true}
+          allowTouchMove={true}
           className="!overflow-visible"
         >
           {projects.map((project, index) => (
