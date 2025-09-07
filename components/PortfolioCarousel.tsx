@@ -27,6 +27,7 @@ export default function PortfolioCarousel({
   const [isPlaying, setIsPlaying] = useState(true);
   const [visibleProjects, setVisibleProjects] = useState(1);
   const [translateX, setTranslateX] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
@@ -83,17 +84,53 @@ export default function PortfolioCarousel({
   }, [isPlaying, projects.length, isReversed]);
 
   const handlePrevious = () => {
-    setCurrentIndex((prev) => {
-      const maxIndex = projects.length - visibleProjects;
-      return prev > 0 ? prev - 1 : maxIndex;
+    // Temporarily pause auto-scroll for manual control
+    setIsPlaying(false);
+    setIsTransitioning(true);
+    
+    const projectWidth = 320;
+    setTranslateX(prev => {
+      const totalWidth = projectWidth * projects.length;
+      let next = prev + projectWidth;
+      
+      // Handle boundary for infinite scroll
+      if (next >= 0) {
+        next = -totalWidth + projectWidth;
+      }
+      
+      return next;
     });
+    
+    // Resume after transition
+    setTimeout(() => {
+      setIsTransitioning(false);
+      setIsPlaying(true);
+    }, 500);
   };
 
   const handleNext = () => {
-    setCurrentIndex((prev) => {
-      const maxIndex = projects.length - visibleProjects;
-      return prev < maxIndex ? prev + 1 : 0;
+    // Temporarily pause auto-scroll for manual control
+    setIsPlaying(false);
+    setIsTransitioning(true);
+    
+    const projectWidth = 320;
+    setTranslateX(prev => {
+      const totalWidth = projectWidth * projects.length;
+      let next = prev - projectWidth;
+      
+      // Handle boundary for infinite scroll
+      if (next <= -totalWidth) {
+        next = -projectWidth;
+      }
+      
+      return next;
     });
+    
+    // Resume after transition
+    setTimeout(() => {
+      setIsTransitioning(false);
+      setIsPlaying(true);
+    }, 500);
   };
 
   const handlePlayPause = () => {
@@ -169,7 +206,7 @@ export default function PortfolioCarousel({
           className="flex gap-6"
           style={{
             transform: `translateX(${translateX}px)`,
-            transition: 'none',
+            transition: isTransitioning ? 'transform 0.3s ease-out' : 'none',
             willChange: 'transform'
           }}
         >
