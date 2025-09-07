@@ -39,3 +39,4 @@
 ## Security & Config
 - Secrets in `.env.local`; never commit. Request required keys from maintainers. Review `config.ts` and `middleware.ts` for auth/edge behavior.
 - See `ARCHITECTURE.md` for deeper context before large changes.
+- Subdomain SSO: see `docs/PRD-Subdomain-SSO.md`; use `packages/common-auth` helpers and set `COOKIE_DOMAIN`.
