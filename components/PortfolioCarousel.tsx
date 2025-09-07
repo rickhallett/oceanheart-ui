@@ -82,6 +82,19 @@ export default function PortfolioCarousel({
       }
     };
   }, [isPlaying, projects.length, isReversed]);
+  
+  // Cleanup effect to reset position when it gets too far out of bounds
+  useEffect(() => {
+    const projectWidth = 320;
+    const totalWidth = projectWidth * projects.length;
+    
+    // If position gets too far in either direction, reset to equivalent position
+    if (translateX > totalWidth) {
+      setTranslateX(translateX - totalWidth * 2);
+    } else if (translateX < -totalWidth * 2) {
+      setTranslateX(translateX + totalWidth * 2);
+    }
+  }, [translateX, projects.length]);
 
   const handlePrevious = () => {
     // Temporarily pause auto-scroll for manual control
@@ -90,15 +103,9 @@ export default function PortfolioCarousel({
     
     const projectWidth = 320;
     setTranslateX(prev => {
-      const totalWidth = projectWidth * projects.length;
-      let next = prev + projectWidth;
-      
-      // Handle boundary for infinite scroll
-      if (next >= 0) {
-        next = -totalWidth + projectWidth;
-      }
-      
-      return next;
+      // Always move backward (to the right/positive direction)
+      // This preserves the user's backward navigation intent
+      return prev + projectWidth;
     });
     
     // Resume after transition
@@ -115,15 +122,9 @@ export default function PortfolioCarousel({
     
     const projectWidth = 320;
     setTranslateX(prev => {
-      const totalWidth = projectWidth * projects.length;
-      let next = prev - projectWidth;
-      
-      // Handle boundary for infinite scroll
-      if (next <= -totalWidth) {
-        next = -projectWidth;
-      }
-      
-      return next;
+      // Always move forward (to the left/negative direction)
+      // This preserves the user's forward navigation intent
+      return prev - projectWidth;
     });
     
     // Resume after transition
@@ -213,8 +214,8 @@ export default function PortfolioCarousel({
           {infiniteProjects.map((project, index) => (
               <div
                 key={`${project.id}-${index}`}
-                className="group bg-base-200 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 flex-shrink-0"
-                style={{ width: '300px', flexShrink: 0 }}
+                className="group bg-base-200 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 flex-shrink-0 flex flex-col"
+                style={{ width: '300px', flexShrink: 0, minHeight: '520px' }}
               >
                 {/* Project Image */}
                 <div className="relative h-48 overflow-hidden">
@@ -228,7 +229,7 @@ export default function PortfolioCarousel({
                 </div>
 
                 {/* Project Content */}
-                <div className="p-6 space-y-4">
+                <div className="p-6 space-y-4 flex-1 flex flex-col">
                   <h3 className="font-bold text-xl text-base-content group-hover:text-primary transition-colors duration-300">
                     {project.title}
                   </h3>
@@ -249,8 +250,8 @@ export default function PortfolioCarousel({
                     ))}
                   </div>
 
-                  {/* Action Button */}
-                  <div className="pt-2">
+                  {/* Action Button - positioned at bottom */}
+                  <div className="pt-2 mt-auto">
                     <button className="w-full btn btn-outline btn-sm group-hover:btn-primary transition-all duration-300">
                       <span className="group-hover:scale-110 transition-transform duration-300">
                         View Details
