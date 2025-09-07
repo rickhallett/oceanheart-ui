@@ -88,11 +88,13 @@ export default function PortfolioCarousel({
           spaceBetween={24}
           slidesPerView="auto"
           loop={true}
-          speed={8000}
+          loopFillGroupWithBlank={false}
+          speed={3000}
           autoplay={{
             delay: 0,
             disableOnInteraction: false,
             reverseDirection: isReversed,
+            waitForTransition: false,
           }}
           freeMode={{
             enabled: true,
