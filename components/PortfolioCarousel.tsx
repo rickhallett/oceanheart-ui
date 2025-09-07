@@ -27,17 +27,7 @@ export default function PortfolioCarousel({
   const [isPlaying, setIsPlaying] = useState(true);
   const [visibleProjects, setVisibleProjects] = useState(1);
   const [translateX, setTranslateX] = useState(0);
-  
-  // Initialize translateX for reversed carousels
-  useEffect(() => {
-    if (isReversed && projects.length > 1) {
-      const projectWidth = 320;
-      const totalWidth = projectWidth * projects.length;
-      setTranslateX(-totalWidth);
-    }
-  }, [isReversed, projects.length]);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
-  const animationRef = useRef<number | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   // Responsive visible projects
@@ -57,73 +47,62 @@ export default function PortfolioCarousel({
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Smooth continuous scroll functionality
+  // Simple continuous scroll with setInterval
   useEffect(() => {
-    if (!isPlaying || projects.length <= 1) {
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-        animationRef.current = null;
-      }
-      return;
-    }
-
-    // Small delay to ensure component is mounted
-    const timeoutId = setTimeout(() => {
-      const projectWidth = 320; // Fixed width + gap
-      const speed = isReversed ? -0.8 : 0.8; // pixels per frame
-      const totalWidth = projectWidth * projects.length;
-      
-      const animate = () => {
-        setTranslateX((prev) => {
+    if (isPlaying && projects.length > 1) {
+      intervalRef.current = setInterval(() => {
+        setTranslateX(prev => {
+          const projectWidth = 320;
+          const totalWidth = projectWidth * projects.length;
+          const speed = isReversed ? 0.5 : -0.5; // pixels per interval (slower)
           let next = prev + speed;
           
-          // Reset position for infinite scroll
-          if (!isReversed) {
-            if (next <= -totalWidth) {
-              next = 0;
-            }
+          // Reset for infinite scroll
+          if (isReversed) {
+            if (next >= 0) next = -totalWidth;
           } else {
-            if (next >= 0) {
-              next = -totalWidth;
-            }
+            if (next <= -totalWidth) next = 0;
           }
           
           return next;
         });
-        
-        if (isPlaying) {
-          animationRef.current = requestAnimationFrame(animate);
-        }
-      };
-      
-      animationRef.current = requestAnimationFrame(animate);
-    }, 500);
+      }, 32); // ~30fps for smoother, slower movement
+    } else {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+    }
 
     return () => {
-      clearTimeout(timeoutId);
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-        animationRef.current = null;
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
       }
     };
   }, [isPlaying, projects.length, isReversed]);
 
   const handlePrevious = () => {
-    const projectWidth = 320;
-    setTranslateX(prev => prev + projectWidth);
+    setCurrentIndex((prev) => {
+      const maxIndex = projects.length - visibleProjects;
+      return prev > 0 ? prev - 1 : maxIndex;
+    });
   };
 
   const handleNext = () => {
-    const projectWidth = 320;
-    setTranslateX(prev => prev - projectWidth);
+    setCurrentIndex((prev) => {
+      const maxIndex = projects.length - visibleProjects;
+      return prev < maxIndex ? prev + 1 : 0;
+    });
   };
 
   const handlePlayPause = () => {
     setIsPlaying(!isPlaying);
   };
 
-  // Create infinite scroll by duplicating projects
+  // Create infinite scroll by duplicating projects  
   const infiniteProjects = [...projects, ...projects, ...projects];
+  
 
   return (
     <div className="relative">
@@ -175,6 +154,7 @@ export default function PortfolioCarousel({
           style={{
             transform: `translateX(${translateX}px)`,
             transition: 'none',
+            willChange: 'transform'
           }}
         >
           {infiniteProjects.map((project, index) => (
