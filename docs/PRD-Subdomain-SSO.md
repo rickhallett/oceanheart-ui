@@ -135,6 +135,37 @@ Enable single sign-on across Oceanheart subdomains (e.g., `flowstate.oceanheart.
 - Validate:
   - Hit `flowstate` → redirected to accounts → sign-in → returned with session → entitlement gate allows/denies → logout clears across subdomains.
 
+## Alignment With External Guidance
+This PRD aligns with the recommended hybrid structure: a central platform for auth + shared utilities, and autonomous subdomain apps.
+
+- Centralized auth: Supported via dedicated accounts app (`accounts.oceanheart.ai`) and shared SSR utilities.
+- Separate app repos/projects: Supported; each app hosts its own code and uses `middleware.ts` to read the shared session.
+- Shared library: Provided via `packages/common-auth` (candidate for a private NPM package).
+- Unified callback: Implemented (`apps/accounts/app/auth/callback/route.ts`) performing `exchangeCodeForSession` and redirecting with `returnTo` validation.
+- Cookie domain: Domain-scoped cookies (`.oceanheart.ai`) are set in SSR adapter; also configure Supabase’s cookie domain.
+- Authorization: Implemented via a related table (`user_entitlements`), equivalent to extending `profiles` with app access flags.
+
+### Notable Differences and Recommended Decisions
+- Login domain: Guidance suggests `oceanheart.ai/signin`; this PRD uses `accounts.oceanheart.ai/signin`.
+  - Recommendation: Keep `accounts.*` to decouple auth from marketing. Optionally add `oceanheart.ai/signin` that redirects to accounts for UX continuity.
+- Unified callback location: Guidance places it at `app/api/auth/unified-callback` in the main platform; we placed it in the accounts app.
+  - Recommendation: Either keep it centralized in `accounts.*` (current), or add a thin proxy endpoint on the main domain that forwards to accounts.
+- Cookie config: Add explicit `SUPABASE_AUTH_COOKIE_DOMAIN=.oceanheart.ai` in Supabase settings in addition to SSR adapter domain.
+- Authorization model: We use `user_entitlements` (normalized). Guidance mentions `profiles` flags.
+  - Recommendation: Keep `user_entitlements` for multi-app scalability; surface summaries in `profiles` if needed for quick reads.
+- reCAPTCHA: Guidance centralizes `verify-captcha`.
+  - Action: If captcha is in scope, host a central `app/api/auth/verify-captcha` on the platform and call it from accounts.
+- RLS Policies: Explicit RLS per app tables.
+  - Action: Add RLS policies referencing `auth.uid()` and entitlement checks for each app’s data.
+
+### Action Items to Close Gaps
+- [ ] Configure `SUPABASE_AUTH_COOKIE_DOMAIN=.oceanheart.ai` in Supabase project settings.
+- [ ] Add `oceanheart.ai/signin` route that 302-redirects to `https://accounts.oceanheart.ai/signin`.
+- [ ] (Optional) Add main-domain `app/api/auth/unified-callback` that proxies to accounts callback.
+- [ ] Implement/centralize `verify-captcha` if required by the login flow.
+- [ ] Define and apply RLS policies for any app-specific tables.
+
+
 ## Reference Implementations (Stubs)
 These examples align with current Supabase SSR + Next.js 14 App Router patterns.
 
