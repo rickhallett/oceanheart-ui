@@ -48,7 +48,7 @@ export default function PortfolioPage() {
 
       {/* Portfolio Sections */}
       <div className="max-w-7xl mx-auto px-4 sm:px-8 space-y-20 pb-20">
-        {portfolioSections.map((section, index) => (
+        {portfolioSections.filter(s => !s.hidden).map((section, index) => (
           <section key={section.id} className="space-y-8">
             {/* Section Header */}
             <div className="text-center space-y-4">
@@ -94,4 +94,3 @@ export default function PortfolioPage() {
     </main>
   )
 }
-

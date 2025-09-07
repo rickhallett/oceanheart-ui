@@ -33,7 +33,11 @@ export default function PortfolioCarousel({
   // Calculate total width for animation
   const cardWidth = 320;
   const gap = 24;
-  const totalWidth = (cardWidth + gap) * projects.length;
+  const isSingle = projects.length === 1;
+  const spacerWidth = isSingle ? 800 : 0; // gap after the single card to avoid duplicates being visible
+  const totalWidth = isSingle
+    ? cardWidth + gap + spacerWidth
+    : (cardWidth + gap) * projects.length;
   const animationDuration = Math.max(20, totalWidth / 50); // Slower for longer content
 
   return (
@@ -70,69 +74,143 @@ export default function PortfolioCarousel({
             animationPlayState: isPlaying ? 'running' : 'paused',
           }}
         >
-          {/* Duplicate content twice for seamless loop */}
-          {[...projects, ...projects].map((project, index) => (
-            <div
-              key={`${project.id}-${index}`}
-              className="group bg-base-200 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 flex-shrink-0 flex flex-col"
-              style={{ width: `${cardWidth}px`, height: '580px' }}
-            >
-              {/* Project Image */}
-              <div className="relative h-48 overflow-hidden">
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </div>
+          {isSingle ? (
+            <>
+              {/* Single card only: no visual duplicate; spacer creates the loop distance */}
+              {projects.map((project) => (
+                <div
+                  key={`${project.id}-single`}
+                  className="group bg-base-200 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 flex-shrink-0 flex flex-col"
+                  style={{ width: `${cardWidth}px`, height: '580px' }}
+                >
+                  {/* Project Image */}
+                  <div className="relative h-48 overflow-hidden">
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      fill
+                      className="object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </div>
 
-              {/* Project Content */}
-              <div className="p-6 flex-1 flex flex-col">
-                {/* Main Content Area */}
-                <div className="flex-1 space-y-4">
-                  <h3 className="font-bold text-xl text-base-content group-hover:text-primary transition-colors duration-300">
-                    {project.title}
-                  </h3>
-                  
-                  <p className="text-base-content/80 leading-relaxed text-sm">
-                    {project.description}
-                  </p>
+                  {/* Project Content */}
+                  <div className="p-6 flex-1 flex flex-col">
+                    {/* Main Content Area */}
+                    <div className="flex-1 space-y-4">
+                      <h3 className="font-bold text-xl text-base-content group-hover:text-primary transition-colors duration-300">
+                        {project.title}
+                      </h3>
 
-                  {/* Tech Stack */}
-                  <div className="flex flex-wrap gap-2">
-                    {project.tech.map((tech, techIndex) => (
-                      <span
-                        key={`${tech}-${index}-${techIndex}`}
-                        className="inline-block px-3 py-1 text-xs font-medium bg-primary/10 text-primary rounded-full border border-primary/20 hover:bg-primary/20 transition-colors duration-300"
+                      <p className="text-base-content/80 leading-relaxed text-sm">
+                        {project.description}
+                      </p>
+
+                      {/* Tech Stack */}
+                      <div className="flex flex-wrap gap-2">
+                        {project.tech.map((tech, techIndex) => (
+                          <span
+                            key={`${tech}-single-${techIndex}`}
+                            className="inline-block px-3 py-1 text-xs font-medium bg-primary/10 text-primary rounded-full border border-primary/20 hover:bg-primary/20 transition-colors duration-300"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Action Button - Always at bottom */}
+                    <div className="pt-6">
+                      <Link
+                        href={project.externalUrl || `/portfolio/${makeProjectSlug(sectionId, project.title)}`}
+                        target={project.externalUrl ? "_blank" : undefined}
+                        rel={project.externalUrl ? "noopener noreferrer" : undefined}
+                        className="w-full btn btn-outline btn-sm group-hover:btn-primary transition-all duration-300"
                       >
-                        {tech}
-                      </span>
-                    ))}
+                        <span className="group-hover:scale-110 transition-transform duration-300">View Details</span>
+                        <svg
+                          className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </Link>
+                    </div>
                   </div>
                 </div>
+              ))}
+              {/* Spacer to maintain continuous scroll without showing a duplicate card */}
+              <div style={{ width: `${spacerWidth}px` }} aria-hidden />
+            </>
+          ) : (
+            // Duplicate content twice for seamless loop when multiple cards exist
+            [...projects, ...projects].map((project, index) => (
+              <div
+                key={`${project.id}-${index}`}
+                className="group bg-base-200 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 flex-shrink-0 flex flex-col"
+                style={{ width: `${cardWidth}px`, height: '580px' }}
+              >
+                {/* Project Image */}
+                <div className="relative h-48 overflow-hidden">
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </div>
 
-                {/* Action Button - Always at bottom */}
-                <div className="pt-6">
-                  <Link
-                    href={`/portfolio/${makeProjectSlug(sectionId, project.title)}`}
-                    className="w-full btn btn-outline btn-sm group-hover:btn-primary transition-all duration-300"
-                  >
-                    <span className="group-hover:scale-110 transition-transform duration-300">View Details</span>
-                    <svg
-                      className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
+                {/* Project Content */}
+                <div className="p-6 flex-1 flex flex-col">
+                  {/* Main Content Area */}
+                  <div className="flex-1 space-y-4">
+                    <h3 className="font-bold text-xl text-base-content group-hover:text-primary transition-colors duration-300">
+                      {project.title}
+                    </h3>
+
+                    <p className="text-base-content/80 leading-relaxed text-sm">
+                      {project.description}
+                    </p>
+
+                    {/* Tech Stack */}
+                    <div className="flex flex-wrap gap-2">
+                      {project.tech.map((tech, techIndex) => (
+                        <span
+                          key={`${tech}-${index}-${techIndex}`}
+                          className="inline-block px-3 py-1 text-xs font-medium bg-primary/10 text-primary rounded-full border border-primary/20 hover:bg-primary/20 transition-colors duration-300"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Action Button - Always at bottom */}
+                  <div className="pt-6">
+                    <Link
+                      href={project.externalUrl || `/portfolio/${makeProjectSlug(sectionId, project.title)}`}
+                      target={project.externalUrl ? "_blank" : undefined}
+                      rel={project.externalUrl ? "noopener noreferrer" : undefined}
+                      className="w-full btn btn-outline btn-sm group-hover:btn-primary transition-all duration-300"
                     >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </Link>
+                      <span className="group-hover:scale-110 transition-transform duration-300">View Details</span>
+                      <svg
+                        className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </Link>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))
+          )}
         </div>
       </div>
 

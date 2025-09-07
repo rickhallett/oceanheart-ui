@@ -43,8 +43,8 @@ const AuthButton = ({
   }, [supabase]);
 
   const handleSignOut = async () => {
-    await supabase.auth.signOut();
-    window.location.href = "/";
+    // Delegate to central logout to clear domain-scoped cookies across subdomains
+    window.location.href = "/signout";
   };
 
   const handleBilling = async () => {

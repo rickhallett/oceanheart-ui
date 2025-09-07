@@ -4,6 +4,7 @@ export type PortfolioProject = {
   description: string
   image: string
   tech: string[]
+  externalUrl?: string
 }
 
 export type PortfolioSection = {
@@ -11,6 +12,7 @@ export type PortfolioSection = {
   title: string
   description: string
   projects: PortfolioProject[]
+  hidden?: boolean
 }
 
 export function slugify(input: string) {
@@ -27,6 +29,48 @@ export function makeProjectSlug(sectionId: string, title: string) {
 
 // Centralized portfolio data so both list and details pages share one source.
 export const portfolioSections: PortfolioSection[] = [
+  {
+    id: "apps",
+    title: "Product Apps",
+    description: "Subdomain-hosted applications in the Oceanheart portfolio.",
+    hidden: true,
+    projects: [
+      {
+        id: 100,
+        title: "Flowstate",
+        description:
+          "Focus and performance companion. Explore the live app hosted at flowstate.oceanheart.ai.",
+        image: "/images/keyboard.webp",
+        tech: ["Next.js", "Supabase", "TypeScript", "Tailwind"],
+        externalUrl: "https://flowstate.oceanheart.ai",
+      },
+      {
+        id: 101,
+        title: "Placeholder App Alpha",
+        description:
+          "Placeholder application for carousel testing with multiple items.",
+        image: "/images/psychedelicmind.avif",
+        tech: ["Next.js", "TypeScript"],
+      },
+      {
+        id: 102,
+        title: "Placeholder App Beta",
+        description:
+          "Second placeholder item to verify seamless infinite scrolling.",
+        image: "/images/lines.webp",
+        tech: ["Next.js", "TypeScript"],
+      },
+      {
+        id: 103,
+        title: "Placeholder App Gamma",
+        description:
+          "Third placeholder card to ensure loop continuity and spacing.",
+        image: "/images/unimon.webp",
+        tech: ["Next.js", "TypeScript"],
+      },
+    ],
+  },
+  // Existing sections below
   {
     id: "integrations",
     title: "System Integrations",
@@ -81,6 +125,15 @@ export const portfolioSections: PortfolioSection[] = [
     description:
       "AI applications leveraging evidence-based psychological principles for therapeutic contexts. Designed to enhance session effectiveness through personalized, adaptive interactions.",
     projects: [
+      {
+        id: 200,
+        title: "Flowstate",
+        description:
+          "Focus and performance companion. Explore the live app hosted at flowstate.oceanheart.ai.",
+        image: "/images/keyboard.webp",
+        tech: ["Next.js", "Supabase", "TypeScript", "Tailwind"],
+        externalUrl: "https://flowstate.oceanheart.ai",
+      },
       {
         id: 4,
         title: "Mindful AI Assistant",
@@ -171,4 +224,3 @@ export function getAllProjects() {
 export function getProjectBySlug(slug: string) {
   return getAllProjects().find((p) => p.slug === slug)
 }
-
