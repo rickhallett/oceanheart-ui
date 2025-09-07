@@ -74,7 +74,8 @@ export default function PortfolioCarousel({
         <div 
           className="flex gap-6"
           style={{
-            animation: isPlaying ? `scroll-${isReversed ? 'right' : 'left'} ${animationDuration}s linear infinite` : 'none',
+            animation: `scroll-${isReversed ? 'right' : 'left'} ${animationDuration}s linear infinite`,
+            animationPlayState: isPlaying ? 'running' : 'paused',
           }}
         >
           {/* Duplicate content twice for seamless loop */}
