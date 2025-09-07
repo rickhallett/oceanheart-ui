@@ -147,7 +147,23 @@ export default function PortfolioCarousel({
       </div>
 
       {/* Carousel Container */}
-      <div className="overflow-hidden">
+      <div className="relative overflow-hidden">
+        {/* Left fade gradient */}
+        <div 
+          className="absolute left-0 top-0 bottom-0 w-16 z-10 pointer-events-none"
+          style={{
+            background: 'linear-gradient(to right, hsl(var(--b1)), transparent)'
+          }}
+        ></div>
+        
+        {/* Right fade gradient */}
+        <div 
+          className="absolute right-0 top-0 bottom-0 w-16 z-10 pointer-events-none"
+          style={{
+            background: 'linear-gradient(to left, hsl(var(--b1)), transparent)'
+          }}
+        ></div>
+        
         <div 
           ref={containerRef}
           className="flex gap-6"
