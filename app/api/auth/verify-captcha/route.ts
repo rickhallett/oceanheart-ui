@@ -1,53 +1,33 @@
-export const dynamic = "force-dynamic";
+import { NextRequest, NextResponse } from 'next/server'
 
-/**
- * Unified reCAPTCHA verification endpoint
- * Verifies a reCAPTCHA token and returns success or error
- */
-export async function POST(request: Request) {
+const VERIFY_URL = 'https://www.google.com/recaptcha/api/siteverify'
+
+export async function POST(req: NextRequest) {
   try {
-    const { recaptchaToken, source } = await request.json();
-    
-    // Log verification request (with source for debugging)
-    console.log(`Verifying reCAPTCHA from source: ${source || 'unknown'}`);
+    const body = await req.json().catch(() => ({})) as { token?: string }
+    const token = body?.token
+    if (!token) return NextResponse.json({ ok: false, error: 'missing_token' }, { status: 400 })
 
-    if (!recaptchaToken) {
-      return Response.json({ error: "No reCAPTCHA token provided" }, { status: 400 });
-    }
+    const secret = process.env.RECAPTCHA_SECRET_KEY
+    if (!secret) return NextResponse.json({ ok: false, error: 'missing_server_secret' }, { status: 500 })
 
-    // Verify reCAPTCHA token using Google's API
-    const recaptchaResponse = await fetch(
-      `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${recaptchaToken}`,
-      { method: "POST" }
-    );
-    
-    const recaptchaData = await recaptchaResponse.json();
+    const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
+    const form = new URLSearchParams()
+    form.set('secret', secret)
+    form.set('response', token)
+    if (ip) form.set('remoteip', ip)
 
-    // Detailed logging for debugging purposes
-    if (!recaptchaData.success) {
-      console.error("reCAPTCHA verification failed:", {
-        error: recaptchaData["error-codes"] || "Unknown error",
-        score: recaptchaData.score,
-        action: recaptchaData.action
-      });
-      
-      return Response.json({ 
-        error: "Invalid captcha", 
-        details: recaptchaData 
-      }, { status: 400 });
-    }
-
-    // Success response with score for optional client-side validation
-    return Response.json({ 
-      success: true,
-      score: recaptchaData.score || 1.0
-    });
-    
-  } catch (error) {
-    console.error("Error verifying reCAPTCHA:", error);
-    return Response.json({ 
-      error: "Server error during verification",
-      details: error instanceof Error ? error.message : "Unknown error"
-    }, { status: 500 });
+    const resp = await fetch(VERIFY_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: form,
+      // Next: { revalidate: 0 } // not necessary here
+    })
+    const data = await resp.json()
+    const ok = !!data?.success
+    return NextResponse.json({ ok, score: data?.score, action: data?.action, errors: data?.['error-codes'] })
+  } catch (e) {
+    return NextResponse.json({ ok: false, error: 'verification_error' }, { status: 500 })
   }
 }
+
