@@ -1,10 +1,10 @@
 'use client'
-import { useState } from 'react'
+import { useState, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { createClient } from '@/libs/supabase/client'
 import { useMemo } from 'react'
 
-export default function SignInPage() {
+function SignInForm() {
   const sp = useSearchParams()
   const supabase = createClient()
   const [email, setEmail] = useState('rickhallett@icloud.com')
@@ -94,5 +94,13 @@ export default function SignInPage() {
         )}
       </div>
     </main>
+  )
+}
+
+export default function SignInPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+      <SignInForm />
+    </Suspense>
   )
 }

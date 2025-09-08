@@ -48,4 +48,9 @@ public/sitemap-0.xml
 
 # local artifacts
 db_cluster.backup
+*.backup
 supabase/supabase/.temp/
+
+# package manager config files with potential secrets
+.npmrc
+packages/**/.npmrc

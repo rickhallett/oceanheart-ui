@@ -1,13 +1,13 @@
 'use client'
 import { useMemo } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { createClient } from '../../../../../libs/supabase/client'
 
 export default function SignInPage() {
   const sp = useSearchParams()
   const defaultReturnTo = process.env.NEXT_PUBLIC_DEFAULT_RETURN_TO || (typeof window !== 'undefined' ? `${window.location.origin}/` : '/')
   const returnTo = sp.get('returnTo') || defaultReturnTo
-  const supabase = createClientComponentClient()
+  const supabase = createClient()
   // Dev preview values
   const origin = typeof window !== 'undefined' ? window.location.origin : process.env.NEXT_PUBLIC_SITE_URL
   const useOrigin = origin && /(^http:\/\/localhost)|(^http:\/\/.*\.lvh\.me)/.test(origin)

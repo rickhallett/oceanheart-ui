@@ -37,17 +37,15 @@ export async function GET(req: NextRequest) {
   try {
     if (code) {
       await supabase.auth.exchangeCodeForSession(code)
-    } else {
-      await supabase.auth.exchangeCodeForSession()
     }
     if (process.env.NODE_ENV !== 'production') {
-      const SECURE = process.env.COOKIE_SECURE === 'true' || process.env.NODE_ENV === 'production'
+      const SECURE = process.env.COOKIE_SECURE === 'true'
       const DOMAIN = process.env.COOKIE_DOMAIN
       if (DOMAIN) working.cookies.set({ name: 'oh_ex_ok', value: '1', domain: DOMAIN, secure: SECURE, sameSite: 'lax', path: '/', maxAge: 300 })
     }
   } catch (e: any) {
     if (process.env.NODE_ENV !== 'production') {
-      const SECURE = process.env.COOKIE_SECURE === 'true' || process.env.NODE_ENV === 'production'
+      const SECURE = process.env.COOKIE_SECURE === 'true'
       const DOMAIN = process.env.COOKIE_DOMAIN
       if (DOMAIN) working.cookies.set({ name: 'oh_ex_err', value: String(e?.message || 'exchange_failed'), domain: DOMAIN, secure: SECURE, sameSite: 'lax', path: '/', maxAge: 300 })
     }

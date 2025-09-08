@@ -46,25 +46,25 @@ export const portfolioSections: PortfolioSection[] = [
       },
       {
         id: 101,
-        title: "Placeholder App Alpha",
+        title: "Preflight",
         description:
-          "Placeholder application for carousel testing with multiple items.",
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
         image: "/images/psychedelicmind.avif",
-        tech: ["Next.js", "TypeScript"],
+        tech: ["Next.js", "TypeScript", "Supabase"],
       },
       {
         id: 102,
-        title: "Placeholder App Beta",
+        title: "Therapy Vis",
         description:
-          "Second placeholder item to verify seamless infinite scrolling.",
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
         image: "/images/lines.webp",
-        tech: ["Next.js", "TypeScript"],
+        tech: ["React", "D3.js", "TypeScript"],
       },
       {
         id: 103,
-        title: "Placeholder App Gamma",
+        title: "Lorem Ipsum Project",
         description:
-          "Third placeholder card to ensure loop continuity and spacing.",
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt.",
         image: "/images/unimon.webp",
         tech: ["Next.js", "TypeScript"],
       },
@@ -79,43 +79,43 @@ export const portfolioSections: PortfolioSection[] = [
     projects: [
       {
         id: 1,
-        title: "Oceanheart API Integration",
+        title: "Lorem Ipsum Integration",
         description:
-          "Full-stack Next.js platform connecting therapy tools with AI services. Automates session prep workflows that typically take 30 minutes, handles 100+ concurrent API calls with Supabase backend.",
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.",
         image: "/images/robosec.webp",
-        tech: ["Next.js", "Supabase", "OpenAI API", "Stripe"],
+        tech: ["Next.js", "Supabase", "TypeScript", "API"],
       },
       {
         id: 2,
-        title: "Healthcare Data Bridge",
+        title: "Dolore Magna Data Bridge",
         description:
-          "HIPAA-compliant Node.js system processing EHR data through FHIR standards. Transforms 20+ page medical records into structured summaries, handles patient data for 500+ providers.",
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
         image: "/images/particles.webp",
-        tech: ["Node.js", "PostgreSQL", "Healthcare APIs", "FHIR"],
+        tech: ["Node.js", "PostgreSQL", "APIs", "Data Processing"],
       },
       {
         id: 3,
-        title: "Saigo Practice Tracker",
+        title: "Consectetur Tracker",
         description:
-          "React-based gamification system with real-time WebSocket leaderboards. Tracks 15+ skill metrics per session, stores 10K+ practice attempts in SQLite with sub-100ms response times.",
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
         image: "/images/saigo_2.webp",
-        tech: ["React", "SQLite", "WebSockets", "Recharts"],
+        tech: ["React", "Database", "WebSockets", "Charts"],
       },
       {
         id: 4,
-        title: "Therapy Session Analytics",
+        title: "Adipiscing Analytics",
         description:
-          "TypeScript analytics engine with D3.js visualizations processing session data. Generates trend analysis across 50+ therapeutic indicators, renders interactive charts from 1M+ data points.",
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.",
         image: "/images/saigo_3.webp",
         tech: ["TypeScript", "D3.js", "Redis", "GraphQL"],
       },
       {
         id: 5,
-        title: "Multi-Platform Sync Engine",
+        title: "Tempor Sync Engine",
         description:
-          "Microservices architecture using Kafka for real-time data synchronization. Connects 5+ healthcare platforms, processes 10K+ daily transactions with sub-500ms latency across distributed systems.",
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
         image: "/images/saigo_4.webp",
-        tech: ["Node.js", "Kafka", "Docker", "Microservices"],
+        tech: ["Node.js", "Message Queue", "Docker", "Microservices"],
       },
     ],
   },
@@ -136,43 +136,43 @@ export const portfolioSections: PortfolioSection[] = [
       },
       {
         id: 4,
-        title: "Mindful AI Assistant",
+        title: "Voluptate AI Assistant",
         description:
-          "Python-based AI assistant using OpenAI API with sentiment analysis. Processes 8 emotional states, adapts communication across 12 therapeutic modalities with context-aware response generation.",
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.",
         image: "/images/hands.jpeg",
-        tech: ["Python", "OpenAI", "Sentiment Analysis", "React"],
+        tech: ["Python", "AI", "Analysis", "React"],
       },
       {
         id: 5,
-        title: "Behavioral Pattern Analyzer",
+        title: "Labore Pattern Analyzer",
         description:
-          "TensorFlow machine learning system analyzing behavioral data patterns. Processes 50+ behavioral indicators per session, identifies recurring patterns across 90-day therapeutic timelines.",
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
         image: "/images/universe.jpg",
-        tech: ["Python", "TensorFlow", "Data Visualization", "PostgreSQL"],
+        tech: ["Python", "Machine Learning", "Visualization", "Database"],
       },
       {
         id: 6,
-        title: "Contemplative Practice App",
+        title: "Dolore Practice App",
         description:
-          "React Native cross-platform app with Firebase backend for contemplative practices. Tracks 20+ mindfulness metrics, supports offline audio processing for 100+ guided sessions.",
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
         image: "/images/spirit_book.png",
-        tech: ["React Native", "Firebase", "Audio Processing", "Analytics"],
+        tech: ["React Native", "Backend", "Audio", "Analytics"],
       },
       {
         id: 7,
-        title: "Emotion Recognition System",
+        title: "Magna Recognition System",
         description:
-          "Computer vision system using OpenCV and Transformers for emotion detection. Analyzes facial expressions at 30fps, processes text sentiment with 95% accuracy across 7 emotional categories.",
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.",
         image: "/images/rosetta.jpg",
-        tech: ["Python", "OpenCV", "Transformers", "FastAPI"],
+        tech: ["Python", "Computer Vision", "ML", "API"],
       },
       {
         id: 8,
-        title: "Cognitive Bias Detector",
+        title: "Aliqua Bias Detector",
         description:
-          "scikit-learn NLP system identifying 15+ cognitive distortions in patient communications. Processes therapeutic text with NLTK, flags bias patterns across 500+ session transcripts.",
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
         image: "/images/greece_profile1.jpeg",
-        tech: ["scikit-learn", "NLTK", "Flask", "PostgreSQL"],
+        tech: ["Machine Learning", "NLP", "Web Framework", "Database"],
       },
     ],
   },
@@ -184,27 +184,27 @@ export const portfolioSections: PortfolioSection[] = [
     projects: [
       {
         id: 9,
-        title: "AI Literacy Toolkit",
+        title: "Eiusmod Literacy Toolkit",
         description:
-          "Web-based learning platform for clinicians and staff. Includes interactive lessons, case studies, and guided exercises; supports 50+ learners concurrently with granular progress tracking.",
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.",
         image: "/images/abstract_shapes.png",
-        tech: ["Next.js", "MDX", "Auth", "Progress Tracking"],
+        tech: ["Next.js", "Content", "Auth", "Tracking"],
       },
       {
         id: 10,
-        title: "Explainable AI Visualizer",
+        title: "Incididunt AI Visualizer",
         description:
-          "D3.js visualization suite demonstrating explainability techniques (SHAP, LIME, attention maps). Real-time sliders to manipulate model inputs and instantly observe impact on predictions.",
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
         image: "/images/lines.webp",
-        tech: ["D3.js", "Three.js", "WebGL", "Educational Framework"],
+        tech: ["D3.js", "Three.js", "WebGL", "Framework"],
       },
       {
         id: 11,
-        title: "AI Safety Training Simulator",
+        title: "Cupidatat Training Simulator",
         description:
-          "Unity 3D immersive training environment with custom scenario builder. Simulates 30+ safety scenarios, tracks decision-making patterns, provides certification pathways for clinical staff.",
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
         image: "/images/hands.jpeg",
-        tech: ["Unity", "Scenario Builder", "Progress Tracking", "Certification System"],
+        tech: ["Unity", "Builder", "Tracking", "System"],
       },
     ],
   },

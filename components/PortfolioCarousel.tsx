@@ -11,6 +11,7 @@ interface Project {
   description: string;
   image: string;
   tech: string[];
+  externalUrl?: string;
 }
 
 interface PortfolioCarouselProps {
