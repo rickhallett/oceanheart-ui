@@ -68,6 +68,22 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## SSO Auth Flow (Accounts → Apps)
+
+- Accounts hosts the central sign-in UI and callback.
+- Magic links and OAuth should redirect to the Accounts callback, which then forwards users to the initiating app via a `returnTo` parameter.
+- Environment variables:
+  - `NEXT_PUBLIC_SITE_URL` (in this repo) must point to Accounts base.
+    - Prod: `https://accounts.oceanheart.ai`
+    - Local: `http://accounts.lvh.me:3000`
+  - Supabase → Authentication → URL Configuration should include the Accounts callback(s):
+    - Prod: `https://accounts.oceanheart.ai/auth/callback`
+    - Local: `http://accounts.lvh.me:3000/auth/callback`
+- Cookie domains:
+  - Prod: `.oceanheart.ai` (shared across subdomains)
+  - Local: `.lvh.me` (shared across `*.lvh.me`)
+- The Accounts callback exchanges the code, sets cookies for the parent domain, and redirects to `returnTo`.
+
 ## Contributing
 
 Please refer to the contribution guidelines (if available) before submitting pull requests.

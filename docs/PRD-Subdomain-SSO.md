@@ -113,6 +113,17 @@ Enable single sign-on across Oceanheart subdomains (e.g., `flowstate.oceanheart.
 - Existing stack: Next.js 14 (App Router), `@supabase/ssr`, Tailwind, Bun.
 - Repo docs: `ARCHITECTURE.md`, `AGENTS.md`.
 
+## Env Switching (Local vs Prod)
+- Local (lvh.me): use `.env.local.example` as a template
+  - `NEXT_PUBLIC_SUPABASE_URL`/`NEXT_PUBLIC_SUPABASE_ANON_KEY` → dev project or CLI
+  - `COOKIE_DOMAIN=.lvh.me`, `NEXT_PUBLIC_SITE_URL=http://oceanheart.lvh.me:3002`
+  - Product apps: `NEXT_PUBLIC_LOGIN_URL=http://oceanheart.lvh.me:3002/signin`
+  - Supabase (dev) redirects: add `http://oceanheart.lvh.me:3002/auth/callback` and `/api/auth/unified-callback`
+- Prod (Vercel): use `.env.prod.example` as a template
+  - `COOKIE_DOMAIN=.oceanheart.ai`, `NEXT_PUBLIC_SITE_URL=https://oceanheart.ai`
+  - Product apps: `NEXT_PUBLIC_LOGIN_URL=https://oceanheart.ai/signin`
+  - Supabase (prod): set `SUPABASE_AUTH_COOKIE_DOMAIN=.oceanheart.ai`; add prod callback URLs
+
 ## Scaffold Usage
 - Common package: `packages/common-auth`
   - Use `src/ssrClient.ts` to create the Supabase SSR client in middleware/route handlers.

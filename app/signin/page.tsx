@@ -1,202 +1,98 @@
-"use client";
+'use client'
+import { useState } from 'react'
+import { useSearchParams } from 'next/navigation'
+import { createClient } from '@/libs/supabase/client'
+import { useMemo } from 'react'
 
-import Link from "next/link";
-import { useEffect, useState } from "react";
-import { createClient } from "@/libs/supabase/client";
-import { Provider } from "@supabase/supabase-js";
-import toast from "react-hot-toast";
-import config from "@/config";
-import Script from "next/script";
+export default function SignInPage() {
+  const sp = useSearchParams()
+  const supabase = createClient()
+  const [email, setEmail] = useState('rickhallett@icloud.com')
+  const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle')
+  const [message, setMessage] = useState<string | null>(null)
 
-// This a login/singup page for Supabase Auth.
-// Successfull login redirects to /api/auth/callback where the Code Exchange is processed (see app/api/auth/callback/route.js).
-export default function Login() {
-  const supabase = createClient();
-  const [email, setEmail] = useState<string>("");
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isDisabled, setIsDisabled] = useState<boolean>(false);
-  const [recaptchaLoaded, setRecaptchaLoaded] = useState(false);
+  // If Flowstate or another app initiated sign-in, it will pass a full returnTo URL.
+  // Default comes from env so we can point to Flowstate in dev.
+  const defaultReturnTo = process.env.NEXT_PUBLIC_DEFAULT_RETURN_TO || (typeof window !== 'undefined' ? `${window.location.origin}/` : '/')
+  const returnTo = sp.get('returnTo') || defaultReturnTo
 
-  useEffect(() => {
-    // Load reCAPTCHA script
-    const script = document.createElement('script');
-    script.src = `https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`;
-    script.async = true;
-    script.defer = true;
-
-    script.onload = () => {
-      setRecaptchaLoaded(true);
-    };
-
-    document.body.appendChild(script);
-
-    return () => {
-      document.body.removeChild(script);
-      const badge = document.querySelector('.grecaptcha-logo');
-      if (badge && badge.parentElement) {
-        badge.parentElement.remove();
-      }
-    };
-  }, []);
-
-  const handleSignup = async (
-    e: any,
-    options: {
-      type: string;
-      provider?: Provider;
-    }
-  ) => {
-    e?.preventDefault();
-
-    // Wait for recaptcha to be loaded
-    if (!recaptchaLoaded) {
-      toast.error("Please wait for reCAPTCHA to load");
-      return;
-    }
-
-    if (!window.grecaptcha) {
-      throw new Error("reCAPTCHA not loaded");
-    }
-    await new Promise((resolve) => window.grecaptcha.ready(resolve));
-    const recaptchaToken = await window.grecaptcha.execute(
-      process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string,
-      { action: "login" }
-    );
-
-    // Verify captcha first
-    const res = await fetch("/api/auth/verify-and-signin", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ recaptchaToken }),
-    });
-    const data = await res.json();
-
-    if (data.error) {
-      throw new Error(data.error);
-    }
-
-    setIsLoading(true);
-
+  // Dev-only banner info to verify redirect construction
+  const accountsBaseForPreview = useMemo(() => {
+    if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL
+    if (typeof window !== 'undefined') return window.location.origin
+    return ''
+  }, [])
+  const callbackPreview = useMemo(() => {
     try {
-      const { type, provider } = options;
-      const redirectURL = window.location.origin + "/api/auth/callback";
-
-      if (type === "oauth") {
-        await supabase.auth.signInWithOAuth({
-          provider,
-          options: {
-            redirectTo: 'http://localhost:3000',
-          },
-        });
-      } else if (type === "magic_link") {
-        await supabase.auth.signInWithOtp({
-          email,
-          options: {
-            emailRedirectTo: redirectURL,
-          },
-        });
-
-        toast.success("Check your emails!");
-
-        setIsDisabled(true);
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsLoading(false);
+      const u = new URL('/auth/callback', accountsBaseForPreview)
+      if (returnTo) u.searchParams.set('returnTo', returnTo)
+      return u.toString()
+    } catch {
+      return ''
     }
-  };
+  }, [accountsBaseForPreview, returnTo])
+
+  async function onSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    setStatus('sending')
+    setMessage(null)
+    try {
+      // Always redirect the magic link back to the central Accounts callback,
+      // which will exchange the code, set shared cookies, and then forward to returnTo.
+      // Keep it simple and deterministic: always use the Accounts base from env.
+      // Ensure NEXT_PUBLIC_SITE_URL is set to the Accounts origin for the current env
+      // (prod: https://accounts.oceanheart.ai, local: http://accounts.lvh.me:3000).
+      const accountsBase = process.env.NEXT_PUBLIC_SITE_URL || window.location.origin
+      const callback = new URL('/auth/callback', accountsBase)
+      if (returnTo) callback.searchParams.set('returnTo', returnTo)
+      const callbackStr = callback.toString()
+      if (process.env.NODE_ENV !== 'production') {
+        console.log('[Auth] emailRedirectTo:', callbackStr, 'returnTo:', returnTo)
+      }
+      const { error } = await supabase.auth.signInWithOtp({
+        email,
+        options: { emailRedirectTo: callbackStr },
+      })
+      if (error) throw error
+      setStatus('sent')
+      setMessage('Check your email for a magic link to sign in.')
+    } catch (err: any) {
+      setStatus('error')
+      setMessage(err?.message || 'Failed to send magic link')
+    }
+  }
 
   return (
-    <main className="p-8 md:p-24" data-theme={config.colors.theme}>
-      <div className="text-center mb-4">
-        <Link href="/" className="btn btn-ghost btn-sm">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-            className="w-5 h-5"
-          >
-            <path
-              fillRule="evenodd"
-              d="M15 10a.75.75 0 01-.75.75H7.612l2.158 1.96a.75.75 0 11-1.04 1.08l-3.5-3.25a.75.75 0 010-1.08l3.5-3.25a.75.75 0 111.04 1.08L7.612 9.25h6.638A.75.75 0 0115 10z"
-              clipRule="evenodd"
-            />
-          </svg>
-          Home
-        </Link>
-      </div>
-      <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-center mb-12">
-        Sign-in to {config.appName}{" "}
-      </h1>
-
-      <div className="space-y-8 max-w-xl mx-auto">
-        <button
-          className="btn btn-block"
-          onClick={(e) =>
-            handleSignup(e, { type: "oauth", provider: "google" })
-          }
-          disabled={isLoading}
-        >
-          {isLoading ? (
-            <span className="loading loading-spinner loading-xs"></span>
-          ) : (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-6 h-6"
-              viewBox="0 0 48 48"
-            >
-              <path
-                fill="#FFC107"
-                d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"
-              />
-              <path
-                fill="#FF3D00"
-                d="m6.306 14.691 6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z"
-              />
-              <path
-                fill="#4CAF50"
-                d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238A11.91 11.91 0 0 1 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"
-              />
-              <path
-                fill="#1976D2"
-                d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 0 1-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"
-              />
-            </svg>
-          )}
-          Sign-up with Google
-        </button>
-
-        <div className="divider text-xs text-base-content/50 font-medium">
-          OR
-        </div>
-
-        <form
-          className="form-control w-full space-y-4"
-          onSubmit={(e) => handleSignup(e, { type: "magic_link" })}
-        >
+    <main className="min-h-screen flex items-center justify-center p-6">
+      <div className="w-full max-w-md bg-base-200 rounded-xl p-6 shadow">
+        {process.env.NODE_ENV !== 'production' && (
+          <div className="mb-4 text-xs p-3 rounded bg-warning text-warning-content">
+            <div className="font-semibold">Dev Auth Debug</div>
+            <div>accountsBase: {accountsBaseForPreview}</div>
+            <div>returnTo: {returnTo}</div>
+            <div>callback: {callbackPreview}</div>
+            <div>supabase URL: {process.env.NEXT_PUBLIC_SUPABASE_URL}</div>
+          </div>
+        )}
+        <h1 className="text-2xl font-bold mb-4">Sign in</h1>
+        <p className="mb-6 text-sm opacity-80">We will email you a magic link to sign in.</p>
+        <form onSubmit={onSubmit} className="space-y-4">
           <input
-            required
             type="email"
+            required
+            placeholder="you@example.com"
+            className="input input-bordered w-full"
             value={email}
-            autoComplete="email"
-            placeholder="tom@cruise.com"
-            className="input input-bordered w-full placeholder:opacity-60"
             onChange={(e) => setEmail(e.target.value)}
           />
-
-          <button
-            className="btn btn-primary btn-block"
-            disabled={isLoading || isDisabled}
-            type="submit"
-          >
-            {isLoading && (
-              <span className="loading loading-spinner loading-xs"></span>
-            )}
-            Send Magic Link
+          <button type="submit" className="btn btn-primary w-full" disabled={status === 'sending'}>
+            {status === 'sending' ? 'Sending…' : 'Send magic link'}
           </button>
         </form>
+        {message && (
+          <div className={`mt-4 text-sm ${status === 'error' ? 'text-error' : 'text-success'}`}>{message}</div>
+        )}
       </div>
     </main>
-  );
+  )
 }

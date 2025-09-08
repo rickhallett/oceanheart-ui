@@ -1,9 +1,9 @@
 {
   "name": "oceanheart-ui",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3000",
     "build": "next build",
     "postbuild": "next-sitemap",
     "start": "next start",
