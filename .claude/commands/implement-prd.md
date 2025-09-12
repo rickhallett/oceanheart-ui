@@ -1,6 +1,6 @@
 # implement-prd
 
-Implement a Product Requirements Document (PRD) using Test-Driven Development approach
+Implement a Product Requirements Document (PRD) using Test-Driven Development approach with phased execution and change logging
 
 ## Usage
 
@@ -10,7 +10,7 @@ implement-prd <prd-filename> [thinking-mode]
 
 ## Arguments
 
-- `prd-filename`: Name of the PRD file in @specs/ (without .prd.md extension)
+- `prd-filename`: Name of the PRD file in docs/specs/ (lowercase, hyphens only, e.g., `auth-removal`)
 - `thinking-mode` (optional): 
   - `think` - Standard implementation with basic reasoning
   - `think-harder` - Enhanced analysis with deeper consideration
@@ -19,8 +19,9 @@ implement-prd <prd-filename> [thinking-mode]
 ## Process
 
 ### 1. Setup Phase
-- Read the PRD from `@specs/<prd-filename>.prd.md`
-- Create implementation report at `@specs/<prd-filename>-report.md`
+- Read the PRD from `docs/specs/<prd-filename>.prd.md`
+- Create implementation report at `docs/specs/<prd-filename>-implementation-report.md`
+- Create change log at `docs/specs/<prd-filename>-change-log.md`
 - Initialize git status check
 - Create TodoWrite list with all tasks
 
@@ -29,8 +30,17 @@ Extract tasks from PRD and break down into:
 - Primary tasks (from main requirements)
 - Subtasks (atomic, testable units)
 - Dependencies between tasks
+- **Phase organization** (no timeline estimates - organize by logical sequence only)
 
-### 3. TDD Implementation Loop
+### 3. Anti-Over-Engineering Guidelines
+- Implement minimum viable solution first
+- Avoid premature optimization
+- Use existing patterns and components where possible
+- Don't add features not specified in PRD
+- Prefer simple, readable code over clever solutions
+- Only add abstractions when you have 3+ use cases
+
+### 4. TDD Implementation Loop
 
 For each task:
 
@@ -66,10 +76,11 @@ Commit message types:
 
 #### e. Verify & Document
 - Run `git status` to confirm clean staging
+- Update change log with specific file changes and rationale
 - Update report with task completion
 - Mark task as completed in TodoWrite
 
-### 4. Task Order
+### 5. Task Order
 
 1. **Setup & Configuration**
    - Dependencies installation
@@ -92,12 +103,12 @@ Commit message types:
    - Manual verification
 
 5. **Documentation**
-   - Code comments
-   - README updates
-   - update ARCHITECTURE.md (invoke .claude/commands/architect.md ultrathink)
-   - Report finalization
+   - Code comments (only when complex logic requires explanation)
+   - README updates (if public API changes)
+   - update ARCHITECTURE.md (invoke .claude/commands/architect.md)
+   - Report and change log finalization
 
-### 5. Report Structure
+### 6. Report Structure
 
 The implementation report should include:
 
@@ -106,30 +117,60 @@ The implementation report should include:
 ## Date: <Current Date>
 ## PRD: <prd-filename>.prd.md
 
-## Tasks Completed
-- [x] Task 1: Description
-  - Commit: <hash> <message>
-  - Files: <files-changed>
-- [x] Task 2: Description
-  - Commit: <hash> <message>
-  - Files: <files-changed>
+## Phases Completed
+- [x] Phase 1: Setup & Configuration
+  - Tasks: <brief-list>
+  - Commits: <commit-range>
+- [x] Phase 2: Core Implementation
+  - Tasks: <brief-list>
+  - Commits: <commit-range>
 
 ## Testing Summary
 - Tests written: <count>
 - Tests passing: <count>
-- Coverage: <percentage>
+- Manual verification: <status>
 
 ## Challenges & Solutions
 - Challenge 1: Description
   - Solution: How it was resolved
 
-## Performance Metrics
-- Before: <metrics>
-- After: <metrics>
+## Critical Security Notes
+- Authentication/Authorization changes: <details>
+- Data validation changes: <details>
+- Input sanitization: <details>
 
 ## Next Steps
 - Future enhancements
 - Technical debt identified
+```
+
+### 7. Change Log Structure
+
+```markdown
+# Change Log: <Feature Name>
+## Date: <Current Date>
+
+## Files Modified
+
+### <filename>
+- **Change**: <brief-description>
+- **Rationale**: <why-this-change>
+- **Impact**: <what-this-affects>
+- **Commit**: <hash>
+
+### <filename>
+- **Change**: <brief-description>
+- **Rationale**: <why-this-change>
+- **Impact**: <what-this-affects>
+- **Commit**: <hash>
+
+## Dependencies Added/Removed
+- Added: <package>@<version> - <reason>
+- Removed: <package> - <reason>
+
+## Breaking Changes
+- <description-of-breaking-change>
+- Migration required: <yes/no>
 ```
 
 ## Thinking Modes
@@ -162,22 +203,23 @@ mcp__sequential-thinking__sequentialthinking({
 implement-prd feed-design ultrathink
 
 # Agent actions:
-1. Read @specs/feed-design.prd.md
-2. Create @specs/feed-design-report.md
-3. Break down into tasks:
-   - Task 1: Update countdown timer
+1. Read docs/specs/feed-design.prd.md
+2. Create docs/specs/feed-design-implementation-report.md
+3. Create docs/specs/feed-design-change-log.md
+4. Break down into phases:
+   - Phase 1: Core functionality (no timeline estimates)
      - Subtask 1.1: Add JavaScript calculation
      - Subtask 1.2: Update HTML structure
-     - Subtask 1.3: Add CSS animations
-   - Task 2: Fix member counter layout
+   - Phase 2: Visual improvements
      - Subtask 2.1: Update grid system
      - Subtask 2.2: Adjust responsive breakpoints
-4. For each subtask:
-   - Implement change
+5. For each subtask:
+   - Implement minimal viable solution
    - Test functionality
+   - Log change with rationale
    - Commit with message
    - Verify staging clean
-5. Update report with results
+6. Update report and change log
 ```
 
 ## Git Commit Guidelines
@@ -210,12 +252,14 @@ Updates grid layout for consistent visual hierarchy.
 ## Verification Checklist
 
 Before marking task complete:
-- [ ] Code follows PRD specifications
+- [ ] Code follows PRD specifications exactly (no extra features)
 - [ ] Tests pass (if applicable)
 - [ ] No linting errors
 - [ ] Git staging area is clean
 - [ ] Commit message follows conventions
+- [ ] Change log updated with file changes and rationale
 - [ ] Report updated with task details
+- [ ] Security considerations documented (if applicable)
 
 ## Error Handling
 
@@ -233,3 +277,7 @@ If implementation fails:
 - Use thinking mode appropriate to complexity
 - Test each change before committing
 - Update TodoWrite list throughout process
+- **NO timeline estimates** - organize by phases only
+- Focus on minimum viable implementation
+- Maintain detailed change log for code review
+- Only implement critical security measures specified in PRD

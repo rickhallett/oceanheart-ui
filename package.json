@@ -21,8 +21,6 @@
     "@mdx-js/react": "^2.3.0",
     "@next/mdx": "^13.5.8",
     "@next/third-parties": "^15.2.0",
-    "@supabase/ssr": "^0.4.1",
-    "@supabase/supabase-js": "^2.48.1",
     "@types/node-schedule": "^2.1.7",
     "@vercel/speed-insights": "^1.2.0",
     "animejs": "^3.2.2",
@@ -58,7 +56,6 @@
     "resend": "^4.1.2",
     "sharp": "^0.33.5",
     "stripe": "^17.7.0",
-    "supabase": "^2.39.2",
     "swr": "^2.3.2",
     "uuid": "^11.1.0",
     "zod": "^3.24.2"
@@ -88,8 +85,7 @@
     "onlyBuiltDependencies": [
       "@vercel/speed-insights",
       "better-sqlite3",
-      "sharp",
-      "supabase"
+      "sharp"
     ]
   },
   "trustedDependencies": [

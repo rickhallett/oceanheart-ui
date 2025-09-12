@@ -1,9 +1,0 @@
-# Option A: Publish to npm (private scoped package)
-# npm config set //registry.npmjs.org/:_authToken=YOUR_NPM_TOKEN
-# scope defaults to restricted access for scoped packages
-
-# Option B: Publish to GitHub Packages
-# registry=https://npm.pkg.github.com/
-# @oceanheart:registry=https://npm.pkg.github.com/
-# //npm.pkg.github.com/:_authToken=YOUR_GITHUB_TOKEN
-

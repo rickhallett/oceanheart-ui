@@ -1,4 +1,4 @@
-import { SupabaseClient } from '@supabase/supabase-js';
+// SupabaseClient import removed during auth removal
 import { sendEmail } from './resend';
 import config from '@/config';
 /**

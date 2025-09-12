@@ -1,8 +1,6 @@
 "use client";
 
-import { User } from "@supabase/supabase-js";
-import { createClient } from "@/libs/supabase/client";
-import { useEffect, useState, ReactNode } from "react";
+import { useEffect, ReactNode } from "react";
 import { usePathname } from "next/navigation";
 import { Crisp } from "crisp-sdk-web";
 import NextTopLoader from "nextjs-toploader";
@@ -10,27 +8,9 @@ import { Toaster } from "react-hot-toast";
 import { Tooltip } from "react-tooltip";
 import config from "@/config";
 
-// Crisp customer chat support:
-// This component is separated from ClientLayout because it needs to be wrapped with <SessionProvider> to use useSession() hook
+// Crisp customer chat support - temporarily disabled user identification during auth removal
 const CrispChat = (): null => {
   const pathname = usePathname();
-
-  const supabase = createClient();
-  const [data, setData] = useState<{ user: User }>(null);
-
-  // This is used to get the user data from Supabase Auth (if logged in) => user ID is used to identify users in Crisp
-  useEffect(() => {
-    const getUser = async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-
-      if (user) {
-        setData({ user });
-      }
-    };
-    getUser();
-  }, [supabase.auth]);
 
   useEffect(() => {
     if (config?.crisp?.id) {
@@ -51,12 +31,7 @@ const CrispChat = (): null => {
     }
   }, [pathname]);
 
-  // Add User Unique ID to Crisp to easily identify users when reaching support (optional)
-  useEffect(() => {
-    if (data?.user && config?.crisp?.id) {
-      Crisp.session.setData({ userId: data.user?.id });
-    }
-  }, [data]);
+  // User identification disabled during auth removal
 
   return null;
 };
