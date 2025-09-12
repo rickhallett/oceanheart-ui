@@ -2,13 +2,11 @@
   "permissions": {
     "allow": [
       "WebFetch(domain:decapcms.org)",
-      "WebSearch",
       "WebFetch(domain:github.com)",
       "WebFetch(domain:www.npmjs.com)",
       "WebFetch(domain:registry.npmjs.org)",
       "WebFetch(domain:api.github.com)",
       "WebFetch(domain:raw.githubusercontent.com)",
-      "WebFetch(*)",
       "Bash(cp:*)",
       "Bash(mv:*)",
       "Bash(rm:*)",
@@ -78,5 +76,17 @@
     ],
     "deny": [],
     "ask": []
+  },
+  "hooks": {
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "osascript -e 'display notification \"Claude session ended\" with title \"Claude Code\"'"
+          }
+        ]
+      }
+    ]
   }
 }
