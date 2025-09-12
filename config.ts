@@ -29,7 +29,7 @@ const config = {
       {
         name: "AI-Led Foundation",
         description: "AI-powered assessment → professional review → custom AI coach creation.",
-        price: 199,
+        price: 99,
         type: "consultation",
         features: [
           { name: "AI-Powered Assessment" },
@@ -42,7 +42,7 @@ const config = {
       {
         name: "Core Integration",
         description: "1:1 professional assessment → AI coach creation → integration support.",
-        price: 499,
+        price: 299,
         type: "consultation",
         features: [
           { name: "Personalized Professional Assessment with Kai (90 min)" },
@@ -51,11 +51,12 @@ const config = {
           { name: "Personal psychological profile integration" }
         ],
         duration: "2-session package",
+        isFeatured: true,
       },
       {
         name: "Deep Integration",
         description: "Comprehensive 1:1 assessment → AI coach creation → 3-month support.",
-        price: 997,
+        price: 549,
         type: "consultation",
         features: [
           { name: "Personalized Professional Assessment with Kai (90 min)" },
@@ -64,22 +65,22 @@ const config = {
           { name: "Conscious AI Methodology Integration" }
         ],
         duration: "3-month engagement",
-        isFeatured: true,
+        
       },
-      {
-        name: "Transformation Program",
-        description: "8-week AI intensive: assessment, coaching, and complete AI integration mastery.",
-        price: 2199,
-        type: "consultation",
-        features: [
-          { name: "Comprehensive Professional Assessment with Kai (90 min)" },
-          { name: "Custom AI Coach Creation" },
-          { name: "8 Weekly 90-minute Intensive Coaching Sessions" },
-          { name: "Personalized Conscious AI Workflow Development" },
-          { name: "Complete AI Integration Mastery" }
-        ],
-        duration: "8-week intensive program",
-      }
+      // {
+      //   name: "Transformation Program",
+      //   description: "8-week AI intensive: assessment, coaching, and complete AI integration mastery.",
+      //   price: 2199,
+      //   type: "consultation",
+      //   features: [
+      //     { name: "Comprehensive Professional Assessment with Kai (90 min)" },
+      //     { name: "Custom AI Coach Creation" },
+      //     { name: "8 Weekly 90-minute Intensive Coaching Sessions" },
+      //     { name: "Personalized Conscious AI Workflow Development" },
+      //     { name: "Complete AI Integration Mastery" }
+      //   ],
+      //   duration: "8-week intensive program",
+      // }
     ]
   },
   
