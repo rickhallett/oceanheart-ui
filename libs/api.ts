@@ -17,13 +17,11 @@ apiClient.interceptors.response.use(
     let message = "";
 
     if (error.response?.status === 401) {
-      // User not auth, ask to re login
-      toast.error("Please login");
-      // Sends the user to the login page
-      redirect(config.auth.loginUrl);
+      // No auth required in consultation model
+      toast.error("Please contact us for assistance");
     } else if (error.response?.status === 403) {
-      // User not authorized, must subscribe/purchase/pick a plan
-      message = "Pick a plan to use this feature";
+      // No subscription model in consultation approach
+      message = "Please contact us for this service";
     } else {
       message =
         error?.response?.data?.error || error.message || error.toString();

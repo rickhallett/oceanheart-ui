@@ -1,8 +1,5 @@
 "use client";
 
-import Link from "next/link";
-import config from "@/config";
-
 type AuthButtonProps = {
   mode?: "signin" | "account";
   text?: string;
@@ -10,26 +7,21 @@ type AuthButtonProps = {
 };
 
 /**
- * Stubbed authentication button component - no authentication during Supabase removal
- * Always shows sign-in state (no user)
- * 
- * @param mode - 'signin' (default) renders a simple login button, 'account' renders a popover with account options
- * @param text - Button text for signin mode when user is not logged in (default: "Get started")
- * @param extraStyle - Additional CSS classes to apply to the button
+ * Contact button - no user authentication needed
+ * Always shows contact CTA for consultation-driven model
  */
 const AuthButton = ({
   mode = "signin",
-  text = "Get started",
+  text = "Contact Kai",
   extraStyle = "",
 }: AuthButtonProps) => {
-  // Always show sign-in state (no user) during auth removal
   return (
-    <Link
+    <a
       className={`btn ${extraStyle}`}
-      href={config.auth.loginUrl}
+      href="mailto:kai@oceanheart.ai?subject=Interested in AI Coaching Services"
     >
       {text}
-    </Link>
+    </a>
   );
 };
 

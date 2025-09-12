@@ -1,25 +1,18 @@
-"use client";
-
-import Link from "next/link";
-import config from "@/config";
-
-// Stubbed sign-in button during authentication system transition
-// Always shows sign-in state (no user) during auth removal
+// Contact button for consultation model - no user accounts
 const ButtonSignin = ({
-  text = "Get started",
+  text = "Contact Kai",
   extraStyle,
 }: {
   text?: string;
   extraStyle?: string;
 }) => {
-  // Always show sign-in state during auth removal
   return (
-    <Link
+    <a
       className={`btn ${extraStyle ? extraStyle : ""}`}
-      href={config.auth.loginUrl}
+      href="mailto:kai@oceanheart.ai?subject=Interested in AI Coaching Services"
     >
       {text}
-    </Link>
+    </a>
   );
 };
 

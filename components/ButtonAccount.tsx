@@ -1,22 +1,15 @@
-"use client";
-
-import Link from "next/link";
-import config from "@/config";
-
-// Stubbed account button during authentication system transition
-// Shows disabled state during auth removal
+// Contact button - no user accounts needed
 const ButtonAccount = () => {
-  // Show disabled account button during auth removal
   return (
-    <Link
-      href={config.auth.loginUrl}
+    <a
+      href="mailto:kai@oceanheart.ai?subject=Interested in AI Coaching Services"
       className="btn"
     >
-      <span className="w-8 h-8 bg-base-300 flex justify-center items-center rounded-full shrink-0">
-        ?
+      <span className="w-8 h-8 bg-primary/20 flex justify-center items-center rounded-full shrink-0 text-primary font-bold">
+        K
       </span>
-      Sign In
-    </Link>
+      Contact Kai
+    </a>
   );
 };
 
