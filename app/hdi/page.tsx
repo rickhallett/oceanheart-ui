@@ -70,11 +70,7 @@ export default function HDIPage() {
 
   const handleDownload = async () => {
     try {
-      if (timeRemaining.expired) {
-        window.location.href = "/api/hdi/download";
-      } else {
-        console.log("Download not available yet");
-      }
+      throw Error("Download not available yet");
     } catch (error) {
       console.error("Download failed:", error);
     }

@@ -25,8 +25,7 @@ interface CountdownTimerProps {
 export default function CountdownTimer({ onDownload, timeRemaining, setTimeRemaining }: CountdownTimerProps) {
   // Calculate target timestamp only once on initial mount
   const [targetTimestamp] = useState(() => {
-    const targetDate = new Date();
-    targetDate.setDate(targetDate.getDate() + 30);
+    const targetDate = new Date('2026-09-12');
     return targetDate.getTime();
   });
 

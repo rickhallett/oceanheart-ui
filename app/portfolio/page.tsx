@@ -1,8 +1,11 @@
+import { Suspense } from "react";
 import config from "@/config";
 import { getSEOTags } from "@/libs/seo";
 import FeaturedGrid from "@/components/FeaturedGrid";
 import BookTabs from "@/components/BookTabs";
 import { portfolioSections, getFeaturedProjects } from "@/libs/portfolio";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 export const metadata = getSEOTags({
   title: `Portfolio | ${config.appName}`,
@@ -13,7 +16,11 @@ export const metadata = getSEOTags({
 
 export default function PortfolioPage() {
   return (
-    <main className="bg-base-100">
+    <>
+      <Suspense>
+        <Header />
+      </Suspense>
+      <main className="bg-base-100">
       {/* Hero Section */}
       <section className="pt-20 px-4 sm:px-8 max-w-7xl mx-auto text-center mb-16">
         <div className="mb-6">
@@ -80,5 +87,7 @@ export default function PortfolioPage() {
         </div>
       </section>
     </main>
+    <Footer />
+  </>
   )
 }
