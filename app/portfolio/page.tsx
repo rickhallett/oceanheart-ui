@@ -54,7 +54,7 @@ export default function PortfolioPage() {
         </div>
       </section>
       {/* Featured: three large pieces */}
-      <FeaturedGrid projects={getFeaturedProjects(3)} />
+      <FeaturedGrid projects={getFeaturedProjects(9)} />
 
       {/* The rest: tabbed "book" design */}
       <div className="pb-20">
