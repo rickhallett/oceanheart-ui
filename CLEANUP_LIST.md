@@ -82,7 +82,7 @@ Remove the following files and directories from the project root as they are eit
     *   `error.tsx` (duplicate of `app/error.tsx`)
     *   `not-found.tsx` (duplicate of `app/not-found.tsx`)
     *   `page.tsx` (duplicate of `app/page.tsx`)
-    *   `globals.css` (duplicate/obsolete version of `app/globals.css`)
+
     *   `opengraph-image.png` (managed by Next.js metadata in `app/`)
     *   `twitter-image.png` (managed by Next.js metadata in `app/`)
 

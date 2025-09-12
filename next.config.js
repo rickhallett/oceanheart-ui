@@ -1,10 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  // Set development server port
-  server: {
-    port: 3000,
-  },
   images: {
     domains: [
       // NextJS <Image> component needs to whitelist domains for src={}
