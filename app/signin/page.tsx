@@ -16,6 +16,20 @@ function SignInForm() {
   const defaultReturnTo = process.env.NEXT_PUBLIC_DEFAULT_RETURN_TO || (typeof window !== 'undefined' ? `${window.location.origin}/` : '/')
   const returnTo = sp.get('returnTo') || defaultReturnTo
 
+  // Extract app name from returnTo URL
+  const appName = useMemo(() => {
+    try {
+      if (!returnTo) return null
+      const url = new URL(returnTo)
+      const hostname = url.hostname
+      const parts = hostname.split('.')
+      // Extract the first part as the app name (e.g., 'thera' from 'thera.lvh.me')
+      return parts[0]
+    } catch {
+      return null
+    }
+  }, [returnTo])
+
   // Dev-only banner info to verify redirect construction
   const accountsBaseForPreview = useMemo(() => {
     if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL
@@ -31,6 +45,17 @@ function SignInForm() {
       return ''
     }
   }, [accountsBaseForPreview, returnTo])
+
+  // Console log the debug information that was previously shown in the card
+  useMemo(() => {
+    if (process.env.NODE_ENV !== 'production') {
+      console.log('[Dev Auth Debug] accountsBase:', accountsBaseForPreview)
+      console.log('[Dev Auth Debug] returnTo:', returnTo)
+      console.log('[Dev Auth Debug] callback:', callbackPreview)
+      console.log('[Dev Auth Debug] supabase URL:', process.env.NEXT_PUBLIC_SUPABASE_URL)
+      console.log('[Dev Auth Debug] extracted app name:', appName)
+    }
+  }, [accountsBaseForPreview, returnTo, callbackPreview, appName])
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -63,35 +88,67 @@ function SignInForm() {
   }
 
   return (
-    <main className="min-h-screen flex items-center justify-center p-6">
-      <div className="w-full max-w-md bg-base-200 rounded-xl p-6 shadow">
-        {process.env.NODE_ENV !== 'production' && (
-          <div className="mb-4 text-xs p-3 rounded bg-warning text-warning-content">
-            <div className="font-semibold">Dev Auth Debug</div>
-            <div>accountsBase: {accountsBaseForPreview}</div>
-            <div>returnTo: {returnTo}</div>
-            <div>callback: {callbackPreview}</div>
-            <div>supabase URL: {process.env.NEXT_PUBLIC_SUPABASE_URL}</div>
+    <main className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 flex items-center justify-center p-6">
+      <div className="w-full max-w-md">
+        {appName && (
+          <div className="mb-6 p-6 rounded-2xl bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-xl border border-white/20">
+            <div className="flex items-center mb-3">
+              <div className="w-3 h-3 bg-white/30 rounded-full mr-2"></div>
+              <div className="w-2 h-2 bg-white/20 rounded-full mr-2"></div>
+              <div className="w-1 h-1 bg-white/10 rounded-full"></div>
+            </div>
+            <div className="font-bold text-2xl mb-3 text-center">Welcome! 👋</div>
+            <p className="text-white/90 leading-relaxed text-sm text-center">
+              To access <span className="font-bold text-white bg-white/20 px-2 py-1 rounded-md">{appName.toUpperCase()}</span>
+            </p>
+            <p className="text-white/80 leading-relaxed text-sm text-center">
+            please sign in to Oceanheart AI Accounts.
+            </p>
           </div>
         )}
-        <h1 className="text-2xl font-bold mb-4">Sign in</h1>
-        <p className="mb-6 text-sm opacity-80">We will email you a magic link to sign in.</p>
-        <form onSubmit={onSubmit} className="space-y-4">
-          <input
-            type="email"
-            required
-            placeholder="you@example.com"
-            className="input input-bordered w-full"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <button type="submit" className="btn btn-primary w-full" disabled={status === 'sending'}>
-            {status === 'sending' ? 'Sending…' : 'Send magic link'}
-          </button>
-        </form>
-        {message && (
-          <div className={`mt-4 text-sm ${status === 'error' ? 'text-error' : 'text-success'}`}>{message}</div>
-        )}
+        <div className="bg-white rounded-2xl p-8 shadow-xl border border-gray-100">
+          <div className="text-center mb-6">
+            <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
+              Sign In
+            </h1>
+            <p className="text-gray-600 text-md">We'll send you a magic link to get started</p>
+          </div>
+          <form onSubmit={onSubmit} className="space-y-6">
+            <div className="relative">
+              <input
+                type="email"
+                required
+                placeholder="you@example.com"
+                className="w-full px-4 py-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 text-md placeholder-gray-400"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <button 
+              type="submit" 
+              className="w-full text-md bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold py-4 px-6 rounded-xl hover:from-blue-600 hover:to-purple-700 focus:ring-4 focus:ring-blue-200 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-[1.02] active:scale-[0.98]"
+              disabled={status === 'sending'}
+            >
+              {status === 'sending' ? (
+                <span className="flex items-center justify-center">
+                  <div className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent mr-2"></div>
+                  Sending magic link...
+                </span>
+              ) : (
+                'Send magic link ✨'
+              )}
+            </button>
+          </form>
+          {message && (
+            <div className={`mt-6 p-4 rounded-xl text-sm text-center font-medium ${
+              status === 'error' 
+                ? 'bg-red-50 text-red-700 border border-red-200' 
+                : 'bg-green-50 text-green-700 border border-green-200'
+            }`}>
+              {message}
+            </div>
+          )}
+        </div>
       </div>
     </main>
   )
