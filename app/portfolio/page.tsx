@@ -1,7 +1,8 @@
 import config from "@/config";
 import { getSEOTags } from "@/libs/seo";
-import PortfolioCarousel from "@/components/PortfolioCarousel";
-import { portfolioSections } from "@/libs/portfolio";
+import FeaturedGrid from "@/components/FeaturedGrid";
+import BookTabs from "@/components/BookTabs";
+import { portfolioSections, getFeaturedProjects } from "@/libs/portfolio";
 
 export const metadata = getSEOTags({
   title: `Portfolio | ${config.appName}`,
@@ -45,25 +46,12 @@ export default function PortfolioPage() {
           </div>
         </div>
       </section>
+      {/* Featured: three large pieces */}
+      <FeaturedGrid projects={getFeaturedProjects(3)} />
 
-      {/* Portfolio Sections */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 space-y-20 pb-20">
-        {portfolioSections.filter(s => !s.hidden).map((section, index) => (
-          <section key={section.id} className="space-y-8">
-            {/* Section Header */}
-            <div className="text-center space-y-4">
-              <h2 className="font-bold text-3xl md:text-4xl tracking-tight bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                {section.title}
-              </h2>
-              <p className="text-lg text-base-content/80 max-w-3xl mx-auto leading-relaxed">
-                {section.description}
-              </p>
-            </div>
-
-            {/* Carousel */}
-            <PortfolioCarousel projects={section.projects} sectionId={section.id} isReversed={index % 2 === 1} />
-          </section>
-        ))}
+      {/* The rest: tabbed "book" design */}
+      <div className="pb-20">
+        <BookTabs sections={portfolioSections.filter((s) => !s.hidden)} />
       </div>
 
       {/* Call-to-Action Section */}
