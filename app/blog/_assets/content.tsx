@@ -732,5 +732,76 @@ export const articles: articleType[] = [
       </>
     ),
     published: false,
+  },
+  {
+    slug: "walking-away-from-centralised-auth",
+    title: "Walking Away from Centralised Auth",
+    description:
+      "I tried a shared-auth pattern across Next.js apps. It mostly worked—until it didn’t. Here’s why I dropped it.",
+    categories: [
+      categories.find((category) => category.slug === categorySlugs.learning)!,
+    ],
+    author: authors.find((author) => author.slug === authorSlugs.kai)!,
+    publishedAt: "2025-09-10",
+    image: {
+      urlRelative: "/blog/centralised-auth/header.jpg",
+      alt: "tangled cables representing complex auth dependencies",
+    },
+    content: (
+      <>
+        <Image
+          src="/blog/centralised-auth/header.jpg"
+          alt="tangled cables representing complex auth dependencies"
+          width={700}
+          height={500}
+          priority={true}
+        />
+  
+        <p className={styles.p}>
+          I’m setting up a portfolio of projects for my software engineering
+          profile. Main site’s live on Next.js 14:{" "}
+          <a href="https://www.oceanheart.ai" target="_blank" rel="noreferrer">
+            oceanheart.ai
+          </a>
+          . Looks good, solid base.
+        </p>
+  
+        <p className={styles.p}>
+          The idea: spin up a series of Next.js apps sharing one auth system.
+          On sign-in, apps redirected to{" "}
+          <strong>accounts.oceanheart.ai</strong> which handled login and issued
+          magic links → tokens. Tokens refreshed via callbacks. Centralised auth,
+          all apps consuming the same session.
+        </p>
+  
+        <p className={styles.p}>
+          It worked… until it didn’t. The dependency on Supabase sessions was
+          brittle. Any tiny interference and the chain snapped. I ended up
+          bolting on aggressive recovery mechanisms, nested/time-based API calls,
+          all the duct tape. Debugging turned into a headache. Probably not good
+          engineering.
+        </p>
+  
+        <p className={styles.p}>
+          So I made the hard call: put the tools down. I’d sunk ~16 hours of deep
+          work chasing “almost there.” Yes, it rebooted some muscle memory and got
+          me back into harder problems. But the slope was getting steeper, and I
+          wasn’t confident the payoff justified the complexity. Maybe not the hill
+          to build on.
+        </p>
+  
+        <p className={styles.p}>
+          Learning point: <strong>walk away sooner when the integration cost
+          starts owning you</strong>. Centralised auth sounded elegant; in practice,
+          it created tight coupling and failure modes I didn’t control.
+        </p>
+  
+        <p className={styles.p}>
+          More in the next entry. Signing out for now.
+        </p>
+      </>
+    ),
+    published: false,
   }
+  
 ];
