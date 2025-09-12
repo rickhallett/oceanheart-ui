@@ -71,51 +71,45 @@ export const portfolioSections: PortfolioSection[] = [
     hidden: false,
     projects: [
       {
-        id: 100,
-        title: "Flowstate",
-        description:
-          "Focus and performance companion. Explore the live app hosted at flowstate.oceanheart.ai.",
-        image: "/images/flowstate-card.png",
-        tech: ["Next.js", "Supabase", "TypeScript", "Tailwind"],
-        externalUrl: resolveAppUrl('flowstate'),
-        featured: true,
-      },
-      {
         id: 101,
         title: "Preflight",
         description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        image: "/images/preflight-card.png",
-        tech: ["Next.js", "TypeScript", "Supabase"],
+          "An AI readiness survey and coaching demo for clinicians and well-being professionals. Built with a JSON-driven form engine and a conversational LLM pipeline, it showcases both technical design and human-centred UX.",
+        image: "/images/preflight-gpt.png",
+        tech: ["SvelteKit", "FastAPI", "Pydantic", "MongoDB", "LangChain"],
         externalUrl: resolveAppUrl('preflight'),
         featured: true,
       },
       {
         id: 102,
-        title: "Therapy Vis",
+        title: "Watson",
         description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
-        image: "/images/lines.webp",
-        tech: ["React", "D3.js", "TypeScript"],
+          "A clinical review tool that lets practitioners edit, classify, and label LLM outputs. Submissions generate structured diffs and basic analytics, with exports for research and iteration.",
+        image: "/images/watson-gpt.png",
+        tech: ["Django", "Postgres", "TipTap"],
         featured: true,
       },
       {
-        id: 103,
-        title: "Saigo Leaderboard",
+        id: 105,
+        title: "Oceanheart Notebook",
         description:
-          "Live practice tracking and leaderboard system for the White Dragon competition. Features real-time analytics, progress visualization, and comprehensive performance metrics.",
-        image: "/images/saigo_2.webp",
-        tech: ["Next.js", "TypeScript", "SWR", "Recharts", "Supabase"],
-        externalUrl: `https://${config.domainName}/saigo/leaderboard`,
+          "A minimalist learn-in-public blog powered by Go, HTMX, and SQLite. Markdown-first, fast, and single-binary deploy.",
+        image: "/images/notebook-gpt.png",
+        tech: ["Go", "HTMX", "SQLite"],
+        externalUrl: resolveAppUrl("notebook"),
+        featured: true,
       },
       {
-        id: 104,
-        title: "Lorem Ipsum Project",
+        id: 105,
+        title: "ExposureLab",
         description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt.",
-        image: "/images/unimon.webp",
-        tech: ["Next.js", "TypeScript"],
-      },
+          "Mobile-first exposure hierarchy builder for ERP therapy. Features drag-and-drop ladder editing, clinician-client sync, contracts, and one-click PDF exports.",
+        image: "/images/exposurelab-gpt.png",
+        tech: ["Next.js", "Neon", "Tailwind"],
+        externalUrl: resolveAppUrl("exposurelab"),
+        featured: true,
+      }
+      
     ],
   },
   // Existing sections below
@@ -125,30 +119,6 @@ export const portfolioSections: PortfolioSection[] = [
     description:
       "Connecting disparate systems to automate workflows and reduce manual processes. Built for scalability, handling high-volume data synchronization across healthcare platforms.",
     projects: [
-      {
-        id: 1,
-        title: "Lorem Ipsum Integration",
-        description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.",
-        image: "/images/robosec.webp",
-        tech: ["Next.js", "Supabase", "TypeScript", "API"],
-      },
-      {
-        id: 2,
-        title: "Dolore Magna Data Bridge",
-        description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-        image: "/images/particles.webp",
-        tech: ["Node.js", "PostgreSQL", "APIs", "Data Processing"],
-      },
-      {
-        id: 3,
-        title: "Consectetur Tracker",
-        description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        image: "/images/saigo_2.webp",
-        tech: ["React", "Database", "WebSockets", "Charts"],
-      },
       {
         id: 4,
         title: "Adipiscing Analytics",
@@ -192,38 +162,6 @@ export const portfolioSections: PortfolioSection[] = [
         image: "/images/hands.jpeg",
         tech: ["Python", "AI", "Analysis", "React"],
       },
-      {
-        id: 5,
-        title: "Labore Pattern Analyzer",
-        description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-        image: "/images/universe.jpg",
-        tech: ["Python", "Machine Learning", "Visualization", "Database"],
-      },
-      {
-        id: 6,
-        title: "Dolore Practice App",
-        description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        image: "/images/spirit_book.png",
-        tech: ["React Native", "Backend", "Audio", "Analytics"],
-      },
-      {
-        id: 7,
-        title: "Magna Recognition System",
-        description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.",
-        image: "/images/rosetta.jpg",
-        tech: ["Python", "Computer Vision", "ML", "API"],
-      },
-      {
-        id: 8,
-        title: "Aliqua Bias Detector",
-        description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-        image: "/images/greece_profile1.jpeg",
-        tech: ["Machine Learning", "NLP", "Web Framework", "Database"],
-      },
     ],
   },
   {
@@ -233,36 +171,13 @@ export const portfolioSections: PortfolioSection[] = [
       "Interactive education tools and curriculum designed to build AI literacy in clinical and organizational settings. Emphasis on safety, interpretability, and ethical design.",
     hidden: true,
     projects: [
-      {
-        id: 9,
-        title: "Eiusmod Literacy Toolkit",
-        description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.",
-        image: "/images/abstract_shapes.png",
-        tech: ["Next.js", "Content", "Auth", "Tracking"],
-      },
-      {
-        id: 10,
-        title: "Incididunt AI Visualizer",
-        description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-        image: "/images/lines.webp",
-        tech: ["D3.js", "Three.js", "WebGL", "Framework"],
-      },
-      {
-        id: 11,
-        title: "Cupidatat Training Simulator",
-        description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        image: "/images/hands.jpeg",
-        tech: ["Unity", "Builder", "Tracking", "System"],
-      },
+
     ],
   },
   {
     id: "data-visualization",
     title: "Data Visualization",
-    description: 
+    description:
       "Interactive dashboards and visualization tools that transform complex datasets into actionable insights. Built for scalability and real-time performance.",
     projects: [],
   },
