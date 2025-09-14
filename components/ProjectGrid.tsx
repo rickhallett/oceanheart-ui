@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { makeProjectSlug } from "@/libs/portfolio";
 
 type Project = {
   id: number;
@@ -43,9 +44,7 @@ export default function ProjectGrid({ projects, sectionId }: ProjectGridProps) {
             </div>
             <div className="pt-1">
               <Link
-                href={project.externalUrl || `/portfolio/${sectionId}-${project.title.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '')}`}
-                target={project.externalUrl ? "_blank" : undefined}
-                rel={project.externalUrl ? "noopener noreferrer" : undefined}
+                href={`/portfolio/${makeProjectSlug(sectionId, project.title)}`}
                 className="btn btn-outline btn-sm w-full"
               >
                 View Details
