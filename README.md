@@ -66,7 +66,7 @@ Oceanheart UI serves as the primary user interface for the Oceanheart.ai platfor
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:4444](http://localhost:4444) with your browser to see the result.
 
 ## SSO Auth Flow (Accounts → Apps)
 
