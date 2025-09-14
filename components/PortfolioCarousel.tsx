@@ -123,9 +123,7 @@ export default function PortfolioCarousel({
                     {/* Action Button - Always at bottom */}
                     <div className="pt-6">
                       <Link
-                        href={project.externalUrl || `/portfolio/${makeProjectSlug(sectionId, project.title)}`}
-                        target={project.externalUrl ? "_blank" : undefined}
-                        rel={project.externalUrl ? "noopener noreferrer" : undefined}
+                        href={`/portfolio/${makeProjectSlug(sectionId, project.title)}`}
                         className="w-full btn btn-outline btn-sm group-hover:btn-primary transition-all duration-300"
                       >
                         <span className="group-hover:scale-110 transition-transform duration-300">View Details</span>
@@ -192,9 +190,7 @@ export default function PortfolioCarousel({
                   {/* Action Button - Always at bottom */}
                   <div className="pt-6">
                     <Link
-                      href={project.externalUrl || `/portfolio/${makeProjectSlug(sectionId, project.title)}`}
-                      target={project.externalUrl ? "_blank" : undefined}
-                      rel={project.externalUrl ? "noopener noreferrer" : undefined}
+                      href={`/portfolio/${makeProjectSlug(sectionId, project.title)}`}
                       className="w-full btn btn-outline btn-sm group-hover:btn-primary transition-all duration-300"
                     >
                       <span className="group-hover:scale-110 transition-transform duration-300">View Details</span>
