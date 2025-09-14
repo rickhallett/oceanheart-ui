@@ -100,7 +100,7 @@ export const portfolioSections: PortfolioSection[] = [
         featured: true,
       },
       {
-        id: 105,
+        id: 106,
         title: "ExposureLab",
         description:
           "Mobile-first exposure hierarchy builder for ERP therapy. Features drag-and-drop ladder editing, clinician-client sync, contracts, and one-click PDF exports.",
@@ -223,7 +223,7 @@ export function getProjectBySlug(slug: string) {
   return getAllProjects().find((p) => p.slug === slug)
 }
 
-export function getFeaturedProjects(limit = 3) {
+export function getFeaturedProjects(limit = 4) {
   const all = getAllProjects().filter((p) => p.featured)
   // Ensure at most `limit` items and stable order by section then id
   return all

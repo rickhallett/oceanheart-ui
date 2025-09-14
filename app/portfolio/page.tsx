@@ -33,11 +33,11 @@ export default function PortfolioPage() {
         </h1>
         <div className="max-w-4xl mx-auto">
           <p className="text-lg md:text-xl opacity-90 mx-auto mb-8 leading-relaxed">
-            <span className="font-semibold text-primary">Working prototypes</span> that solve real business problems.<br />
-            <span className="font-semibold text-secondary">Measurable ROI</span> through human-centered design.<br />
-            <span className="font-semibold text-accent">Technical excellence</span> proven by 20+ deployed applications.<br />
+            <span className="font-semibold text-secondary/50">Working prototypes</span> that solve real business problems.<br />
+            <span className="font-semibold text-secondary/70">Measurable ROI</span> through human-centered design.<br />
+            <span className="font-semibold text-secondary/90">Technical excellence</span> proven by 20+ deployed applications.<br />
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto mb-12">
+          {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto mb-12">
             <div className="bg-base-200 p-6 rounded-lg">
               <div className="text-primary font-bold text-2xl mb-2">20+</div>
               <div className="text-sm opacity-80">Apps Deployed</div>
@@ -50,11 +50,11 @@ export default function PortfolioPage() {
               <div className="text-accent font-bold text-2xl mb-2">6</div>
               <div className="text-sm opacity-80">Modern tech stacks</div>
             </div>
-          </div>
+          </div> */}
         </div>
       </section>
       {/* Featured: three large pieces */}
-      <FeaturedGrid projects={getFeaturedProjects(9)} />
+      <FeaturedGrid projects={getFeaturedProjects()} />
 
       {/* The rest: tabbed "book" design */}
       <div className="pb-20">

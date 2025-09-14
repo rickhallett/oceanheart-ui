@@ -31,7 +31,7 @@ export default function BookTabs({ sections }: BookTabsProps) {
           Portfolio Book
         </h2>
         <p className="text-base-content/80 max-w-3xl mx-auto mt-3">
-          Browse the rest of the work by theme – like chapters in a book.
+          Browse the rest of my work by theme
         </p>
       </div>
 
