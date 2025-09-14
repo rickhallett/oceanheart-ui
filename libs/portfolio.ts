@@ -54,8 +54,27 @@ function resolveAppUrl(appSubdomain: string) {
     // Local dev: conventional lvh.me host/port used in this repo's docs/env
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
     const isLocal = Boolean(siteUrl && /(localhost|\.lvh\.me)/.test(siteUrl))
-    if (isLocal) return 'https://preflight.lvh.me:3444'
+    if (isLocal) return 'http://preflight.lvh.me:3444'
     return `https://preflight.${config.domainName}`
+  }
+
+  if (appSubdomain === 'notebook') {
+    if (isLocal) return 'http://notebook.lvh.me:8080'
+    return `https://notebook.oceanheart.ai`
+  }
+
+  if (appSubdomain === 'watson') {
+    if (isLocal) return 'http://watson.lvh.me:8080'
+    return `https://watson-oceanheart-ai.fly.dev/`
+  }
+
+  if (appSubdomain === 'passport') {
+    if (isLocal) return 'http://passport.lvh.me:5555'
+    return `https://passport.oceanheart.ai`
+  }
+
+  if (appSubdomain === 'exposurelab') {
+    return "#"
   }
 
   // Fallback: standard subdomain
@@ -67,7 +86,7 @@ export const portfolioSections: PortfolioSection[] = [
   {
     id: "apps",
     title: "Product Apps",
-    description: "Subdomain-hosted applications in the Oceanheart portfolio.",
+    description: "Production-ready (or aspiring) applications in the Oceanheart portfolio, designed for clinical and well-being professionals.",
     hidden: false,
     projects: [
       {
@@ -87,6 +106,27 @@ export const portfolioSections: PortfolioSection[] = [
           "A clinical review tool that lets practitioners edit, classify, and label LLM outputs. Submissions generate structured diffs and basic analytics, with exports for research and iteration.",
         image: "/images/watson-gpt.png",
         tech: ["Django", "Postgres", "TipTap"],
+        externalUrl: resolveAppUrl('watson'),
+        featured: true,
+      },
+      
+    ],
+  },
+  {
+    id: "integrations",
+    title: "System Integrations",
+    description:
+      "Connecting disparate systems to automate workflows and reduce manual processes.",
+    hidden: false,
+    projects: [
+      {
+        id: 107,
+        title: "Passport",
+        description:
+          "A central authentication system for all Oceanheart applications. Built with Next.js, Supabase, and Tailwind.",
+        image: "/images/passport-gpt.png",
+        tech: ["Rails", "Hotwire", "Stimulus"],
+        externalUrl: resolveAppUrl("passport"),
         featured: true,
       },
       {
@@ -99,6 +139,15 @@ export const portfolioSections: PortfolioSection[] = [
         externalUrl: resolveAppUrl("notebook"),
         featured: true,
       },
+    ],
+  },
+  {
+    id: "research-projects",
+    title: "Research & Experiments",
+    description:
+      "Experimental projects and research initiatives exploring emerging technologies, novel approaches, and innovative solutions.",
+    hidden: false,
+    projects: [
       {
         id: 106,
         title: "ExposureLab",
@@ -106,102 +155,8 @@ export const portfolioSections: PortfolioSection[] = [
           "Mobile-first exposure hierarchy builder for ERP therapy. Features drag-and-drop ladder editing, clinician-client sync, contracts, and one-click PDF exports.",
         image: "/images/exposurelab-gpt.png",
         tech: ["Next.js", "Neon", "Tailwind"],
-        externalUrl: resolveAppUrl("exposurelab"),
+        // externalUrl: resolveAppUrl("exposurelab"),
         featured: true,
-      }
-      
-    ],
-  },
-  // Existing sections below
-  {
-    id: "integrations",
-    title: "System Integrations",
-    description:
-      "Connecting disparate systems to automate workflows and reduce manual processes. Built for scalability, handling high-volume data synchronization across healthcare platforms.",
-    projects: [
-      {
-        id: 4,
-        title: "Adipiscing Analytics",
-        description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.",
-        image: "/images/saigo_3.webp",
-        tech: ["TypeScript", "D3.js", "Redis", "GraphQL"],
-      },
-      {
-        id: 5,
-        title: "Tempor Sync Engine",
-        description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-        image: "/images/saigo_4.webp",
-        tech: ["Node.js", "Message Queue", "Docker", "Microservices"],
-      },
-    ],
-    hidden: true,
-  },
-  {
-    id: "behavioral-psychology",
-    title: "Behavioral Psychology Applications",
-    description:
-      "AI applications leveraging evidence-based psychological principles for therapeutic contexts. Designed to enhance session effectiveness through personalized, adaptive interactions.",
-    hidden: true,
-    projects: [
-      {
-        id: 200,
-        title: "Flowstate",
-        description:
-          "Focus and performance companion. Explore the live app hosted at flowstate.oceanheart.ai.",
-        image: "/images/flowstate-card.png",
-        tech: ["Next.js", "Supabase", "TypeScript", "Tailwind"],
-        externalUrl: resolveAppUrl('flowstate'),
-      },
-      {
-        id: 4,
-        title: "Voluptate AI Assistant",
-        description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.",
-        image: "/images/hands.jpeg",
-        tech: ["Python", "AI", "Analysis", "React"],
-      },
-    ],
-  },
-  {
-    id: "ai-literacy",
-    title: "AI Literacy & Training",
-    description:
-      "Interactive education tools and curriculum designed to build AI literacy in clinical and organizational settings. Emphasis on safety, interpretability, and ethical design.",
-    hidden: true,
-    projects: [
-
-    ],
-  },
-  {
-    id: "data-visualization",
-    title: "Data Visualization",
-    description:
-      "Interactive dashboards and visualization tools that transform complex datasets into actionable insights. Built for scalability and real-time performance.",
-    projects: [],
-  },
-  {
-    id: "mobile-apps",
-    title: "Mobile Applications",
-    description:
-      "Native and cross-platform mobile applications focused on user experience and performance. Designed for both iOS and Android platforms.",
-    projects: [],
-  },
-  {
-    id: "research-projects",
-    title: "Research & Experiments",
-    description:
-      "Experimental projects and research initiatives exploring emerging technologies, novel approaches, and innovative solutions.",
-    projects: [
-      {
-        id: 300,
-        title: "HDI",
-        description:
-          "Mysterious experimental interface exploring human-digital integration. Features dynamic terminal emulation, interactive countdown, and evolving definitions of what HDI represents.",
-        image: "/images/abstract_shapes.png",
-        tech: ["Next.js", "Framer Motion", "TypeScript", "Terminal UI"],
-        externalUrl: `https://${config.domainName}/hdi`,
       },
     ],
   },
@@ -223,10 +178,32 @@ export function getProjectBySlug(slug: string) {
   return getAllProjects().find((p) => p.slug === slug)
 }
 
-export function getFeaturedProjects(limit = 4) {
+export function getFeaturedProjects(limit = 5) {
   const all = getAllProjects().filter((p) => p.featured)
   // Ensure at most `limit` items and stable order by section then id
   return all
     .sort((a, b) => (a.sectionId.localeCompare(b.sectionId) || a.id - b.id))
     .slice(0, limit)
+}
+
+/**
+ * Maps project slugs to their corresponding documentation files in docs/projects/
+ * @param slug The project slug (e.g., "apps-watson")
+ * @returns The markdown filename or null if no documentation exists
+ */
+export function getProjectDocumentationFile(slug: string): string | null {
+  const slugToDocMap: Record<string, string> = {
+    // Apps section
+    'apps-preflight': 'preflight.md',
+    'apps-watson': 'watson.md',
+
+    // Integrations section
+    'integrations-passport': 'passport.md',
+    'integrations-oceanheart-notebook': 'notebook.md',
+
+    // Research projects section
+    // 'research-projects-exposurelab': 'exposurelab.md', // TODO: Create documentation
+  }
+
+  return slugToDocMap[slug] || null
 }
