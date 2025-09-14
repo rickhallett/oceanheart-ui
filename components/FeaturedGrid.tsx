@@ -78,9 +78,7 @@ export default function FeaturedGrid({ projects }: FeaturedGridProps) {
               {/* Action Button - Always at bottom */}
               <div className="pt-4 mt-auto">
                 <Link
-                  href={p.externalUrl || `/portfolio/${p.slug}`}
-                  target={p.externalUrl ? "_blank" : undefined}
-                  rel={p.externalUrl ? "noopener noreferrer" : undefined}
+                  href={`/portfolio/${p.slug}`}
                   className="w-full btn btn-outline btn-sm group-hover:btn-primary transition-all duration-300"
                 >
                   <span className="group-hover:scale-110 transition-transform duration-300">View Project</span>
