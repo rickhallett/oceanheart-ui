@@ -38,17 +38,6 @@ function resolveAppUrl(appSubdomain: string) {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
   const isLocal = Boolean(siteUrl && /(localhost|\.lvh\.me)/.test(siteUrl))
 
-  if (appSubdomain === 'accounts') {
-    if (isLocal && siteUrl) return siteUrl.replace(/\/$/, '')
-    return `https://accounts.${config.domainName}`
-  }
-
-  if (appSubdomain === 'flowstate') {
-    // For local, prefer explicit default return-to if provided (points at flowstate dev origin)
-    const dev = process.env.NEXT_PUBLIC_DEFAULT_RETURN_TO?.replace(/\/$/, '')
-    if (isLocal && dev) return dev
-    return `https://flowstate.${config.domainName}`
-  }
 
   if (appSubdomain === 'preflight') {
     // Local dev: conventional lvh.me host/port used in this repo's docs/env
@@ -60,17 +49,17 @@ function resolveAppUrl(appSubdomain: string) {
 
   if (appSubdomain === 'notebook') {
     if (isLocal) return 'http://notebook.lvh.me:8080'
-    return `https://notebook.oceanheart.ai`
+    return `https://notebook.${config.domainName}`
   }
 
   if (appSubdomain === 'watson') {
     if (isLocal) return 'http://watson.lvh.me:8080'
-    return `https://watson-oceanheart-ai.fly.dev/`
+    return `https://watson.${config.domainName}`
   }
 
   if (appSubdomain === 'passport') {
     if (isLocal) return 'http://passport.lvh.me:5555'
-    return `https://passport.oceanheart.ai`
+    return `https://passport.${config.domainName}`
   }
 
   if (appSubdomain === 'exposurelab') {
@@ -95,7 +84,7 @@ export const portfolioSections: PortfolioSection[] = [
         description:
           "An AI readiness survey and coaching demo for clinicians and well-being professionals. Built with a JSON-driven form engine and a conversational LLM pipeline, it showcases both technical design and human-centred UX.",
         image: "/images/preflight-gpt.png",
-        tech: ["SvelteKit", "FastAPI", "Pydantic", "MongoDB", "LangChain"],
+        tech: ["Next.js", "FastAPI", "Pydantic", "MongoDB"],
         externalUrl: resolveAppUrl('preflight'),
         featured: true,
       },
@@ -105,7 +94,7 @@ export const portfolioSections: PortfolioSection[] = [
         description:
           "A clinical review tool that lets practitioners edit, classify, and label LLM outputs. Submissions generate structured diffs and basic analytics, with exports for research and iteration.",
         image: "/images/watson-gpt.png",
-        tech: ["Django", "Postgres", "TipTap"],
+        tech: ["Next.js", "Django", "Postgres", "TipTap"],
         externalUrl: resolveAppUrl('watson'),
         featured: true,
       },
