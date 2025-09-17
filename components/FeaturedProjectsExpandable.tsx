@@ -108,7 +108,7 @@ export default function FeaturedProjectsExpandable({ projects }: FeaturedProject
       {/* Expanded Card Modal */}
       <AnimatePresence>
         {active && (
-          <div className="fixed inset-0 grid place-items-center z-[100]">
+          <div className="fixed inset-0 grid place-items-center z-[100] px-4 py-4">
             <motion.button
               key={`button-close-${active.title}-${id}`}
               layout
@@ -124,7 +124,7 @@ export default function FeaturedProjectsExpandable({ projects }: FeaturedProject
                   duration: 0.05,
                 },
               }}
-              className="flex absolute top-4 right-4 lg:top-6 lg:right-6 items-center justify-center bg-base-100 rounded-full h-8 w-8 shadow-lg"
+              className="flex fixed top-4 right-4 z-[110] items-center justify-center bg-base-100 rounded-full h-10 w-10 shadow-xl border border-base-300"
               onClick={() => setActive(null)}
             >
               <CloseIcon />
@@ -132,69 +132,75 @@ export default function FeaturedProjectsExpandable({ projects }: FeaturedProject
             <motion.div
               layoutId={`card-${active.title}-${id}`}
               ref={ref}
-              className="w-full max-w-[600px] h-full md:h-fit md:max-h-[90%] flex flex-col bg-base-100 sm:rounded-3xl overflow-hidden shadow-2xl"
+              className="w-full max-w-[600px] h-full max-h-[90vh] flex flex-col bg-base-100 rounded-2xl md:rounded-3xl shadow-2xl mx-auto my-auto"
             >
-              <motion.div layoutId={`image-${active.title}-${id}`}>
-                <div className="relative w-full h-80">
-                  <Image
-                    src={active.image}
-                    alt={active.title}
-                    fill
-                    className="object-cover object-center"
-                    sizes="600px"
-                  />
-                </div>
-              </motion.div>
-              
-              <div className="p-6">
-                <div className="flex justify-between items-start mb-4">
-                  <motion.h3
-                    layoutId={`title-${active.title}-${id}`}
-                    className="font-bold text-2xl text-base-content"
-                  >
-                    {active.title}
-                  </motion.h3>
-                  <motion.div layoutId={`button-${active.title}-${id}`}>
-                    <Link
-                      href={`/portfolio/${active.slug}`}
-                      className="btn btn-primary btn-sm"
+              {/* Scrollable container */}
+              <div className="flex flex-col h-full overflow-y-auto">
+                <motion.div layoutId={`image-${active.title}-${id}`}>
+                  <div className="relative w-full h-48 sm:h-64 md:h-80 flex-shrink-0">
+                    <Image
+                      src={active.image}
+                      alt={active.title}
+                      fill
+                      className="object-cover object-center rounded-t-2xl md:rounded-t-3xl"
+                      sizes="(max-width: 640px) 100vw, 600px"
+                      priority
+                    />
+                  </div>
+                </motion.div>
+                
+                <div className="p-4 sm:p-6 flex-grow">
+                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-3 mb-4">
+                    <motion.h3
+                      layoutId={`title-${active.title}-${id}`}
+                      className="font-bold text-xl sm:text-2xl text-base-content pr-2"
                     >
-                      Full Case Study
-                    </Link>
+                      {active.title}
+                    </motion.h3>
+                    <motion.div layoutId={`button-${active.title}-${id}`} className="flex-shrink-0">
+                      <Link
+                        href={`/portfolio/${active.slug}`}
+                        className="btn btn-primary btn-sm w-full sm:w-auto"
+                      >
+                        Full Case Study
+                      </Link>
+                    </motion.div>
+                  </div>
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="space-y-4"
+                  >
+                    <p className="text-sm sm:text-base leading-relaxed text-base-content/80">
+                      {active.description}
+                    </p>
+                    <div>
+                      <h4 className="font-semibold text-base-content mb-2">Technologies:</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {active.tech.map((t, i) => (
+                          <span 
+                            key={i} 
+                            className="px-2 sm:px-3 py-1 bg-primary/10 text-primary rounded-full text-xs sm:text-sm font-medium border border-primary/20"
+                          >
+                            {t}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                    {active.externalUrl && (
+                      <div className="pt-2">
+                        <a
+                          href={active.externalUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="btn btn-outline btn-sm w-full sm:w-auto"
+                        >
+                          View Live Project
+                        </a>
+                      </div>
+                    )}
                   </motion.div>
                 </div>
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  className="space-y-4"
-                >
-                  <p className="text-base leading-relaxed text-base-content/80">
-                    {active.description}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    <h4 className="font-semibold w-full text-base-content">Technologies:</h4>
-                    {active.tech.map((t, i) => (
-                      <span 
-                        key={i} 
-                        className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium border border-primary/20"
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                  {active.externalUrl && (
-                    <div className="pt-4">
-                      <a
-                        href={active.externalUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn btn-outline btn-sm"
-                      >
-                        View Live Project
-                      </a>
-                    </div>
-                  )}
-                </motion.div>
               </div>
             </motion.div>
           </div>
