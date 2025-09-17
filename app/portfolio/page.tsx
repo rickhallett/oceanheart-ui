@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import config from "@/config";
 import { getSEOTags } from "@/libs/seo";
-import FeaturedGrid from "@/components/FeaturedGrid";
+import FeaturedProjectsExpandable from "@/components/FeaturedProjectsExpandable";
 import BookTabs from "@/components/BookTabs";
 import { portfolioSections, getFeaturedProjects } from "@/libs/portfolio";
 import Header from "@/components/Header";
@@ -55,8 +55,8 @@ export default function PortfolioPage() {
             </div>
           </Vortex>
         </section>
-        {/* Featured: three large pieces */}
-        <FeaturedGrid projects={getFeaturedProjects()} />
+        {/* Featured Projects with Expandable Cards */}
+        <FeaturedProjectsExpandable projects={getFeaturedProjects()} />
 
         {/* The rest: tabbed "book" design */}
         <div className="pb-20">
