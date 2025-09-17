@@ -73,7 +73,11 @@ export default function FeaturedProjectsExpandable({ projects }: FeaturedProject
     }
 
     window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      // Reset overflow when component unmounts
+      document.body.style.overflow = "auto";
+    };
   }, [active]);
 
   useOutsideClick(ref, () => setActive(null));
