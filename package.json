@@ -15,13 +15,17 @@
     "@mdx-js/react": "^2.3.0",
     "@next/mdx": "^13.5.8",
     "@next/third-parties": "^15.2.0",
+    "@tabler/icons-react": "^3.35.0",
     "@tailwindcss/typography": "^0.5.16",
+    "@types/better-sqlite3": "^7.6.13",
     "@types/dompurify": "^3.2.0",
     "@types/jsdom": "^21.1.7",
     "@types/node-schedule": "^2.1.7",
     "@vercel/speed-insights": "^1.2.0",
     "animejs": "^3.2.2",
     "axios": "^1.7.9",
+    "better-sqlite3": "^12.2.0",
+    "clsx": "^2.1.1",
     "crisp-sdk-web": "^1.0.25",
     "dompurify": "^3.2.6",
     "dotenv": "^16.4.7",
@@ -32,6 +36,7 @@
     "framer-motion": "^12.4.10",
     "inquirer": "^12.4.2",
     "jsdom": "^27.0.0",
+    "motion": "^12.23.13",
     "next": "^14.2.25",
     "next-sitemap": "^4.2.3",
     "nextjs-toploader": "^1.6.12",
@@ -51,6 +56,9 @@
     "remark-html": "^16.0.1",
     "resend": "^4.1.2",
     "sharp": "^0.33.5",
+    "shiki": "^3.12.2",
+    "simplex-noise": "^4.0.3",
+    "tailwind-merge": "^3.3.1",
     "uuid": "^11.1.0",
     "zod": "^3.24.2"
   },
@@ -65,7 +73,7 @@
     "@types/react": "^19.0.12",
     "@types/react-dom": "^18.3.5",
     "@types/react-syntax-highlighter": "^15.5.13",
-    "autoprefixer": "^10.4.20",
+    "autoprefixer": "^10.4.21",
     "daisyui": "^4.12.23",
     "postcss": "^8.5.2",
     "tailwindcss": "^3.4.17",
@@ -78,6 +86,8 @@
     ]
   },
   "trustedDependencies": [
-    "@vercel/speed-insights"
+    "@vercel/speed-insights",
+    "better-sqlite3",
+    "sharp"
   ]
 }
