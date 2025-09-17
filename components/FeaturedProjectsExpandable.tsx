@@ -149,18 +149,18 @@ export default function FeaturedProjectsExpandable({ projects }: FeaturedProject
                   </div>
                 </motion.div>
                 
-                <div className="p-4 sm:p-6 flex-grow">
+                <div className="p-5 sm:p-6 flex-grow">
                   <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-3 mb-4">
                     <motion.h3
                       layoutId={`title-${active.title}-${id}`}
-                      className="font-bold text-xl sm:text-2xl text-base-content pr-2"
+                      className="font-bold text-lg sm:text-2xl text-base-content pr-2"
                     >
                       {active.title}
                     </motion.h3>
                     <motion.div layoutId={`button-${active.title}-${id}`} className="flex-shrink-0">
                       <Link
                         href={`/portfolio/${active.slug}`}
-                        className="btn btn-primary btn-sm w-full sm:w-auto"
+                        className="btn btn-primary btn-sm w-full sm:w-auto text-sm"
                       >
                         Full Case Study
                       </Link>
@@ -171,16 +171,16 @@ export default function FeaturedProjectsExpandable({ projects }: FeaturedProject
                     animate={{ opacity: 1 }}
                     className="space-y-4"
                   >
-                    <p className="text-sm sm:text-base leading-relaxed text-base-content/80">
+                    <p className="text-sm sm:text-base leading-relaxed text-base-content/90">
                       {active.description}
                     </p>
                     <div>
-                      <h4 className="font-semibold text-base-content mb-2">Technologies:</h4>
-                      <div className="flex flex-wrap gap-2">
+                      <h4 className="font-semibold text-sm sm:text-base text-base-content mb-2">Technologies:</h4>
+                      <div className="flex flex-wrap gap-1.5 sm:gap-2">
                         {active.tech.map((t, i) => (
                           <span 
                             key={i} 
-                            className="px-2 sm:px-3 py-1 bg-primary/10 text-primary rounded-full text-xs sm:text-sm font-medium border border-primary/20"
+                            className="px-2.5 sm:px-3 py-1 bg-primary/10 text-primary rounded-full text-xs sm:text-sm font-medium border border-primary/20"
                           >
                             {t}
                           </span>
@@ -193,7 +193,7 @@ export default function FeaturedProjectsExpandable({ projects }: FeaturedProject
                           href={active.externalUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="btn btn-outline btn-sm w-full sm:w-auto"
+                          className="btn btn-outline btn-sm w-full sm:w-auto text-sm"
                         >
                           View Live Project
                         </a>
