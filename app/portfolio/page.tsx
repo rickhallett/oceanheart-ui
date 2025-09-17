@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import config from "@/config";
 import { getSEOTags } from "@/libs/seo";
 import FeaturedProjectsExpandable from "@/components/FeaturedProjectsExpandable";
-import BookTabs from "@/components/BookTabs";
+import EnhancedBookTabs from "@/components/EnhancedBookTabs";
 import { portfolioSections, getFeaturedProjects } from "@/libs/portfolio";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -58,9 +58,9 @@ export default function PortfolioPage() {
         {/* Featured Projects with Expandable Cards */}
         <FeaturedProjectsExpandable projects={getFeaturedProjects()} />
 
-        {/* The rest: tabbed "book" design */}
+        {/* Portfolio Collection with Enhanced Tabs and Bento Grid */}
         <div className="pb-20">
-          <BookTabs sections={portfolioSections.filter((s) => !s.hidden)} />
+          <EnhancedBookTabs sections={portfolioSections.filter((s) => !s.hidden)} />
         </div>
 
         {/* Call-to-Action Section */}
