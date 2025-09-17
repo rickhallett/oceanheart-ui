@@ -8,6 +8,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Vortex } from "@/components/ui/vortex";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
+import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 
 export const metadata = getSEOTags({
   title: `Portfolio | ${config.appName}`,
@@ -74,17 +75,52 @@ export default function PortfolioPage() {
               <span className="font-semibold text-secondary">For clients:</span> Get measurable ROI through psychology-informed software that solves real problems.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
+              <HoverBorderGradient
+                containerClassName="rounded-full"
+                as="a"
                 href="https://calendar.app.google/85ZdaqYK5vfNk4aH9"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn btn-primary btn-wide btn-lg hover:scale-105 transition-transform"
+                className="bg-base-100 text-base-content flex items-center space-x-2 px-8 py-4 font-semibold hover:scale-105 transition-transform"
               >
-                Schedule a Call
-              </a>
-              <a href="/about" className="btn btn-outline btn-wide btn-lg hover:scale-105 transition-transform">
-                Learn More About Me
-              </a>
+                <span>Schedule a Call</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                  />
+                </svg>
+              </HoverBorderGradient>
+              <HoverBorderGradient
+                containerClassName="rounded-full"
+                as="a"
+                href="/about"
+                className="bg-base-100 text-base-content flex items-center space-x-2 px-8 py-4 font-semibold hover:scale-105 transition-transform"
+              >
+                <span>Learn More About Me</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M13 7l5 5m0 0l-5 5m5-5H6"
+                  />
+                </svg>
+              </HoverBorderGradient>
             </div>
           </div>
         </section>
