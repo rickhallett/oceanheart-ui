@@ -21,33 +21,33 @@ export default async function PortfolioDetailPage({ params }: Props) {
   const readmeContent = await getProjectReadmeContent(params.slug)
 
   return (
-    <main className="max-w-4xl mx-auto px-6 py-16">
+    <main className="max-w-5xl mx-auto px-4 py-8">
       {/* Navigation */}
-      <nav className="mb-8">
-        <Link href="/portfolio" className="btn btn-ghost mb-6">
+      <nav className="mb-4">
+        <Link href="/portfolio" className="btn btn-ghost">
           ← Back to Portfolio
         </Link>
       </nav>
 
       {/* Project Header */}
-      <header className="mb-8">
-        <h1 className="text-4xl font-extrabold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+      <header className="mb-4">
+        <h1 className="text-4xl font-extrabold mb-2 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
           {project.title}
         </h1>
-        <p className="text-xl text-base-content/80 mb-6 leading-relaxed">
+        <p className="text-lg text-base-content/80 leading-snug">
           {project.description}
         </p>
       </header>
 
       {/* External Application Access */}
       {project.externalUrl && (
-        <section className="mb-8">
-          <div className="bg-base-200 rounded-xl p-6 border-l-4 border-primary">
-            <h2 className="text-lg font-semibold mb-3 flex items-center">
+        <section className="mb-4">
+          <div className="bg-base-200 rounded-lg p-4 border-l-4 border-primary">
+            <h2 className="text-base font-semibold mb-2 flex items-center">
               🚀 Live Application
             </h2>
-            <p className="text-base-content/80 mb-4">
-              This project is live and available for exploration. Try it out to see the implementation in action.
+            <p className="text-base text-base-content/80 mb-3">
+              This project is live and available for exploration.
             </p>
             <Link
               href={project.externalUrl}
@@ -65,11 +65,11 @@ export default async function PortfolioDetailPage({ params }: Props) {
       )}
 
       {/* Project Content (README) */}
-      <section className="mb-8">
-        <h2 className="text-2xl font-bold mb-6">Project Details</h2>
+      <section className="mb-4">
+        <h2 className="text-2xl font-bold mb-3">Project Details</h2>
         {readmeContent.exists ? (
           <div
-            className="prose prose-lg max-w-none prose-headings:text-base-content prose-p:text-base-content/80 prose-strong:text-base-content prose-code:text-primary prose-pre:bg-base-200"
+            className="prose prose-base max-w-none prose-headings:text-base-content prose-headings:mt-4 prose-headings:mb-2 prose-p:text-base-content/80 prose-p:my-2 prose-strong:text-base-content prose-code:text-primary prose-pre:bg-base-200 prose-pre:my-3 prose-ul:my-2 prose-ol:my-2 prose-li:my-0.5 prose-table:text-sm"
             dangerouslySetInnerHTML={{ __html: readmeContent.html }}
           />
         ) : (
@@ -78,13 +78,13 @@ export default async function PortfolioDetailPage({ params }: Props) {
       </section>
 
       {/* Tech Stack Section */}
-      <section className="mb-8">
-        <h2 className="text-2xl font-bold mb-4">Tech Stack</h2>
-        <div className="flex flex-wrap gap-3">
+      <section className="mb-4">
+        <h2 className="text-2xl font-bold mb-3">Tech Stack</h2>
+        <div className="flex flex-wrap gap-2">
           {project.tech.map((tech) => (
             <span
               key={tech}
-              className="inline-block px-4 py-2 text-sm font-medium bg-gradient-to-r from-primary/10 to-secondary/10 text-primary border border-primary/20 rounded-full hover:bg-primary/20 transition-colors"
+              className="inline-block px-3 py-1.5 text-sm font-medium bg-gradient-to-r from-primary/10 to-secondary/10 text-primary border border-primary/20 rounded-full hover:bg-primary/20 transition-colors"
             >
               {tech}
             </span>
@@ -97,4 +97,3 @@ export default async function PortfolioDetailPage({ params }: Props) {
     </main>
   )
 }
-
