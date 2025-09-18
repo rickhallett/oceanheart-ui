@@ -30,44 +30,54 @@ export function makeProjectSlug(sectionId: string, title: string) {
   return `${sectionId}-${slugify(title)}`
 }
 
-// Resolve an app's base URL depending on environment
-// - Local dev: prefer lvh.me URLs surfaced via NEXT_PUBLIC_* envs
-// - Prod: subdomain on the configured domain
-function resolveAppUrl(appSubdomain: string) {
-  // Heuristic: when NEXT_PUBLIC_SITE_URL points to lvh.me/localhost, treat as local
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
-  const isLocal = Boolean(siteUrl && /(localhost|\.lvh\.me)/.test(siteUrl))
+// Configuration-driven approach
+const APP_PORTS = {
+  sidekick: 3000,
+  preflight: 3002,
+  notebook: 3003,
+  watson: 3001,
+  passport: 5555,
+  my: 3003,
+  labs: 3004,
+} as const;
 
+const SPECIAL_CASES = {
+  exposurelab: "#",
+} as const;
 
-  if (appSubdomain === 'preflight') {
-    // Local dev: conventional lvh.me host/port used in this repo's docs/env
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
-    const isLocal = Boolean(siteUrl && /(localhost|\.lvh\.me)/.test(siteUrl))
-    if (isLocal) return 'http://preflight.lvh.me:3444'
-    return `https://preflight.${config.domainName}`
+type AppSubdomain = keyof typeof APP_PORTS | keyof typeof SPECIAL_CASES;
+
+function isLocalEnvironment(): boolean {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
+  return Boolean(siteUrl && /(localhost|\.lvh\.me)/.test(siteUrl));
+}
+
+function buildLocalUrl(subdomain: string, port: number): string {
+  return `http://${subdomain}.lvh.me:${port}`;
+}
+
+function buildProductionUrl(subdomain: string): string {
+  return `https://${subdomain}.${config.domainName}`;
+}
+
+function resolveAppUrl(appSubdomain: string): string {
+  // Handle special cases first
+  if (appSubdomain in SPECIAL_CASES) {
+    return SPECIAL_CASES[appSubdomain as keyof typeof SPECIAL_CASES];
   }
 
-  if (appSubdomain === 'notebook') {
-    if (isLocal) return 'http://notebook.lvh.me:8080'
-    return `https://notebook.${config.domainName}`
+  // Validate known app subdomains
+  if (!(appSubdomain in APP_PORTS)) {
+    console.warn(`Unknown app subdomain: ${appSubdomain}`);
+    return buildProductionUrl(appSubdomain);
   }
 
-  if (appSubdomain === 'watson') {
-    if (isLocal) return 'http://watson.lvh.me:8080'
-    return `https://watson.${config.domainName}`
-  }
+  const port = APP_PORTS[appSubdomain as keyof typeof APP_PORTS];
+  const isLocal = isLocalEnvironment();
 
-  if (appSubdomain === 'passport') {
-    if (isLocal) return 'http://passport.lvh.me:5555'
-    return `https://passport.${config.domainName}`
-  }
-
-  if (appSubdomain === 'exposurelab') {
-    return "#"
-  }
-
-  // Fallback: standard subdomain
-  return `https://${appSubdomain}.${config.domainName}`
+  return isLocal 
+    ? buildLocalUrl(appSubdomain, port)
+    : buildProductionUrl(appSubdomain);
 }
 
 // Centralized portfolio data so both list and details pages share one source.
@@ -98,6 +108,16 @@ export const portfolioSections: PortfolioSection[] = [
         externalUrl: resolveAppUrl('watson'),
         featured: true,
       },
+      {
+        id: 110,
+        title: "Sidekick",
+        description:
+          "A mindful AI chat interface designed to support reflection and meditation practice, while showcasing a full-stack Nuxt 4 build with persistent sessions, GitHub OAuth, and real-time streaming.",
+        image: "/images/sidekick-gpt.png",
+        tech: ["Nuxt 4", "Postgres", "Drizzle ORM", "Tailwind"],
+        externalUrl: resolveAppUrl("sidekick"),
+        featured: true,
+      }
       
     ],
   },
@@ -185,6 +205,7 @@ export function getProjectDocumentationFile(slug: string): string | null {
     // Apps section
     'apps-preflight': 'preflight.md',
     'apps-watson': 'watson.md',
+    'apps-sidekick': 'sidekick.md',
 
     // Integrations section
     'integrations-passport': 'passport.md',
