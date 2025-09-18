@@ -30,9 +30,7 @@
     ],
     "target": "ES2017",
     "types": [
-      "node",
-      "jest",
-      "cypress"
+      "node"
     ]
   },
   "include": [
