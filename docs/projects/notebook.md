@@ -13,7 +13,6 @@ A single-binary blog engine built with **Go**, **SQLite**, and modern web standa
 - ✅ Phase 01: Content Processing (Markdown, YAML front matter, syntax highlighting)
 - ✅ Phase 02: HTTP Server & Routing (handlers, middleware)
 - ✅ Phase 03: File-Based Templates, Static Assets, Admin Reload
-- ✅ Phase 04: Feeds & SEO Features (Atom, sitemap, meta tags, external links)
 
 ---
 

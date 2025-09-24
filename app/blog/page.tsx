@@ -1,4 +1,5 @@
-import { categories, articles, articleType } from "./_assets/content";
+import { getAllPosts } from "@/libs/blog";
+import { categories } from "./_assets/content";
 import CardArticle from "./_assets/components/CardArticle";
 import CardCategory from "./_assets/components/CardCategory";
 import config from "@/config";
@@ -12,13 +13,28 @@ export const metadata = getSEOTags({
 });
 
 export default async function Blog() {
-  const articlesToDisplay = articles
-    .sort(
-      (a, b) =>
-        new Date(b.publishedAt).valueOf() - new Date(a.publishedAt).valueOf()
-    )
-    .slice(0, 6)
-    .filter(article => article.published)
+  // Get posts from markdown files
+  const markdownPosts = await getAllPosts();
+  
+  // Transform markdown posts to match existing article format temporarily
+  const articlesToDisplay = markdownPosts.slice(0, 6).map(post => ({
+    slug: post.slug,
+    title: post.title,
+    description: post.description,
+    publishedAt: post.date,
+    image: {
+      urlRelative: post.image,
+      alt: post.title
+    },
+    author: {
+      name: post.author,
+      slug: post.author
+    },
+    categories: post.tags.map(tag => ({
+      slug: tag,
+      title: tag
+    }))
+  }))
   return (
     <>
       <section className="text-center max-w-xl mx-auto mt-12 mb-24 md:mb-32">

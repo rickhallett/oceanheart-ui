@@ -8,7 +8,7 @@ export default function ComparisonSection() {
             Generic AI vs. Personal AI
           </h2>
           <p className="text-lg md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-            The difference between asking ChatGPT for life advice and having a coach who's studied you for years
+            The gap between a one-off chat and a tool that knows your context.
           </p>
         </div>
 
@@ -21,38 +21,38 @@ export default function ComparisonSection() {
 
             <h3 className="text-2xl md:text-3xl font-bold text-red-700 mb-8 flex items-center">
               <div className="w-3 h-3 bg-red-500 rounded-full mr-4 animate-pulse"></div>
-              Generic AI Coaching
+              Generic AI
             </h3>
             <ul className="space-y-5">
               <li className="flex items-start">
                 <div className="w-6 h-6 bg-red-500 rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
                   <span className="text-white text-sm font-bold">✗</span>
                 </div>
-                <span className="text-red-800 font-medium text-base md:text-lg">One-size-fits-all responses</span>
+                <span className="text-red-800 font-medium text-base md:text-lg">One-size-fits-all answers</span>
               </li>
               <li className="flex items-start">
                 <div className="w-6 h-6 bg-red-500 rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
                   <span className="text-white text-sm font-bold">✗</span>
                 </div>
-                <span className="text-red-800 font-medium text-base md:text-lg">Surface-level advice that sounds good but doesn't fit</span>
+                <span className="text-red-800 font-medium text-base md:text-lg">Looks helpful, often misses your reality</span>
               </li>
               <li className="flex items-start">
                 <div className="w-6 h-6 bg-red-500 rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
                   <span className="text-white text-sm font-bold">✗</span>
                 </div>
-                <span className="text-red-800 font-medium text-base md:text-lg">No understanding of your values or patterns</span>
+                <span className="text-red-800 font-medium text-base md:text-lg">No memory of your values or history</span>
               </li>
               <li className="flex items-start">
                 <div className="w-6 h-6 bg-red-500 rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
                   <span className="text-white text-sm font-bold">✗</span>
                 </div>
-                <span className="text-red-800 font-medium text-base md:text-lg">Starts from zero every conversation</span>
+                <span className="text-red-800 font-medium text-base md:text-lg">Starts from zero each time</span>
               </li>
               <li className="flex items-start">
                 <div className="w-6 h-6 bg-red-500 rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
                   <span className="text-white text-sm font-bold">✗</span>
                 </div>
-                <span className="text-red-800 font-medium text-base md:text-lg">Looks at symptoms, not root causes</span>
+                <span className="text-red-800 font-medium text-base md:text-lg">Handles symptoms, not patterns</span>
               </li>
             </ul>
           </div>
@@ -64,44 +64,44 @@ export default function ComparisonSection() {
 
             <h3 className="text-2xl md:text-3xl font-bold text-blue-700 mb-8 flex items-center">
               <div className="w-3 h-3 bg-blue-500 rounded-full mr-4 animate-pulse"></div>
-              Synai: Your Personal AI
+              Synai (Personal AI)
             </h3>
             <ul className="space-y-5">
               <li className="flex items-start">
                 <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
                   <span className="text-white text-sm font-bold">✓</span>
                 </div>
-                <span className="text-blue-800 font-medium text-base md:text-lg">Built from your professional evidence-based evaluation</span>
+                <span className="text-blue-800 font-medium text-base md:text-lg">Built from a structured intake and goals</span>
               </li>
               <li className="flex items-start">
                 <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
                   <span className="text-white text-sm font-bold">✓</span>
                 </div>
-                <span className="text-blue-800 font-medium text-base md:text-lg">Knows your history, values, and goals</span>
+                <span className="text-blue-800 font-medium text-base md:text-lg">Carries context: history, values, constraints</span>
               </li>
               <li className="flex items-start">
                 <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
                   <span className="text-white text-sm font-bold">✓</span>
                 </div>
-                <span className="text-blue-800 font-medium text-base md:text-lg">Guidance tailored to your specific patterns</span>
+                <span className="text-blue-800 font-medium text-base md:text-lg">Guidance tuned to your patterns</span>
               </li>
               <li className="flex items-start">
                 <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
                   <span className="text-white text-sm font-bold">✓</span>
                 </div>
-                <span className="text-blue-800 font-medium text-base md:text-lg">Grounded in ACT (Acceptance &amp; Commitment Therapy)</span>
+                <span className="text-blue-800 font-medium text-base md:text-lg">Grounded in clear, evidence-informed principles</span>
               </li>
               <li className="flex items-start">
                 <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
                   <span className="text-white text-sm font-bold">✓</span>
                 </div>
-                <span className="text-blue-800 font-medium text-base md:text-lg">Evolves with you through ongoing dialogue</span>
+                <span className="text-blue-800 font-medium text-base md:text-lg">Improves through ongoing use</span>
               </li>
               <li className="flex items-start">
                 <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
                   <span className="text-white text-sm font-bold">✓</span>
                 </div>
-                <span className="text-blue-800 font-medium text-lg">Addresses root causes and unconscious blocks</span>
+                <span className="text-blue-800 font-medium text-lg">Works at the level of patterns and decisions</span>
               </li>
             </ul>
           </div>

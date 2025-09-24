@@ -267,31 +267,3 @@ See [LICENSE](LICENSE) for details.
 
 *Project Preflight is a research and demonstration platform.
 It is **not** a clinical diagnostic tool and provides no medical advice.*
-
-
-## Setup
-
-### Python (UV)
-```bash
-uv venv
-source .venv/bin/activate  # or .venv\Scripts\activate on Windows
-```
-
-### TypeScript/JavaScript (Bun)
-```bash
-bun install
-bun run dev
-```
-
-### Ruby
-```bash
-bundle install
-```
-
-## Development
-
-[Add development instructions here]
-
-## Contributing
-
-[Add contributing guidelines here]

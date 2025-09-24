@@ -20,7 +20,7 @@ export default function Home() {
         <Hero />
         <Problem />
         <FeaturesAccordion />
-        <KnowledgeGapSection />
+        {/* <KnowledgeGapSection /> */}
         <CompoundingHoursSection />
         <Pricing />
         <FAQ />

@@ -90,7 +90,7 @@ export const portfolioSections: PortfolioSection[] = [
     projects: [
       {
         id: 101,
-        title: "Preflight – AI Readiness",
+        title: "Preflight",
         description:
           "[Prototype - Phase 1] An assessment engine for clinicians exploring AI adoption. Current build showcases the JSON form system and design language. Next milestones: authentication, analytics dashboard, and adaptive coaching logic.",
         image: "/images/preflight-gpt.png",
@@ -100,7 +100,7 @@ export const portfolioSections: PortfolioSection[] = [
       },
       {
         id: 102,
-        title: "Watson – Clinical Review Tool",
+        title: "Watson",
         description:
           "[UI Scaffold] A collaborative review interface for practitioners to classify and label LLM outputs. Live demo highlights the editing surface and data schema. Next milestones: real-time diff engine and export pipeline.",
         image: "/images/watson-gpt.png",
@@ -110,7 +110,7 @@ export const portfolioSections: PortfolioSection[] = [
       },
       {
         id: 110,
-        title: "Sidekick – Mindful Chat",
+        title: "Sidekick",
         description:
           "[Early Build] A reflective chat environment for meditation practice. This release demonstrates the Nuxt stack, streaming chat UI, and state management. Next milestones: memory layer and personalised coaching prompts.",
         image: "/images/sidekick-gpt.png",
@@ -130,7 +130,7 @@ export const portfolioSections: PortfolioSection[] = [
     projects: [
       {
         id: 107,
-        title: "Passport – Unified Auth",
+        title: "Passport",
         description:
           "[Core Service Prototype] Centralised authentication for the Oceanheart ecosystem. Current version provides multi-tenant routing and Supabase auth. Next milestones: SSO and encrypted profile hand-off between apps.",
         image: "/images/passport-gpt.png",
@@ -140,7 +140,7 @@ export const portfolioSections: PortfolioSection[] = [
       },
       {
         id: 105,
-        title: "Oceanheart Notebook",
+        title: "Notebook",
         description:
           "[v0.1] A minimalist, markdown-first blog for learning in public. Stable core with Go/HTMX engine. Next milestones: tagging, RSS, and publishing pipeline.",
         image: "/images/notebook-gpt.png",
