@@ -1,85 +1,81 @@
-import { Timeline } from "@/components/ui/timeline";
-import { BackgroundBeams } from "@/components/ui/background-beams";
-
 export default function ProcessSection() {
-  const data = [
+  const steps = [
     {
+      number: "1",
       title: "Deep Assessment",
-      content: (
-        <div>
-          <p className="text-neutral-800 dark:text-neutral-200 text-lg md:text-xl font-normal mb-8">
-            Kai conducts a comprehensive clinical evaluation, mapping your values, patterns, goals, and unconscious blocks using proven therapeutic frameworks.
-          </p>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950 dark:to-blue-900 p-4 rounded-lg">
-              <h4 className="font-semibold text-blue-800 dark:text-blue-200 mb-2">Clinical Expertise</h4>
-              <p className="text-blue-700 dark:text-blue-300 text-sm">Evidence-based therapeutic frameworks</p>
-            </div>
-            <div className="bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-950 dark:to-purple-900 p-4 rounded-lg">
-              <h4 className="font-semibold text-purple-800 dark:text-purple-200 mb-2">Deep Mapping</h4>
-              <p className="text-purple-700 dark:text-purple-300 text-sm">Values, patterns, and unconscious blocks</p>
-            </div>
-          </div>
-        </div>
-      ),
+      description: "Kai conducts a comprehensive clinical evaluation, mapping your values, patterns, goals, and unconscious blocks using proven therapeutic frameworks."
     },
     {
+      number: "2",
       title: "AI Engineering",
-      content: (
-        <div>
-          <p className="text-neutral-800 dark:text-neutral-200 text-lg md:text-xl font-normal mb-8">
-            Your assessment becomes a sophisticated prompt system—a private AI that understands you at a level that generic tools simply cannot match.
-          </p>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="bg-gradient-to-br from-green-50 to-green-100 dark:from-green-950 dark:to-green-900 p-4 rounded-lg">
-              <h4 className="font-semibold text-green-800 dark:text-green-200 mb-2">Advanced Prompting</h4>
-              <p className="text-green-700 dark:text-green-300 text-sm">Sophisticated AI prompt engineering</p>
-            </div>
-            <div className="bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-950 dark:to-orange-900 p-4 rounded-lg">
-              <h4 className="font-semibold text-orange-800 dark:text-orange-200 mb-2">Private Container</h4>
-              <p className="text-orange-700 dark:text-orange-300 text-sm">Your own personalized AI system</p>
-            </div>
-          </div>
-        </div>
-      ),
+      description: "Your assessment becomes a sophisticated prompt system—a private AI that understands you at a level that generic tools simply cannot match."
     },
     {
+      number: "3",
       title: "Ongoing Partnership",
-      content: (
-        <div>
-          <p className="text-neutral-800 dark:text-neutral-200 text-lg md:text-xl font-normal mb-8">
-            Your personal AI coach guides you through life's challenges, helping you make decisions aligned with your deepest values and highest potential.
-          </p>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="bg-gradient-to-br from-indigo-50 to-indigo-100 dark:from-indigo-950 dark:to-indigo-900 p-4 rounded-lg">
-              <h4 className="font-semibold text-indigo-800 dark:text-indigo-200 mb-2">Continuous Growth</h4>
-              <p className="text-indigo-700 dark:text-indigo-300 text-sm">Evolving guidance for life's journey</p>
-            </div>
-            <div className="bg-gradient-to-br from-pink-50 to-pink-100 dark:from-pink-950 dark:to-pink-900 p-4 rounded-lg">
-              <h4 className="font-semibold text-pink-800 dark:text-pink-200 mb-2">Aligned Decisions</h4>
-              <p className="text-pink-700 dark:text-pink-300 text-sm">Choices that match your values</p>
-            </div>
-          </div>
-        </div>
-      ),
-    },
+      description: "Your personal AI coach guides you through life's challenges, helping you make decisions aligned with your deepest values and highest potential."
+    }
   ];
 
   return (
-    <div className="w-full relative">
-      <BackgroundBeams />
-      <div className="relative z-10">
+    <section className="py-32 bg-gradient-to-br from-primary to-secondary relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute top-20 left-10 w-32 h-32 bg-white rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 right-10 w-40 h-40 bg-white rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-white rounded-full blur-3xl"></div>
+      </div>
+
+      <div className="container mx-auto px-6 md:px-4 relative z-10">
         {/* Section Header */}
-        <div className="text-center py-20">
-          <h2 className="text-4xl md:text-6xl font-bold text-neutral-900 dark:text-white mb-8">
+        <div className="text-center mb-24 synai-fade-in">
+          <h2 className="text-4xl md:text-6xl font-bold text-white mb-8">
             Your Journey to Personal AI
           </h2>
-          <p className="text-xl md:text-2xl text-neutral-600 dark:text-neutral-400 max-w-4xl mx-auto leading-relaxed">
+          <p className="text-xl md:text-3xl text-white/90 max-w-4xl mx-auto leading-relaxed">
             From clinical assessment to your private AI coach in three steps
           </p>
         </div>
-        <Timeline data={data} />
+
+        {/* Process Steps */}
+        <div className="grid md:grid-cols-3 gap-12 max-w-7xl mx-auto">
+          {steps.map((step, index) => (
+            <div
+              key={index}
+              className={`relative bg-white/95 backdrop-blur-lg rounded-3xl p-10 shadow-2xl text-center synai-fade-in synai-fade-in-delay-${index + 1}`}
+            >
+              {/* Step Number Badge */}
+              <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 w-16 h-16 bg-gradient-to-br from-yellow-400 to-orange-500 text-white rounded-full flex items-center justify-center font-bold text-xl md:text-2xl shadow-xl">
+                {step.number}
+              </div>
+
+              {/* Decorative elements */}
+              <div className="absolute -top-2 -right-2 w-6 h-6 bg-blue-400 rounded-full opacity-60"></div>
+              <div className="absolute -bottom-2 -left-2 w-4 h-4 bg-purple-400 rounded-full opacity-60"></div>
+
+              {/* Step Content */}
+              <div className="pt-8">
+                <h4 className="text-xl md:text-2xl font-bold text-gray-900 mb-6">
+                  {step.title}
+                </h4>
+                <p className="text-gray-700 leading-relaxed text-base md:text-lg">
+                  {step.description}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Connecting Flow Lines */}
+        <div className="hidden md:flex items-center justify-center mt-16 relative">
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-full max-w-5xl flex justify-between px-20">
+              <div className="w-32 h-1 bg-white/30 rounded-full"></div>
+              <div className="w-32 h-1 bg-white/30 rounded-full"></div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
   );
 }
