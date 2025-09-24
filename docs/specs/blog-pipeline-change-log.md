@@ -2,14 +2,36 @@
 
 ## Date: 2025-09-24
 
-## Files Modified
+## Phase 1: Core Markdown Pipeline
 
-*Changes will be documented as implementation progresses*
+### Files Modified
 
-## Dependencies Added/Removed
+#### libs/blog.ts
+- **Change**: Created new blog utility module
+- **Rationale**: Central location for markdown parsing and blog post operations
+- **Impact**: Provides API for fetching and processing markdown blog posts
+- **Commit**: 65f80a9
 
-*Dependencies will be tracked during implementation*
+#### app/blog/page.tsx
+- **Change**: Updated to use markdown posts instead of hardcoded content
+- **Rationale**: Enable dynamic content loading from markdown files
+- **Impact**: Blog page now reads from content/blog directory
+- **Commit**: 65f80a9
+
+#### content/blog/2025-02-18-introducing-oceanheart-ai.md
+- **Change**: Created first markdown blog post
+- **Rationale**: Example post to test markdown pipeline
+- **Impact**: Demonstrates frontmatter structure and content format
+- **Commit**: 65f80a9
+
+## Dependencies Added
+
+- **gray-matter@4.0.3** - Parse frontmatter from markdown files
+- **remark@15.0.1** - Markdown processor
+- **remark-html@16.0.1** - Convert markdown to HTML
+- **reading-time@1.5.0** - Calculate reading time for posts
 
 ## Breaking Changes
 
-*Any breaking changes will be noted here*
+- Blog content structure changed from TypeScript components to markdown files
+- Migration required: Existing blog posts need conversion to markdown format
