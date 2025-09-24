@@ -85,14 +85,14 @@ export const portfolioSections: PortfolioSection[] = [
   {
     id: "apps",
     title: "Product Apps",
-    description: "Production-ready (or aspiring) applications in the Oceanheart portfolio, designed for clinical and well-being professionals.",
+    description: "Live prototypes and design studies in various stages of development. Each is a working scaffold—follow their evolution from architecture demo to full product.",
     hidden: false,
     projects: [
       {
         id: 101,
-        title: "Preflight",
+        title: "Preflight – AI Readiness",
         description:
-          "An AI readiness survey and coaching demo for clinicians and well-being professionals. Built with a JSON-driven form engine and a conversational LLM pipeline, it showcases both technical design and human-centred UX.",
+          "[Prototype - Phase 1] An assessment engine for clinicians exploring AI adoption. Current build showcases the JSON form system and design language. Next milestones: authentication, analytics dashboard, and adaptive coaching logic.",
         image: "/images/preflight-gpt.png",
         tech: ["Next.js", "FastAPI", "Pydantic", "MongoDB"],
         externalUrl: resolveAppUrl('preflight'),
@@ -100,9 +100,9 @@ export const portfolioSections: PortfolioSection[] = [
       },
       {
         id: 102,
-        title: "Watson",
+        title: "Watson – Clinical Review Tool",
         description:
-          "A clinical review tool that lets practitioners edit, classify, and label LLM outputs. Submissions generate structured diffs and basic analytics, with exports for research and iteration.",
+          "[UI Scaffold] A collaborative review interface for practitioners to classify and label LLM outputs. Live demo highlights the editing surface and data schema. Next milestones: real-time diff engine and export pipeline.",
         image: "/images/watson-gpt.png",
         tech: ["Next.js", "Django", "Postgres", "TipTap"],
         externalUrl: resolveAppUrl('watson'),
@@ -110,9 +110,9 @@ export const portfolioSections: PortfolioSection[] = [
       },
       {
         id: 110,
-        title: "Sidekick",
+        title: "Sidekick – Mindful Chat",
         description:
-          "A mindful AI chat interface designed to support reflection and meditation practice, while showcasing a full-stack Nuxt 4 build with persistent sessions, GitHub OAuth, and real-time streaming.",
+          "[Early Build] A reflective chat environment for meditation practice. This release demonstrates the Nuxt stack, streaming chat UI, and state management. Next milestones: memory layer and personalised coaching prompts.",
         image: "/images/sidekick-gpt.png",
         tech: ["Nuxt 4", "Postgres", "Drizzle ORM", "Tailwind"],
         externalUrl: resolveAppUrl("sidekick"),
@@ -130,9 +130,9 @@ export const portfolioSections: PortfolioSection[] = [
     projects: [
       {
         id: 107,
-        title: "Passport",
+        title: "Passport – Unified Auth",
         description:
-          "A central authentication system for all Oceanheart applications. Built with Next.js, Supabase, and Tailwind.",
+          "[Core Service Prototype] Centralised authentication for the Oceanheart ecosystem. Current version provides multi-tenant routing and Supabase auth. Next milestones: SSO and encrypted profile hand-off between apps.",
         image: "/images/passport-gpt.png",
         tech: ["Rails", "Hotwire", "Stimulus"],
         externalUrl: resolveAppUrl("passport"),
@@ -142,7 +142,7 @@ export const portfolioSections: PortfolioSection[] = [
         id: 105,
         title: "Oceanheart Notebook",
         description:
-          "A minimalist learn-in-public blog powered by Go, HTMX, and SQLite. Markdown-first, fast, and single-binary deploy.",
+          "[v0.1] A minimalist, markdown-first blog for learning in public. Stable core with Go/HTMX engine. Next milestones: tagging, RSS, and publishing pipeline.",
         image: "/images/notebook-gpt.png",
         tech: ["Go", "HTMX", "SQLite"],
         externalUrl: resolveAppUrl("notebook"),
@@ -161,7 +161,7 @@ export const portfolioSections: PortfolioSection[] = [
         id: 106,
         title: "ExposureLab",
         description:
-          "Mobile-first exposure hierarchy builder for ERP therapy. Features drag-and-drop ladder editing, clinician-client sync, contracts, and one-click PDF exports.",
+          "[Concept] Mobile-first exposure hierarchy builder for ERP therapy. Current prototype demonstrates drag-and-drop ladder editing. Next milestones: clinician-client sync, contracts, and PDF export functionality.",
         image: "/images/exposurelab-gpt.png",
         tech: ["Next.js", "Neon", "Tailwind"],
         // externalUrl: resolveAppUrl("exposurelab"),

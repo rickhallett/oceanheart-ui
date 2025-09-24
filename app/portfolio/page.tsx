@@ -36,21 +36,21 @@ export default function PortfolioPage() {
             <div className="pt-20 px-4 sm:px-8 max-w-7xl mx-auto text-center">
               <div className="mb-6">
                 <div className="inline-flex items-center px-4 py-2 bg-primary/10 rounded-full border border-primary/20 mb-4 backdrop-blur-sm">
-                  <span className="text-primary font-semibold text-sm">Human-centered Software Engineer</span>
+                  <span className="text-primary font-semibold text-sm">Live Design Studies</span>
                 </div>
               </div>
               <div className="mb-8">
                 <TextGenerateEffect 
-                  words="6 Years Engineering + 15 Years Psychotherapy"
+                  words="Oceanheart Labs"
                   className="font-extrabold text-4xl md:text-6xl tracking-tight bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"
                   duration={0.5}
                 />
               </div>
               <div className="max-w-4xl mx-auto">
                 <p className="text-lg md:text-xl opacity-90 mx-auto mb-8 leading-relaxed">
-                  <span className="font-semibold text-secondary/50">Working prototypes</span> that solve real business problems.<br />
-                  <span className="font-semibold text-secondary/70">Measurable ROI</span> through human-centered design.<br />
-                  <span className="font-semibold text-secondary/90">Technical excellence</span> proven by 20+ deployed applications.<br />
+                  <span className="font-semibold text-secondary/50">Prototypes at the frontier</span> of AI, wellbeing, and web engineering.<br />
+                  <span className="font-semibold text-secondary/70">Working scaffolds</span>—open invitations to follow their evolution.<br />
+                  <span className="font-semibold text-secondary/90">From architecture demo to full product</span>, watch them grow in real-time.<br />
                 </p>
               </div>
             </div>
