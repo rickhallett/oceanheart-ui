@@ -15,7 +15,7 @@ export default function CTASection() {
 
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
             <Link
-              href="https://calendar.app.google/85ZdaqYK5vfNk4aH9"
+              href="https://calendar.app.google/RMwsbtUZ76G6VZzb7"
               className="inline-block bg-white text-primary px-8 py-4 rounded-full text-base md:text-lg font-semibold transition-all duration-300 hover:transform hover:-translate-y-1 hover:shadow-2xl hover:shadow-white/20"
             >
               Book a discovery call

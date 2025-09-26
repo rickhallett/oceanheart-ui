@@ -25,7 +25,7 @@ const CTA = () => {
           </p>
 
           {/* Primary CTA Button */}
-          <a href="https://calendar.app.google/85ZdaqYK5vfNk4aH9" target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-wide">
+          <a href="https://calendar.app.google/RMwsbtUZ76G6VZzb7" target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-wide">
             Book Your Free Discovery Call
           </a>
           <Link href="/#pricing" className="link link-hover text-blue-200 mt-4">

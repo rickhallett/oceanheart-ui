@@ -91,7 +91,7 @@ const HeaderEnhanced = () => {
 
           {/* CTA Button */}
           <Link
-            href="https://calendar.app.google/85ZdaqYK5vfNk4aH9"
+            href="https://calendar.app.google/RMwsbtUZ76G6VZzb7"
             target="_blank"
             rel="noopener noreferrer"
             className="border text-sm font-medium relative border-base-content/[0.2] text-base-content px-4 py-2 rounded-full hover:bg-primary hover:text-primary-content transition-colors hidden sm:block"
@@ -224,7 +224,7 @@ const HeaderEnhanced = () => {
                   className="mt-8"
                 >
                   <Link
-                    href="https://calendar.app.google/85ZdaqYK5vfNk4aH9"
+                    href="https://calendar.app.google/RMwsbtUZ76G6VZzb7"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn btn-primary w-full"

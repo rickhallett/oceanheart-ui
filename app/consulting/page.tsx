@@ -1,6 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { FaBrain, FaUsers, FaBuilding, FaRobot, FaClock, FaLaptopCode, FaChartLine, FaRocket } from "react-icons/fa";
@@ -26,6 +28,9 @@ const ClientSection = ({ icon, title, description }: { icon: React.ReactNode, ti
 );
 
 export default function ConsultingPage() {
+  const [openService, setOpenService] = useState<string | null>(null);
+  const [openClient, setOpenClient] = useState<string | null>(null);
+
   return (
     <>
       <Suspense>
@@ -101,57 +106,251 @@ export default function ConsultingPage() {
           </div>
         </section>
 
-        {/* Services Section */}
-        <section className="py-16 md:py-24 px-8" id="services">
+        {/* How I Help Section - FAQ Style */}
+        <section className="py-16 md:py-24 px-8 bg-gradient-to-b from-base-100 via-purple-900/20 to-base-100" id="services">
           <div className="max-w-7xl mx-auto">
             <h2 className="font-bold text-3xl md:text-5xl text-center mb-12">
-              My <span className="text-blue-400">Services</span>
+              How I Can <span className="text-blue-400">Help You</span>
             </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-              <ServiceCard
-                icon={<FaRobot />}
-                title="AI Integration Assessment"
-                description="A comprehensive analysis of your current workflow to identify where AI can make the biggest impact with the least disruption."
-              />
-              <ServiceCard
-                icon={<FaLaptopCode />}
-                title="Custom AI Solution Design"
-                description="Tailored AI tools designed specifically for your unique needs, whether for note-taking, data analysis, or client interactions."
-              />
-              <ServiceCard
-                icon={<FaChartLine />}
-                title="AI Implementation & Training"
-                description="Hands-on setup and training to ensure you and your team can effectively use and maintain your new AI tools."
-              />
-              <ServiceCard
-                icon={<FaRocket />}
-                title="Ongoing Support & Optimization"
-                description="Regular check-ins and adjustments to ensure your AI solutions continue to evolve with your changing needs."
-              />
-            </div>
+            <div className="max-w-4xl mx-auto">
+              {/* Services Accordion */}
+              <div>
+                <div className="border-b border-white/10">
+                  <button
+                    onClick={() => setOpenService(openService === 'assessment' ? null : 'assessment')}
+                    className="flex items-center justify-between cursor-pointer py-6 w-full text-left"
+                  >
+                    <div className="flex items-center gap-4">
+                      <FaRobot className="text-pink-400 text-xl" />
+                      <h3 className="font-semibold text-lg">AI Integration Assessment</h3>
+                    </div>
+                    <svg 
+                      className={`w-5 h-5 transition-transform duration-300 ${openService === 'assessment' ? 'rotate-90' : ''}`} 
+                      xmlns="http://www.w3.org/2000/svg" 
+                      viewBox="0 0 20 20" 
+                      fill="currentColor"
+                    >
+                      <path fillRule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clipRule="evenodd" />
+                    </svg>
+                  </button>
+                  <div 
+                    className="overflow-hidden transition-all duration-300 ease-in-out"
+                    style={{
+                      maxHeight: openService === 'assessment' ? '200px' : '0',
+                      opacity: openService === 'assessment' ? 1 : 0
+                    }}
+                  >
+                    <div className="pb-6 pl-14">
+                      <p className="text-base-content/80 leading-relaxed">
+                        A comprehensive analysis of your current workflow to identify where AI can make the biggest impact with the least disruption. We'll map your daily tasks, identify repetitive patterns, and find opportunities for meaningful automation.
+                      </p>
+                    </div>
+                  </div>
+                </div>
 
-            <div className="bg-base-200 p-8 md:p-12 rounded-lg">
-              <h3 className="font-bold text-2xl mb-6">
-                Who I Work With
-              </h3>
+                <div className="border-b border-white/10">
+                  <button
+                    onClick={() => setOpenService(openService === 'design' ? null : 'design')}
+                    className="flex items-center justify-between cursor-pointer py-6 w-full text-left"
+                  >
+                    <div className="flex items-center gap-4">
+                      <FaLaptopCode className="text-pink-400 text-xl" />
+                      <h3 className="font-semibold text-lg">Custom AI Solution Design</h3>
+                    </div>
+                    <svg 
+                      className={`w-5 h-5 transition-transform duration-300 ${openService === 'design' ? 'rotate-90' : ''}`} 
+                      xmlns="http://www.w3.org/2000/svg" 
+                      viewBox="0 0 20 20" 
+                      fill="currentColor"
+                    >
+                      <path fillRule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clipRule="evenodd" />
+                    </svg>
+                  </button>
+                  <div 
+                    className="overflow-hidden transition-all duration-300 ease-in-out"
+                    style={{
+                      maxHeight: openService === 'design' ? '200px' : '0',
+                      opacity: openService === 'design' ? 1 : 0
+                    }}
+                  >
+                    <div className="pb-6 pl-14">
+                      <p className="text-base-content/80 leading-relaxed">
+                        Tailored AI tools designed specifically for your unique needs, whether for note-taking, data analysis, or client interactions. No generic solutions—everything is built to fit your specific context and workflow.
+                      </p>
+                    </div>
+                  </div>
+                </div>
 
-              <div className="space-y-4">
-                <ClientSection
-                  icon={<FaUsers />}
-                  title="Individual Practitioners"
-                  description="Therapists, coaches, and solo professionals looking to streamline documentation, enhance client experiences, and focus more on their craft."
-                />
-                <ClientSection
-                  icon={<FaBuilding />}
-                  title="Small & Medium Enterprises"
-                  description="Teams that want to reduce administrative overhead, improve internal processes, and leverage data they already have for better decision-making."
-                />
-                <ClientSection
-                  icon={<FaRocket />}
-                  title="Forward-Thinking Organizations"
-                  description="Any group looking to stay ahead of technological change while prioritizing ethical implementation and meaningful human connections."
-                />
+                <div className="border-b border-white/10">
+                  <button
+                    onClick={() => setOpenService(openService === 'training' ? null : 'training')}
+                    className="flex items-center justify-between cursor-pointer py-6 w-full text-left"
+                  >
+                    <div className="flex items-center gap-4">
+                      <FaChartLine className="text-pink-400 text-xl" />
+                      <h3 className="font-semibold text-lg">AI Implementation & Training</h3>
+                    </div>
+                    <svg 
+                      className={`w-5 h-5 transition-transform duration-300 ${openService === 'training' ? 'rotate-90' : ''}`} 
+                      xmlns="http://www.w3.org/2000/svg" 
+                      viewBox="0 0 20 20" 
+                      fill="currentColor"
+                    >
+                      <path fillRule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clipRule="evenodd" />
+                    </svg>
+                  </button>
+                  <div 
+                    className="overflow-hidden transition-all duration-300 ease-in-out"
+                    style={{
+                      maxHeight: openService === 'training' ? '200px' : '0',
+                      opacity: openService === 'training' ? 1 : 0
+                    }}
+                  >
+                    <div className="pb-6 pl-14">
+                      <p className="text-base-content/80 leading-relaxed">
+                        Hands-on setup and training to ensure you and your team can effectively use and maintain your new AI tools. I'll be there every step of the way, from installation to mastery.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="border-b border-white/10">
+                  <button
+                    onClick={() => setOpenService(openService === 'support' ? null : 'support')}
+                    className="flex items-center justify-between cursor-pointer py-6 w-full text-left"
+                  >
+                    <div className="flex items-center gap-4">
+                      <FaRocket className="text-pink-400 text-xl" />
+                      <h3 className="font-semibold text-lg">Ongoing Support & Optimization</h3>
+                    </div>
+                    <svg 
+                      className={`w-5 h-5 transition-transform duration-300 ${openService === 'support' ? 'rotate-90' : ''}`} 
+                      xmlns="http://www.w3.org/2000/svg" 
+                      viewBox="0 0 20 20" 
+                      fill="currentColor"
+                    >
+                      <path fillRule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clipRule="evenodd" />
+                    </svg>
+                  </button>
+                  <div 
+                    className="overflow-hidden transition-all duration-300 ease-in-out"
+                    style={{
+                      maxHeight: openService === 'support' ? '200px' : '0',
+                      opacity: openService === 'support' ? 1 : 0
+                    }}
+                  >
+                    <div className="pb-6 pl-14">
+                      <p className="text-base-content/80 leading-relaxed">
+                        Regular check-ins and adjustments to ensure your AI solutions continue to evolve with your changing needs. Technology moves fast, and your tools should keep pace with both innovation and your growth.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Who I Work With Section */}
+              <h3 className="font-bold text-2xl mt-16 mb-6">Who I Work With</h3>
+              
+              <div>
+                <div className="border-b border-white/10">
+                  <button
+                    onClick={() => setOpenClient(openClient === 'individual' ? null : 'individual')}
+                    className="flex items-center justify-between cursor-pointer py-6 w-full text-left"
+                  >
+                    <div className="flex items-center gap-4">
+                      <FaUsers className="text-pink-400 text-xl" />
+                      <h3 className="font-semibold text-lg">Individual Practitioners</h3>
+                    </div>
+                    <svg 
+                      className={`w-5 h-5 transition-transform duration-300 ${openClient === 'individual' ? 'rotate-90' : ''}`} 
+                      xmlns="http://www.w3.org/2000/svg" 
+                      viewBox="0 0 20 20" 
+                      fill="currentColor"
+                    >
+                      <path fillRule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clipRule="evenodd" />
+                    </svg>
+                  </button>
+                  <div 
+                    className="overflow-hidden transition-all duration-300 ease-in-out"
+                    style={{
+                      maxHeight: openClient === 'individual' ? '200px' : '0',
+                      opacity: openClient === 'individual' ? 1 : 0
+                    }}
+                  >
+                    <div className="pb-6 pl-14">
+                      <p className="text-base-content/80 leading-relaxed">
+                        Therapists, coaches, and solo professionals looking to streamline documentation, enhance client experiences, and focus more on their craft. I help you reclaim hours each week from administrative tasks.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="border-b border-white/10">
+                  <button
+                    onClick={() => setOpenClient(openClient === 'sme' ? null : 'sme')}
+                    className="flex items-center justify-between cursor-pointer py-6 w-full text-left"
+                  >
+                    <div className="flex items-center gap-4">
+                      <FaBuilding className="text-pink-400 text-xl" />
+                      <h3 className="font-semibold text-lg">Small & Medium Enterprises</h3>
+                    </div>
+                    <svg 
+                      className={`w-5 h-5 transition-transform duration-300 ${openClient === 'sme' ? 'rotate-90' : ''}`} 
+                      xmlns="http://www.w3.org/2000/svg" 
+                      viewBox="0 0 20 20" 
+                      fill="currentColor"
+                    >
+                      <path fillRule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clipRule="evenodd" />
+                    </svg>
+                  </button>
+                  <div 
+                    className="overflow-hidden transition-all duration-300 ease-in-out"
+                    style={{
+                      maxHeight: openClient === 'sme' ? '200px' : '0',
+                      opacity: openClient === 'sme' ? 1 : 0
+                    }}
+                  >
+                    <div className="pb-6 pl-14">
+                      <p className="text-base-content/80 leading-relaxed">
+                        Teams that want to reduce administrative overhead, improve internal processes, and leverage data they already have for better decision-making. Perfect for organizations ready to work smarter, not harder.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="border-b border-white/10">
+                  <button
+                    onClick={() => setOpenClient(openClient === 'forward' ? null : 'forward')}
+                    className="flex items-center justify-between cursor-pointer py-6 w-full text-left"
+                  >
+                    <div className="flex items-center gap-4">
+                      <FaRocket className="text-pink-400 text-xl" />
+                      <h3 className="font-semibold text-lg">Forward-Thinking Organizations</h3>
+                    </div>
+                    <svg 
+                      className={`w-5 h-5 transition-transform duration-300 ${openClient === 'forward' ? 'rotate-90' : ''}`} 
+                      xmlns="http://www.w3.org/2000/svg" 
+                      viewBox="0 0 20 20" 
+                      fill="currentColor"
+                    >
+                      <path fillRule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clipRule="evenodd" />
+                    </svg>
+                  </button>
+                  <div 
+                    className="overflow-hidden transition-all duration-300 ease-in-out"
+                    style={{
+                      maxHeight: openClient === 'forward' ? '200px' : '0',
+                      opacity: openClient === 'forward' ? 1 : 0
+                    }}
+                  >
+                    <div className="pb-6 pl-14">
+                      <p className="text-base-content/80 leading-relaxed">
+                        Any group looking to stay ahead of technological change while prioritizing ethical implementation and meaningful human connections. If you believe technology should enhance humanity, not replace it, we're aligned.
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

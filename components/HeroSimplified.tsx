@@ -41,7 +41,7 @@ const HeroSimplified = () => {
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row items-center gap-4">
             <Link
-              href="https://calendar.app.google/85ZdaqYK5vfNk4aH9"
+              href="https://calendar.app.google/RMwsbtUZ76G6VZzb7"
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-primary btn-lg"

@@ -45,7 +45,7 @@ const faqList: FAQItemProps[] = [
     question: "How do I get started?",
     answer: (
       <div className="space-y-2 leading-relaxed">
-        For therapy sessions, visit <a href="https://awake.oceanheart.ai" className="text-primary underline">awake.oceanheart.ai</a>. For AI strategy and consulting, <a href="/consulting" className="text-primary underline">explore our consulting services</a> or <a href="https://calendar.app.google/85ZdaqYK5vfNk4aH9" target="_blank" rel="noopener noreferrer" className="text-primary underline">book a discovery call</a>.
+        For therapy sessions, visit <a href="https://awake.oceanheart.ai" className="text-primary underline">awake.oceanheart.ai</a>. For AI strategy and consulting, <a href="/consulting" className="text-primary underline">explore our consulting services</a> or <a href="https://calendar.app.google/RMwsbtUZ76G6VZzb7" target="_blank" rel="noopener noreferrer" className="text-primary underline">book a discovery call</a>.
       </div>
     ),
   },

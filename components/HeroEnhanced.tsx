@@ -78,7 +78,7 @@ const HeroEnhanced = () => {
               className="flex flex-col items-center gap-4"
             >
               <a
-                href="https://calendar.app.google/85ZdaqYK5vfNk4aH9"
+                href="https://calendar.app.google/RMwsbtUZ76G6VZzb7"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:scale-105 transition-transform"

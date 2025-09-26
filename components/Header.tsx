@@ -13,6 +13,10 @@ const links: { href: string; label: string; className?: string }[] = [
   //   label: "Offerings",
   // },
   {
+    href: "/",
+    label: "Home",
+  },
+  {
     href: "/about-alt",
     label: "About Kai",
   },
@@ -23,6 +27,7 @@ const links: { href: string; label: string; className?: string }[] = [
   {
     href: "https://awake.oceanheart.ai",
     label: "Sessions",
+    className: "synai-nav-link",
   },
 
   {
@@ -39,7 +44,7 @@ const links: { href: string; label: string; className?: string }[] = [
 const cta = (
   <Suspense fallback="Loading...">
     <Link
-      href="https://calendar.app.google/85ZdaqYK5vfNk4aH9"
+      href="https://calendar.app.google/RMwsbtUZ76G6VZzb7"
       className="btn btn-primary"
     >
       Book a Call

@@ -72,7 +72,7 @@ export default function AboutPage() {
             The <span className="font-semibold">AI revolution</span> doesn't have to be something that happens <span className="italic">to you</span>. It can be something you <span className="font-semibold text-primary">actively</span> and <span className="font-semibold text-secondary">confidently</span> participate in. Let's talk about how you can move from overwhelm to <span className="italic font-semibold text-secondary">clarity</span>.
           </p>
           <a
-            href="https://calendar.app.google/85ZdaqYK5vfNk4aH9"
+            href="https://calendar.app.google/RMwsbtUZ76G6VZzb7"
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-primary btn-wide btn-lg hover:scale-105 transition-transform"

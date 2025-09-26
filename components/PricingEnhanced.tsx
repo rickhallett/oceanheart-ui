@@ -133,7 +133,7 @@ const PricingEnhanced = () => {
                     className="mt-auto"
                   >
                     <a
-                      href="https://calendar.app.google/85ZdaqYK5vfNk4aH9"
+                      href="https://calendar.app.google/RMwsbtUZ76G6VZzb7"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="w-full block"
@@ -189,7 +189,7 @@ const PricingEnhanced = () => {
                 Book a free 15-minute clarity call to discuss your AI integration goals and find the perfect fit.
               </p>
               <a
-                href="https://calendar.app.google/85ZdaqYK5vfNk4aH9"
+                href="https://calendar.app.google/RMwsbtUZ76G6VZzb7"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-primary hover:text-primary-focus transition-colors font-medium"
