@@ -7,7 +7,7 @@ Here is a Product Requirements Document (PRD) designed to guide the repositionin
 
 ## 1. High-Level Objectives
 
-1.  **Reposition Oceanheart.ai:** Implement new branding and messaging centered around "The Art of Personal AI" framework and Kai's human-centric AI coaching services. This involves shifting from a philosophical AI safety focus to practical, conscious AI integration guidance.
+1.  **Reposition Oceanheart.ai:** Implement new branding and messaging centered around "The Art of Personal AI" framework and Kai's human-centric AI coaching services. This involves shifting from a philosophical AI safety focus to practical, Human-Centred Transformation guidance.
 2.  **Redesign Landing Page (`/`):** Update the main landing page with new copy and a focused hero section reflecting the "Art of Personal AI" branding. Decommission the previous A/B tested hero section.
 3.  **Revamp About Page (`/about`):** Update the "About Me" page to align with the new coaching focus, highlighting Kai's unique background (Psychotherapist, Software Engineer, Contemplative Practitioner) and "The Art of Personal AI" philosophy.
 4.  **Update Core UI Components:** Modify shared components (`Hero`, `Problem`, `FeaturesAccordion`, `Pricing`, `FAQ`, `CTA`, `Header`, `Footer`) with the new copy, branding, and offerings. Ensure import paths for these components in `app/page.tsx` and `app/layout.tsx` point to their updated locations in `components/`.
@@ -63,13 +63,13 @@ Here is a Product Requirements Document (PRD) designed to guide the repositionin
 ### 4.1. Landing Page Copy
 
 *   **A. Headline (≤ 12 words):**
-    Conscious AI Integration: Your Human Edge, Amplified.
+    Human-Centred Transformation: Your Human Edge, Amplified.
 *   **B. Sub-headline (≤ 25 words):**
     Overwhelmed by AI's pace? Master it with heart, clarity, and Kai’s unique guidance.
 *   **C. Problem Block (50-70 words):**
     The AI revolution is here—fast, furious, and often confusing. Endless tools, shifting jargon, and the pressure to adapt can feel like drowning. You know AI is vital, but how do you engage meaningfully without losing your human core or your sanity?
 *   **D. Solution Block (70-90 words):**
-    I'm Kai, your specialist in Conscious AI Integration. With 15 years as a psychotherapist, 5 as a software engineer, and two decades of contemplative practice, I bridge the technical with the deeply human. "The Art of Personal AI" isn't another course; it’s my framework to help you intuitively understand and master AI.
+    I'm Kai, your specialist in Human-Centred Transformation. With 15 years as a psychotherapist, 5 as a software engineer, and two decades of contemplative practice, I bridge the technical with the deeply human. "The Art of Personal AI" isn't another course; it’s my framework to help you intuitively understand and master AI.
 *   **E. Framework Snapshot (3 layers, ≤ 40 words total):**
     *   Story · Spirit · Science → Amplified Consciousness
     *   Prompt · Context · Model → Amplified Sensitivity
@@ -122,7 +122,7 @@ Here is a Product Requirements Document (PRD) designed to guide the repositionin
     What file do you want to CREATE or UPDATE? -> config.ts
     What function do you want to CREATE or UPDATE? -> N/A (Data update)
     What are details you want to add to drive the code changes? ->
-    - appName: "Oceanheart.ai - Conscious AI Integration" (or similar based on character limits/preference)
+    - appName: "Oceanheart.ai - Human-Centred Transformation" (or similar based on character limits/preference)
     - appDescription: "Human-centric AI coaching with Kai. Master AI with heart, clarity, and purpose using 'The Art of Personal AI' framework. Integrate Story, Spirit, and Science."
     - stripe.plans:
         - Define at least 3 new plans based on "The Art of Personal AI" offerings:
@@ -170,7 +170,7 @@ Here is a Product Requirements Document (PRD) designed to guide the repositionin
     What file do you want to CREATE or UPDATE? -> components/Hero.tsx
     What function do you want to CREATE or UPDATE? -> Hero component
     What are details you want to add to drive the code changes? ->
-    - Replace existing h1 with: "Conscious AI Integration: Your Human Edge, Amplified."
+    - Replace existing h1 with: "Human-Centred Transformation: Your Human Edge, Amplified."
     - Replace existing sub-headline p tag with: "Overwhelmed by AI's pace? Master it with heart, clarity, and Kai’s unique guidance."
     - Add new p tags for the value proposition points related to integrity, first principles, and Kai's background.
     - Update the primary CTA button to: Text "Integrate AI Now", href: "https://calendar.app.google/85ZdaqYK5vfNk4aH9" (or a dynamic link from config).
@@ -210,12 +210,12 @@ Here is a Product Requirements Document (PRD) designed to guide the repositionin
       ```javascript
       const features: Feature[] = [
         {
-          title: "Your Guide: Conscious AI Integration with Kai",
-          description: "I'm Kai, your specialist in Conscious AI Integration. With 15 years as a psychotherapist, 5 as a software engineer, and two decades of contemplative practice, I bridge the technical with the deeply human. 'The Art of Personal AI' isn't another course; it’s my framework to help you intuitively understand and master AI.",
+          title: "Your Guide: Human-Centred Transformation with Kai",
+          description: "I'm Kai, your specialist in Human-Centred Transformation. With 15 years as a psychotherapist, 5 as a software engineer, and two decades of contemplative practice, I bridge the technical with the deeply human. 'The Art of Personal AI' isn't another course; it’s my framework to help you intuitively understand and master AI.",
           svg: <FaUserTie className="w-6 h-6" />, // Placeholder icon
           type: "image", // Or 'svg' if no specific image
           path: "/images/kai_profile.jpeg", // Example image
-          alt: "Kai, Conscious AI Integration Specialist",
+          alt: "Kai, Human-Centred Transformation Specialist",
         },
         {
           title: "The Framework: The Art of Personal AI",
@@ -239,7 +239,7 @@ Here is a Product Requirements Document (PRD) designed to guide the repositionin
     - This component dynamically renders plans from `config.stripe.plans`.
     - The main task is to ensure that the `config.ts` (Task 1) has the correct new plans.
     - Review the rendering logic in `Pricing.tsx` to ensure it gracefully handles the new plan structures (e.g., if some plans now have a "Book a Call" CTA instead of a direct purchase).
-    - Update any introductory text or section headline within `Pricing.tsx` to align with the "Offerings" terminology. Example headline: "Explore Your Path to Conscious AI Integration".
+    - Update any introductory text or section headline within `Pricing.tsx` to align with the "Offerings" terminology. Example headline: "Explore Your Path to Human-Centred Transformation".
     ```
 
 8.  **Update `components/FAQ.tsx` Content**

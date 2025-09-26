@@ -8,31 +8,32 @@ import config from "@/config";
 
 // Links reflecting "The Art of Personal AI" focus
 const links: { href: string; label: string; className?: string }[] = [
+  // {
+  //   href: "/#pricing",
+  //   label: "Offerings",
+  // },
   {
-    href: "/#pricing",
-    label: "Offerings",
+    href: "/about-alt",
+    label: "About Kai",
   },
   {
     href: "/portfolio",
     label: "Portfolio",
   },
   {
-    href: "/about-alt",
-    label: "About Kai",
+    href: "https://awake.oceanheart.ai",
+    label: "Sessions",
   },
-  {
-    href: "https://www.oceanheart.blog/",
-    label: "Blog",
-  },
+
   {
     href: "/consulting",
     label: "Consulting",
   },
-  {
-    href: "/synai",
-    label: "Synai",
-    className: "synai-nav-link",
-  }
+  // {
+  //   href: "/synai",
+  //   label: "Synai",
+  //   className: "synai-nav-link",
+  // }
 ];
 
 const cta = (

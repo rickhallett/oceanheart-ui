@@ -169,7 +169,7 @@ const ContactForm = () => {
 ```typescript
 // config.ts
 const config = {
-  appName: "Oceanheart.ai - Conscious AI Integration",
+  appName: "Oceanheart.ai - Human-Centred Transformation",
   appDescription: "Human-centric AI coaching with Kai.",
   domainName: "oceanheart.ai",
   // Remove auth config entirely

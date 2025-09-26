@@ -3,9 +3,9 @@ const ButtonLead = ({ extraStyle }: { extraStyle?: string }) => {
   return (
     <div className={`w-full max-w-xs space-y-3 text-center ${extraStyle ? extraStyle : ""}`}>
       <p className="text-sm text-gray-600 mb-3">
-        Ready to explore conscious AI integration?
+        Ready to explore Human-Centred Transformation?
       </p>
-      <a 
+      <a
         href="mailto:kai@oceanheart.ai?subject=Interested in AI Coaching Services"
         className="btn btn-primary btn-block"
       >

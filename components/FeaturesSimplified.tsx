@@ -7,8 +7,8 @@ import { FaUserTie, FaBook, FaCompass } from "react-icons/fa";
 const FeaturesSimplified = () => {
   const features = [
     {
-      title: "Your Guide: Conscious AI Integration",
-      description: "I'm Kai, your specialist in Conscious AI Integration. With 15 years as a psychotherapist, 5 as a software engineer, and two decades of contemplative practice, I bridge the technical with the deeply human.",
+      title: "Your Guide: Human-Centred Transformation",
+      description: "I'm Kai, your specialist in Human-Centred Transformation. With 15 years as a psychotherapist, 5 as a software engineer, and two decades of contemplative practice, I bridge the technical with the deeply human.",
       icon: <FaUserTie className="w-8 h-8 text-primary" />,
       highlights: ["15+ Years Experience", "Bridging Tech & Human"],
     },

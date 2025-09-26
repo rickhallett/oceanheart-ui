@@ -4,105 +4,74 @@ export default function ComparisonSection() {
       <div className="container mx-auto px-6 md:px-4">
         {/* Section Header */}
         <div className="text-center mb-20 synai-fade-in">
-          <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6">
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
             Generic AI vs. Personal AI
           </h2>
-          <p className="text-lg md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-            The gap between a one-off chat and a tool that knows your context.
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            The difference between one-size-fits-all and truly personalized guidance
           </p>
         </div>
 
         {/* Comparison Grid */}
-        <div className="grid md:grid-cols-2 gap-12 max-w-7xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto relative">
+          {/* VS indicator */}
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 hidden md:block">
+            <div className="w-16 h-16 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center shadow-xl border-4 border-white">
+              <span className="text-white font-bold text-lg">VS</span>
+            </div>
+          </div>
           {/* Generic AI Card */}
-          <div className="relative bg-gradient-to-br from-red-50 to-red-100 rounded-3xl p-10 shadow-xl border border-red-200 synai-fade-in synai-fade-in-delay-1">
-            <div className="absolute -top-4 -right-4 w-8 h-8 bg-red-500 rounded-full opacity-20"></div>
-            <div className="absolute -bottom-4 -left-4 w-6 h-6 bg-red-400 rounded-full opacity-30"></div>
+          <div className="relative bg-white rounded-2xl p-8 shadow-lg border border-gray-200 synai-fade-in synai-fade-in-delay-1">
+            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-red-400 to-orange-400 rounded-t-2xl"></div>
 
-            <h3 className="text-2xl md:text-3xl font-bold text-red-700 mb-8 flex items-center">
-              <div className="w-3 h-3 bg-red-500 rounded-full mr-4 animate-pulse"></div>
+            <h3 className="text-2xl font-bold text-gray-700 mb-6 flex items-center">
+              <div className="w-3 h-3 bg-red-400 rounded-full mr-3"></div>
               Generic AI
             </h3>
-            <ul className="space-y-5">
-              <li className="flex items-start">
-                <div className="w-6 h-6 bg-red-500 rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                  <span className="text-white text-sm font-bold">✗</span>
-                </div>
-                <span className="text-red-800 font-medium text-base md:text-lg">One-size-fits-all answers</span>
-              </li>
-              <li className="flex items-start">
-                <div className="w-6 h-6 bg-red-500 rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                  <span className="text-white text-sm font-bold">✗</span>
-                </div>
-                <span className="text-red-800 font-medium text-base md:text-lg">Looks helpful, often misses your reality</span>
-              </li>
-              <li className="flex items-start">
-                <div className="w-6 h-6 bg-red-500 rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                  <span className="text-white text-sm font-bold">✗</span>
-                </div>
-                <span className="text-red-800 font-medium text-base md:text-lg">No memory of your values or history</span>
-              </li>
-              <li className="flex items-start">
-                <div className="w-6 h-6 bg-red-500 rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                  <span className="text-white text-sm font-bold">✗</span>
-                </div>
-                <span className="text-red-800 font-medium text-base md:text-lg">Starts from zero each time</span>
-              </li>
-              <li className="flex items-start">
-                <div className="w-6 h-6 bg-red-500 rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                  <span className="text-white text-sm font-bold">✗</span>
-                </div>
-                <span className="text-red-800 font-medium text-base md:text-lg">Handles symptoms, not patterns</span>
-              </li>
+
+            <ul className="space-y-4">
+              {[
+                "One-size-fits-all answers",
+                "Looks helpful, often misses your reality",
+                "No memory of your values or history",
+                "Starts from zero each time",
+                "Handles symptoms, not patterns"
+              ].map((limitation, index) => (
+                <li key={index} className="flex items-start">
+                  <div className="w-6 h-6 bg-red-400 rounded-full flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
+                    <span className="text-white text-sm font-bold">✗</span>
+                  </div>
+                  <span className="text-gray-700 font-medium">{limitation}</span>
+                </li>
+              ))}
             </ul>
           </div>
 
           {/* Synai Card */}
-          <div className="relative bg-gradient-to-br from-blue-50 to-indigo-100 rounded-3xl p-10 shadow-xl border border-blue-200 synai-fade-in synai-fade-in-delay-2">
-            <div className="absolute -top-4 -right-4 w-8 h-8 bg-blue-500 rounded-full opacity-20"></div>
-            <div className="absolute -bottom-4 -left-4 w-6 h-6 bg-indigo-400 rounded-full opacity-30"></div>
+          <div className="relative bg-white rounded-2xl p-8 shadow-lg border border-gray-200 synai-fade-in synai-fade-in-delay-2">
+            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary to-secondary rounded-t-2xl"></div>
 
-            <h3 className="text-2xl md:text-3xl font-bold text-blue-700 mb-8 flex items-center">
-              <div className="w-3 h-3 bg-blue-500 rounded-full mr-4 animate-pulse"></div>
+            <h3 className="text-2xl font-bold text-primary mb-6 flex items-center">
+              <div className="w-3 h-3 bg-gradient-to-r from-primary to-secondary rounded-full mr-3"></div>
               Synai (Personal AI)
             </h3>
-            <ul className="space-y-5">
-              <li className="flex items-start">
-                <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                  <span className="text-white text-sm font-bold">✓</span>
-                </div>
-                <span className="text-blue-800 font-medium text-base md:text-lg">Built from a structured intake and goals</span>
-              </li>
-              <li className="flex items-start">
-                <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                  <span className="text-white text-sm font-bold">✓</span>
-                </div>
-                <span className="text-blue-800 font-medium text-base md:text-lg">Carries context: history, values, constraints</span>
-              </li>
-              <li className="flex items-start">
-                <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                  <span className="text-white text-sm font-bold">✓</span>
-                </div>
-                <span className="text-blue-800 font-medium text-base md:text-lg">Guidance tuned to your patterns</span>
-              </li>
-              <li className="flex items-start">
-                <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                  <span className="text-white text-sm font-bold">✓</span>
-                </div>
-                <span className="text-blue-800 font-medium text-base md:text-lg">Grounded in clear, evidence-informed principles</span>
-              </li>
-              <li className="flex items-start">
-                <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                  <span className="text-white text-sm font-bold">✓</span>
-                </div>
-                <span className="text-blue-800 font-medium text-base md:text-lg">Improves through ongoing use</span>
-              </li>
-              <li className="flex items-start">
-                <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                  <span className="text-white text-sm font-bold">✓</span>
-                </div>
-                <span className="text-blue-800 font-medium text-lg">Works at the level of patterns and decisions</span>
-              </li>
+
+            <ul className="space-y-4">
+              {[
+                "Built from a structured intake and goals",
+                "Carries context: history, values, constraints",
+                "Guidance tuned to your patterns",
+                "Grounded in clear, evidence-informed principles",
+                "Improves through ongoing use",
+                "Works at the level of patterns and decisions"
+              ].map((feature, index) => (
+                <li key={index} className="flex items-start">
+                  <div className="w-6 h-6 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
+                    <span className="text-white text-sm font-bold">✓</span>
+                  </div>
+                  <span className="text-gray-700 font-medium">{feature}</span>
+                </li>
+              ))}
             </ul>
           </div>
         </div>

@@ -1,8 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import config from "@/config";
-import Link from "next/link";
 
 const Hero = () => {
 
@@ -12,40 +10,47 @@ const Hero = () => {
         <div className="flex flex-col gap-10 items-center justify-center text-center w-full lg:w-1/2">
 
           {/* Headline */}
-          <h1 className="font-extrabold text-4xl lg:text-6xl tracking-tight">
-            Conscious AI Integration: <span className="text-blue-400 glow-blue">Your Human Edge, Amplified.</span>
+          <h1 className="font-bold text-4xl lg:text-6xl tracking-tight">
+            Oceanheart – <span className="text-blue-400 glow-blue">Human-Centred Transformation</span>
           </h1>
 
           {/* Sub-headline */}
-          <p className="text-lg opacity-80 leading-relaxed">
-            Overwhelmed by AI&apos;s pace? Master it with heart, clarity, and Kai&apos;s unique guidance.
-          </p>
-
-          {/* Framework Snapshot */}
-          <div className="flex flex-col gap-6 items-center w-full mt-4">
-            <p className="text-lg opacity-80 leading-relaxed">
-              <span className="font-bold">Amplified <span className="text-blue-400 glow-blue">Consciousness</span></span>
+          <div className="flex flex-col gap-3">
+            <p className="text-xl font-semibold opacity-90 leading-relaxed">
+              Sessions for people. <span className="text-primary">Strategies for systems.</span>
             </p>
-            <p className="text-lg opacity-80 leading-relaxed">
-              <span className="font-bold">Amplified <span className="text-blue-400 glow-blue">Sensitivity</span></span>
+            <p className="text-lg opacity-80 leading-relaxed mt-4">
+              I help <span className="text-secondary">individuals navigate <span className="italic">inner change</span></span> and <span className="text-primary">organizations navigate <span className="italic">technological change</span></span>.
+              <br />
             </p>
-            <p className="text-lg opacity-80 leading-relaxed">
-              <span className="font-bold">Amplified <span className="text-blue-400 glow-blue">Intelligence</span></span>
+            <p className="text-lg opacity-80 leading-relaxed mt-4">
+              Different arenas, same goal:
             </p>
           </div>
 
-          {/* Primary CTA */}
-          <a href="https://calendar.app.google/85ZdaqYK5vfNk4aH9"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-primary btn-wide mt-4">
-            Integrate AI Now
-          </a>
+          <div className="flex flex-col gap-6 items-center w-full">
+            <p className="text-lg opacity-80 leading-relaxed">
+              <span className="font-bold">Amplified <span className="text-blue-400 glow-blue">Clarity</span></span>
+            </p>
+            <p className="text-lg opacity-80 leading-relaxed">
+              <span className="font-bold">Amplified <span className="text-blue-400 glow-blue">Alignment</span></span>
+            </p>
+            <p className="text-lg opacity-80 leading-relaxed">
+              <span className="font-bold">Amplified <span className="text-blue-400 glow-blue">Growth</span></span>
+            </p>
+          </div>
 
-          {/* Secondary CTA */}
-          <Link href="/about-alt" className="link link-hover text-blue-400 glow-blue mt-2">
-            Learn about Kai →
-          </Link>
+          {/* Dual CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 w-full max-w-xl justify-center mt-4">
+            <a href="https://awake.oceanheart.ai"
+              className="btn btn-primary btn-lg flex-1">
+              Work with Kai – Therapy Sessions
+            </a>
+            <a href="/consulting"
+              className="btn btn-primary btn-lg btn-outline flex-1">
+              Work with Kai – AI Strategy
+            </a>
+          </div>
 
         </div>
         {/* Image Section zoom in rounded */}

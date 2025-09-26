@@ -10,9 +10,9 @@ import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 const FeaturesEnhanced = () => {
   const content = [
     {
-      title: "Your Guide: Conscious AI Integration",
+      title: "Your Guide: Human-Centred Transformation",
       description:
-        "I'm Kai, your specialist in Conscious AI Integration. With 15 years as a psychotherapist, 5 as a software engineer, and two decades of contemplative practice, I bridge the technical with the deeply human. 'The Art of Personal AI' isn't another course; it's my framework to help you intuitively understand and master AI.",
+        "I'm Kai, your specialist in Human-Centred Transformation. With 15 years as a psychotherapist, 5 as a software engineer, and two decades of contemplative practice, I bridge the technical with the deeply human. 'The Art of Personal AI' isn't another course; it's my framework to help you intuitively understand and master AI.",
       content: (
         <div className="h-full w-full flex items-center justify-center text-white">
           <div className="relative w-full h-full bg-gradient-to-br from-primary/20 via-secondary/10 to-accent/20 rounded-lg p-8">
@@ -62,7 +62,7 @@ const FeaturesEnhanced = () => {
     {
       title: "Executive Guidance Partnership",
       description:
-        "1:1 strategic partnership for wellbeing leaders. Personalized AI strategy with ethical framework integration and transformative coaching to create your roadmap for conscious AI integration that amplifies your human edge.",
+        "1:1 strategic partnership for wellbeing leaders. Personalized AI strategy with ethical framework integration and transformative coaching to create your roadmap for Human-Centred Transformation that amplifies your human edge.",
       content: (
         <div className="h-full w-full flex items-center justify-center text-white">
           <div className="relative w-full h-full bg-gradient-to-br from-info/20 via-primary/10 to-secondary/20 rounded-lg overflow-hidden">

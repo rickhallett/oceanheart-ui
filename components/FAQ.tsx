@@ -10,29 +10,42 @@ interface FAQItemProps {
   answer: JSX.Element;
 }
 
-// New Q&A content for "The Art of Personal AI"
+// FAQ content bridging therapy and AI strategy services
 const faqList: FAQItemProps[] = [
   {
+    question: "Why do you offer both therapy and AI strategy?",
+    answer: (
+      <div className="space-y-2 leading-relaxed">
+        After 15 years as a psychologist and 5+ years as a software engineer, I've learned that the challenges of human change and technological change are surprisingly similar. Whether you're an individual seeking balance or a team exploring AI, my role is to help you navigate complexity and act with clarity.
+      </div>
+    ),
+  },
+  {
+    question: "What's your unique approach?",
+    answer: (
+      <div className="space-y-2 leading-relaxed">
+        <strong>One practice. Two frontiers.</strong><br />
+        Human transformation and AI adoption share the same core challenge: helping people move through uncertainty. I use the same skills—deep listening, clear thinking, and practical action—whether supporting personal growth or technological integration.
+      </div>
+    ),
+  },
+  {
+    question: "Who are therapy sessions for?",
+    answer: <div className="space-y-2 leading-relaxed">Individuals seeking support with life transitions, emotional resilience, relationships, or personal growth. Sessions draw on psychotherapy, contemplative practice, and somatic approaches to help you navigate inner change.</div>,
+  },
+  {
+    question: "Who is AI strategy for?",
+    answer: <div className="space-y-2 leading-relaxed">Organizations and teams wanting to adopt AI safely and effectively. From startups to established companies, I help bridge the gap between technical possibilities and human values, ensuring technology serves your mission.</div>,
+  },
+  {
     question: "What is 'The Art of Personal AI'?",
-    answer: <div className="space-y-2 leading-relaxed">It's Kai's unique 3-layer framework (Story/Spirit/Science, Prompt/Context/Model, IQ/EQ/AI) for integrating AI consciously, amplifying your human intelligence and sensitivity.</div>,
-  },
-  {
-    question: "Who is this AI coaching for?",
-    answer: <div className="space-y-2 leading-relaxed">Smart professionals, therapists, coaches, and creatives feeling overwhelmed by AI, who seek to understand and use it meaningfully without losing their human core.</div>,
-  },
-  {
-    question: "How is this different from other AI courses?",
-    answer: (<div className="space-y-2 leading-relaxed">We focus on <em>your</em> integration of AI, blending deep human understanding (from psychotherapy & contemplative practice) with practical tech know-how, rather than just listing tools.</div>),
-  },
-  {
-    question: "What if I'm not technical?",
-    answer: (<div className="space-y-2 leading-relaxed">Perfect. This coaching is designed to demystify AI. Kai translates complex concepts into your language, focusing on principles over fleeting tech trends.</div>),
+    answer: <div className="space-y-2 leading-relaxed">It's my framework for conscious integration that works for both individuals and organizations. Three layers: Story/Spirit/Science (consciousness), Prompt/Context/Model (sensitivity), and IQ/EQ/AI (intelligence) help you master the human-AI relationship.</div>,
   },
   {
     question: "How do I get started?",
     answer: (
       <div className="space-y-2 leading-relaxed">
-        Book a free, no-obligation 20-minute Clarity Call with Kai to discuss your needs and see if this is the right fit for you. <a href="https://calendar.app.google/85ZdaqYK5vfNk4aH9" target="_blank" rel="noopener noreferrer" className="text-primary underline">Click here to book a call</a>.
+        For therapy sessions, visit <a href="https://awake.oceanheart.ai" className="text-primary underline">awake.oceanheart.ai</a>. For AI strategy and consulting, <a href="/consulting" className="text-primary underline">explore our consulting services</a> or <a href="https://calendar.app.google/85ZdaqYK5vfNk4aH9" target="_blank" rel="noopener noreferrer" className="text-primary underline">book a discovery call</a>.
       </div>
     ),
   },
@@ -91,7 +104,7 @@ const FAQ = () => {
         <div className="flex flex-col text-left basis-1/2">
           <p className="inline-block font-semibold text-primary mb-4">FAQ</p>
           <p className="sm:text-4xl text-3xl font-extrabold text-base-content">
-            Common Questions About Conscious AI Integration
+            Frequently Asked Questions
           </p>
         </div>
 

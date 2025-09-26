@@ -27,7 +27,7 @@ export default function AboutPage() {
             <div className="absolute -inset-1 bg-gradient-to-r from-primary to-secondary rounded-full blur opacity-30"></div>
             <Image
               src="/images/kai_profile.jpeg"
-              alt="Profile picture of Kai - Conscious AI Integration Specialist"
+              alt="Profile picture of Kai - Human-Centred Transformation Specialist"
               width={600}
               height={600}
               className="rounded-full mx-auto relative shadow-lg hover:scale-[1.02] transition-transform duration-300"

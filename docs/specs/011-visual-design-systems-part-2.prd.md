@@ -210,7 +210,7 @@ const AsymmetricHero = () => (
         {/* Content - 8 columns */}
         <div className="lg:col-span-8 space-y-8">
           <h1 className="text-6xl md:text-8xl font-extrabold leading-tight">
-            <span className="text-white">Conscious AI Integration: </span>
+            <span className="text-white">Human-Centred Transformation: </span>
             <span className="bg-gradient-to-r from-blue-400 to-pink-400 bg-clip-text text-transparent">
               Your Human Edge, Amplified.
             </span>

@@ -9,8 +9,8 @@ const HeroSimplified = () => {
     <section className="relative min-h-[80vh] flex items-center justify-center bg-gradient-to-b from-base-300 via-base-100 to-base-100">
       {/* Subtle background pattern */}
       <div className="absolute inset-0 bg-[url('/images/grid.svg')] opacity-5" />
-      
-      <motion.div 
+
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
@@ -21,7 +21,7 @@ const HeroSimplified = () => {
           {/* Main Headline */}
           <div className="space-y-4">
             <h1 className="font-extrabold text-4xl lg:text-6xl tracking-tight text-base-content">
-              Conscious AI Integration
+              Human-Centred Transformation
             </h1>
             <h2 className="font-semibold text-2xl lg:text-3xl text-base-content/80">
               Your Human Edge, <span className="text-primary">Amplified</span>
@@ -48,8 +48,8 @@ const HeroSimplified = () => {
             >
               Book a Discovery Call
             </Link>
-            <Link 
-              href="/about-alt" 
+            <Link
+              href="/about-alt"
               className="link link-hover text-base-content/80"
             >
               Learn about Kai →
@@ -58,7 +58,7 @@ const HeroSimplified = () => {
         </div>
 
         {/* Image Section */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.2 }}
@@ -68,7 +68,7 @@ const HeroSimplified = () => {
             <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-full blur-3xl opacity-50"></div>
             <Image
               src="/images/kai_profile.jpeg"
-              alt="Kai - Conscious AI Integration Specialist"
+              alt="Kai - Human-Centred Transformation Specialist"
               className="relative rounded-full object-cover shadow-2xl"
               priority={true}
               width={450}

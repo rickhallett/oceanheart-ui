@@ -8,7 +8,7 @@ const CTA = () => {
       {/* Background Image */}
       <Image
         src="/images/universe.jpg"
-        alt="Cosmic background representing the vast potential of conscious AI integration"
+        alt="Cosmic background representing the vast potential of Human-Centred Transformation"
         className="object-cover w-full"
         fill
       />

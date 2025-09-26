@@ -47,13 +47,11 @@ export default function TechnicalSection() {
         </div>
 
         <div className="grid md:grid-cols-3 gap-8 mt-16 max-w-6xl mx-auto synai-fade-in synai-fade-in-delay-2">
-          <div className="text-center">
-            <div className="relative w-20 h-20 mx-auto mb-6">
-              <div className="absolute inset-0 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-full animate-pulse"></div>
-              <div className="absolute inset-2 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-full opacity-70 animate-spin" style={{ animationDuration: '4s' }}></div>
-              <div className="absolute inset-4 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-full animate-ping" style={{ animationDuration: '2s' }}></div>
-              <div className="absolute inset-6 bg-white rounded-full"></div>
-              <div className="absolute inset-7 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-full"></div>
+          <div className="text-center p-6 bg-white/5 rounded-2xl backdrop-blur-sm border border-white/10">
+            <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-2xl flex items-center justify-center shadow-lg">
+              <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
+                <div className="w-4 h-4 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full"></div>
+              </div>
             </div>
             <h5 className="text-xl font-semibold mb-3">Evidence-informed</h5>
             <p className="text-white/70">
@@ -61,13 +59,11 @@ export default function TechnicalSection() {
             </p>
           </div>
 
-          <div className="text-center">
-            <div className="relative w-20 h-20 mx-auto mb-6">
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-400 to-pink-600 rounded-full animate-pulse"></div>
-              <div className="absolute inset-2 bg-gradient-to-br from-purple-400 to-pink-600 rounded-full opacity-70 animate-spin" style={{ animationDuration: '6s' }}></div>
-              <div className="absolute inset-4 bg-gradient-to-br from-purple-400 to-pink-600 rounded-full animate-ping" style={{ animationDuration: '2.5s' }}></div>
-              <div className="absolute inset-6 bg-white rounded-full"></div>
-              <div className="absolute inset-7 bg-gradient-to-br from-purple-400 to-pink-600 rounded-full"></div>
+          <div className="text-center p-6 bg-white/5 rounded-2xl backdrop-blur-sm border border-white/10">
+            <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center shadow-lg">
+              <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
+                <div className="w-4 h-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full"></div>
+              </div>
             </div>
             <h5 className="text-xl font-semibold mb-3">Simple engineering</h5>
             <p className="text-white/70">
@@ -75,13 +71,11 @@ export default function TechnicalSection() {
             </p>
           </div>
 
-          <div className="text-center">
-            <div className="relative w-20 h-20 mx-auto mb-6">
-              <div className="absolute inset-0 bg-gradient-to-br from-green-400 to-emerald-600 rounded-full animate-pulse"></div>
-              <div className="absolute inset-2 bg-gradient-to-br from-green-400 to-emerald-600 rounded-full opacity-70 animate-spin" style={{ animationDuration: '5s' }}></div>
-              <div className="absolute inset-4 bg-gradient-to-br from-green-400 to-emerald-600 rounded-full animate-ping" style={{ animationDuration: '3s' }}></div>
-              <div className="absolute inset-6 bg-white rounded-full"></div>
-              <div className="absolute inset-7 bg-gradient-to-br from-green-400 to-emerald-600 rounded-full"></div>
+          <div className="text-center p-6 bg-white/5 rounded-2xl backdrop-blur-sm border border-white/10">
+            <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-r from-emerald-500 to-green-500 rounded-2xl flex items-center justify-center shadow-lg">
+              <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
+                <div className="w-4 h-4 bg-gradient-to-r from-emerald-500 to-green-500 rounded-full"></div>
+              </div>
             </div>
             <h5 className="text-xl font-semibold mb-3">Useful outputs</h5>
             <p className="text-white/70">

@@ -163,7 +163,7 @@ const EnhancedHero = () => {
         className="relative flex flex-col items-center justify-center px-4"
       >
         <TextGenerateEffect 
-          words="Conscious AI Integration"
+          words="Human-Centred Transformation"
           className="text-4xl md:text-7xl font-bold"
         />
         <HoverBorderGradient

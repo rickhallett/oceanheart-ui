@@ -9,7 +9,7 @@ export default function AboutAltPage() {
         <div className="flex flex-col md:flex-row items-center gap-10">
           <div className="md:w-2/5 order-2 md:order-1">
             <h1 className="font-extrabold text-4xl md:text-5xl tracking-tight mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent animate-gradient">
-              About Kai: Navigating the <span className="italic">Age of AI</span>
+              About Kai: Navigating the <span className="">Age of AI</span>
             </h1>
             <div className="h-1 w-24 bg-gradient-to-r from-primary to-secondary rounded-full mb-6"></div>
             <p className="text-lg md:text-xl opacity-90 mb-6 leading-relaxed">

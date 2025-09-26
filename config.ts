@@ -2,9 +2,9 @@ import themes from "daisyui/src/theming/themes";
 
 const config = {
   // REQUIRED
-  appName: "Oceanheart.ai - Conscious AI Integration",
+  appName: "Oceanheart.ai - Human-Centred Transformation",
   // REQUIRED: a short description of your app for SEO tags (can be overwritten)
-  appDescription: "Human-centric AI coaching with Kai. Master AI with heart, clarity, and purpose using 'The Art of Personal AI' framework. Integrate Story, Spirit, and Science.",
+  appDescription: "Human-centric AI: master AI with heart, clarity, and purpose using 'The Art of Personal AI' framework",
   // REQUIRED (no https://, not trailing slash at the end, just the naked domain)
   domainName: "oceanheart.ai",
   

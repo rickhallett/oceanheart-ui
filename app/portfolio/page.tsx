@@ -40,7 +40,7 @@ export default function PortfolioPage() {
                 </div>
               </div>
               <div className="mb-8">
-                <TextGenerateEffect 
+                <TextGenerateEffect
                   words="Oceanheart Labs"
                   className="font-extrabold text-4xl md:text-6xl tracking-tight bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"
                   duration={0.5}
@@ -63,18 +63,18 @@ export default function PortfolioPage() {
 
         {/* Portfolio Collection with Enhanced Tabs and Bento Grid */}
         <div className="pb-20">
-          <EnhancedBookTabs sections={portfolioSections.filter((s) => !s.hidden)} />
+          {/* <EnhancedBookTabs sections={portfolioSections.filter((s) => !s.hidden)} /> */}
         </div>
 
         {/* Call-to-Action Section */}
         <section className="bg-gradient-to-r from-neutral to-neutral-focus text-neutral-content py-20 px-4 sm:px-8">
           <div className="max-w-3xl mx-auto text-center p-8 bg-black/20 backdrop-blur-sm rounded-xl">
-            <h2 className="font-bold text-3xl md:text-4xl mb-6">
-              Ready to <span className="text-primary italic">drive results</span>?
+            <h2 className="font-bold text-2xl md:text-3xl mb-6">
+              Ready to <span className="text-primary">drive results</span>?
             </h2>
-            <p className="mb-8 text-lg md:text-xl leading-relaxed">
-              <span className="font-semibold">For hiring teams:</span> See a human-centered engineer who delivers technical excellence with proven business impact.<br />
-              <span className="font-semibold text-secondary">For clients:</span> Get measurable ROI through psychology-informed software that solves real problems.
+            <p className="mb-8 text-md md:text-lg leading-relaxed">
+              <span className="text-primary">For hiring teams:</span> See a human-centered engineer who delivers technical excellence with proven business impact.<br />
+              <span className=" text-secondary">For clients:</span> Get measurable ROI through psychology-informed software that solves real problems.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a

@@ -3865,7 +3865,7 @@ const CTA = () => {
       {/* Background Image */}
       <Image
         src="/images/universe.jpg"
-        alt="Cosmic background representing the vast potential of conscious AI integration"
+        alt="Cosmic background representing the vast potential of Human-Centred Transformation"
         className="object-cover w-full"
         fill
       />
@@ -3991,7 +3991,7 @@ const FAQ = () => {
         <div className="flex flex-col text-left basis-1/2">
           <p className="inline-block font-semibold text-primary mb-4">FAQ</p>
           <p className="sm:text-4xl text-3xl font-extrabold text-base-content">
-            Common Questions About Conscious AI Integration
+            Common Questions About Human-Centred Transformation
           </p>
         </div>
 
@@ -10537,7 +10537,7 @@ export default function AboutPage() {
             <div className="absolute -inset-1 bg-gradient-to-r from-primary to-secondary rounded-full blur opacity-30"></div>
             <Image
               src="/images/kai_profile.jpeg"
-              alt="Profile picture of Kai - Conscious AI Integration Specialist"
+              alt="Profile picture of Kai - Human-Centred Transformation Specialist"
               width={600}
               height={600}
               className="rounded-full mx-auto relative shadow-lg hover:scale-[1.02] transition-transform duration-300"
@@ -10628,7 +10628,7 @@ export default function AboutAltPage() {
               <div className="absolute -inset-2 bg-gradient-to-r from-primary to-secondary rounded-2xl blur opacity-20"></div>
               <Image
                 src="/images/greece_profile2.jpeg"
-                alt="Profile picture of Kai - Conscious AI Integration Specialist"
+                alt="Profile picture of Kai - Human-Centred Transformation Specialist"
                 width={700}
                 height={700}
                 className="rounded-2xl mx-auto relative shadow-lg hover:scale-[1.01] transition-transform duration-300"
@@ -10761,7 +10761,7 @@ export default function AboutAltPage() {
                 <div className="absolute -inset-2 bg-gradient-to-r from-primary to-secondary rounded-full blur opacity-20 rotate-12"></div>
                 <Image
                   src="/images/kai_profile.jpeg"
-                  alt="Profile picture of Kai - Conscious AI Integration Specialist"
+                  alt="Profile picture of Kai - Human-Centred Transformation Specialist"
                   width={400}
                   height={400}
                   className="rounded-full mx-auto relative shadow-lg hover:scale-[1.02] transition-transform duration-300 rotate-12"
@@ -11386,7 +11386,7 @@ const ButtonLead = ({ extraStyle }: { extraStyle?: string }) => {
   return (
     <div className={`w-full max-w-xs space-y-3 text-center ${extraStyle ? extraStyle : ""}`}>
       <p className="text-sm text-gray-600 mb-3">
-        Ready to explore conscious AI integration?
+        Ready to explore Human-Centred Transformation?
       </p>
       <a 
         href="mailto:kai@oceanheart.ai?subject=Interested in AI Coaching Services"
@@ -11426,9 +11426,9 @@ interface Feature {
 // The Art of Personal AI framework and offerings
 const features: Feature[] = [
   {
-    title: "Your Guide: Conscious AI Integration with Kai",
+    title: "Your Guide: Human-Centred Transformation with Kai",
     description:
-      "I'm Kai, your specialist in Conscious AI Integration. With 15 years as a psychotherapist, 5 as a software engineer, and two decades of contemplative practice, I bridge the technical with the deeply human. 'The Art of Personal AI' isn't another course; it's my framework to help you intuitively understand and master AI.",
+      "I'm Kai, your specialist in Human-Centred Transformation. With 15 years as a psychotherapist, 5 as a software engineer, and two decades of contemplative practice, I bridge the technical with the deeply human. 'The Art of Personal AI' isn't another course; it's my framework to help you intuitively understand and master AI.",
     svg: <FaUserTie className="w-6 h-6" />,
   },
   {
@@ -11440,7 +11440,7 @@ const features: Feature[] = [
   {
     title: "Executive Guidance Partnership",
     description:
-      "1:1 strategic partnership for wellbeing leaders. Personalized AI strategy with ethical framework integration and transformative coaching to create your roadmap for conscious AI integration that amplifies your human edge.",
+      "1:1 strategic partnership for wellbeing leaders. Personalized AI strategy with ethical framework integration and transformative coaching to create your roadmap for Human-Centred Transformation that amplifies your human edge.",
     svg: <FaUserTie className="w-6 h-6" />,
   },
   // {
@@ -11700,7 +11700,7 @@ const Hero = () => {
 
           {/* Headline */}
           <h1 className="font-extrabold text-4xl lg:text-6xl tracking-tight">
-            Conscious AI Integration: <span className="text-blue-400 glow-blue">Your Human Edge, Amplified.</span>
+            Human-Centred Transformation: <span className="text-blue-400 glow-blue">Your Human Edge, Amplified.</span>
           </h1>
 
           {/* Sub-headline */}
@@ -11740,7 +11740,7 @@ const Hero = () => {
           <div className="image-container rounded-full overflow-hidden">
             <Image
               src="/images/kai_profile.jpeg"
-              alt="Kai - Conscious AI Integration Specialist"
+              alt="Kai - Human-Centred Transformation Specialist"
               className="kai-image rounded-full object-cover"
               priority={true}
               width={500}
@@ -15739,7 +15739,7 @@ const ContactForm = () => {
 ```typescript
 // config.ts
 const config = {
-  appName: "Oceanheart.ai - Conscious AI Integration",
+  appName: "Oceanheart.ai - Human-Centred Transformation",
   appDescription: "Human-centric AI coaching with Kai.",
   domainName: "oceanheart.ai",
   // Remove auth config entirely
@@ -17272,7 +17272,7 @@ const AsymmetricHero = () => (
         {/* Content - 8 columns */}
         <div className="lg:col-span-8 space-y-8">
           <h1 className="text-6xl md:text-8xl font-extrabold leading-tight">
-            <span className="text-white">Conscious AI Integration: </span>
+            <span className="text-white">Human-Centred Transformation: </span>
             <span className="bg-gradient-to-r from-blue-400 to-pink-400 bg-clip-text text-transparent">
               Your Human Edge, Amplified.
             </span>
@@ -25148,7 +25148,7 @@ import themes from "daisyui/src/theming/themes";
 
 const config = {
   // REQUIRED
-  appName: "Oceanheart.ai - Conscious AI Integration",
+  appName: "Oceanheart.ai - Human-Centred Transformation",
   // REQUIRED: a short description of your app for SEO tags (can be overwritten)
   appDescription: "Human-centric AI coaching with Kai. Master AI with heart, clarity, and purpose using 'The Art of Personal AI' framework. Integrate Story, Spirit, and Science.",
   // REQUIRED (no https://, not trailing slash at the end, just the naked domain)

@@ -11,37 +11,31 @@ interface Feature {
   svg?: JSX.Element;
 }
 
-// The Art of Personal AI framework and offerings
+// Dual services - therapy and AI strategy
 const features: Feature[] = [
   {
-    title: "Your Guide: Conscious AI Integration with Kai",
+    title: "Individual Therapy & Coaching",
     description:
-      "I'm Kai, your specialist in Conscious AI Integration. With 15 years as a psychotherapist, 5 as a software engineer, and two decades of contemplative practice, I bridge the technical with the deeply human. 'The Art of Personal AI' isn't another course; it's my framework to help you intuitively understand and master AI.",
+      "Personal sessions for life transitions, emotional resilience, and growth. Drawing on 15 years of psychotherapy experience and contemplative practice to help you navigate inner change with clarity and compassion. Available through awake.oceanheart.ai",
     svg: <FaUserTie className="w-6 h-6" />,
   },
   {
-    title: "The Framework: The Art of Personal AI",
+    title: "AI Strategy & Consultation",
     description:
-      "Unlock your potential with a 3-layer model:\n• Story · Spirit · Science → Amplified Consciousness\n• Prompt · Context · Model → Amplified Sensitivity\n• IQ · EQ · AI → Amplified Intelligence",
+      "Help organizations adopt AI safely and effectively. Strategic consulting that bridges technical implementation with human-centered design, ensuring your technology serves your mission while maintaining your values.",
     svg: <FaCompass className="w-6 h-6" />,
   },
   {
-    title: "Executive Guidance Partnership",
+    title: "The Art of Personal AI Framework",
     description:
-      "1:1 strategic partnership for wellbeing leaders. Personalized AI strategy with ethical framework integration and transformative coaching to create your roadmap for conscious AI integration that amplifies your human edge.",
-    svg: <FaUserTie className="w-6 h-6" />,
-  },
-  // {
-  //   title: "'Bridging Worlds' Workshop",
-  //   description:
-  //     "Immersive group learning for AI discernment. Connect with peers while integrating technology and wisdom traditions in a transformative setting. Build confidence and clarity in your relationship with AI.",
-  //   svg: <FaUsers className="w-6 h-6" />,
-  // },
-  {
-    title: "First Principles AI Course",
-    description:
-      "Self-paced foundational AI learning with lifetime access. Master core AI concepts, ethical integration practices, and the Story, Spirit, Science framework that transcends trending tools and platforms.",
+      "A unified approach that works for both individuals and organizations:\n• Story · Spirit · Science → Understanding human narratives\n• Prompt · Context · Model → Mastering interaction dynamics\n• IQ · EQ · AI → Balancing multiple intelligences",
     svg: <FaBook className="w-6 h-6" />,
+  },
+  {
+    title: "Your Guide: Kai",
+    description:
+      "With 15 years as a psychotherapist, 5 as a software engineer, and two decades of contemplative practice, I bring a unique perspective. Whether supporting personal transformation or organizational change, I help you navigate complexity with both technical fluency and deep human understanding.",
+    svg: <FaUserTie className="w-6 h-6" />,
   },
 ];
 
@@ -61,12 +55,12 @@ const Item = ({
   const { title, description, svg } = feature;
 
   return (
-    <li className="py-4 border-b border-base-content/10 last:border-none">
+    <li className="border-b border-white/10 last:border-none">
       <button
-        className="flex items-center w-full group py-2"
+        className="flex items-center w-full py-6 group"
         onClick={onClick}
       >
-        <div className="flex items-center justify-center shrink-0 mr-4 w-10 h-10 rounded-full bg-base-300 text-primary">
+        <div className="flex items-center justify-center shrink-0 mr-4 w-10 h-10 text-pink-400">
           {svg ? (
             svg
           ) : (
@@ -98,7 +92,7 @@ const Item = ({
             : { maxHeight: 0, opacity: 0 }
         }
       >
-        <div className="pb-2 pl-14">
+        <div className="pb-6 pl-14">
           <p className="text-base-content/80 leading-relaxed whitespace-pre-line">
             {description}
           </p>
@@ -114,17 +108,18 @@ const FeaturesAccordion = () => {
 
   return (
     <section
-      className="py-12 md:py-24 space-y-12 md:space-y-24 max-w-7xl mx-auto bg-base-100"
+      className="py-16 md:py-24 bg-gradient-to-b from-base-100 via-purple-900/20 to-base-100"
       id="features"
     >
       <div className="px-4 sm:px-6 lg:px-8">
         {/* Headline */}
-        <h2 className="font-extrabold text-3xl lg:text-6xl tracking-tight mb-8 md:mb-16">
-          The Art of Personal AI: <span className="text-blue-400">Your Path to Conscious Integration</span>
-          <span className="bg-neutral text-neutral-content px-2 md:px-4 ml-1 md:ml-1.5 leading-relaxed block sm:inline-block mt-2 sm:mt-0">
-            Where Human Wisdom Meets Technical Fluency
-          </span>
+        <h2 className="font-bold text-4xl lg:text-6xl tracking-tight mb-4 text-center">
+          How I Can Help:{" "}
+          <span className="text-blue-400">Services & Approach</span>
         </h2>
+        <p className="text-xl lg:text-2xl text-center mb-12 md:mb-16 text-white/90">
+          Bridging Human Wisdom & Technological Change
+        </p>
         <div className="flex justify-center">
           <div className="w-full max-w-4xl">
             <ul className="w-full">

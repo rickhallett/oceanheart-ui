@@ -14,10 +14,10 @@ const HeroEnhanced = () => {
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
       <AuroraBackground>
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ 
+          transition={{
             delay: 0.3,
             duration: 0.8,
             ease: "easeInOut"
@@ -25,15 +25,15 @@ const HeroEnhanced = () => {
           className="relative z-10 max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-center gap-16 lg:gap-20 px-8 py-8 lg:py-20"
         >
           <div className="flex flex-col gap-10 items-center justify-center text-center w-full lg:w-1/2">
-            
+
             {/* Animated Headline */}
             <div className="space-y-4">
-              <TextGenerateEffect 
-                words="Conscious AI Integration"
+              <TextGenerateEffect
+                words="Human-Centred Transformation"
                 className="font-extrabold text-4xl lg:text-6xl tracking-tight text-base-content"
                 duration={0.5}
               />
-              <motion.h2 
+              <motion.h2
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1, duration: 0.5 }}
@@ -44,7 +44,7 @@ const HeroEnhanced = () => {
             </div>
 
             {/* Sub-headline */}
-            <motion.p 
+            <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1.2, duration: 0.5 }}
@@ -54,7 +54,7 @@ const HeroEnhanced = () => {
             </motion.p>
 
             {/* Framework with Flip Words */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1.4, duration: 0.5 }}
@@ -62,8 +62,8 @@ const HeroEnhanced = () => {
             >
               <div className="text-xl lg:text-2xl font-semibold">
                 Amplified{" "}
-                <FlipWords 
-                  words={words} 
+                <FlipWords
+                  words={words}
                   className="text-primary font-bold"
                   duration={3000}
                 />
@@ -71,13 +71,13 @@ const HeroEnhanced = () => {
             </motion.div>
 
             {/* Primary CTA with HoverBorderGradient */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 1.6, duration: 0.5 }}
               className="flex flex-col items-center gap-4"
             >
-              <a 
+              <a
                 href="https://calendar.app.google/85ZdaqYK5vfNk4aH9"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -106,11 +106,11 @@ const HeroEnhanced = () => {
               </a>
 
               {/* Secondary CTA */}
-              <Link 
-                href="/about-alt" 
+              <Link
+                href="/about-alt"
                 className="text-primary hover:text-primary/80 transition-colors font-medium flex items-center gap-1"
               >
-                Learn about Kai 
+                Learn about Kai
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-4 w-4"
@@ -130,10 +130,10 @@ const HeroEnhanced = () => {
           </div>
 
           {/* Image Section with enhanced animation */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ 
+            transition={{
               delay: 0.8,
               duration: 0.8,
               ease: "easeOut"
@@ -145,7 +145,7 @@ const HeroEnhanced = () => {
               <div className="relative rounded-full overflow-hidden">
                 <Image
                   src="/images/kai_profile.jpeg"
-                  alt="Kai - Conscious AI Integration Specialist"
+                  alt="Kai - Human-Centred Transformation Specialist"
                   className="rounded-full object-cover"
                   priority={true}
                   width={500}
@@ -156,7 +156,7 @@ const HeroEnhanced = () => {
           </motion.div>
         </motion.div>
       </AuroraBackground>
-      
+
       {/* Fade transition to next section */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-base-100 to-transparent pointer-events-none" />
     </section>
