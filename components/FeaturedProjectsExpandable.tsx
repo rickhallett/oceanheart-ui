@@ -214,9 +214,9 @@ export default function FeaturedProjectsExpandable({ projects }: FeaturedProject
             layoutId={`card-${project.title}-${id}`}
             key={`${project.sectionId}-${project.id}`}
             onClick={() => setActive(project)}
-            className="group cursor-pointer"
+            className="group cursor-pointer h-full"
           >
-            <div className="bg-base-200 rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+            <div className="bg-base-200 rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 h-full flex flex-col">
               <motion.div layoutId={`image-${project.title}-${id}`}>
                 <div className="relative w-full h-48 overflow-hidden">
                   <Image
@@ -228,14 +228,14 @@ export default function FeaturedProjectsExpandable({ projects }: FeaturedProject
                   />
                 </div>
               </motion.div>
-              <div className="p-6">
+              <div className="p-6 flex flex-col flex-grow">
                 <motion.h3
                   layoutId={`title-${project.title}-${id}`}
                   className="font-bold text-lg mb-2 group-hover:text-primary transition-colors"
                 >
                   {project.title}
                 </motion.h3>
-                <p className="text-base-content/70 mb-4 line-clamp-2">
+                <p className="text-base-content/70 mb-4 line-clamp-2 flex-grow">
                   {project.description}
                 </p>
                 <div className="flex flex-wrap gap-2 mb-4">
@@ -255,7 +255,7 @@ export default function FeaturedProjectsExpandable({ projects }: FeaturedProject
                 </div>
                 <motion.button
                   layoutId={`button-${project.title}-${id}`}
-                  className="btn btn-outline btn-sm group-hover:btn-primary transition-all w-full"
+                  className="btn btn-outline btn-sm group-hover:btn-primary transition-all w-full mt-auto"
                 >
                   View Details
                 </motion.button>
