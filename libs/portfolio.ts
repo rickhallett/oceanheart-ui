@@ -99,7 +99,7 @@ export const portfolioSections: PortfolioSection[] = [
         tech: ["Next.js", "FastAPI", "Pydantic", "MongoDB"],
         externalUrl: resolveAppUrl('preflight'),
         featured: true,
-        githubRepo: "oceanheart-ai/preflight",
+        githubRepo: "rickhallett/preflight.oceanheart.ai",
         githubBranch: "main",
       },
       {
@@ -111,7 +111,7 @@ export const portfolioSections: PortfolioSection[] = [
         tech: ["Next.js", "Django", "Postgres", "TipTap"],
         externalUrl: resolveAppUrl('watson'),
         featured: true,
-        githubRepo: "oceanheart-ai/watson",
+        githubRepo: "rickhallett/watson.oceanheart.ai",
         githubBranch: "main",
       },
       {
@@ -123,7 +123,7 @@ export const portfolioSections: PortfolioSection[] = [
         tech: ["Nuxt 4", "Postgres", "Drizzle ORM", "Tailwind"],
         externalUrl: resolveAppUrl("sidekick"),
         featured: true,
-        githubRepo: "oceanheart-ai/sidekick",
+        githubRepo: "rickhallett/sidekick.oceanheart.ai",
         githubBranch: "main",
       }
       
@@ -145,7 +145,7 @@ export const portfolioSections: PortfolioSection[] = [
         tech: ["Rails", "Hotwire", "Stimulus"],
         externalUrl: resolveAppUrl("passport"),
         featured: true,
-        githubRepo: "oceanheart-ai/passport",
+        githubRepo: "rickhallett/passport.oceanheart.ai",
         githubBranch: "main",
       },
       {
@@ -157,7 +157,7 @@ export const portfolioSections: PortfolioSection[] = [
         tech: ["Go", "HTMX", "SQLite"],
         externalUrl: resolveAppUrl("notebook"),
         featured: true,
-        githubRepo: "oceanheart-ai/notebook",
+        githubRepo: "rickhallett/notebook.oceanheart.ai",
         githubBranch: "main",
       },
     ],
