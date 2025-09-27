@@ -11,7 +11,7 @@ const Hero = () => {
 
           {/* Headline */}
           <h1 className="font-bold text-4xl lg:text-6xl tracking-tight">
-            Oceanheart – <span className="text-blue-400 glow-blue">Human-Centred Transformation</span>
+            oAI: <span className="text-blue-400 glow-blue">Human-Centred Transformation</span>
           </h1>
 
           {/* Sub-headline */}
@@ -38,18 +38,6 @@ const Hero = () => {
             <p className="text-lg opacity-80 leading-relaxed">
               <span className="font-bold">Amplified <span className="text-blue-400 glow-blue">Growth</span></span>
             </p>
-          </div>
-
-          {/* Dual CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 w-full max-w-xl justify-center mt-4">
-            <a href="https://awake.oceanheart.ai"
-              className="btn btn-primary btn-lg flex-1">
-              Work with Kai – Therapy Sessions
-            </a>
-            <a href="/consulting"
-              className="btn btn-primary btn-lg btn-outline flex-1">
-              Work with Kai – AI Strategy
-            </a>
           </div>
 
         </div>
