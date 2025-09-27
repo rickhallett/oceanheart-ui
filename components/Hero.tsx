@@ -1,13 +1,25 @@
 "use client";
 
 import Image from "next/image";
+import { Vortex } from "@/components/ui/vortex";
 
 const Hero = () => {
 
   return (
     <>
-      <section className="max-w-7xl mx-auto bg-base-100 flex flex-col lg:flex-row items-center justify-center gap-16 lg:gap-20 px-8 py-8 lg:py-20">
-        <div className="flex flex-col gap-10 items-center justify-center text-center w-full lg:w-1/2">
+      <section className="relative overflow-hidden bg-base-100">
+        {/* Top fade to blend with header */}
+        <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-base-100 to-transparent pointer-events-none z-10" />
+        
+        <Vortex
+          backgroundColor="transparent"
+          rangeY={800}
+          particleCount={500}
+          baseHue={220}
+          className="flex items-center justify-center px-8 py-8 lg:py-20 w-full h-full min-h-[600px]"
+        >
+          <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-center gap-16 lg:gap-20">
+            <div className="flex flex-col gap-10 items-center justify-center text-center w-full lg:w-1/2 relative z-10">
 
           {/* Headline */}
           <h1 className="font-bold text-4xl lg:text-6xl tracking-tight">
@@ -40,24 +52,32 @@ const Hero = () => {
             </p>
           </div>
 
-        </div>
-        {/* Image Section zoom in rounded */}
-        <div className="lg:w-1/2 flex justify-center items-center">
-          <div className="image-container rounded-full overflow-hidden">
-            <Image
-              src="/images/kai_profile.jpeg"
-              alt="Kai - Conscious AI Integration Specialist"
-              className="kai-image rounded-full object-cover"
-              priority={true}
-              width={500}
-              height={500}
-              style={{
-                transform: "scale(1.01)",
-                transformOrigin: "center",
-                transition: "transform 0.5s ease-in-out",
-              }}
-            />
+            </div>
+            {/* Image Section zoom in rounded */}
+            <div className="lg:w-1/2 flex justify-center items-center relative z-10">
+              <div className="image-container rounded-full overflow-hidden">
+                <Image
+                  src="/images/kai_profile.jpeg"
+                  alt="Kai - Conscious AI Integration Specialist"
+                  className="kai-image rounded-full object-cover"
+                  priority={true}
+                  width={500}
+                  height={500}
+                  style={{
+                    transform: "scale(1.01)",
+                    transformOrigin: "center",
+                    transition: "transform 0.5s ease-in-out",
+                  }}
+                />
+              </div>
+            </div>
           </div>
+        </Vortex>
+        
+        {/* Aggressive bottom fade to background */}
+        <div className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none">
+          <div className="absolute inset-0 bg-gradient-to-t from-base-100 via-base-100/80 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-base-100 via-base-100/60 to-transparent" />
         </div>
       </section>
 
