@@ -2,8 +2,9 @@ import { Suspense } from "react";
 import config from "@/config";
 import { getSEOTags } from "@/libs/seo";
 import FeaturedProjectsExpandable from "@/components/FeaturedProjectsExpandable";
+import LabsProjectsExpandable from "@/components/LabsProjectsExpandable";
 import EnhancedBookTabs from "@/components/EnhancedBookTabs";
-import { portfolioSections, getFeaturedProjects } from "@/libs/portfolio";
+import { portfolioSections, getMainFeaturedProjects, getLabProjects } from "@/libs/portfolio";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Vortex } from "@/components/ui/vortex";
@@ -26,6 +27,9 @@ export default function PortfolioPage() {
       <main className="bg-base-100">
         {/* Hero Section with Vortex Background */}
         <section className="relative mb-16 overflow-hidden">
+          {/* Top fade to blend with header */}
+          <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-base-100 to-transparent pointer-events-none z-10" />
+
           <Vortex
             backgroundColor="transparent"
             rangeY={800}
@@ -59,78 +63,95 @@ export default function PortfolioPage() {
           <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-base-100 to-transparent pointer-events-none" />
         </section>
         {/* Featured Projects with Expandable Cards */}
-        <FeaturedProjectsExpandable projects={getFeaturedProjects()} />
+        <FeaturedProjectsExpandable projects={getMainFeaturedProjects()} />
+
+        {/* Labs Section with Experimental Projects */}
+        <LabsProjectsExpandable projects={getLabProjects()} />
 
         {/* Portfolio Collection with Enhanced Tabs and Bento Grid */}
         <div className="pb-20">
           {/* <EnhancedBookTabs sections={portfolioSections.filter((s) => !s.hidden)} /> */}
         </div>
 
-        {/* Call-to-Action Section */}
-        <section className="bg-gradient-to-r from-neutral to-neutral-focus text-neutral-content py-20 px-4 sm:px-8">
-          <div className="max-w-3xl mx-auto text-center p-8 bg-black/20 backdrop-blur-sm rounded-xl">
-            <h2 className="font-bold text-2xl md:text-3xl mb-6">
-              Ready to <span className="text-primary">drive results</span>?
-            </h2>
-            <p className="mb-8 text-md md:text-lg leading-relaxed">
-              <span className="text-primary">For hiring teams:</span> See a human-centered engineer who delivers technical excellence with proven business impact.<br />
-              <span className=" text-secondary">For clients:</span> Get measurable ROI through psychology-informed software that solves real problems.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href="https://calendar.app.google/RMwsbtUZ76G6VZzb7"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:scale-105 transition-transform"
-              >
-                <HoverBorderGradient
-                  containerClassName="rounded-full"
-                  className="bg-base-100 text-base-content flex items-center space-x-2 px-8 py-4 font-semibold"
+        {/* Call-to-Action Section with Vortex Background */}
+        <section className="relative overflow-hidden bg-gradient-to-r from-neutral to-neutral-focus text-neutral-content">
+          {/* Top fade for smooth transition */}
+          <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-base-100 to-transparent pointer-events-none z-10" />
+
+          <Vortex
+            backgroundColor="transparent"
+            rangeY={600}
+            particleCount={300}
+            baseHue={220}
+            className="flex items-center justify-center px-4 sm:px-8 py-20 w-full h-full"
+          >
+            <div className="max-w-3xl mx-auto text-center p-8 bg-black/20 backdrop-blur-sm rounded-xl relative z-10">
+              <h2 className="font-bold text-xl md:text-2xl mb-5">
+                Ready to <span className="text-primary">drive results</span>?
+              </h2>
+              <p className="mb-6 text-sm md:text-base leading-relaxed">
+                <span className="text-primary">For hiring teams:</span> See a human-centered engineer who delivers technical excellence with proven business impact.<br />
+                <span className="text-secondary">For clients:</span> Get measurable ROI through psychology-informed software that solves real problems.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <a
+                  href="https://calendar.app.google/RMwsbtUZ76G6VZzb7"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:scale-105 transition-transform"
                 >
-                  <span>Schedule a Call</span>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
+                  <HoverBorderGradient
+                    containerClassName="rounded-full"
+                    className="bg-base-100 text-base-content flex items-center space-x-2 px-6 py-3 font-medium text-sm"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                    />
-                  </svg>
-                </HoverBorderGradient>
-              </a>
-              <a
-                href="/about"
-                className="hover:scale-105 transition-transform"
-              >
-                <HoverBorderGradient
-                  containerClassName="rounded-full"
-                  className="bg-base-100 text-base-content flex items-center space-x-2 px-8 py-4 font-semibold"
+                    <span>Schedule a Call</span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-4 w-4"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                      />
+                    </svg>
+                  </HoverBorderGradient>
+                </a>
+                <a
+                  href="/about"
+                  className="hover:scale-105 transition-transform"
                 >
-                  <span>Learn More About Me</span>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
+                  <HoverBorderGradient
+                    containerClassName="rounded-full"
+                    className="bg-base-100 text-base-content flex items-center space-x-2 px-6 py-3 font-medium text-sm"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M13 7l5 5m0 0l-5 5m5-5H6"
-                    />
-                  </svg>
-                </HoverBorderGradient>
-              </a>
+                    <span>Learn More About Me</span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-4 w-4"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M13 7l5 5m0 0l-5 5m5-5H6"
+                      />
+                    </svg>
+                  </HoverBorderGradient>
+                </a>
+              </div>
             </div>
-          </div>
+          </Vortex>
+
+          {/* Bottom fade to footer */}
+          <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-neutral-focus to-transparent pointer-events-none" />
         </section>
       </main>
       <Footer />
