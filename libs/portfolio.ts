@@ -8,6 +8,8 @@ export type PortfolioProject = {
   tech: string[]
   externalUrl?: string
   featured?: boolean
+  githubRepo?: string // Format: owner/repo
+  githubBranch?: string // Optional, defaults to main
 }
 
 export type PortfolioSection = {
@@ -97,6 +99,8 @@ export const portfolioSections: PortfolioSection[] = [
         tech: ["Next.js", "FastAPI", "Pydantic", "MongoDB"],
         externalUrl: resolveAppUrl('preflight'),
         featured: true,
+        githubRepo: "oceanheart-ai/preflight",
+        githubBranch: "main",
       },
       {
         id: 102,
@@ -107,6 +111,8 @@ export const portfolioSections: PortfolioSection[] = [
         tech: ["Next.js", "Django", "Postgres", "TipTap"],
         externalUrl: resolveAppUrl('watson'),
         featured: true,
+        githubRepo: "oceanheart-ai/watson",
+        githubBranch: "main",
       },
       {
         id: 110,
@@ -117,6 +123,8 @@ export const portfolioSections: PortfolioSection[] = [
         tech: ["Nuxt 4", "Postgres", "Drizzle ORM", "Tailwind"],
         externalUrl: resolveAppUrl("sidekick"),
         featured: true,
+        githubRepo: "oceanheart-ai/sidekick",
+        githubBranch: "main",
       }
       
     ],
@@ -137,6 +145,8 @@ export const portfolioSections: PortfolioSection[] = [
         tech: ["Rails", "Hotwire", "Stimulus"],
         externalUrl: resolveAppUrl("passport"),
         featured: true,
+        githubRepo: "oceanheart-ai/passport",
+        githubBranch: "main",
       },
       {
         id: 105,
@@ -147,6 +157,8 @@ export const portfolioSections: PortfolioSection[] = [
         tech: ["Go", "HTMX", "SQLite"],
         externalUrl: resolveAppUrl("notebook"),
         featured: true,
+        githubRepo: "oceanheart-ai/notebook",
+        githubBranch: "main",
       },
     ],
   },
@@ -193,6 +205,29 @@ export function getFeaturedProjects(limit = 5) {
   return all
     .sort((a, b) => (a.sectionId.localeCompare(b.sectionId) || a.id - b.id))
     .slice(0, limit)
+}
+
+export function getMainFeaturedProjects() {
+  // Return only Preflight and Sidekick for the main featured section
+  return getAllProjects().filter((p) => 
+    p.title === 'Preflight' || p.title === 'Sidekick'
+  ).sort((a, b) => {
+    // Ensure Preflight comes first, then Sidekick
+    if (a.title === 'Preflight') return -1;
+    if (b.title === 'Preflight') return 1;
+    return 0;
+  });
+}
+
+export function getLabProjects() {
+  // Return Watson, Notebook, and Passport for the Labs section
+  return getAllProjects().filter((p) => 
+    p.title === 'Watson' || p.title === 'Notebook' || p.title === 'Passport'
+  ).sort((a, b) => {
+    // Order: Watson, Passport, Notebook
+    const order = { 'Watson': 1, 'Passport': 2, 'Notebook': 3 };
+    return (order[a.title as keyof typeof order] || 999) - (order[b.title as keyof typeof order] || 999);
+  });
 }
 
 /**

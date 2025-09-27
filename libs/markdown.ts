@@ -6,7 +6,8 @@ import remarkGfm from 'remark-gfm'
 import DOMPurify from 'dompurify'
 import { JSDOM } from 'jsdom'
 import { createHighlighter, bundledLanguages, bundledThemes } from 'shiki'
-import { getProjectDocumentationFile } from './portfolio'
+import { getProjectDocumentationFile, getProjectBySlug } from './portfolio'
+import { getGitHubReadme } from './github'
 
 // Create a DOM environment for DOMPurify to work in Node.js
 const window = new JSDOM('').window
@@ -150,20 +151,71 @@ async function highlightCodeBlocks(html: string): Promise<string> {
 }
 
 /**
+ * Processes markdown content into sanitized HTML with syntax highlighting
+ */
+async function processMarkdownContent(markdownContent: string): Promise<string> {
+  // Process the markdown with remark
+  const processed = await remark()
+    .use(remarkGfm) // Support GitHub Flavored Markdown
+    .use(remarkHtml, { sanitize: false }) // Don't sanitize yet, we'll use DOMPurify
+    .process(markdownContent)
+
+  // Apply syntax highlighting to code blocks
+  const highlightedHtml = await highlightCodeBlocks(processed.toString())
+
+  // Sanitize the HTML to prevent XSS attacks
+  const sanitizedHtml = DOMPurifyServer.sanitize(highlightedHtml, {
+    // Allow Shiki's style attributes for syntax highlighting and standard HTML attributes
+    ALLOWED_ATTR: ['class', 'style', 'data-language', 'href', 'target', 'rel', 'src', 'alt', 'title'],
+    ALLOWED_TAGS: ['pre', 'code', 'span', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 
+                   'p', 'a', 'ul', 'ol', 'li', 'blockquote', 'em', 'strong', 'del',
+                   'table', 'thead', 'tbody', 'tr', 'th', 'td', 'hr', 'br', 'img']
+  })
+
+  return sanitizedHtml
+}
+
+/**
  * Loads and processes README content for a project
+ * First attempts to fetch from GitHub if configured, falls back to local files
  * @param slug The project slug (e.g., "apps-watson")
  * @returns Processed HTML content, existence status, and any errors
  */
 export async function getProjectReadmeContent(slug: string): Promise<ProjectReadmeContent> {
   try {
-    // Get the documentation file name from the mapping
+    // Get project details to check for GitHub repo
+    const project = getProjectBySlug(slug)
+    
+    // Try GitHub first if repository is configured
+    if (project?.githubRepo) {
+      try {
+        const githubResponse = await getGitHubReadme(
+          project.githubRepo,
+          project.githubBranch || 'main'
+        )
+        
+        if (githubResponse.exists && githubResponse.content) {
+          const sanitizedHtml = await processMarkdownContent(githubResponse.content)
+          
+          return {
+            html: sanitizedHtml,
+            exists: true
+          }
+        }
+      } catch (githubError: any) {
+        console.warn(`Failed to fetch from GitHub for ${slug}, falling back to local:`, githubError.message)
+        // Continue to fallback
+      }
+    }
+    
+    // Fallback to local documentation files
     const docFileName = getProjectDocumentationFile(slug)
 
     if (!docFileName) {
       return {
         html: generateFallbackContent(slug),
         exists: false,
-        error: 'No documentation file mapped for this project'
+        error: 'No documentation available for this project'
       }
     }
 
@@ -173,24 +225,7 @@ export async function getProjectReadmeContent(slug: string): Promise<ProjectRead
     try {
       // Read the markdown file
       const markdownContent = await readFile(docPath, 'utf8')
-
-      // Process the markdown with remark
-      const processed = await remark()
-        .use(remarkGfm) // Support GitHub Flavored Markdown
-        .use(remarkHtml, { sanitize: false }) // Don't sanitize yet, we'll use DOMPurify
-        .process(markdownContent)
-
-      // Apply syntax highlighting to code blocks
-      const highlightedHtml = await highlightCodeBlocks(processed.toString())
-
-      // Sanitize the HTML to prevent XSS attacks
-      const sanitizedHtml = DOMPurifyServer.sanitize(highlightedHtml, {
-        // Allow Shiki's style attributes for syntax highlighting and standard HTML attributes
-        ALLOWED_ATTR: ['class', 'style', 'data-language', 'href', 'target', 'rel', 'src', 'alt', 'title'],
-        ALLOWED_TAGS: ['pre', 'code', 'span', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 
-                       'p', 'a', 'ul', 'ol', 'li', 'blockquote', 'em', 'strong', 'del',
-                       'table', 'thead', 'tbody', 'tr', 'th', 'td', 'hr', 'br', 'img']
-      })
+      const sanitizedHtml = await processMarkdownContent(markdownContent)
 
       return {
         html: sanitizedHtml,
