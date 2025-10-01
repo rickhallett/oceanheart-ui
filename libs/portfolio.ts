@@ -1,35 +1,35 @@
 import config from "@/config";
 
 export type PortfolioProject = {
-  id: number
-  title: string
-  description: string
-  image: string
-  tech: string[]
-  externalUrl?: string
-  featured?: boolean
-  githubRepo?: string // Format: owner/repo
-  githubBranch?: string // Optional, defaults to main
-}
+  id: number;
+  title: string;
+  description: string;
+  image: string;
+  tech: string[];
+  externalUrl?: string;
+  featured?: boolean;
+  githubRepo?: string; // Format: owner/repo
+  githubBranch?: string; // Optional, defaults to main
+};
 
 export type PortfolioSection = {
-  id: string
-  title: string
-  description: string
-  projects: PortfolioProject[]
-  hidden?: boolean
-}
+  id: string;
+  title: string;
+  description: string;
+  projects: PortfolioProject[];
+  hidden?: boolean;
+};
 
 export function slugify(input: string) {
   return input
     .toLowerCase()
     .trim()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/(^-|-$)+/g, '')
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)+/g, "");
 }
 
 export function makeProjectSlug(sectionId: string, title: string) {
-  return `${sectionId}-${slugify(title)}`
+  return `${sectionId}-${slugify(title)}`;
 }
 
 // Configuration-driven approach
@@ -77,7 +77,7 @@ function resolveAppUrl(appSubdomain: string): string {
   const port = APP_PORTS[appSubdomain as keyof typeof APP_PORTS];
   const isLocal = isLocalEnvironment();
 
-  return isLocal 
+  return isLocal
     ? buildLocalUrl(appSubdomain, port)
     : buildProductionUrl(appSubdomain);
 }
@@ -87,7 +87,8 @@ export const portfolioSections: PortfolioSection[] = [
   {
     id: "apps",
     title: "Product Apps",
-    description: "Live prototypes and design studies in various stages of development. Each is a working scaffold—follow their evolution from architecture demo to full product.",
+    description:
+      "Live prototypes and design studies in various stages of development. Each is a working scaffold—follow their evolution from architecture demo to full product.",
     hidden: false,
     projects: [
       {
@@ -97,7 +98,7 @@ export const portfolioSections: PortfolioSection[] = [
           "[Prototype - Phase 1] An assessment engine for clinicians exploring AI adoption. Current build showcases the JSON form system and design language. Next milestones: authentication, analytics dashboard, and adaptive coaching logic.",
         image: "/images/preflight-gpt.png",
         tech: ["Next.js", "FastAPI", "Pydantic", "MongoDB"],
-        externalUrl: resolveAppUrl('preflight'),
+        externalUrl: resolveAppUrl("preflight"),
         featured: true,
         githubRepo: "rickhallett/preflight.oceanheart.ai",
         githubBranch: "main",
@@ -109,7 +110,7 @@ export const portfolioSections: PortfolioSection[] = [
           "[UI Scaffold] A collaborative review interface for practitioners to classify and label LLM outputs. Live demo highlights the editing surface and data schema. Next milestones: real-time diff engine and export pipeline.",
         image: "/images/watson-gpt.png",
         tech: ["Next.js", "Django", "Postgres", "TipTap"],
-        externalUrl: resolveAppUrl('watson'),
+        externalUrl: resolveAppUrl("watson"),
         featured: true,
         githubRepo: "rickhallett/watson.oceanheart.ai",
         githubBranch: "main",
@@ -125,8 +126,46 @@ export const portfolioSections: PortfolioSection[] = [
         featured: true,
         githubRepo: "rickhallett/sidekick.oceanheart.ai",
         githubBranch: "main",
-      }
-      
+      },
+    ],
+  },
+  {
+    id: "websites",
+    title: "Featured Websites",
+    description:
+      "Premium client websites showcasing modern web architectures, design excellence, and production-grade delivery. Built with performance, accessibility, and user experience as core priorities.",
+    hidden: false,
+    projects: [
+      {
+        id: 108,
+        title: "Swanage Traffic Alliance",
+        description:
+          "[Live Production] A brutalist activism website for the Swanage Traffic Alliance. Built with Astro SSR, featuring real-time data visualizations, live visit tracking, and Decap CMS integration. Deployed on Vercel with Neon PostgreSQL database.",
+        image: "/images/sta-home.png",
+        tech: ["Astro", "React", "Neon PostgreSQL", "Decap CMS", "Vercel"],
+        externalUrl: "https://www.swanagetraffic.org.uk",
+        featured: true,
+        githubRepo: "rickhallett/stadotcouk",
+        githubBranch: "main",
+      },
+      {
+        id: 109,
+        title: "Becoming Diamond",
+        description:
+          "[Live Production] A premium coaching and personal development platform. Built with Next.js 15, featuring Aceternity UI components, 3D visualizations, member portal with protected routes, and GitHub OAuth integration via Decap CMS.",
+        image: "/images/becoming-dia-globe2.png",
+        tech: [
+          "Next.js 15",
+          "React 19",
+          "Aceternity UI",
+          "Decap CMS",
+          "Vercel",
+        ],
+        externalUrl: "https://diamond.oceanheart.ai",
+        featured: true,
+        githubRepo: "rickhallett/becoming-diamond-nextjs",
+        githubBranch: "main",
+      },
     ],
   },
   {
@@ -181,53 +220,78 @@ export const portfolioSections: PortfolioSection[] = [
       },
     ],
   },
-]
+];
 
 export function getAllProjects() {
-  return portfolioSections.flatMap((section) =>
-    section.projects.map((p) => ({
-      sectionId: section.id,
-      slug: makeProjectSlug(section.id, p.title),
-      sectionTitle: section.title,
-      hidden: section.hidden,
-      ...p,
-    }))
-  ).filter((p) => !p.hidden)
+  return portfolioSections
+    .flatMap((section) =>
+      section.projects.map((p) => ({
+        sectionId: section.id,
+        slug: makeProjectSlug(section.id, p.title),
+        sectionTitle: section.title,
+        hidden: section.hidden,
+        ...p,
+      }))
+    )
+    .filter((p) => !p.hidden);
 }
 
 export function getProjectBySlug(slug: string) {
-  return getAllProjects().find((p) => p.slug === slug)
+  return getAllProjects().find((p) => p.slug === slug);
 }
 
 export function getFeaturedProjects(limit = 5) {
-  const all = getAllProjects().filter((p) => p.featured)
+  const all = getAllProjects().filter((p) => p.featured);
   // Ensure at most `limit` items and stable order by section then id
   return all
-    .sort((a, b) => (a.sectionId.localeCompare(b.sectionId) || a.id - b.id))
-    .slice(0, limit)
+    .sort((a, b) => a.sectionId.localeCompare(b.sectionId) || a.id - b.id)
+    .slice(0, limit);
 }
 
 export function getMainFeaturedProjects() {
   // Return only Preflight and Sidekick for the main featured section
-  return getAllProjects().filter((p) => 
-    p.title === 'Preflight' || p.title === 'Sidekick'
-  ).sort((a, b) => {
-    // Ensure Preflight comes first, then Sidekick
-    if (a.title === 'Preflight') return -1;
-    if (b.title === 'Preflight') return 1;
-    return 0;
-  });
+  return getAllProjects()
+    .filter((p) => p.title === "Preflight" || p.title === "Sidekick")
+    .sort((a, b) => {
+      // Ensure Preflight comes first, then Sidekick
+      if (a.title === "Preflight") return -1;
+      if (b.title === "Preflight") return 1;
+      return 0;
+    });
 }
 
 export function getLabProjects() {
   // Return Watson, Notebook, and Passport for the Labs section
-  return getAllProjects().filter((p) => 
-    p.title === 'Watson' || p.title === 'Notebook' || p.title === 'Passport'
-  ).sort((a, b) => {
-    // Order: Watson, Passport, Notebook
-    const order = { 'Watson': 1, 'Passport': 2, 'Notebook': 3 };
-    return (order[a.title as keyof typeof order] || 999) - (order[b.title as keyof typeof order] || 999);
-  });
+  return getAllProjects()
+    .filter(
+      (p) =>
+        p.title === "Watson" || p.title === "Notebook" || p.title === "Passport"
+    )
+    .sort((a, b) => {
+      // Order: Watson, Passport, Notebook
+      const order = { Watson: 1, Passport: 2, Notebook: 3 };
+      return (
+        (order[a.title as keyof typeof order] || 999) -
+        (order[b.title as keyof typeof order] || 999)
+      );
+    });
+}
+
+export function getWebsiteProjects() {
+  // Return Swanage Traffic Alliance and Becoming Diamond for the Featured Websites section
+  return getAllProjects()
+    .filter(
+      (p) =>
+        p.title === "Swanage Traffic Alliance" || p.title === "Becoming Diamond"
+    )
+    .sort((a, b) => {
+      // Order: Swanage Traffic Alliance, Becoming Diamond
+      const order = { "Swanage Traffic Alliance": 1, "Becoming Diamond": 2 };
+      return (
+        (order[a.title as keyof typeof order] || 999) -
+        (order[b.title as keyof typeof order] || 999)
+      );
+    });
 }
 
 /**
@@ -238,17 +302,21 @@ export function getLabProjects() {
 export function getProjectDocumentationFile(slug: string): string | null {
   const slugToDocMap: Record<string, string> = {
     // Apps section
-    'apps-preflight': 'preflight.md',
-    'apps-watson': 'watson.md',
-    'apps-sidekick': 'sidekick.md',
+    "apps-preflight": "preflight.md",
+    "apps-watson": "watson.md",
+    "apps-sidekick": "sidekick.md",
+
+    // Websites section
+    "websites-swanage-traffic-alliance": "swanage-traffic-alliance.md",
+    "websites-becoming-diamond": "becoming-diamond.md",
 
     // Integrations section
-    'integrations-passport': 'passport.md',
-    'integrations-oceanheart-notebook': 'notebook.md',
+    "integrations-passport": "passport.md",
+    "integrations-oceanheart-notebook": "notebook.md",
 
     // Research projects section
     // 'research-projects-exposurelab': 'exposurelab.md', // TODO: Create documentation
-  }
+  };
 
-  return slugToDocMap[slug] || null
+  return slugToDocMap[slug] || null;
 }
