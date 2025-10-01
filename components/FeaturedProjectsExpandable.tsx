@@ -83,7 +83,7 @@ export default function FeaturedProjectsExpandable({ projects }: FeaturedProject
   useOutsideClick(ref, () => setActive(null));
 
   return (
-    <section className="px-4 sm:px-8 max-w-7xl mx-auto mb-20 space-y-16">
+    <section className="px-4 sm:px-8 max-w-7xl mx-auto mb-8 space-y-12 pt-12 pb-12 relative z-10">
       <div className="text-center mb-10">
         <h2 className="font-extrabold text-3xl md:text-4xl tracking-tight bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
           Featured Work
@@ -132,7 +132,7 @@ export default function FeaturedProjectsExpandable({ projects }: FeaturedProject
             <motion.div
               layoutId={`card-${active.title}-${id}`}
               ref={ref}
-              className="w-full max-w-[600px] h-full max-h-[90vh] flex flex-col bg-base-100 rounded-2xl md:rounded-3xl shadow-2xl mx-auto my-auto"
+              className="w-full max-w-[600px] h-full max-h-[90vh] flex flex-col bg-base-100 rounded-2xl md:rounded-3xl shadow-2xl mx-auto my-auto border border-base-300"
             >
               {/* Scrollable container */}
               <div className="flex flex-col h-full overflow-y-auto">
@@ -216,9 +216,9 @@ export default function FeaturedProjectsExpandable({ projects }: FeaturedProject
             onClick={() => setActive(project)}
             className="group cursor-pointer h-full"
           >
-            <div className="bg-base-200 rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 h-full flex flex-col">
+            <div className="bg-base-200/95 backdrop-blur-sm rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 h-full flex flex-col">
               <motion.div layoutId={`image-${project.title}-${id}`}>
-                <div className="relative w-full h-48 overflow-hidden">
+                <div className="relative w-full h-56 overflow-hidden">
                   <Image
                     src={project.image}
                     alt={project.title}

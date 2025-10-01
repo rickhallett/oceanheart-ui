@@ -83,12 +83,12 @@ export default function LabsProjectsExpandable({ projects }: LabsProjectsExpanda
   useOutsideClick(ref, () => setActive(null));
 
   return (
-    <section className="px-4 sm:px-8 max-w-7xl mx-auto mb-20 space-y-16">
+    <section className="px-4 sm:px-8 max-w-7xl mx-auto mb-8 space-y-12 pt-12 pb-12 relative z-10">
       <div className="text-center mb-10">
-        <h2 className="font-extrabold text-2xl md:text-3xl tracking-tight text-base-content/80">
+        <h2 className="font-extrabold text-3xl md:text-4xl tracking-tight bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
           Labs & Experiments
         </h2>
-        <p className="text-base-content/60 max-w-3xl mx-auto mt-3 text-sm">
+        <p className="text-base-content/80 max-w-3xl mx-auto mt-3">
           Demo-stage prototypes for private learning and maturation. Exploring full-stack development patterns.
         </p>
       </div>
@@ -132,7 +132,7 @@ export default function LabsProjectsExpandable({ projects }: LabsProjectsExpanda
             <motion.div
               layoutId={`lab-card-${active.title}-${id}`}
               ref={ref}
-              className="w-full max-w-[600px] h-full max-h-[90vh] flex flex-col bg-base-100 rounded-2xl md:rounded-3xl shadow-2xl mx-auto my-auto"
+              className="w-full max-w-[600px] h-full max-h-[90vh] flex flex-col bg-base-100 rounded-2xl md:rounded-3xl shadow-2xl mx-auto my-auto border border-base-300"
             >
               {/* Scrollable container */}
               <div className="flex flex-col h-full overflow-y-auto">
@@ -214,11 +214,11 @@ export default function LabsProjectsExpandable({ projects }: LabsProjectsExpanda
             layoutId={`lab-card-${project.title}-${id}`}
             key={`${project.sectionId}-${project.id}`}
             onClick={() => setActive(project)}
-            className="group cursor-pointer opacity-60 hover:opacity-90 transition-opacity"
+            className="group cursor-pointer h-full"
           >
-            <div className="bg-base-200/60 rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5">
+            <div className="bg-base-200/95 backdrop-blur-sm rounded-xl overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 h-full flex flex-col">
               <motion.div layoutId={`lab-image-${project.title}-${id}`}>
-                <div className="relative w-full h-48 overflow-hidden opacity-75">
+                <div className="relative w-full h-48 overflow-hidden">
                   <Image
                     src={project.image}
                     alt={project.title}
@@ -228,36 +228,36 @@ export default function LabsProjectsExpandable({ projects }: LabsProjectsExpanda
                   />
                 </div>
               </motion.div>
-              <div className="p-4">
+              <div className="p-6 flex flex-col flex-grow">
                 <motion.h3
                   layoutId={`lab-title-${project.title}-${id}`}
-                  className="font-semibold text-base mb-1.5 text-base-content/90 group-hover:text-base-content transition-colors"
+                  className="font-bold text-lg mb-2 group-hover:text-primary transition-colors"
                 >
                   {project.title}
                 </motion.h3>
-                <p className="text-base-content/60 mb-3 line-clamp-2 text-sm">
+                <p className="text-base-content/70 mb-4 line-clamp-2 flex-grow">
                   {project.description}
                 </p>
-                <div className="flex flex-wrap gap-1.5 mb-3">
-                  {project.tech.slice(0, 2).map((tech, techIndex) => (
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {project.tech.slice(0, 3).map((tech, techIndex) => (
                     <span
                       key={`${tech}-${project.id}-${techIndex}`}
-                      className="inline-block px-2 py-0.5 text-xs font-medium bg-base-300/50 text-base-content/60 rounded-full"
+                      className="inline-block px-2 py-1 text-xs font-medium bg-primary/10 text-primary rounded-full border border-primary/20"
                     >
                       {tech}
                     </span>
                   ))}
-                  {project.tech.length > 2 && (
-                    <span className="inline-block px-2 py-0.5 text-xs font-medium text-base-content/50">
-                      +{project.tech.length - 2}
+                  {project.tech.length > 3 && (
+                    <span className="inline-block px-2 py-1 text-xs font-medium text-base-content/60">
+                      +{project.tech.length - 3} more
                     </span>
                   )}
                 </div>
                 <motion.button
                   layoutId={`lab-button-${project.title}-${id}`}
-                  className="btn btn-ghost btn-xs w-full opacity-70 hover:opacity-100"
+                  className="btn btn-outline btn-sm group-hover:btn-primary transition-all w-full mt-auto"
                 >
-                  Explore
+                  View Details
                 </motion.button>
               </div>
             </div>

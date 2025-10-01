@@ -3,8 +3,9 @@ import config from "@/config";
 import { getSEOTags } from "@/libs/seo";
 import FeaturedProjectsExpandable from "@/components/FeaturedProjectsExpandable";
 import LabsProjectsExpandable from "@/components/LabsProjectsExpandable";
+import WebsitesExpandable from "@/components/WebsitesExpandable";
 import EnhancedBookTabs from "@/components/EnhancedBookTabs";
-import { portfolioSections, getMainFeaturedProjects, getLabProjects } from "@/libs/portfolio";
+import { portfolioSections, getMainFeaturedProjects, getLabProjects, getWebsiteProjects } from "@/libs/portfolio";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Vortex } from "@/components/ui/vortex";
@@ -24,7 +25,11 @@ export default function PortfolioPage() {
       <Suspense>
         <Header />
       </Suspense>
-      <main className="bg-base-100">
+      <main className="relative bg-gradient-to-br from-base-100 via-primary/5 to-secondary/5">
+        {/* Animated gradient mesh overlay */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-secondary/10 via-transparent to-transparent pointer-events-none" />
+
         {/* Hero Section with Vortex Background */}
         <section className="relative mb-16 overflow-hidden">
           {/* Top fade to blend with header */}
@@ -46,24 +51,26 @@ export default function PortfolioPage() {
               <div className="mb-8">
                 <TextGenerateEffect
                   words="Oceanheart Labs"
-                  className="font-extrabold text-4xl md:text-6xl tracking-tight bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"
+                  className="font-extrabold text-5xl md:text-7xl lg:text-8xl tracking-tight bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"
                   duration={0.5}
                 />
               </div>
               <div className="max-w-4xl mx-auto">
                 <p className="text-lg md:text-xl opacity-90 mx-auto mb-8 leading-relaxed">
                   <span className="font-semibold text-secondary/50">Prototypes at the frontier</span> of AI, wellbeing, and web engineering.<br />
-                  <span className="font-semibold text-secondary/70">Working scaffolds</span>—open invitations to follow their evolution.<br />
-                  <span className="font-semibold text-secondary/90">From architecture demo to full product</span>, watch them grow in real-time.<br />
+                  <span className="font-semibold text-secondary/70">Production quality websites</span> that I build and maintain.<br />
+                  <span className="font-semibold text-secondary/90">From architecture demos to full products</span>, watch them grow in real-time.<br />
                 </p>
               </div>
             </div>
           </Vortex>
-          {/* Gentle fade to background */}
-          <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-base-100 to-transparent pointer-events-none" />
         </section>
+
         {/* Featured Projects with Expandable Cards */}
         <FeaturedProjectsExpandable projects={getMainFeaturedProjects()} />
+
+        {/* Featured Websites Section */}
+        <WebsitesExpandable projects={getWebsiteProjects()} />
 
         {/* Labs Section with Experimental Projects */}
         <LabsProjectsExpandable projects={getLabProjects()} />
@@ -75,8 +82,8 @@ export default function PortfolioPage() {
 
         {/* Call-to-Action Section with Vortex Background */}
         <section className="relative overflow-hidden bg-gradient-to-r from-neutral to-neutral-focus text-neutral-content">
-          {/* Top fade for smooth transition */}
-          <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-base-100 to-transparent pointer-events-none z-10" />
+          {/* Top fade for smooth transition - aggressive fade */}
+          <div className="absolute top-0 left-0 right-0 h-48 bg-gradient-to-b from-base-100 via-base-100/50 to-transparent pointer-events-none z-10" />
 
           <Vortex
             backgroundColor="transparent"
@@ -85,7 +92,7 @@ export default function PortfolioPage() {
             baseHue={220}
             className="flex items-center justify-center px-4 sm:px-8 py-20 w-full h-full"
           >
-            <div className="max-w-3xl mx-auto text-center p-8 bg-black/20 backdrop-blur-sm rounded-xl relative z-10">
+            <div className="max-w-3xl mx-auto text-center p-8 bg-neutral/95 backdrop-blur-sm rounded-xl relative z-10 shadow-2xl border border-neutral-content/10">
               <h2 className="font-bold text-xl md:text-2xl mb-5">
                 Ready to <span className="text-primary">drive results</span>?
               </h2>
