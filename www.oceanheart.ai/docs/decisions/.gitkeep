@@ -1,0 +1,20 @@
+# Architecture Decision Records (ADRs)
+
+Place architecture decision records here using the ADR format.
+
+Format: {number}-{kebab-case-decision}.adr.md
+
+Examples:
+- 001-use-nextjs-app-router.adr.md
+- 002-adopt-kaishin-design-system.adr.md
+- 003-choose-postgresql-over-mongodb.adr.md
+
+## ADR Template
+
+Each ADR should include:
+1. Title
+2. Status (Proposed, Accepted, Deprecated, Superseded)
+3. Context (What is the issue we're addressing?)
+4. Decision (What is the change we're proposing?)
+5. Consequences (What becomes easier or harder?)
+6. Alternatives Considered
