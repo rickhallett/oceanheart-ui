@@ -1,0 +1,21 @@
+/**
+ * Client-Side Providers Wrapper
+ *
+ * Wraps the application with necessary providers.
+ * Must be a client component to use React Context.
+ */
+
+"use client";
+
+import { UserProvider } from "@/contexts/UserContext";
+import { CourseProvider } from "@/contexts/CourseContext";
+
+export function Providers({ children }: { children: React.ReactNode }) {
+  return (
+    <UserProvider>
+      <CourseProvider>
+        {children}
+      </CourseProvider>
+    </UserProvider>
+  );
+}
