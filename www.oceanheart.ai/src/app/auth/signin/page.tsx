@@ -2,20 +2,19 @@
 
 import { signIn } from "next-auth/react";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Spotlight } from "@/components/ui/spotlight";
-import { IconBrandGoogle, IconBrandGithub, IconMail, IconFlask } from "@tabler/icons-react";
-import { useUser } from "@/contexts/UserContext";
+import { IconBrandGoogle, IconBrandGithub, IconMail } from "@tabler/icons-react";
 import { AUTH_CONFIG } from "@/config/features";
 
 export default function SignInPage() {
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [emailSent, setEmailSent] = useState(false);
-  const router = useRouter();
-  const { login } = useUser();
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl") || AUTH_CONFIG.successRedirectUri;
 
   const handleEmailSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,7 +24,7 @@ export default function SignInPage() {
       const result = await signIn("resend", {
         email,
         redirect: false,
-        callbackUrl: AUTH_CONFIG.successRedirectUri,
+        callbackUrl,
       });
 
       if (result?.ok) {
@@ -39,12 +38,7 @@ export default function SignInPage() {
   };
 
   const handleOAuthSignIn = (provider: "google" | "github") => {
-    signIn(provider, { callbackUrl: AUTH_CONFIG.successRedirectUri });
-  };
-
-  const handleTestLogin = () => {
-    login("test-user-" + Date.now(), "test");
-    router.push(AUTH_CONFIG.successRedirectUri);
+    signIn(provider, { callbackUrl });
   };
 
   if (emailSent) {
@@ -171,27 +165,6 @@ export default function SignInPage() {
             </button>
           </div>
 
-          {/* Test Login (Development) */}
-          {process.env.NODE_ENV === "development" && (
-            <>
-              <div className="relative flex items-center justify-center my-6">
-                <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-yellow-500/20"></div>
-                </div>
-                <div className="relative bg-secondary px-4 text-xs text-yellow-500/60">
-                  Development Only
-                </div>
-              </div>
-
-              <button
-                onClick={handleTestLogin}
-                className="w-full bg-yellow-500/10 hover:bg-yellow-500/20 border border-yellow-500/30 text-yellow-500 font-medium py-3 px-6 rounded-lg transition-all flex items-center justify-center gap-2"
-              >
-                <IconFlask className="w-5 h-5" />
-                Test Login (Bypass Auth)
-              </button>
-            </>
-          )}
 
           {/* Footer */}
           <div className="mt-6 text-center">

@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { useSession, signOut } from "next-auth/react";
 import { cn } from "@/lib/utils";
 import {
     IconHome,
@@ -16,17 +17,16 @@ import {
     IconHeadphones,
     IconLogout,
 } from "@tabler/icons-react";
-import { useUser } from "@/contexts/UserContext";
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
     const router = useRouter();
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-    const { user, logout } = useUser();
+    const { data: session } = useSession();
+    const user = session?.user;
 
-    const handleLogout = () => {
-        logout();
-        router.push('/auth/signin');
+    const handleLogout = async () => {
+        await signOut({ callbackUrl: '/auth/signin' });
     };
 
     const navItems = [
@@ -97,10 +97,10 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                     {user && (
                         <div className="flex items-center gap-3 px-4 py-3 rounded-sm bg-white/[0.05] border border-white/[0.1]">
                             <div className="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center">
-                                {user.avatar ? (
-                                    <img src={user.avatar} alt={user.name} className="w-full h-full rounded-full object-cover" />
+                                {user.image ? (
+                                    <img src={user.image} alt={user.name || "User"} className="w-full h-full rounded-full object-cover" />
                                 ) : (
-                                    <span className="text-gold font-medium">{user.name.charAt(0).toUpperCase()}</span>
+                                    <span className="text-gold font-medium">{user.name?.charAt(0).toUpperCase() || "U"}</span>
                                 )}
                             </div>
                             <div className="flex-1 min-w-0">
@@ -206,10 +206,10 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                             {user && (
                                 <div className="flex items-center gap-3 px-4 py-3 rounded-sm bg-white/[0.05] border border-white/[0.1]">
                                     <div className="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center">
-                                        {user.avatar ? (
-                                            <img src={user.avatar} alt={user.name} className="w-full h-full rounded-full object-cover" />
+                                        {user.image ? (
+                                            <img src={user.image} alt={user.name || "User"} className="w-full h-full rounded-full object-cover" />
                                         ) : (
-                                            <span className="text-gold font-medium">{user.name.charAt(0).toUpperCase()}</span>
+                                            <span className="text-gold font-medium">{user.name?.charAt(0).toUpperCase() || "U"}</span>
                                         )}
                                     </div>
                                     <div className="flex-1 min-w-0">
