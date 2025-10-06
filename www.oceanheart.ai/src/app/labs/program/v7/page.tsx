@@ -647,7 +647,7 @@ export default function ProgramV7Page() {
 
               <div className="mt-8 md:mt-12 bg-black/80 border-2 border-gold/30 p-4 md:p-8 font-mono">
                 <p className="text-gold mb-3 md:mb-4 text-base md:text-lg">
-                  "Number go up. Lizard brain get excite."
+                  &ldquo;Number go up. Lizard brain get excite.&rdquo;
                 </p>
                 <p className="text-zinc-400 text-xs md:text-sm font-light">
                   This is data-driven spiritual engineering. Every exercise recorded.
