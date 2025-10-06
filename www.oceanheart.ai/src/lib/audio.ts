@@ -48,6 +48,11 @@ export async function getAllAudioRecordings(options?: {
   userId?: string;
 }): Promise<AudioWithProgress[]> {
   try {
+    if (!turso) {
+      console.warn("Turso database not configured");
+      return [];
+    }
+
     let sql = `
       SELECT
         ar.*,
@@ -117,6 +122,11 @@ export async function getAudioRecordingById(
   userId?: string
 ): Promise<AudioWithProgress | null> {
   try {
+    if (!turso) {
+      console.warn("Turso database not configured");
+      return null;
+    }
+
     const result = await turso.execute({
       sql: `
         SELECT
@@ -177,6 +187,10 @@ export async function createAudioRecording(data: {
   tags?: string[];
 }): Promise<AudioRecording> {
   try {
+    if (!turso) {
+      throw new Error("Turso database not configured");
+    }
+
     const id = crypto.randomUUID();
     const now = Math.floor(Date.now() / 1000);
 
@@ -230,6 +244,10 @@ export async function updateAudioRecording(
   }>
 ): Promise<AudioRecording | null> {
   try {
+    if (!turso) {
+      throw new Error("Turso database not configured");
+    }
+
     const now = Math.floor(Date.now() / 1000);
     const updates: string[] = ['updated_at = ?'];
     const args: (string | number | null)[] = [now];
@@ -278,6 +296,10 @@ export async function updateAudioRecording(
  */
 export async function deleteAudioRecording(id: string): Promise<void> {
   try {
+    if (!turso) {
+      throw new Error("Turso database not configured");
+    }
+
     await turso.execute({
       sql: 'DELETE FROM audio_recordings WHERE id = ?',
       args: [id],
@@ -293,6 +315,10 @@ export async function deleteAudioRecording(id: string): Promise<void> {
  */
 export async function incrementListenCount(recordingId: string): Promise<void> {
   try {
+    if (!turso) {
+      throw new Error("Turso database not configured");
+    }
+
     await turso.execute({
       sql: 'UPDATE audio_recordings SET listen_count = listen_count + 1 WHERE id = ?',
       args: [recordingId],
@@ -313,6 +339,10 @@ export async function saveAudioProgress(data: {
   completed?: boolean;
 }): Promise<AudioProgress> {
   try {
+    if (!turso) {
+      throw new Error("Turso database not configured");
+    }
+
     const now = Math.floor(Date.now() / 1000);
 
     // Check if progress already exists
@@ -388,6 +418,11 @@ export async function getAudioProgress(
   recordingId: string
 ): Promise<AudioProgress | null> {
   try {
+    if (!turso) {
+      console.warn("Turso database not configured");
+      return null;
+    }
+
     const result = await turso.execute({
       sql: `SELECT * FROM audio_progress WHERE user_id = ? AND recording_id = ?`,
       args: [userId, recordingId],
