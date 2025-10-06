@@ -8,7 +8,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useUser } from '@/contexts/UserContext';
+import { useSession } from 'next-auth/react';
 import {
   IconSearch,
   IconPlus,
@@ -21,7 +21,8 @@ import type { AudioWithProgress } from '@/lib/audio';
 import { cn } from '@/lib/utils';
 
 export default function AudioLibraryPage() {
-  const { user } = useUser();
+  const { data: session } = useSession();
+  const user = session?.user;
   const [recordings, setRecordings] = useState<AudioWithProgress[]>([]);
   const [filteredRecordings, setFilteredRecordings] = useState<AudioWithProgress[]>([]);
   const [activeCategory, setActiveCategory] = useState<AudioCategory>('all');

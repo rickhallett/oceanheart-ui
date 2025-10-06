@@ -9,7 +9,7 @@ import React, { useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { useUser } from '@/contexts/UserContext';
+import { useSession } from 'next-auth/react';
 import {
   IconArrowLeft,
   IconUpload,
@@ -19,7 +19,9 @@ import { UploadForm } from '@/components/audio/UploadForm';
 
 export default function AudioUploadPage() {
   const router = useRouter();
-  const { user, isLoading } = useUser();
+  const { data: session, status } = useSession();
+  const isLoading = status === 'loading';
+  const user = session?.user;
 
   const isAdmin = user?.email?.endsWith('@oceanheart.ai');
 

@@ -9,7 +9,7 @@ import React, { useState, useEffect, use } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { useUser } from '@/contexts/UserContext';
+import { useSession } from 'next-auth/react';
 import {
   IconArrowLeft,
   IconHeadphones,
@@ -39,7 +39,8 @@ interface AudioDetailPageProps {
 export default function AudioDetailPage({ params }: AudioDetailPageProps) {
   const resolvedParams = use(params);
   const router = useRouter();
-  const { user } = useUser();
+  const { data: session } = useSession();
+  const user = session?.user;
   const [recording, setRecording] = useState<AudioWithProgress | null>(null);
   const [relatedRecordings, setRelatedRecordings] = useState<AudioWithProgress[]>([]);
   const [isLoading, setIsLoading] = useState(true);
