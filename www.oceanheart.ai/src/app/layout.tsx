@@ -47,13 +47,13 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: "The Kaishin Method",
-  description: "A 90-day transformation that integrates your Mental, Emotional, Physical, Energetic, and Spiritual bodies into a unified system for lasting change.",
+  title: "oceanheart.ai",
+  description: "Engineering-focused consulting and AI solutions. Building robust systems with precision and purpose.",
   other: {
     'mobile-web-app-capable': 'yes',
     'apple-mobile-web-app-capable': 'yes',
     'apple-mobile-web-app-status-bar-style': 'black-translucent',
-    'apple-mobile-web-app-title': 'Kaishin Method',
+    'apple-mobile-web-app-title': 'oceanheart.ai',
   },
 };
 

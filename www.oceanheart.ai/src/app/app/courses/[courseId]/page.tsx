@@ -23,13 +23,13 @@ export async function generateMetadata({ params }: PageProps) {
 
   if (!course) {
     return {
-      title: "Course Not Found | Pheonix Oceanheart",
+      title: "Course Not Found | oceanheart.ai",
     };
   }
 
   return {
-    title: `${course.title} | Pheonix Oceanheart`,
-    description: course.metadata.description || `Learn ${course.title} with Pheonix Oceanheart`,
+    title: `${course.title} | oceanheart.ai`,
+    description: course.metadata.description || `Learn ${course.title} with oceanheart.ai`,
   };
 }
 
