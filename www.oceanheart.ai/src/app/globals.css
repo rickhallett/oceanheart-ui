@@ -671,3 +671,149 @@ html {
     50% { border-color: var(--tokyo-cyan) }
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+ * TOKYO NIGHT SYNTAX HIGHLIGHTING
+ * For code blocks in blog posts and documentation
+ * ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Base code block styling */
+pre code.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 1.5rem;
+  background: var(--tokyo-bg-tertiary);
+  color: var(--tokyo-text-primary);
+  font-family: var(--font-terminal);
+  font-size: 0.875rem;
+  line-height: 1.7;
+}
+
+code.hljs {
+  padding: 0.25rem 0.5rem;
+}
+
+/* Tokyo Night Storm Theme */
+.hljs {
+  color: #c0caf5;
+  background: #1a1b26;
+}
+
+/* Comments */
+.hljs-comment,
+.hljs-quote {
+  color: #565f89;
+  font-style: italic;
+}
+
+/* Keywords, Tags */
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-tag {
+  color: #bb9af7;
+}
+
+/* Strings */
+.hljs-string,
+.hljs-attr,
+.hljs-selector-attr,
+.hljs-selector-pseudo,
+.hljs-addition {
+  color: #9ece6a;
+}
+
+/* Numbers */
+.hljs-number,
+.hljs-literal {
+  color: #ff9e64;
+}
+
+/* Functions, Methods */
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-type,
+.hljs-title,
+.hljs-title.class_,
+.hljs-title.function_ {
+  color: #7aa2f7;
+}
+
+/* Variables, Parameters */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-attribute,
+.hljs-params {
+  color: #c0caf5;
+}
+
+/* Operators, Punctuation */
+.hljs-symbol,
+.hljs-bullet,
+.hljs-link,
+.hljs-meta,
+.hljs-selector-id {
+  color: #7dcfff;
+}
+
+/* Class names, Types */
+.hljs-class .hljs-title,
+.hljs-title.class_,
+.hljs-doctag {
+  color: #7dcfff;
+}
+
+/* Regex */
+.hljs-regexp {
+  color: #b4f9f8;
+}
+
+/* Deletion */
+.hljs-deletion {
+  color: #f7768e;
+}
+
+/* Section, Name */
+.hljs-section,
+.hljs-name {
+  color: #f7768e;
+}
+
+/* Template literals */
+.hljs-subst {
+  color: #c0caf5;
+}
+
+/* Emphasis */
+.hljs-emphasis {
+  font-style: italic;
+}
+
+/* Strong */
+.hljs-strong {
+  font-weight: bold;
+}
+
+/* Links in code */
+.hljs-link {
+  text-decoration: underline;
+}
+
+/* Property names (JSON, CSS) */
+.hljs-property {
+  color: #73daca;
+}
+
+/* Selector class */
+.hljs-selector-class {
+  color: #7dcfff;
+}
+
+/* Self/This keyword */
+.hljs-variable.language_ {
+  color: #f7768e;
+}
+
+/* Constant */
+.hljs-variable.constant_ {
+  color: #ff9e64;
+}
