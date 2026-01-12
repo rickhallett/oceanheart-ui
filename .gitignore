@@ -1,0 +1,6 @@
+# Archive folder
+/archive
+
+# macOS
+.DS_Store
+._*
