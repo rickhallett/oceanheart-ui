@@ -1,4 +1,4 @@
-import { Noto_Serif, Noto_Sans, Noto_Serif_JP, Geist_Mono } from "next/font/google";
+import { Noto_Serif, Noto_Sans, Noto_Serif_JP, Geist_Mono, JetBrains_Mono, Inter } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { ChatProvider } from "@/contexts/ChatContext";
 import { Providers } from "./providers";
@@ -30,6 +30,21 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+// Terminal aesthetic fonts for oceanheart.ai rebrand
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains-mono",
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
+  display: "swap",
+});
+
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
+  display: "swap",
+});
+
 export const metadata = {
   title: "The Kaishin Method",
   description: "A 90-day transformation that integrates your Mental, Emotional, Physical, Energetic, and Spiritual bodies into a unified system for lasting change.",
@@ -57,7 +72,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${notoSerif.variable} ${notoSans.variable} ${notoSerifJP.variable} ${geistMono.variable} antialiased`}
+        className={`${notoSerif.variable} ${notoSans.variable} ${notoSerifJP.variable} ${geistMono.variable} ${jetbrainsMono.variable} ${inter.variable} antialiased`}
       >
         <Providers>
           <ChatProvider>

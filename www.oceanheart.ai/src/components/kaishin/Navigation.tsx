@@ -3,7 +3,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { IconMenu2, IconX } from "@tabler/icons-react";
+import { IconMenu2, IconX, IconBrandGithub } from "@tabler/icons-react";
 
 export function Navigation() {
   const pathname = usePathname();
@@ -11,7 +11,7 @@ export function Navigation() {
   const [dropdownOpen, setDropdownOpen] = useState<string | null>(null);
 
   // Determine if we're on an Oceanheart page
-  const isOceanheartPage = ['/kai', '/consulting', '/portfolio', '/blog'].some(path => pathname.startsWith(path));
+  const isOceanheartPage = ['/kai', '/consulting', '/portfolio', '/cv', '/blog'].some(path => pathname.startsWith(path));
 
   const navLinks = [
     { href: "/", label: "Home" },
@@ -26,6 +26,7 @@ export function Navigation() {
     { href: "/kai", label: "Private Sessions" },
     { href: "/consulting", label: "AI Consulting" },
     { href: "/portfolio", label: "Engineering Portfolio" },
+    { href: "/cv", label: "CV" },
     { href: "/blog", label: "Blog" },
   ];
 
@@ -104,13 +105,24 @@ export function Navigation() {
           })}
         </div>
 
-        {/* CTA Button */}
-        <Link
-          href="/program#start"
-          className="hidden md:block btn-primary"
-        >
-          Begin Your Journey
-        </Link>
+        {/* GitHub Link + CTA Button */}
+        <div className="hidden md:flex items-center gap-4">
+          <a
+            href="https://github.com/oceanheart-ai"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-zinc-400 hover:text-terminal-cyan transition-colors p-2"
+            aria-label="GitHub"
+          >
+            <IconBrandGithub className="w-5 h-5" />
+          </a>
+          <Link
+            href="/program#start"
+            className="btn-primary"
+          >
+            Begin Your Journey
+          </Link>
+        </div>
 
         {/* Mobile Menu Button */}
         <button
@@ -191,6 +203,16 @@ export function Navigation() {
                     );
                   }
                 })}
+                <a
+                  href="https://github.com/oceanheart-ai"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center gap-2 text-sm font-light tracking-wide text-zinc-400 hover:text-terminal-cyan transition-colors"
+                >
+                  <IconBrandGithub className="w-5 h-5" />
+                  GitHub
+                </a>
                 <Link
                   href="/app"
                   onClick={() => setMobileMenuOpen(false)}

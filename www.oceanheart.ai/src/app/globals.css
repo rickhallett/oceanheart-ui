@@ -80,10 +80,59 @@
   --color-zinc-700: var(--zinc-700);
   --color-zinc-800: var(--zinc-800);
   --color-zinc-900: var(--zinc-900);
+
+  /* Tokyo Night Terminal Theme Colors */
+  --color-terminal: var(--tokyo-text-primary);
+  --color-terminal-secondary: var(--tokyo-text-secondary);
+  --color-terminal-muted: var(--tokyo-text-muted);
+  --color-terminal-cyan: var(--tokyo-cyan);
+  --color-terminal-blue: var(--tokyo-blue);
+  --color-terminal-purple: var(--tokyo-purple);
+  --color-terminal-green: var(--tokyo-green);
+  --color-terminal-orange: var(--tokyo-orange);
+  --color-terminal-red: var(--tokyo-red);
+
+  /* Tokyo Night Background Colors */
+  --color-terminal-bg: var(--tokyo-bg-primary);
+  --color-terminal-bg-secondary: var(--tokyo-bg-secondary);
+  --color-terminal-bg-tertiary: var(--tokyo-bg-tertiary);
 }
 
 :root {
   --radius: 0;
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+   * TOKYO NIGHT TERMINAL THEME - oceanheart.ai rebrand
+   * "I build systems that understand people."
+   * ═══════════════════════════════════════════════════════════════════════════ */
+
+  /* Tokyo Night Storm - Base Colors */
+  --tokyo-bg-primary: #1a1b26;
+  --tokyo-bg-secondary: #24283b;
+  --tokyo-bg-tertiary: #414868;
+
+  /* Tokyo Night - Text Colors */
+  --tokyo-text-primary: #c0caf5;
+  --tokyo-text-secondary: #a9b1d6;
+  --tokyo-text-muted: #565f89;
+
+  /* Tokyo Night - Accent Colors */
+  --tokyo-cyan: #7dcfff;
+  --tokyo-blue: #7aa2f7;
+  --tokyo-purple: #bb9af7;
+  --tokyo-green: #9ece6a;
+  --tokyo-orange: #ff9e64;
+  --tokyo-red: #f7768e;
+
+  /* Tokyo Night - Syntax highlighting style */
+  --tokyo-keyword: #bb9af7;
+  --tokyo-string: #9ece6a;
+  --tokyo-function: #7aa2f7;
+  --tokyo-comment: #565f89;
+
+  /* Terminal Typography */
+  --font-terminal: var(--font-jetbrains-mono), 'JetBrains Mono', 'Fira Code', 'SF Mono', var(--font-geist-mono), monospace;
+  --font-sans-modern: var(--font-inter), 'Inter', 'SF Pro', system-ui, sans-serif;
 
   /* The Kaishin Method - Dark Theme (Aceternity-Inspired) */
   /* Base Dark Colors */
@@ -554,5 +603,71 @@ html {
   /* Subtle background accents */
   .bg-accent-subtle {
     background: rgba(212, 165, 116, 0.08);
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+   * TOKYO NIGHT TERMINAL UTILITIES
+   * For the oceanheart.ai rebrand - engineering-first identity
+   * ═══════════════════════════════════════════════════════════════════════════ */
+
+  /* Terminal Monospace Font - Custom utility */
+  .font-terminal {
+    font-family: var(--font-terminal);
+  }
+
+  /* Terminal Prompt Styling */
+  .terminal-prompt::before {
+    content: "$ ";
+    color: var(--tokyo-green);
+    font-family: var(--font-terminal);
+  }
+
+  /* Terminal Card */
+  .card-terminal {
+    @apply border border-white/10 bg-terminal-bg-secondary;
+    border-radius: 2px;
+    transition: box-shadow 0.2s ease;
+  }
+  .card-terminal:hover {
+    box-shadow: 0 0 20px rgba(125, 207, 255, 0.1);
+  }
+
+  /* Terminal Glow Effects */
+  .glow-terminal-cyan {
+    box-shadow: 0 0 20px rgba(125, 207, 255, 0.3), 0 0 40px rgba(125, 207, 255, 0.15);
+  }
+  .glow-terminal-blue {
+    box-shadow: 0 0 20px rgba(122, 162, 247, 0.3), 0 0 40px rgba(122, 162, 247, 0.15);
+  }
+  .glow-terminal-purple {
+    box-shadow: 0 0 20px rgba(187, 154, 247, 0.3), 0 0 40px rgba(187, 154, 247, 0.15);
+  }
+  .glow-terminal-green {
+    box-shadow: 0 0 20px rgba(158, 206, 106, 0.3), 0 0 40px rgba(158, 206, 106, 0.15);
+  }
+
+  /* Cursor Blink Animation */
+  .cursor-blink {
+    animation: cursor-blink 1s step-end infinite;
+  }
+  @keyframes cursor-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  /* Typewriter Effect */
+  .typewriter {
+    overflow: hidden;
+    border-right: 2px solid var(--tokyo-cyan);
+    white-space: nowrap;
+    animation: typing 2s steps(40, end), blink-caret 0.75s step-end infinite;
+  }
+  @keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+  }
+  @keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: var(--tokyo-cyan) }
   }
 }

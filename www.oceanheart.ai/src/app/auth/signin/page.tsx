@@ -1,7 +1,7 @@
 "use client";
 
 import { signIn } from "next-auth/react";
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -9,7 +9,7 @@ import { Spotlight } from "@/components/ui/spotlight";
 import { IconBrandGoogle, IconBrandGithub, IconMail } from "@tabler/icons-react";
 import { AUTH_CONFIG } from "@/config/features";
 
-export default function SignInPage() {
+function SignInForm() {
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [emailSent, setEmailSent] = useState(false);
@@ -178,5 +178,17 @@ export default function SignInPage() {
         </div>
       </motion.div>
     </main>
+  );
+}
+
+export default function SignInPage() {
+  return (
+    <Suspense fallback={
+      <main className="relative bg-black min-h-screen flex items-center justify-center">
+        <div className="text-zinc-400">Loading...</div>
+      </main>
+    }>
+      <SignInForm />
+    </Suspense>
   );
 }

@@ -1,7 +1,11 @@
+export type ProjectStatus = "production" | "prototype" | "experiment" | "archived";
+
 export type PortfolioProject = {
   id: number;
   title: string;
   description: string;
+  problem?: string; // One-sentence problem statement
+  solution?: string; // One-sentence solution
   image: string;
   tech: string[];
   externalUrl?: string;
@@ -9,6 +13,9 @@ export type PortfolioProject = {
   githubRepo?: string; // Format: owner/repo
   githubBranch?: string; // Optional, defaults to main
   category: "apps" | "websites" | "integrations" | "research";
+  status?: ProjectStatus; // Production, Prototype, Experiment
+  impact?: string; // Impact metric if available
+  currentlyBuilding?: boolean; // Is this actively being worked on
 };
 
 export type PortfolioSection = {
@@ -44,7 +51,9 @@ export const portfolioSections: PortfolioSection[] = [
         id: 101,
         title: "Preflight",
         description:
-          "[Prototype - Phase 1] An assessment engine for clinicians exploring AI adoption. Current build showcases the JSON form system and design language. Next milestones: authentication, analytics dashboard, and adaptive coaching logic.",
+          "An assessment engine for clinicians exploring AI adoption. Current build showcases the JSON form system and design language.",
+        problem: "Clinicians need structured ways to evaluate their readiness for AI integration.",
+        solution: "A dynamic assessment engine that adapts questions based on responses and generates personalized adoption roadmaps.",
         image: "/images/preflight-gpt.png",
         tech: ["Next.js", "FastAPI", "Pydantic", "MongoDB"],
         externalUrl: "https://preflight.oceanheart.ai",
@@ -52,12 +61,16 @@ export const portfolioSections: PortfolioSection[] = [
         githubRepo: "rickhallett/preflight.oceanheart.ai",
         githubBranch: "main",
         category: "apps",
+        status: "prototype",
+        currentlyBuilding: true,
       },
       {
         id: 102,
         title: "Watson",
         description:
-          "[UI Scaffold] A collaborative review interface for practitioners to classify and label LLM outputs. Live demo highlights the editing surface and data schema. Next milestones: real-time diff engine and export pipeline.",
+          "A collaborative review interface for practitioners to classify and label LLM outputs with real-time diff tracking.",
+        problem: "Teams reviewing AI outputs lack structured tools for classification and quality feedback.",
+        solution: "A TipTap-powered editing surface with data schema for collaborative LLM output labeling.",
         image: "/images/watson-gpt.png",
         tech: ["Next.js", "Django", "Postgres", "TipTap"],
         externalUrl: "https://watson.oceanheart.ai",
@@ -65,12 +78,15 @@ export const portfolioSections: PortfolioSection[] = [
         githubRepo: "rickhallett/watson.oceanheart.ai",
         githubBranch: "main",
         category: "apps",
+        status: "prototype",
       },
       {
         id: 110,
         title: "Sidekick",
         description:
-          "[Early Build] A reflective chat environment for meditation practice. This release demonstrates the Nuxt stack, streaming chat UI, and state management. Next milestones: memory layer and personalised coaching prompts.",
+          "A reflective chat environment for meditation practice with streaming responses and personalized coaching.",
+        problem: "Meditation practitioners lack an AI companion that understands contemplative practice context.",
+        solution: "A memory-enabled chat interface that provides contextual guidance grounded in meditation traditions.",
         image: "/images/sidekick-gpt.png",
         tech: ["Nuxt 4", "Postgres", "Drizzle ORM", "Tailwind"],
         externalUrl: "https://sidekick.oceanheart.ai",
@@ -78,6 +94,7 @@ export const portfolioSections: PortfolioSection[] = [
         githubRepo: "rickhallett/sidekick.oceanheart.ai",
         githubBranch: "main",
         category: "apps",
+        status: "experiment",
       },
     ],
   },
@@ -92,7 +109,9 @@ export const portfolioSections: PortfolioSection[] = [
         id: 108,
         title: "Swanage Traffic Alliance",
         description:
-          "[Live Production] A brutalist activism website for the Swanage Traffic Alliance. Built with Astro SSR, featuring real-time data visualizations, live visit tracking, and Decap CMS integration. Deployed on Vercel with Neon PostgreSQL database.",
+          "A brutalist activism website with real-time traffic data visualizations, live visit tracking, and community engagement tools.",
+        problem: "A coastal town's traffic crisis needed a platform to unite residents and present data-driven advocacy.",
+        solution: "A high-impact brutalist website with real-time traffic charts, visitor analytics, and CMS-powered news updates.",
         image: "/images/sta-home.png",
         tech: ["Astro", "React", "Neon PostgreSQL", "Decap CMS", "Vercel"],
         externalUrl: "https://www.swanagetraffic.org.uk",
@@ -100,12 +119,16 @@ export const portfolioSections: PortfolioSection[] = [
         githubRepo: "rickhallett/stadotcouk",
         githubBranch: "main",
         category: "websites",
+        status: "production",
+        impact: "500+ active community members",
       },
       {
         id: 109,
         title: "Becoming Diamond",
         description:
-          "[Live Production] A premium coaching and personal development platform. Built with Next.js 15, featuring Aceternity UI components, 3D visualizations, member portal with protected routes, and GitHub OAuth integration via Decap CMS.",
+          "A premium coaching platform with 3D visualizations, member portal, and protected content delivery system.",
+        problem: "A coaching business needed a sophisticated platform to deliver premium content and manage member access.",
+        solution: "A Next.js 15 platform with Aceternity UI, 3D globe visualization, and GitHub OAuth authentication.",
         image: "/images/becoming-dia-globe2.png",
         tech: [
           "Next.js 15",
@@ -119,6 +142,7 @@ export const portfolioSections: PortfolioSection[] = [
         githubRepo: "rickhallett/becoming-diamond-nextjs",
         githubBranch: "main",
         category: "websites",
+        status: "production",
       },
     ],
   },
@@ -133,7 +157,9 @@ export const portfolioSections: PortfolioSection[] = [
         id: 107,
         title: "Passport",
         description:
-          "[Core Service Prototype] Centralised authentication for the Oceanheart ecosystem. Current version provides multi-tenant routing and Supabase auth. Next milestones: SSO and encrypted profile hand-off between apps.",
+          "Centralised authentication service for the Oceanheart ecosystem with multi-tenant routing and SSO.",
+        problem: "Multiple apps need shared authentication without duplicating user management logic.",
+        solution: "A Rails-based auth service with Hotwire for real-time UI and encrypted profile hand-off between apps.",
         image: "/images/passport-gpt.png",
         tech: ["Rails", "Hotwire", "Stimulus"],
         externalUrl: "https://passport.oceanheart.ai",
@@ -141,12 +167,16 @@ export const portfolioSections: PortfolioSection[] = [
         githubRepo: "rickhallett/passport.oceanheart.ai",
         githubBranch: "main",
         category: "integrations",
+        status: "prototype",
+        currentlyBuilding: true,
       },
       {
         id: 105,
         title: "Notebook",
         description:
-          "[v0.1] A minimalist, markdown-first blog for learning in public. Stable core with Go/HTMX engine. Next milestones: tagging, RSS, and publishing pipeline.",
+          "A minimalist, markdown-first blog engine built for learning in public with Go and HTMX.",
+        problem: "Needed a fast, simple blog engine without JavaScript framework overhead.",
+        solution: "A Go server with HTMX for interactivity and SQLite for persistence - ships as a single binary.",
         image: "/images/notebook-gpt.png",
         tech: ["Go", "HTMX", "SQLite"],
         externalUrl: "https://notebook.oceanheart.ai",
@@ -154,6 +184,7 @@ export const portfolioSections: PortfolioSection[] = [
         githubRepo: "rickhallett/notebook.oceanheart.ai",
         githubBranch: "main",
         category: "integrations",
+        status: "production",
       },
     ],
   },
@@ -168,11 +199,14 @@ export const portfolioSections: PortfolioSection[] = [
         id: 106,
         title: "ExposureLab",
         description:
-          "[Concept] Mobile-first exposure hierarchy builder for ERP therapy. Current prototype demonstrates drag-and-drop ladder editing. Next milestones: clinician-client sync, contracts, and PDF export functionality.",
+          "Mobile-first exposure hierarchy builder for ERP therapy with drag-and-drop ladder editing.",
+        problem: "Clinicians and clients need collaborative tools to build and track exposure therapy hierarchies.",
+        solution: "A mobile-optimized interface for creating, ordering, and tracking exposure exercises with real-time sync.",
         image: "/images/exposurelab-gpt.png",
         tech: ["Next.js", "Neon", "Tailwind"],
         featured: true,
         category: "research",
+        status: "experiment",
       },
     ],
   },
@@ -205,4 +239,24 @@ export function getFeaturedProjects(limit = 6) {
 
 export function getProjectsByCategory(category: PortfolioProject["category"]) {
   return getAllProjects().filter((p) => p.category === category);
+}
+
+export function getCurrentlyBuildingProjects() {
+  return getAllProjects().filter((p) => p.currentlyBuilding);
+}
+
+export function getProjectsByStatus(status: ProjectStatus) {
+  return getAllProjects().filter((p) => p.status === status);
+}
+
+export function getProductionProjects() {
+  return getProjectsByStatus("production");
+}
+
+export function getPrototypeProjects() {
+  return getProjectsByStatus("prototype");
+}
+
+export function getExperimentProjects() {
+  return getProjectsByStatus("experiment");
 }
