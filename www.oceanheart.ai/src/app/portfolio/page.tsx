@@ -1,111 +1,364 @@
 "use client";
-import { Navigation, Footer, PageTransition, PortfolioCard } from "@/components/kaishin";
+import { Navigation, PageTransition } from "@/components/kaishin";
+import { TerminalPortfolioCard, TerminalFooter } from "@/components/terminal";
 import { motion } from "framer-motion";
-import { portfolioSections } from "@/lib/portfolio";
+import Link from "next/link";
+import {
+  getCurrentlyBuildingProjects,
+  getProductionProjects,
+  getPrototypeProjects,
+  getExperimentProjects,
+  getAllProjects,
+} from "@/lib/portfolio";
 
 export default function PortfolioPage() {
+  const currentlyBuilding = getCurrentlyBuildingProjects();
+  const productionProjects = getProductionProjects();
+  const prototypeProjects = getPrototypeProjects();
+  const experimentProjects = getExperimentProjects();
+
+  // Find Swanage Traffic for featured case study
+  const swanageProject = getAllProjects().find(p => p.title === "Swanage Traffic Alliance");
 
   return (
     <PageTransition>
-      <main className="relative bg-black antialiased">
+      <main className="relative bg-terminal-bg antialiased">
         <Navigation />
 
         {/* Hero Section */}
-        <section className="min-h-[60vh] flex items-center justify-center relative pt-32 pb-20 px-6 sm:px-4">
-          <div className="absolute top-10 left-0 w-96 h-96 bg-ocean-blue/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-10 right-0 w-80 h-80 bg-plum/10 rounded-full blur-3xl" />
+        <section className="min-h-[50vh] flex items-center justify-center relative pt-32 pb-16 px-6">
+          {/* Subtle grid background */}
+          <div
+            className="absolute inset-0 opacity-[0.02]"
+            style={{
+              backgroundImage: `linear-gradient(to right, rgba(125, 207, 255, 0.5) 1px, transparent 1px),
+                               linear-gradient(to bottom, rgba(125, 207, 255, 0.5) 1px, transparent 1px)`,
+              backgroundSize: "50px 50px",
+            }}
+          />
 
-          <div className="max-w-4xl mx-auto text-center relative z-10">
+          {/* Ambient glow */}
+          <div className="absolute top-10 left-0 w-96 h-96 bg-terminal-cyan/10 rounded-full blur-3xl" />
+          <div className="absolute bottom-10 right-0 w-80 h-80 bg-terminal-purple/10 rounded-full blur-3xl" />
+
+          <div className="max-w-4xl mx-auto text-left relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <div className="inline-flex items-center px-4 py-2 bg-ocean-blue/10 rounded-full border border-ocean-blue/20 mb-6">
-                <span className="text-ocean-blue font-semibold text-sm tracking-wide">Live Design Studies</span>
-              </div>
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif font-light text-zinc-100 mb-6">
-                Oceanheart Labs
-              </h1>
-              <p className="text-lg md:text-xl text-zinc-400 font-light leading-relaxed max-w-2xl mx-auto">
-                Prototypes at the frontier of AI, wellbeing, and web engineering. Production quality websites that I build and maintain. From architecture demos to full products, watch them grow in real-time.
+              <p className="font-terminal text-terminal-muted text-sm mb-4">
+                <span className="text-terminal-green">$</span> ls -la ./portfolio
               </p>
+              <h1 className="font-terminal text-3xl sm:text-4xl md:text-5xl text-terminal mb-4">
+                Production Systems <span className="text-terminal-cyan">&</span> Experiments
+              </h1>
+              <p className="text-lg text-terminal-secondary font-light leading-relaxed max-w-2xl mb-8">
+                AI-powered tools, human-centred platforms, and systems that actually work.
+                From production deployments to ongoing experiments.
+              </p>
+              <div className="flex flex-wrap gap-4 font-terminal text-sm">
+                <span className="text-terminal-green">[{productionProjects.length} production]</span>
+                <span className="text-terminal-blue">[{prototypeProjects.length} prototype]</span>
+                <span className="text-terminal-purple">[{experimentProjects.length} experiment]</span>
+              </div>
             </motion.div>
           </div>
         </section>
 
-        {/* Projects by Section */}
-        {portfolioSections
-          .filter((section) => !section.hidden)
-          .map((section) => (
-            <section key={section.id} className="py-16 px-6 sm:px-4">
-              <div className="max-w-7xl mx-auto">
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  transition={{ duration: 0.6 }}
-                  className="mb-12"
-                >
-                  <h2 className="text-3xl md:text-4xl font-serif font-light text-zinc-100 mb-4">
-                    {section.title}
-                  </h2>
-                  <p className="text-zinc-400 font-light leading-relaxed max-w-3xl">
-                    {section.description}
-                  </p>
-                </motion.div>
+        {/* Currently Building Section */}
+        {currentlyBuilding.length > 0 && (
+          <section className="py-16 px-6 bg-terminal-bg-secondary">
+            <div className="max-w-7xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="mb-8"
+              >
+                <p className="font-terminal text-terminal-muted text-sm mb-2">
+                  <span className="text-terminal-green">$</span> cat ./status/currently-building.log
+                </p>
+                <h2 className="font-terminal text-2xl text-terminal-orange flex items-center gap-3">
+                  Currently Building
+                  <span className="inline-block w-2 h-2 bg-terminal-orange rounded-full animate-pulse" />
+                </h2>
+              </motion.div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {section.projects.map((project, index) => (
-                    <PortfolioCard
-                      key={project.id}
-                      project={{ ...project, sectionTitle: section.title }}
-                      index={index}
-                    />
-                  ))}
-                </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {currentlyBuilding.map((project, index) => (
+                  <TerminalPortfolioCard
+                    key={project.id}
+                    project={project}
+                    index={index}
+                    showProblemSolution={true}
+                  />
+                ))}
               </div>
-            </section>
-          ))}
+            </div>
+          </section>
+        )}
+
+        {/* Featured Case Study: Swanage Traffic */}
+        {swanageProject && (
+          <section className="py-16 px-6 bg-terminal-bg">
+            <div className="max-w-5xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <p className="font-terminal text-terminal-muted text-sm mb-2">
+                  <span className="text-terminal-green">$</span> cat ./case-studies/swanage-traffic.md
+                </p>
+                <h2 className="font-terminal text-2xl text-terminal-cyan mb-8">
+                  Featured Case Study
+                </h2>
+
+                <div className="grid md:grid-cols-2 gap-8 items-start">
+                  {/* Project image */}
+                  <div className="relative rounded-sm overflow-hidden border border-white/10">
+                    <img
+                      src={swanageProject.image}
+                      alt={swanageProject.title}
+                      className="w-full h-64 object-cover object-top"
+                    />
+                    <div className="absolute top-3 left-3">
+                      <span className="font-terminal text-xs px-2 py-1 border border-terminal-green/30 text-terminal-green rounded-sm bg-terminal-bg/80 backdrop-blur-sm">
+                        [production]
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Case study content */}
+                  <div className="space-y-6">
+                    <div>
+                      <h3 className="font-terminal text-xl text-terminal mb-2">
+                        {swanageProject.title}
+                      </h3>
+                      <p className="text-terminal-secondary text-sm">
+                        {swanageProject.description}
+                      </p>
+                    </div>
+
+                    <div className="space-y-4 p-4 bg-terminal-bg-secondary border border-white/5 rounded-sm">
+                      <div>
+                        <span className="font-terminal text-xs text-terminal-red">## Problem</span>
+                        <p className="text-terminal-muted text-sm mt-1">
+                          {swanageProject.problem}
+                        </p>
+                      </div>
+                      <div>
+                        <span className="font-terminal text-xs text-terminal-green">## Solution</span>
+                        <p className="text-terminal-muted text-sm mt-1">
+                          {swanageProject.solution}
+                        </p>
+                      </div>
+                      {swanageProject.impact && (
+                        <div>
+                          <span className="font-terminal text-xs text-terminal-cyan">## Impact</span>
+                          <p className="text-terminal-cyan text-sm mt-1 font-terminal">
+                            {swanageProject.impact}
+                          </p>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Tech stack */}
+                    <div>
+                      <span className="font-terminal text-xs text-terminal-muted">## Stack</span>
+                      <div className="flex flex-wrap gap-2 mt-2">
+                        {swanageProject.tech.map((tech) => (
+                          <span
+                            key={tech}
+                            className="font-terminal text-xs px-2 py-1 bg-terminal-bg-tertiary text-terminal-secondary border border-white/10 rounded-sm"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Links */}
+                    <div className="flex gap-4">
+                      {swanageProject.externalUrl && (
+                        <a
+                          href={swanageProject.externalUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="font-terminal text-sm text-terminal-cyan hover:text-terminal-blue transition-colors"
+                        >
+                          <span className="text-terminal-green">$</span> visit site →
+                        </a>
+                      )}
+                      {swanageProject.githubRepo && (
+                        <a
+                          href={`https://github.com/${swanageProject.githubRepo}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="font-terminal text-sm text-terminal-secondary hover:text-terminal-cyan transition-colors"
+                        >
+                          <span className="text-terminal-green">$</span> view source →
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </section>
+        )}
+
+        {/* Production Systems */}
+        {productionProjects.length > 0 && (
+          <section className="py-16 px-6 bg-terminal-bg-secondary">
+            <div className="max-w-7xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="mb-8"
+              >
+                <p className="font-terminal text-terminal-muted text-sm mb-2">
+                  <span className="text-terminal-green">$</span> ls ./production/
+                </p>
+                <h2 className="font-terminal text-2xl text-terminal-green">
+                  Production Systems
+                </h2>
+                <p className="text-terminal-secondary text-sm mt-2">
+                  Live, deployed systems serving real users
+                </p>
+              </motion.div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {productionProjects.map((project, index) => (
+                  <TerminalPortfolioCard
+                    key={project.id}
+                    project={project}
+                    index={index}
+                  />
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Prototypes */}
+        {prototypeProjects.length > 0 && (
+          <section className="py-16 px-6 bg-terminal-bg">
+            <div className="max-w-7xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="mb-8"
+              >
+                <p className="font-terminal text-terminal-muted text-sm mb-2">
+                  <span className="text-terminal-green">$</span> ls ./prototype/
+                </p>
+                <h2 className="font-terminal text-2xl text-terminal-blue">
+                  Prototypes
+                </h2>
+                <p className="text-terminal-secondary text-sm mt-2">
+                  Working builds demonstrating core functionality
+                </p>
+              </motion.div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {prototypeProjects.map((project, index) => (
+                  <TerminalPortfolioCard
+                    key={project.id}
+                    project={project}
+                    index={index}
+                    showProblemSolution={true}
+                  />
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Experiments */}
+        {experimentProjects.length > 0 && (
+          <section className="py-16 px-6 bg-terminal-bg-secondary">
+            <div className="max-w-7xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="mb-8"
+              >
+                <p className="font-terminal text-terminal-muted text-sm mb-2">
+                  <span className="text-terminal-green">$</span> ls ./experiments/
+                </p>
+                <h2 className="font-terminal text-2xl text-terminal-purple">
+                  Experiments
+                </h2>
+                <p className="text-terminal-secondary text-sm mt-2">
+                  Early explorations and research projects
+                </p>
+              </motion.div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {experimentProjects.map((project, index) => (
+                  <TerminalPortfolioCard
+                    key={project.id}
+                    project={project}
+                    index={index}
+                    showProblemSolution={true}
+                  />
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* Call to Action */}
-        <section className="py-20 px-6 sm:px-4 relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-ocean-blue/5 to-transparent" />
+        <section className="py-20 px-6 bg-terminal-bg relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-terminal-cyan/5 to-transparent" />
           <div className="max-w-3xl mx-auto text-center relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
+              viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <h2 className="text-3xl md:text-4xl font-serif font-light text-zinc-100 mb-6">
-                Ready to <span className="text-ocean-blue">drive results</span>?
+              <p className="font-terminal text-terminal-muted text-sm mb-4">
+                <span className="text-terminal-green">$</span> cat ./contact/hire-me.md
+              </p>
+              <h2 className="font-terminal text-2xl md:text-3xl text-terminal mb-6">
+                Need something <span className="text-terminal-cyan">built</span>?
               </h2>
-              <p className="text-zinc-400 font-light leading-relaxed mb-8">
-                For hiring teams: See a human-centered engineer who delivers technical excellence with proven business impact.<br />
-                For clients: Get measurable ROI through psychology-informed software that solves real problems.
+              <p className="text-terminal-secondary leading-relaxed mb-8">
+                I build AI-powered tools for human domains. If you need custom software
+                that actually understands how people work, let&apos;s talk.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a
                   href="https://calendar.app.google/RMwsbtUZ76G6VZzb7"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-8 py-3 bg-ocean-blue text-black border border-ocean-blue hover:bg-ocean-blue/90 hover:shadow-[0_0_20px_rgba(79,195,247,0.8)] transition-all duration-300 font-semibold rounded-full"
+                  className="inline-flex items-center justify-center px-6 py-3 font-terminal text-sm bg-transparent border border-terminal-cyan text-terminal-cyan hover:bg-terminal-cyan/10 hover:shadow-[0_0_20px_rgba(125,207,255,0.3)] transition-all duration-200 rounded-sm"
                 >
-                  Schedule a Call
+                  <span className="text-terminal-green mr-2">$</span> schedule_call
                 </a>
-                <a
-                  href="/path"
-                  className="px-8 py-3 bg-white/20 text-zinc-100 border border-white/40 hover:bg-white/30 transition-all duration-300 font-semibold rounded-full"
+                <Link
+                  href="/consulting"
+                  className="inline-flex items-center justify-center px-6 py-3 font-terminal text-sm bg-transparent border border-white/20 text-terminal-secondary hover:border-white/40 hover:text-terminal transition-all duration-200 rounded-sm"
                 >
-                  Learn More About The Method
-                </a>
+                  <span className="text-terminal-green mr-2">$</span> learn_more
+                </Link>
               </div>
             </motion.div>
           </div>
         </section>
 
-        <Footer />
+        <TerminalFooter />
       </main>
     </PageTransition>
   );

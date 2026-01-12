@@ -1,7 +1,8 @@
 "use client";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Navigation, Footer, PageTransition } from "@/components/kaishin";
+import { Navigation, PageTransition } from "@/components/kaishin";
+import { TerminalFooter } from "@/components/terminal";
 import { CardSpotlight } from "@/components/ui/card-spotlight";
 import { TracingBeam } from "@/components/ui/tracing-beam";
 
@@ -448,7 +449,7 @@ export default function ProgramV1Page() {
           </div>
         </section>
 
-        <Footer />
+        <TerminalFooter />
       </main>
     </PageTransition>
   );

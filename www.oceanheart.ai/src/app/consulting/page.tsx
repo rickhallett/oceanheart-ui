@@ -1,250 +1,400 @@
 "use client";
-import { Navigation, Footer, PageTransition } from "@/components/kaishin";
+import { Navigation, PageTransition } from "@/components/kaishin";
+import { TerminalFooter } from "@/components/terminal";
 import { motion } from "framer-motion";
-import { useState } from "react";
-import { IconBrain, IconClock, IconLock, IconUsers, IconBuilding, IconRocket, IconRobot, IconCode, IconChartLine } from "@tabler/icons-react";
-
-const ServiceAccordion = ({ icon, title, description, isOpen, onClick }: { icon: React.ReactNode; title: string; description: string; isOpen: boolean; onClick: () => void }) => (
-  <div className="border-b border-white/10">
-    <button
-      onClick={onClick}
-      className="flex items-center justify-between cursor-pointer py-6 w-full text-left group"
-    >
-      <div className="flex items-center gap-3 sm:gap-4 flex-1">
-        <div className="text-ocean-blue flex-shrink-0">{icon}</div>
-        <h3 className="font-serif font-light text-base sm:text-lg text-zinc-100 group-hover:text-ocean-blue transition-colors">{title}</h3>
-      </div>
-      <svg
-        className={`w-5 h-5 transition-transform duration-500 ease-out text-zinc-400 flex-shrink-0 ml-2 ${isOpen ? 'rotate-90' : ''}`}
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 20 20"
-        fill="currentColor"
-      >
-        <path fillRule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clipRule="evenodd" />
-      </svg>
-    </button>
-    <motion.div
-      initial={false}
-      animate={{
-        height: isOpen ? 'auto' : 0,
-        opacity: isOpen ? 1 : 0
-      }}
-      transition={{
-        height: { duration: 0.4, ease: [0.04, 0.62, 0.23, 0.98] },
-        opacity: { duration: 0.3, ease: 'easeOut' }
-      }}
-      className="overflow-hidden"
-    >
-      <div className="pb-6 pl-8 sm:pl-12 pr-2">
-        <p className="text-zinc-400 font-light leading-relaxed text-sm sm:text-base">
-          {description}
-        </p>
-      </div>
-    </motion.div>
-  </div>
-);
+import Link from "next/link";
+import { IconCode, IconRobot, IconUsers, IconBuildingSkyscraper, IconBrain, IconArrowRight } from "@tabler/icons-react";
 
 export default function ConsultingPage() {
-  const [openService, setOpenService] = useState<string | null>(null);
-  const [openClient, setOpenClient] = useState<string | null>(null);
-
   return (
     <PageTransition>
-      <main className="relative bg-black antialiased">
+      <main className="relative bg-terminal-bg antialiased">
         <Navigation />
 
         {/* Hero Section */}
-        <section className="min-h-[70vh] flex items-center justify-center relative pt-32 pb-20 px-6 sm:px-4">
-          <div className="absolute top-10 right-0 w-96 h-96 bg-ocean-blue/10 rounded-full blur-3xl" />
+        <section className="min-h-[60vh] flex items-center justify-center relative pt-32 pb-16 px-6">
+          {/* Subtle grid background */}
+          <div
+            className="absolute inset-0 opacity-[0.02]"
+            style={{
+              backgroundImage: `linear-gradient(to right, rgba(125, 207, 255, 0.5) 1px, transparent 1px),
+                               linear-gradient(to bottom, rgba(125, 207, 255, 0.5) 1px, transparent 1px)`,
+              backgroundSize: "50px 50px",
+            }}
+          />
 
-          <div className="max-w-6xl mx-auto relative z-10">
-            <div className="flex flex-col md:flex-row items-center gap-12">
-              <motion.div
-                className="md:w-2/3"
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6 }}
-              >
-                <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif font-light text-zinc-100 mb-6">
-                  Private <span className="text-ocean-blue">AI Consulting</span> for Your Unique Needs
-                </h1>
-                <p className="text-lg md:text-xl text-zinc-400 font-light leading-relaxed mb-8">
-                  Cut the repetition. Eliminate the boring parts. Focus on what truly matters in your work and life.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <a href="#services" className="px-8 py-3 bg-ocean-blue text-black border border-ocean-blue hover:bg-ocean-blue/90 hover:shadow-[0_0_20px_rgba(79,195,247,0.8)] transition-all duration-300 font-semibold rounded-full text-center">
-                    Explore Services
-                  </a>
-                  <a href="mailto:kai@oceanheart.ai" className="px-8 py-3 bg-white/20 text-zinc-100 border border-white/40 hover:bg-white/30 transition-all duration-300 font-semibold rounded-full text-center">
-                    Get in Touch
-                  </a>
-                </div>
-              </motion.div>
-              <motion.div
-                className="md:w-1/3"
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-              >
-                <img
-                  src="/images/about_me_profile_2.jpeg"
-                  alt="AI Consultant"
-                  className="rounded-full mx-auto max-w-[300px] w-full border-2 border-ocean-blue/20"
-                />
-              </motion.div>
-            </div>
-          </div>
-        </section>
+          {/* Ambient glow */}
+          <div className="absolute top-10 right-0 w-96 h-96 bg-terminal-cyan/10 rounded-full blur-3xl" />
+          <div className="absolute bottom-10 left-0 w-80 h-80 bg-terminal-purple/10 rounded-full blur-3xl" />
 
-        {/* Why Choose Me Section */}
-        <section className="py-20 px-6 sm:px-4 bg-gradient-to-b from-transparent via-charcoal/30 to-transparent">
-          <div className="max-w-7xl mx-auto">
+          <div className="max-w-5xl mx-auto relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="text-center mb-12"
             >
-              <h2 className="text-3xl md:text-5xl font-serif font-light text-zinc-100 mb-6">
-                Why Choose <span className="text-ocean-blue">My Consulting</span> Services?
-              </h2>
-              <p className="text-lg text-zinc-400 font-light max-w-3xl mx-auto">
-                I&apos;ve spent years at the intersection of psychology and technology, building AI solutions that actually work for real-world problems.
+              <p className="font-terminal text-terminal-muted text-sm mb-4">
+                <span className="text-terminal-green">$</span> cat ./services/engineering-consulting.md
               </p>
-            </motion.div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {[
-                { icon: <IconBrain className="w-12 h-12" />, title: "Dual Expertise", description: "With backgrounds in both psychology and software engineering, I bridge the gap between human needs and technical solutions." },
-                { icon: <IconClock className="w-12 h-12" />, title: "Time-Saving Focus", description: "I don't waste your time with flashy demos. We focus on practical solutions that give you back precious hours each week." },
-                { icon: <IconLock className="w-12 h-12" />, title: "Privacy-First Approach", description: "I design solutions with privacy built-in from the ground up, especially important for those handling sensitive data." }
-              ].map((item, index) => (
-                <motion.div
-                  key={item.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  transition={{ duration: 0.4, delay: index * 0.1 }}
-                  className="flex flex-col items-center p-6 bg-charcoal/50 backdrop-blur-sm border border-white/[0.1] rounded-xl hover:border-ocean-blue/50 transition-all duration-300"
+              <h1 className="font-terminal text-3xl sm:text-4xl md:text-5xl text-terminal mb-4">
+                Engineering <span className="text-terminal-cyan">Consulting</span>
+              </h1>
+              <p className="text-lg text-terminal-secondary font-light leading-relaxed max-w-2xl mb-8">
+                I build AI-powered systems that work for humans. Not generic advice—actual
+                engineering from someone who understands both the code and the psychology.
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <a
+                  href="https://calendar.app.google/RMwsbtUZ76G6VZzb7"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center px-6 py-3 font-terminal text-sm bg-transparent border border-terminal-cyan text-terminal-cyan hover:bg-terminal-cyan/10 hover:shadow-[0_0_20px_rgba(125,207,255,0.3)] transition-all duration-200 rounded-sm"
                 >
-                  <div className="text-ocean-blue mb-4">{item.icon}</div>
-                  <h3 className="font-serif font-light text-xl text-zinc-100 mb-2">{item.title}</h3>
-                  <p className="text-zinc-400 font-light text-center leading-relaxed">{item.description}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* How I Help Section */}
-        <section className="py-20 px-6 sm:px-4" id="services">
-          <div className="max-w-4xl mx-auto">
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.6 }}
-              className="text-3xl md:text-5xl font-serif font-light text-center mb-12 text-zinc-100"
-            >
-              How I Can <span className="text-ocean-blue">Help You</span>
-            </motion.h2>
-
-            <div className="mb-16">
-              <ServiceAccordion
-                icon={<IconRobot className="w-5 h-5" />}
-                title="AI Integration Assessment"
-                description="A comprehensive analysis of your current workflow to identify where AI can make the biggest impact with the least disruption. We'll map your daily tasks, identify repetitive patterns, and find opportunities for meaningful automation."
-                isOpen={openService === 'assessment'}
-                onClick={() => setOpenService(openService === 'assessment' ? null : 'assessment')}
-              />
-              <ServiceAccordion
-                icon={<IconCode className="w-5 h-5" />}
-                title="Custom AI Solution Design"
-                description="Tailored AI tools designed specifically for your unique needs, whether for note-taking, data analysis, or client interactions. No generic solutions—everything is built to fit your specific context and workflow."
-                isOpen={openService === 'design'}
-                onClick={() => setOpenService(openService === 'design' ? null : 'design')}
-              />
-              <ServiceAccordion
-                icon={<IconChartLine className="w-5 h-5" />}
-                title="AI Implementation & Training"
-                description="Hands-on setup and training to ensure you and your team can effectively use and maintain your new AI tools. I'll be there every step of the way, from installation to mastery."
-                isOpen={openService === 'training'}
-                onClick={() => setOpenService(openService === 'training' ? null : 'training')}
-              />
-              <ServiceAccordion
-                icon={<IconRocket className="w-5 h-5" />}
-                title="Ongoing Support & Optimization"
-                description="Regular check-ins and adjustments to ensure your AI solutions continue to evolve with your changing needs. Technology moves fast, and your tools should keep pace with both innovation and your growth."
-                isOpen={openService === 'support'}
-                onClick={() => setOpenService(openService === 'support' ? null : 'support')}
-              />
-            </div>
-
-            {/* Who I Work With */}
-            <motion.h3
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.6 }}
-              className="text-2xl font-serif font-light mb-6 text-zinc-100"
-            >
-              Who I Work With
-            </motion.h3>
-
-            <div>
-              <ServiceAccordion
-                icon={<IconUsers className="w-5 h-5" />}
-                title="Individual Practitioners"
-                description="Therapists, coaches, and solo professionals looking to streamline documentation, enhance client experiences, and focus more on their craft. I help you reclaim hours each week from administrative tasks."
-                isOpen={openClient === 'individual'}
-                onClick={() => setOpenClient(openClient === 'individual' ? null : 'individual')}
-              />
-              <ServiceAccordion
-                icon={<IconBuilding className="w-5 h-5" />}
-                title="Small & Medium Enterprises"
-                description="Teams that want to reduce administrative overhead, improve internal processes, and leverage data they already have for better decision-making. Perfect for organizations ready to work smarter, not harder."
-                isOpen={openClient === 'sme'}
-                onClick={() => setOpenClient(openClient === 'sme' ? null : 'sme')}
-              />
-              <ServiceAccordion
-                icon={<IconRocket className="w-5 h-5" />}
-                title="Forward-Thinking Organizations"
-                description="Any group looking to stay ahead of technological change while prioritizing ethical implementation and meaningful human connections. If you believe technology should enhance humanity, not replace it, we're aligned."
-                isOpen={openClient === 'forward'}
-                onClick={() => setOpenClient(openClient === 'forward' ? null : 'forward')}
-              />
-            </div>
-          </div>
-        </section>
-
-        {/* Call to Action */}
-        <section className="py-20 px-6 sm:px-4 relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-r from-gold/10 via-transparent to-gold/10" />
-          <div className="max-w-4xl mx-auto text-center relative z-10">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.6 }}
-            >
-              <h2 className="text-3xl md:text-4xl font-serif font-light text-zinc-100 mb-6">
-                Ready to transform your work?
-              </h2>
-              <p className="text-lg text-zinc-400 font-light mb-8 max-w-2xl mx-auto">
-                Let&apos;s discuss how AI can help you reclaim your time, enhance your effectiveness, and find more joy in what you do.
-              </p>
-              <a
-                href="mailto:kai@oceanheart.ai"
-                className="inline-block px-8 py-3 bg-ocean-blue text-black border border-ocean-blue hover:bg-ocean-blue/90 hover:shadow-[0_0_20px_rgba(79,195,247,0.8)] transition-all duration-300 font-semibold rounded-full"
-              >
-                Book a Free Consultation
-              </a>
+                  <span className="text-terminal-green mr-2">$</span> schedule_call
+                </a>
+                <a
+                  href="mailto:kai@oceanheart.ai"
+                  className="inline-flex items-center justify-center px-6 py-3 font-terminal text-sm bg-transparent border border-white/20 text-terminal-secondary hover:border-white/40 hover:text-terminal transition-all duration-200 rounded-sm"
+                >
+                  <span className="text-terminal-green mr-2">$</span> send_email
+                </a>
+              </div>
             </motion.div>
           </div>
         </section>
 
-        <Footer />
+        {/* Services Section */}
+        <section className="py-16 px-6 bg-terminal-bg-secondary" id="services">
+          <div className="max-w-5xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <p className="font-terminal text-terminal-muted text-sm mb-2">
+                <span className="text-terminal-green">$</span> ls ./services/
+              </p>
+              <h2 className="font-terminal text-2xl text-terminal-green mb-8">
+                What I Build
+              </h2>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="p-6 bg-terminal-bg border border-white/10 rounded-sm hover:border-terminal-cyan/30 transition-all duration-200">
+                  <div className="flex items-center gap-3 mb-4">
+                    <IconRobot className="w-6 h-6 text-terminal-cyan" />
+                    <h3 className="font-terminal text-lg text-terminal">Custom AI Tools</h3>
+                  </div>
+                  <p className="text-terminal-secondary text-sm leading-relaxed mb-4">
+                    Bespoke AI applications designed for your specific domain. Not off-the-shelf
+                    wrappers—purpose-built systems that understand your workflows and users.
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {["RAG Systems", "LLM Integration", "Custom UIs", "API Design"].map((tag) => (
+                      <span key={tag} className="font-terminal text-xs px-2 py-1 bg-terminal-bg-tertiary text-terminal-secondary border border-white/10 rounded-sm">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="p-6 bg-terminal-bg border border-white/10 rounded-sm hover:border-terminal-cyan/30 transition-all duration-200">
+                  <div className="flex items-center gap-3 mb-4">
+                    <IconCode className="w-6 h-6 text-terminal-purple" />
+                    <h3 className="font-terminal text-lg text-terminal">Web Applications</h3>
+                  </div>
+                  <p className="text-terminal-secondary text-sm leading-relaxed mb-4">
+                    Production-grade web applications built with modern stacks. From prototypes
+                    that ship fast to systems that scale.
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {["Next.js", "React", "Python", "PostgreSQL"].map((tag) => (
+                      <span key={tag} className="font-terminal text-xs px-2 py-1 bg-terminal-bg-tertiary text-terminal-secondary border border-white/10 rounded-sm">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="p-6 bg-terminal-bg border border-white/10 rounded-sm hover:border-terminal-cyan/30 transition-all duration-200">
+                  <div className="flex items-center gap-3 mb-4">
+                    <IconBrain className="w-6 h-6 text-terminal-orange" />
+                    <h3 className="font-terminal text-lg text-terminal">AI Strategy</h3>
+                  </div>
+                  <p className="text-terminal-secondary text-sm leading-relaxed mb-4">
+                    Technical guidance on AI adoption that&apos;s grounded in reality. Where to
+                    invest, what to avoid, and how to implement without breaking what works.
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {["Architecture", "Evaluation", "Roadmapping", "Training"].map((tag) => (
+                      <span key={tag} className="font-terminal text-xs px-2 py-1 bg-terminal-bg-tertiary text-terminal-secondary border border-white/10 rounded-sm">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="p-6 bg-terminal-bg border border-white/10 rounded-sm hover:border-terminal-cyan/30 transition-all duration-200">
+                  <div className="flex items-center gap-3 mb-4">
+                    <IconUsers className="w-6 h-6 text-terminal-green" />
+                    <h3 className="font-terminal text-lg text-terminal">Team Augmentation</h3>
+                  </div>
+                  <p className="text-terminal-secondary text-sm leading-relaxed mb-4">
+                    Embedded engineering support for teams building AI features. I join your
+                    team temporarily to accelerate delivery and transfer knowledge.
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {["Pairing", "Code Review", "Architecture", "Mentoring"].map((tag) => (
+                      <span key={tag} className="font-terminal text-xs px-2 py-1 bg-terminal-bg-tertiary text-terminal-secondary border border-white/10 rounded-sm">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Who I Work With */}
+        <section className="py-16 px-6 bg-terminal-bg">
+          <div className="max-w-5xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <p className="font-terminal text-terminal-muted text-sm mb-2">
+                <span className="text-terminal-green">$</span> cat ./clients/target-audiences.md
+              </p>
+              <h2 className="font-terminal text-2xl text-terminal-cyan mb-8">
+                Who I Work With
+              </h2>
+
+              <div className="space-y-6">
+                <div className="p-6 bg-terminal-bg-secondary border border-white/5 rounded-sm">
+                  <div className="flex items-start gap-4">
+                    <IconBuildingSkyscraper className="w-6 h-6 text-terminal-purple flex-shrink-0 mt-1" />
+                    <div>
+                      <h3 className="font-terminal text-lg text-terminal mb-2">
+                        Healthcare & Mental Health Organisations
+                      </h3>
+                      <p className="text-terminal-secondary text-sm leading-relaxed mb-3">
+                        Teams building AI tools for clinicians, patients, or care systems. I bring
+                        15 years of direct clinical experience—I understand the constraints of
+                        therapeutic relationships, confidentiality, and clinical workflows.
+                      </p>
+                      <div className="font-terminal text-xs text-terminal-green">
+                        Built: Assessment engines, session note automation, patient-facing chatbots
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="p-6 bg-terminal-bg-secondary border border-white/5 rounded-sm">
+                  <div className="flex items-start gap-4">
+                    <IconRobot className="w-6 h-6 text-terminal-cyan flex-shrink-0 mt-1" />
+                    <div>
+                      <h3 className="font-terminal text-lg text-terminal mb-2">
+                        Startups Integrating AI
+                      </h3>
+                      <p className="text-terminal-secondary text-sm leading-relaxed mb-3">
+                        Early-stage teams who need to move fast without accumulating technical debt.
+                        I help you ship AI features that work now and scale later.
+                      </p>
+                      <div className="font-terminal text-xs text-terminal-green">
+                        Built: LLM integrations, RAG systems, conversational interfaces
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="p-6 bg-terminal-bg-secondary border border-white/5 rounded-sm">
+                  <div className="flex items-start gap-4">
+                    <IconUsers className="w-6 h-6 text-terminal-orange flex-shrink-0 mt-1" />
+                    <div>
+                      <h3 className="font-terminal text-lg text-terminal mb-2">
+                        Coaches, Consultants & Course Creators
+                      </h3>
+                      <p className="text-terminal-secondary text-sm leading-relaxed mb-3">
+                        Solo practitioners and small teams who need custom technology without
+                        enterprise budgets. I build systems that fit your practice, not the other way around.
+                      </p>
+                      <div className="font-terminal text-xs text-terminal-green">
+                        Built: Member portals, content delivery platforms, booking integrations
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Proof Section */}
+        <section className="py-16 px-6 bg-terminal-bg-secondary">
+          <div className="max-w-5xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <p className="font-terminal text-terminal-muted text-sm mb-2">
+                <span className="text-terminal-green">$</span> ls ./shipped/ | head -4
+              </p>
+              <h2 className="font-terminal text-2xl text-terminal-green mb-8">
+                Recent Work
+              </h2>
+
+              <div className="grid md:grid-cols-2 gap-6 mb-8">
+                <div className="p-5 bg-terminal-bg border border-white/5 rounded-sm">
+                  <span className="font-terminal text-xs text-terminal-green">[production]</span>
+                  <h3 className="font-terminal text-lg text-terminal mt-2 mb-2">Swanage Traffic Alliance</h3>
+                  <p className="text-terminal-secondary text-sm mb-3">
+                    Activism site with real-time traffic data, analytics, and CMS for a coastal
+                    town&apos;s traffic campaign.
+                  </p>
+                  <span className="font-terminal text-xs text-terminal-cyan">500+ community members</span>
+                </div>
+
+                <div className="p-5 bg-terminal-bg border border-white/5 rounded-sm">
+                  <span className="font-terminal text-xs text-terminal-green">[production]</span>
+                  <h3 className="font-terminal text-lg text-terminal mt-2 mb-2">Becoming Diamond</h3>
+                  <p className="text-terminal-secondary text-sm mb-3">
+                    Premium coaching platform with 3D globe visualizations and protected
+                    member content.
+                  </p>
+                  <span className="font-terminal text-xs text-terminal-cyan">Next.js 15 + Aceternity UI</span>
+                </div>
+
+                <div className="p-5 bg-terminal-bg border border-white/5 rounded-sm">
+                  <span className="font-terminal text-xs text-terminal-blue">[prototype]</span>
+                  <h3 className="font-terminal text-lg text-terminal mt-2 mb-2">Preflight</h3>
+                  <p className="text-terminal-secondary text-sm mb-3">
+                    AI readiness assessment engine for healthcare. Dynamic forms with
+                    personalized adoption roadmaps.
+                  </p>
+                  <span className="font-terminal text-xs text-terminal-orange">currently building</span>
+                </div>
+
+                <div className="p-5 bg-terminal-bg border border-white/5 rounded-sm">
+                  <span className="font-terminal text-xs text-terminal-blue">[prototype]</span>
+                  <h3 className="font-terminal text-lg text-terminal mt-2 mb-2">Watson</h3>
+                  <p className="text-terminal-secondary text-sm mb-3">
+                    Collaborative LLM output review with real-time diff tracking and
+                    quality labeling.
+                  </p>
+                  <span className="font-terminal text-xs text-terminal-cyan">TipTap + Django</span>
+                </div>
+              </div>
+
+              <Link
+                href="/portfolio"
+                className="inline-flex items-center gap-2 font-terminal text-sm text-terminal-cyan hover:text-terminal-blue transition-colors"
+              >
+                <span className="text-terminal-green">$</span> view_full_portfolio
+                <IconArrowRight className="w-4 h-4" />
+              </Link>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Process Section */}
+        <section className="py-16 px-6 bg-terminal-bg">
+          <div className="max-w-5xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <p className="font-terminal text-terminal-muted text-sm mb-2">
+                <span className="text-terminal-green">$</span> explain --process
+              </p>
+              <h2 className="font-terminal text-2xl text-terminal-purple mb-8">
+                How It Works
+              </h2>
+
+              <div className="grid md:grid-cols-4 gap-4">
+                <div className="p-5 bg-terminal-bg-secondary border border-white/5 rounded-sm">
+                  <div className="font-terminal text-xs text-terminal-cyan mb-2">01</div>
+                  <h3 className="font-terminal text-sm text-terminal mb-2">Discovery Call</h3>
+                  <p className="text-terminal-muted text-xs leading-relaxed">
+                    30-min call to understand what you&apos;re building, why, and where you&apos;re stuck.
+                  </p>
+                </div>
+
+                <div className="p-5 bg-terminal-bg-secondary border border-white/5 rounded-sm">
+                  <div className="font-terminal text-xs text-terminal-cyan mb-2">02</div>
+                  <h3 className="font-terminal text-sm text-terminal mb-2">Proposal</h3>
+                  <p className="text-terminal-muted text-xs leading-relaxed">
+                    Clear scope, timeline, and price. No hourly billing surprises.
+                  </p>
+                </div>
+
+                <div className="p-5 bg-terminal-bg-secondary border border-white/5 rounded-sm">
+                  <div className="font-terminal text-xs text-terminal-cyan mb-2">03</div>
+                  <h3 className="font-terminal text-sm text-terminal mb-2">Build</h3>
+                  <p className="text-terminal-muted text-xs leading-relaxed">
+                    Regular updates, working demos, and async communication via Slack/Discord.
+                  </p>
+                </div>
+
+                <div className="p-5 bg-terminal-bg-secondary border border-white/5 rounded-sm">
+                  <div className="font-terminal text-xs text-terminal-cyan mb-2">04</div>
+                  <h3 className="font-terminal text-sm text-terminal mb-2">Ship</h3>
+                  <p className="text-terminal-muted text-xs leading-relaxed">
+                    Deployed to production with documentation and handoff support.
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section className="py-20 px-6 bg-terminal-bg-secondary relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-terminal-cyan/5 to-transparent" />
+          <div className="max-w-3xl mx-auto text-center relative z-10">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <p className="font-terminal text-terminal-muted text-sm mb-4">
+                <span className="text-terminal-green">$</span> init new_project
+              </p>
+              <h2 className="font-terminal text-2xl md:text-3xl text-terminal mb-6">
+                Ready to <span className="text-terminal-cyan">build</span>?
+              </h2>
+              <p className="text-terminal-secondary leading-relaxed mb-8">
+                Book a discovery call to discuss your project. No sales pitch—just a
+                conversation about what you&apos;re building and whether I can help.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <a
+                  href="https://calendar.app.google/RMwsbtUZ76G6VZzb7"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center px-6 py-3 font-terminal text-sm bg-transparent border border-terminal-cyan text-terminal-cyan hover:bg-terminal-cyan/10 hover:shadow-[0_0_20px_rgba(125,207,255,0.3)] transition-all duration-200 rounded-sm"
+                >
+                  <span className="text-terminal-green mr-2">$</span> schedule_call
+                </a>
+                <a
+                  href="mailto:kai@oceanheart.ai"
+                  className="inline-flex items-center justify-center px-6 py-3 font-terminal text-sm bg-transparent border border-white/20 text-terminal-secondary hover:border-white/40 hover:text-terminal transition-all duration-200 rounded-sm"
+                >
+                  <span className="text-terminal-green mr-2">$</span> kai@oceanheart.ai
+                </a>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        <TerminalFooter />
       </main>
     </PageTransition>
   );

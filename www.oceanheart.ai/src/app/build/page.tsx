@@ -1,7 +1,7 @@
 "use client";
 
-import { Navigation, Footer, PageTransition } from "@/components/kaishin";
-import { TerminalHero } from "@/components/terminal";
+import { Navigation, PageTransition } from "@/components/kaishin";
+import { TerminalHero, TerminalFooter } from "@/components/terminal";
 import { motion } from "framer-motion";
 import Link from "next/link";
 
@@ -78,7 +78,7 @@ export default function BuildPage() {
                       {project.tech.map((t) => (
                         <span
                           key={t}
-                          className="font-terminal text-xs px-2 py-1 bg-terminal-bg-tertiary text-terminal-muted rounded-sm"
+                          className="font-terminal text-xs px-2 py-1 bg-terminal-bg-tertiary text-terminal-secondary border border-white/10 rounded-sm"
                         >
                           {t}
                         </span>
@@ -285,7 +285,7 @@ export default function BuildPage() {
           </div>
         </section>
 
-        <Footer />
+        <TerminalFooter />
       </main>
     </PageTransition>
   );

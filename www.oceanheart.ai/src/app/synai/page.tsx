@@ -1,5 +1,6 @@
 "use client";
-import { Navigation, Footer, PageTransition } from "@/components/kaishin";
+import { Navigation, PageTransition } from "@/components/kaishin";
+import { TerminalFooter } from "@/components/terminal";
 import { BackgroundBeams } from "@/components/ui/background-beams";
 import { motion } from "framer-motion";
 
@@ -35,7 +36,7 @@ export default function SynAIPage() {
           </div>
         </section>
 
-        <Footer />
+        <TerminalFooter />
       </main>
     </PageTransition>
   );

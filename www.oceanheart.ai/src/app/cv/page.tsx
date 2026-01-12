@@ -1,5 +1,6 @@
 "use client";
-import { Navigation, Footer, PageTransition } from "@/components/kaishin";
+import { Navigation, PageTransition } from "@/components/kaishin";
+import { TerminalFooter } from "@/components/terminal";
 import { motion } from "framer-motion";
 import { IconMail, IconBrandLinkedin, IconBrandGithub, IconExternalLink } from "@tabler/icons-react";
 
@@ -347,7 +348,7 @@ export default function CVPage() {
           </div>
         </section>
 
-        <Footer />
+        <TerminalFooter />
       </main>
     </PageTransition>
   );

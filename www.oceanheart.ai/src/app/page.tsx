@@ -1,83 +1,39 @@
 "use client";
 import { motion } from "framer-motion";
-import { Navigation, Footer, LeadMagnetForm, PageTransition, TestimonialsCarousel } from "@/components/kaishin";
+import Link from "next/link";
+import { Navigation, PageTransition } from "@/components/kaishin";
+import { TerminalFooter } from "@/components/terminal";
+import { IconBrandGithub, IconArrowRight } from "@tabler/icons-react";
+import {
+  getProductionProjects,
+  getPrototypeProjects,
+} from "@/lib/portfolio";
 
-// Content components for LayoutGrid
-const ViewContent = () => (
-  <div className="p-6">
-    <p className="font-serif text-3xl md:text-4xl text-zinc-100 mb-3">
-      The View
-    </p>
-    <p className="text-gold text-sm mb-4">(Zen & Non-Duality)</p>
-    <p className="text-zinc-300 text-base leading-relaxed">
-      The practice of seeing what is already here. We shift our identity from the content of experience
-      to the silent, aware context in which it arises.
-    </p>
-  </div>
-);
+export default function HomePage() {
+  const productionProjects = getProductionProjects().slice(0, 2);
+  const prototypeProjects = getPrototypeProjects().slice(0, 2);
+  const featuredProjects = [...productionProjects, ...prototypeProjects].slice(0, 4);
 
-const CompassContent = () => (
-  <div className="p-6">
-    <p className="font-serif text-3xl md:text-4xl text-zinc-100 mb-3">
-      The Compass
-    </p>
-    <p className="text-gold text-sm mb-4">(ACT Psychology)</p>
-    <p className="text-zinc-300 text-base leading-relaxed">
-      The science-backed skills for a meaningful life. We learn to unhook from difficult thoughts,
-      clarify our values, and take committed action.
-    </p>
-  </div>
-);
-
-const GroundContent = () => (
-  <div className="p-6">
-    <p className="font-serif text-3xl md:text-4xl text-zinc-100 mb-3">
-      The Ground
-    </p>
-    <p className="text-gold text-sm mb-4">(Somatic Work & Physical Therapy)</p>
-    <p className="text-zinc-300 text-base leading-relaxed">
-      The practice of coming home to a strengthened body. We release stored tension from the nervous system,
-      building capacity to handle life.
-    </p>
-  </div>
-);
-
-// Pillar cards configuration for asymmetric grid
-const _pillarCards = [
-  {
-    id: 1,
-    content: <ViewContent />,
-    className: "md:col-span-2 h-full",
-    thumbnail: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600'%3E%3Crect fill='%23000000' width='800' height='600'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='serif' font-size='120' fill='%234fc3f7' opacity='0.1'%3E心%3C/text%3E%3C/svg%3E",
-  },
-  {
-    id: 2,
-    content: <CompassContent />,
-    className: "col-span-1 h-full",
-    thumbnail: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='600'%3E%3Crect fill='%23000000' width='400' height='600'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='serif' font-size='80' fill='%234fc3f7' opacity='0.1'%3E道%3C/text%3E%3C/svg%3E",
-  },
-  {
-    id: 3,
-    content: <GroundContent />,
-    className: "md:col-span-3 h-full",
-    thumbnail: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='300'%3E%3Crect fill='%23000000' width='1200' height='300'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='serif' font-size='100' fill='%234fc3f7' opacity='0.1'%3E地%3C/text%3E%3C/svg%3E",
-  },
-];
-
-export default function KaishinMethodLanding() {
   return (
     <PageTransition>
-      <main className="relative bg-black antialiased">
+      <main className="relative bg-terminal-bg antialiased">
         <Navigation />
 
         {/* Hero Section */}
-        <section className="min-h-screen flex items-center justify-center relative pt-20 sm:pt-24 md:pt-20 pb-12 sm:pb-16 md:pb-20 px-4 sm:px-6">
-          {/* Ambient background effects - Gold primary */}
-          <div className="absolute -top-10 sm:-top-20 left-0 w-64 sm:w-96 h-64 sm:h-96 bg-gold/20 rounded-full blur-2xl sm:blur-3xl" />
-          <div className="absolute top-20 sm:top-40 right-0 w-56 sm:w-80 h-56 sm:h-80 bg-gold/10 rounded-full blur-2xl sm:blur-3xl" />
+        <section className="min-h-screen flex items-center justify-center relative pt-32 pb-20 px-6">
+          {/* Subtle grid background */}
+          <div
+            className="absolute inset-0 opacity-[0.02]"
+            style={{
+              backgroundImage: `linear-gradient(to right, rgba(125, 207, 255, 0.5) 1px, transparent 1px),
+                               linear-gradient(to bottom, rgba(125, 207, 255, 0.5) 1px, transparent 1px)`,
+              backgroundSize: "50px 50px",
+            }}
+          />
 
-          {/* Decorative Kanji */}
-          <span className="absolute top-20 right-10 text-[12rem] font-serif-jp text-white/[0.03] pointer-events-none select-none">心</span>
+          {/* Ambient glow */}
+          <div className="absolute top-20 left-10 w-96 h-96 bg-terminal-cyan/10 rounded-full blur-3xl" />
+          <div className="absolute bottom-20 right-10 w-80 h-80 bg-terminal-purple/10 rounded-full blur-3xl" />
 
           <div className="max-w-4xl mx-auto text-center relative z-10">
             <motion.div
@@ -85,207 +41,336 @@ export default function KaishinMethodLanding() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-serif font-light text-zinc-100 mb-6 leading-tight">
-                Stop Chasing Fragments.<br />
-                <span className="text-gold">Master the Whole.</span>
-              </h1>
-
-              <p className="text-base md:text-lg lg:text-xl text-zinc-400 font-light leading-relaxed mb-8 max-w-3xl mx-auto">
-                A <span className="text-gold">90-day transformation</span> that integrates your Mental, Emotional, Physical, Energetic, and Spiritual bodies
-                into a unified system for <span className="text-gold">lasting change</span>.
+              <p className="font-terminal text-terminal-muted text-sm mb-6">
+                <span className="text-terminal-green">$</span> whoami
               </p>
 
-              <p className="text-base md:text-lg lg:text-xl text-zinc-400 font-light leading-relaxed mb-8 max-w-3xl mx-auto">
-                <span className="text-gold">The Kaishin Method:</span> Where scientific rigour meets the ease of Zen, grounded in the body you already have.
+              <h1 className="font-terminal text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-terminal mb-6 leading-tight">
+                I build <span className="text-terminal-cyan">AI systems</span><br />
+                that work for <span className="text-terminal-purple">humans</span>
+              </h1>
+
+              <p className="text-lg md:text-xl text-terminal-secondary font-light leading-relaxed mb-8 max-w-2xl mx-auto">
+                Software engineer with 15 years in psychology. I build tools that
+                understand how people actually behave—not how we wish they would.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-                <motion.a
-                  href="/path"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="btn-primary"
+                <Link
+                  href="/portfolio"
+                  className="inline-flex items-center justify-center px-6 py-3 font-terminal text-sm bg-transparent border border-terminal-cyan text-terminal-cyan hover:bg-terminal-cyan/10 hover:shadow-[0_0_20px_rgba(125,207,255,0.3)] transition-all duration-200 rounded-sm"
                 >
-                  <span className="relative z-10">Understand the Method</span>
-                </motion.a>
-                <motion.a
-                  href="/app/courses"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="btn-secondary"
+                  <span className="text-terminal-green mr-2">$</span> view_portfolio
+                </Link>
+                <a
+                  href="https://github.com/rickhallett"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 font-terminal text-sm bg-transparent border border-white/20 text-terminal-secondary hover:border-white/40 hover:text-terminal transition-all duration-200 rounded-sm"
                 >
-                  Start 30-Day Challenge
-                </motion.a>
+                  <IconBrandGithub className="w-4 h-4" />
+                  github
+                </a>
               </div>
 
-              {/* Micro Social Proof */}
-              <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center text-xs sm:text-sm text-zinc-500 italic px-4">
-                <p className="max-w-xs sm:max-w-sm">&quot;In 90 days, I went from understanding concepts to living them. The 5 bodies framework changed everything.&quot; <span className="text-gold font-bold">~ Buddha</span></p>
-                <p className="max-w-xs sm:max-w-sm hidden sm:block">&quot;Circle 1 to Circle 3 in three months. I can feel the difference in every aspect of my life.&quot;</p>
+              {/* Terminal prompt hint */}
+              <p className="font-terminal text-xs text-terminal-muted">
+                Press <kbd className="px-1.5 py-0.5 bg-terminal-bg-tertiary rounded-sm border border-white/10 mx-1">?</kbd> for keyboard shortcuts
+              </p>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Featured Projects */}
+        <section className="py-20 px-6 bg-terminal-bg-secondary">
+          <div className="max-w-6xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <p className="font-terminal text-terminal-muted text-sm mb-2">
+                <span className="text-terminal-green">$</span> ls ./projects/featured
+              </p>
+              <h2 className="font-terminal text-2xl sm:text-3xl text-terminal-cyan mb-8">
+                What I&apos;ve Built
+              </h2>
+
+              <div className="grid md:grid-cols-2 gap-6 mb-8">
+                {featuredProjects.map((project, index) => (
+                  <motion.div
+                    key={project.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: index * 0.1 }}
+                    className="p-6 bg-terminal-bg border border-white/10 rounded-sm hover:border-terminal-cyan/30 transition-all duration-200"
+                  >
+                    <div className="flex items-start justify-between mb-3">
+                      <span className={`font-terminal text-xs px-2 py-1 rounded-sm ${
+                        project.status === "production"
+                          ? "text-terminal-green border border-terminal-green/30"
+                          : "text-terminal-blue border border-terminal-blue/30"
+                      }`}>
+                        [{project.status}]
+                      </span>
+                      {project.currentlyBuilding && (
+                        <span className="font-terminal text-xs text-terminal-orange">
+                          building...
+                        </span>
+                      )}
+                    </div>
+                    <h3 className="font-terminal text-lg text-terminal mb-2">
+                      {project.title}
+                    </h3>
+                    <p className="text-terminal-secondary text-sm mb-4 line-clamp-2">
+                      {project.description}
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {project.tech.slice(0, 3).map((tech) => (
+                        <span
+                          key={tech}
+                          className="font-terminal text-xs px-2 py-1 bg-terminal-bg-tertiary text-terminal-secondary border border-white/10 rounded-sm"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+
+              <Link
+                href="/portfolio"
+                className="inline-flex items-center gap-2 font-terminal text-sm text-terminal-cyan hover:text-terminal-blue transition-colors"
+              >
+                <span className="text-terminal-green">$</span> view_all_projects
+                <IconArrowRight className="w-4 h-4" />
+              </Link>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Differentiator */}
+        <section className="py-20 px-6 bg-terminal-bg">
+          <div className="max-w-5xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <p className="font-terminal text-terminal-muted text-sm mb-2">
+                <span className="text-terminal-green">$</span> cat ./about/differentiator.md
+              </p>
+              <h2 className="font-terminal text-2xl sm:text-3xl text-terminal-purple mb-8">
+                The Secret Weapon
+              </h2>
+
+              <div className="grid md:grid-cols-2 gap-8">
+                <div className="p-6 bg-terminal-bg-secondary border border-white/5 rounded-sm">
+                  <span className="font-terminal text-xs text-terminal-red mb-3 block">## Problem</span>
+                  <p className="text-terminal-secondary leading-relaxed">
+                    Most AI tools ignore how humans actually behave. They optimise for
+                    metrics that don&apos;t matter and break when people do what people do:
+                    make mistakes, change their minds, resist what&apos;s good for them.
+                  </p>
+                </div>
+
+                <div className="p-6 bg-terminal-bg-secondary border border-white/5 rounded-sm">
+                  <span className="font-terminal text-xs text-terminal-green mb-3 block">## Solution</span>
+                  <p className="text-terminal-secondary leading-relaxed">
+                    15 years in therapy taught me: people resist change, need psychological
+                    safety, and respond to systems that meet them where they are. I encode
+                    that understanding into every system I build.
+                  </p>
+                </div>
+              </div>
+
+              <div className="mt-8 p-6 bg-terminal-bg-secondary border border-white/5 rounded-sm">
+                <div className="grid sm:grid-cols-3 gap-6 text-center">
+                  <div>
+                    <div className="font-terminal text-3xl text-terminal-cyan mb-2">15</div>
+                    <div className="text-terminal-muted text-sm">years psychology</div>
+                  </div>
+                  <div>
+                    <div className="font-terminal text-3xl text-terminal-purple mb-2">5</div>
+                    <div className="text-terminal-muted text-sm">years engineering</div>
+                  </div>
+                  <div>
+                    <div className="font-terminal text-3xl text-terminal-green mb-2">∞</div>
+                    <div className="text-terminal-muted text-sm">systems shipped</div>
+                  </div>
+                </div>
               </div>
             </motion.div>
           </div>
         </section>
 
-        {/* About Kaishin Section - Unique Value Proposition */}
-        <section className="py-24 px-6 bg-void relative">
-          {/* Background blur orb - Ocean Blue only */}
-          <div className="absolute top-1/2 right-0 w-96 h-96 bg-gold/10 rounded-full blur-3xl" />
-
-          <div className="max-w-6xl mx-auto relative z-10">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-light text-zinc-100 mb-4">
-                Why Kaishin Is <span className="text-gold">Different</span>
-              </h2>
-              <p className="text-base sm:text-lg text-zinc-400 font-light max-w-3xl mx-auto">
-                Credentials—<span className="text-gold"> and integration</span>. Three domains of expertise unified into one complete method.
+        {/* Services CTA */}
+        <section className="py-20 px-6 bg-terminal-bg-secondary">
+          <div className="max-w-5xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <p className="font-terminal text-terminal-muted text-sm mb-2">
+                <span className="text-terminal-green">$</span> ls ./services/
               </p>
-            </div>
+              <h2 className="font-terminal text-2xl sm:text-3xl text-terminal-green mb-8">
+                What I Can Build For You
+              </h2>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 md:gap-16 items-center">
-              <div>
-                <h3 className="text-3xl font-serif font-light text-zinc-100 mb-6">
-                  From <span className="text-zinc-400">Fragmentation</span> to <span className="text-gold">Integration</span>
-                </h3>
-                <p className="text-zinc-400 font-light leading-relaxed mb-6">
-                  My journey didn&apos;t begin with mastery—it began with a complete breakdown at sixteen.
-                  Depression hit like a system crash, and I spent years collecting tools to patch myself together:
-                  therapy for the mind, meditation for the spirit, exercise for the body.
-                </p>
-                <p className="text-zinc-400 font-light leading-relaxed mb-6">
-                  Each helped. None was enough. The problem wasn&apos;t the practices—it was that <span className="text-zinc-300">they were fragmented</span>.
-                  I had a regulated nervous system in therapy but spiritual emptiness. I had profound insights in meditation
-                  but behavioral patterns that wouldn&apos;t shift.
-                </p>
-                <p className="text-zinc-400 font-light leading-relaxed mb-6">
-                  <span className="text-gold font-normal">The breakthrough:</span> I stopped trying to master each domain
-                  separately and started asking: <span className="text-gold">How do these five dimensions of being human develop together?</span>
-                </p>
-                <p className="text-zinc-400 font-light leading-relaxed">
-                  That question became The Kaishin Method. <span className="text-gold font-normal">This is integration, not just credentials.</span>
-                </p>
-              </div>
-
-              <div className="card-featured p-8 transition-all duration-300">
-                <div className="mb-6 relative z-10">
-                  <div className="text-sm text-gold font-medium tracking-wide mb-2">THE INTEGRATION</div>
-                  <h3 className="text-2xl font-serif font-light text-zinc-100 mb-4"><span className="text-gold">Three Worlds</span>, One Method</h3>
+              <div className="grid sm:grid-cols-3 gap-6 mb-8">
+                <div className="p-5 bg-terminal-bg border border-white/5 rounded-sm">
+                  <h3 className="font-terminal text-sm text-terminal-cyan mb-2">Custom AI Tools</h3>
+                  <p className="text-terminal-muted text-xs">
+                    RAG systems, LLM integrations, domain-specific applications
+                  </p>
                 </div>
-
-                <div className="space-y-6 relative z-10">
-                  <div>
-                    <div className="font-sans font-medium text-zinc-100 mb-2">20 Years: Contemplative Practice</div>
-                    <p className="text-sm text-zinc-400 font-light">Zen, Vipassana, non-dual traditions. Extended retreats. Direct transmission from multiple lineages.</p>
-                  </div>
-
-                  <div>
-                    <div className="font-sans font-medium text-zinc-100 mb-2">15 Years: Psychotherapy</div>
-                    <p className="text-sm text-zinc-400 font-light">CBT, ACT, trauma-informed care. Deep understanding of human suffering and what creates lasting change.</p>
-                  </div>
-
-                  <div>
-                    <div className="font-sans font-medium text-zinc-100 mb-2">10 Years: Software Engineering</div>
-                    <p className="text-sm text-zinc-400 font-light">AI/ML systems, human-computer interaction. Bridging code and consciousness for the age of AI.</p>
-                  </div>
+                <div className="p-5 bg-terminal-bg border border-white/5 rounded-sm">
+                  <h3 className="font-terminal text-sm text-terminal-purple mb-2">Web Applications</h3>
+                  <p className="text-terminal-muted text-xs">
+                    Next.js, React, Python backends, production deployments
+                  </p>
                 </div>
-
-                <div className="mt-8 pt-6 border-t border-white/[0.1] relative z-10">
-                  <p className="text-sm text-zinc-400 font-light italic">
-                    &quot;Kaishin helped me move from knowing about presence to actually living it. This integration changed everything.&quot;
+                <div className="p-5 bg-terminal-bg border border-white/5 rounded-sm">
+                  <h3 className="font-terminal text-sm text-terminal-orange mb-2">AI Strategy</h3>
+                  <p className="text-terminal-muted text-xs">
+                    Technical guidance, architecture, team augmentation
                   </p>
                 </div>
               </div>
-            </div>
-          </div>
-        </section>
 
-        {/* Framework Teaser */}
-        <section className="py-24 px-6 relative overflow-hidden bg-black">
-          <div className="max-w-7xl mx-auto relative z-10">
-            <div className="text-center mb-12">
-              <h2 className="text-5xl md:text-6xl font-serif font-light text-zinc-100 mb-6">
-                {/* What Makes <span className="text-gold">This</span> Different */}
-              </h2>
-              <p className="text-lg text-zinc-400 font-light max-w-2xl mx-auto mb-12 text-left">
-                <span className="text-gold">Not another </span>meditation app...
-              </p>
-              <p className="text-lg text-zinc-400 font-light max-w-2xl mx-auto mb-12">
-                <span className="text-gold">Not another </span>therapy model...
-              </p>
-              <p className="text-lg text-zinc-400 font-light max-w-2xl mx-auto mb-12 text-right">
-                The Kaishin Method integrates <br />
-                three fundamental domains <br />
-                of powerful practice
-              </p>
-            </div>
-
-            {/* Three Pillars - Asymmetric LayoutGrid */}
-
-
-            <div className="text-center">
-              <motion.a
-                href="/path"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="btn-primary inline-block"
+              <Link
+                href="/consulting"
+                className="inline-flex items-center gap-2 font-terminal text-sm text-terminal-cyan hover:text-terminal-blue transition-colors"
               >
-                Learn the Complete Framework →
-              </motion.a>
-            </div>
+                <span className="text-terminal-green">$</span> learn_more
+                <IconArrowRight className="w-4 h-4" />
+              </Link>
+            </motion.div>
           </div>
         </section>
 
-        {/* Transformation Journey Preview */}
-        <section className="py-20 px-6 bg-black relative">
-          {/* Background blur orb - Ocean Blue only */}
-          <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-gold/10 rounded-full blur-3xl" />
-
-          <div className="max-w-5xl mx-auto relative z-10 text-center">
-            <h2 className="text-4xl md:text-5xl font-serif font-light text-zinc-100 mb-6">
-              From Fragmented to <span className="text-gold">Whole</span> in 90 Days
-            </h2>
-            <p className="text-lg text-zinc-400 font-light max-w-3xl mx-auto mb-12">
-              The Kaishin Method develops all five dimensions of being human simultaneously—Mental, Emotional, Physical, Energetic, and Spiritual. <span className="text-gold">This is wholeness, not just improvement.</span>
-            </p>
-
-            <div className="grid md:grid-cols-2 gap-8 mb-12 max-w-3xl mx-auto">
-              <div className="bg-void border border-gold/30 p-8 text-left glow-ocean-blue">
-                <div className="text-gold text-sm font-medium mb-2">30-DAY CHALLENGE</div>
-                <h3 className="text-2xl font-serif font-light text-zinc-100 mb-3">Build Your Foundation</h3>
-                <p className="text-zinc-400 font-light mb-4">
-                  Master the fundamentals across all three pillars. Achieve Circle 1 and establish your unshakable daily practice.
-                </p>
-                <div className="text-gold font-medium">£47 · Start Here</div>
-              </div>
-
-              <div className="bg-void border border-jade/30 p-8 text-left glow-jade">
-                <div className="text-jade text-sm font-medium mb-2">90-DAY TRANSFORMATION</div>
-                <h3 className="text-2xl font-serif font-light text-zinc-100 mb-3">Complete Integration</h3>
-                <p className="text-zinc-400 font-light mb-4">
-                  Progress from Circle 1 to Circle 3 mastery. The threshold most programs never cross—reached in 90 days.
-                </p>
-                <div className="text-jade font-medium">£497 · Most Popular</div>
-              </div>
-            </div>
-
-            <motion.a
-              href="/program"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="btn-primary inline-block"
+        {/* Blog Preview */}
+        <section className="py-20 px-6 bg-terminal-bg">
+          <div className="max-w-5xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
             >
-              See Your Complete Journey →
-            </motion.a>
+              <p className="font-terminal text-terminal-muted text-sm mb-2">
+                <span className="text-terminal-green">$</span> tail -3 ./blog/posts.log
+              </p>
+              <h2 className="font-terminal text-2xl sm:text-3xl text-terminal mb-8">
+                Learning in Public
+              </h2>
+
+              <div className="space-y-4 mb-8">
+                <Link
+                  href="/blog/2025-01-25-shipping-prototypes-production"
+                  className="block p-4 bg-terminal-bg-secondary border border-white/5 rounded-sm hover:border-terminal-cyan/30 transition-all"
+                >
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <h3 className="font-terminal text-sm text-terminal hover:text-terminal-cyan transition-colors">
+                        Every Prototype Should Be Deployable
+                      </h3>
+                      <p className="text-terminal-muted text-xs mt-1">How I ship fast without accumulating debt</p>
+                    </div>
+                    <span className="font-terminal text-xs text-terminal-muted">2025-01-25</span>
+                  </div>
+                </Link>
+
+                <Link
+                  href="/blog/2025-01-22-rag-systems-therapy-context"
+                  className="block p-4 bg-terminal-bg-secondary border border-white/5 rounded-sm hover:border-terminal-cyan/30 transition-all"
+                >
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <h3 className="font-terminal text-sm text-terminal hover:text-terminal-cyan transition-colors">
+                        Building RAG Systems for Therapeutic Context
+                      </h3>
+                      <p className="text-terminal-muted text-xs mt-1">Lessons from building Sidekick</p>
+                    </div>
+                    <span className="font-terminal text-xs text-terminal-muted">2025-01-22</span>
+                  </div>
+                </Link>
+
+                <Link
+                  href="/blog/2025-01-20-building-terminal-aesthetic-nextjs"
+                  className="block p-4 bg-terminal-bg-secondary border border-white/5 rounded-sm hover:border-terminal-cyan/30 transition-all"
+                >
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <h3 className="font-terminal text-sm text-terminal hover:text-terminal-cyan transition-colors">
+                        Building a Terminal Aesthetic in Next.js
+                      </h3>
+                      <p className="text-terminal-muted text-xs mt-1">Tokyo Night theme implementation</p>
+                    </div>
+                    <span className="font-terminal text-xs text-terminal-muted">2025-01-20</span>
+                  </div>
+                </Link>
+              </div>
+
+              <Link
+                href="/blog"
+                className="inline-flex items-center gap-2 font-terminal text-sm text-terminal-cyan hover:text-terminal-blue transition-colors"
+              >
+                <span className="text-terminal-green">$</span> read_all_posts
+                <IconArrowRight className="w-4 h-4" />
+              </Link>
+            </motion.div>
           </div>
         </section>
 
-        {/* Testimonials - Dynamic from Trustpilot */}
-        <TestimonialsCarousel />
+        {/* CTA */}
+        <section className="py-20 px-6 bg-terminal-bg-secondary relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-terminal-cyan/5 to-transparent" />
+          <div className="max-w-3xl mx-auto text-center relative z-10">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <p className="font-terminal text-terminal-muted text-sm mb-4">
+                <span className="text-terminal-green">$</span> init new_project
+              </p>
+              <h2 className="font-terminal text-2xl md:text-3xl text-terminal mb-6">
+                Ready to <span className="text-terminal-cyan">build</span>?
+              </h2>
+              <p className="text-terminal-secondary leading-relaxed mb-8">
+                I build AI-powered tools for human domains. If you need custom software
+                that actually understands how people work, let&apos;s talk.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <a
+                  href="https://calendar.app.google/RMwsbtUZ76G6VZzb7"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center px-6 py-3 font-terminal text-sm bg-transparent border border-terminal-cyan text-terminal-cyan hover:bg-terminal-cyan/10 hover:shadow-[0_0_20px_rgba(125,207,255,0.3)] transition-all duration-200 rounded-sm"
+                >
+                  <span className="text-terminal-green mr-2">$</span> schedule_call
+                </a>
+                <a
+                  href="mailto:kai@oceanheart.ai"
+                  className="inline-flex items-center justify-center px-6 py-3 font-terminal text-sm bg-transparent border border-white/20 text-terminal-secondary hover:border-white/40 hover:text-terminal transition-all duration-200 rounded-sm"
+                >
+                  <span className="text-terminal-green mr-2">$</span> kai@oceanheart.ai
+                </a>
+              </div>
+            </motion.div>
+          </div>
+        </section>
 
-        {/* Lead Magnet */}
-        <LeadMagnetForm />
-
-        <Footer />
+        <TerminalFooter />
       </main>
     </PageTransition>
   );

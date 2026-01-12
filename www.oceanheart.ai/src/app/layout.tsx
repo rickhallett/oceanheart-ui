@@ -2,6 +2,7 @@ import { Noto_Serif, Noto_Sans, Noto_Serif_JP, Geist_Mono, JetBrains_Mono, Inter
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { ChatProvider } from "@/contexts/ChatContext";
 import { Providers } from "./providers";
+import { KeyboardNavigation } from "@/components/terminal";
 import "./globals.css";
 
 const notoSerif = Noto_Serif({
@@ -77,6 +78,7 @@ export default function RootLayout({
         <Providers>
           <ChatProvider>
             <SpeedInsights />
+            <KeyboardNavigation />
             {children}
           </ChatProvider>
         </Providers>

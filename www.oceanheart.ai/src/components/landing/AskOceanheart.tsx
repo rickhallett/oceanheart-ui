@@ -6,9 +6,9 @@ import { AIModal } from "./AIModal";
 
 const placeholders = [
   "What AI services do you offer?",
-  "Tell me about somatic therapy approaches...",
+  "Can you build a custom tool for my business?",
   "Can you build a Next.js app for my startup?",
-  "What makes the Kaishin Method unique?",
+  "How do you approach AI system design?",
   "How can I hire you for a project?",
   "What's your development philosophy?",
 ];

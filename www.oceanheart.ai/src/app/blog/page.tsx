@@ -1,8 +1,7 @@
 import { getContentByType } from "@/lib/content";
 import Link from "next/link";
-import { Spotlight } from "@/components/ui/spotlight";
 import { Navigation } from "@/components/kaishin/Navigation";
-import { Footer } from "@/components/kaishin/Footer";
+import { TerminalFooter } from "@/components/terminal";
 
 // Type for blog post with proper frontmatter
 interface BlogPost {
@@ -29,20 +28,22 @@ export default async function BlogPage() {
   );
 
   return (
-    <main className="bg-black min-h-screen text-white">
+    <main className="bg-terminal-bg min-h-screen text-terminal">
       <Navigation />
 
       {/* Hero Section */}
-      <section className="relative min-h-[40vh] flex items-center justify-center overflow-hidden">
-        <Spotlight className="-top-40 left-0 md:left-60 md:-top-20" fill="#4fc3f7" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black z-[1]" />
+      <section className="relative min-h-[40vh] flex items-center justify-center overflow-hidden pt-24">
+        <div className="absolute inset-0 bg-gradient-to-b from-terminal-bg via-terminal-bg-secondary to-terminal-bg z-[1]" />
 
-        <div className="relative z-10 text-center px-6 max-w-4xl mx-auto pt-20">
-          <h1 className="mb-6 text-3xl md:text-5xl font-serif font-light text-zinc-100">
-            The <span className="text-gold">Oceanheart.ai</span> Blog
+        <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
+          <p className="font-terminal text-terminal-muted text-sm mb-4">
+            <span className="text-terminal-green">$</span> cat ./blog/index.md
+          </p>
+          <h1 className="mb-6 font-terminal text-3xl md:text-4xl text-terminal-cyan">
+            Learning in Public
           </h1>
-          <p className="text-xl md:text-2xl font-light text-zinc-300 max-w-3xl mx-auto">
-            Insights on integration, embodied wisdom, and mastering the five bodies
+          <p className="text-lg md:text-xl text-terminal-secondary max-w-3xl mx-auto">
+            Notes on building AI systems, shipping software, and the craft of engineering.
           </p>
         </div>
       </section>
@@ -54,13 +55,13 @@ export default async function BlogPage() {
           {allCategories.length > 0 && (
             <div className="mb-12 flex flex-wrap gap-3 justify-center">
               <Link href="/blog">
-                <span className="px-4 py-2 bg-gold/20 border border-gold/50 rounded-full text-sm text-gold hover:bg-gold/30 transition-all cursor-pointer">
+                <span className="font-terminal px-4 py-2 bg-terminal-cyan/20 border border-terminal-cyan/50 text-sm text-terminal-cyan hover:bg-terminal-cyan/30 transition-all cursor-pointer">
                   All Posts
                 </span>
               </Link>
               {allCategories.map((category) => (
                 <Link key={category} href={`/blog?category=${encodeURIComponent(category)}`}>
-                  <span className="px-4 py-2 bg-black border border-white/[0.1] backdrop-blur-xl rounded-full text-sm text-zinc-300 hover:border-gold/50 hover:text-gold transition-all cursor-pointer">
+                  <span className="font-terminal px-4 py-2 bg-terminal-bg-secondary border border-white/10 text-sm text-terminal-muted hover:border-terminal-cyan/50 hover:text-terminal-cyan transition-all cursor-pointer">
                     {category}
                   </span>
                 </Link>
@@ -71,22 +72,22 @@ export default async function BlogPage() {
           {/* Posts Grid */}
           {posts.length === 0 ? (
             <div className="text-center py-20">
-              <p className="text-xl text-zinc-400">No blog posts yet. Check back soon!</p>
+              <p className="font-terminal text-xl text-terminal-muted">No blog posts yet. Check back soon!</p>
             </div>
           ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {posts.map((post) => (
                 <Link key={post.slug} href={`/blog/${post.slug}`}>
-                  <div className="group bg-black border border-white/[0.1] backdrop-blur-xl rounded-2xl overflow-hidden hover:border-white/[0.2] hover:shadow-[0_0_20px_rgba(212,165,116,0.2)] transition-all duration-300 h-full flex flex-col">
+                  <div className="group bg-terminal-bg-secondary border border-white/10 overflow-hidden hover:border-terminal-cyan/30 hover:shadow-[0_0_20px_rgba(125,207,255,0.1)] transition-all duration-300 h-full flex flex-col">
                     {/* Thumbnail */}
                     {post.frontmatter.thumbnail && (
                       <div className="relative h-48 overflow-hidden">
                         <img
                           src={post.frontmatter.thumbnail}
                           alt={post.frontmatter.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 opacity-80"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-terminal-bg/80 to-transparent" />
                       </div>
                     )}
 
@@ -97,25 +98,25 @@ export default async function BlogPage() {
                         {post.frontmatter.categories.slice(0, 2).map((cat) => (
                           <span
                             key={cat}
-                            className="text-xs px-2 py-1 bg-gold/20 text-gold rounded-full"
+                            className="font-terminal text-xs px-2 py-1 bg-terminal-cyan/10 text-terminal-cyan"
                           >
-                            {cat}
+                            [{cat}]
                           </span>
                         ))}
                       </div>
 
                       {/* Title */}
-                      <h3 className="text-xl mb-3 group-hover:text-gold transition-colors line-clamp-2 text-zinc-100">
+                      <h3 className="font-terminal text-lg mb-3 group-hover:text-terminal-cyan transition-colors line-clamp-2 text-terminal">
                         {post.frontmatter.title}
                       </h3>
 
                       {/* Excerpt */}
-                      <p className="text-zinc-400 text-sm mb-4 line-clamp-3 flex-1">
+                      <p className="text-terminal-secondary text-sm mb-4 line-clamp-3 flex-1">
                         {post.frontmatter.excerpt}
                       </p>
 
                       {/* Meta */}
-                      <div className="flex items-center justify-between text-xs text-zinc-500 pt-4 border-t border-white/10">
+                      <div className="flex items-center justify-between text-xs text-terminal-muted pt-4 border-t border-white/10 font-terminal">
                         <span>{post.frontmatter.author}</span>
                         <span>
                           {new Date(post.frontmatter.date).toLocaleDateString("en-US", {
@@ -134,26 +135,28 @@ export default async function BlogPage() {
 
           {/* CTA Section */}
           <div className="mt-20 text-center relative">
-            {/* Atmospheric background orb */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gold/20 rounded-full blur-3xl" />
-
-            <div className="bg-gold/10 border border-gold/30 p-12 max-w-3xl mx-auto relative z-10 hover:shadow-[0_0_30px_rgba(212,165,116,0.3)] transition-all duration-300">
-              <h2 className="text-3xl md:text-4xl font-serif font-light mb-4 text-zinc-100">Begin Your Journey of Integration</h2>
-              <p className="text-zinc-300 mb-8 font-light">
-                Unite mind, body, and spirit through The Kaishin Method
+            <div className="bg-terminal-bg-secondary border border-terminal-cyan/20 p-12 max-w-3xl mx-auto relative z-10 hover:border-terminal-cyan/40 transition-all duration-300">
+              <p className="font-terminal text-terminal-muted text-sm mb-4">
+                <span className="text-terminal-green">$</span> ./schedule_consultation
               </p>
-              <Link
-                href="/program#start"
-                className="inline-block px-8 py-3 bg-gold text-black border border-gold hover:bg-gold/90 hover:shadow-[0_0_20px_rgba(212,165,116,0.8),0_0_40px_rgba(212,165,116,0.4)] transition-all duration-300 font-semibold"
+              <h2 className="font-terminal text-2xl md:text-3xl mb-4 text-terminal">Need something built?</h2>
+              <p className="text-terminal-secondary mb-8">
+                Custom AI tools, production systems, and human-centred software.
+              </p>
+              <a
+                href="https://calendar.app.google/RMwsbtUZ76G6VZzb7"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block font-terminal text-sm px-6 py-3 border border-terminal-cyan text-terminal-cyan hover:bg-terminal-cyan/10 transition-all"
               >
-                Explore The Journey
-              </Link>
+                <span className="text-terminal-green mr-1">$</span> schedule_call
+              </a>
             </div>
           </div>
         </div>
       </section>
 
-      <Footer />
+      <TerminalFooter />
     </main>
   );
 }

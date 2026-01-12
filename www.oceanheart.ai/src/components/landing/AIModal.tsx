@@ -119,7 +119,7 @@ export function AIModal({ initialQuestion, onClose }: AIModalProps) {
     {
       id: "welcome",
       role: "assistant" as const,
-      content: "Welcome! I'm here to help you understand what Richard offers across AI solutions, somatic therapy, web development, and The Kaishin Method. What would you like to know?",
+      content: "Welcome! I'm here to help you understand what Kai offers across AI systems engineering, custom software development, and technical consulting. What would you like to know?",
       timestamp: new Date().toISOString(),
     }
   ] : messages;

@@ -2,7 +2,8 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useState, useRef } from "react";
 import Link from "next/link";
-import { Navigation, Footer, PageTransition } from "@/components/kaishin";
+import { Navigation, PageTransition } from "@/components/kaishin";
+import { TerminalFooter } from "@/components/terminal";
 
 const trials = [
   {
@@ -704,7 +705,7 @@ export default function ProgramV7Page() {
           </div>
         </section>
 
-        <Footer />
+        <TerminalFooter />
       </main>
     </PageTransition>
   );
