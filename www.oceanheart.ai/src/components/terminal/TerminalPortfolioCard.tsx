@@ -82,7 +82,7 @@ export function TerminalPortfolioCard({
         </h3>
 
         {/* Description */}
-        <p className="text-sm text-terminal-secondary leading-relaxed mb-4 line-clamp-2">
+        <p className="font-terminal text-sm text-terminal-secondary leading-relaxed mb-4 line-clamp-2">
           {project.description}
         </p>
 
@@ -92,13 +92,13 @@ export function TerminalPortfolioCard({
             {project.problem && (
               <div className="mb-2">
                 <span className="text-terminal-red font-terminal">Problem:</span>
-                <span className="text-terminal-muted ml-2">{project.problem}</span>
+                <span className="font-terminal text-terminal-muted ml-2">{project.problem}</span>
               </div>
             )}
             {project.solution && (
               <div>
                 <span className="text-terminal-green font-terminal">Solution:</span>
-                <span className="text-terminal-muted ml-2">{project.solution}</span>
+                <span className="font-terminal text-terminal-muted ml-2">{project.solution}</span>
               </div>
             )}
           </div>

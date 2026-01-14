@@ -1,6 +1,6 @@
 "use client";
 import { Navigation, PageTransition } from "@/components/kaishin";
-import { TerminalPortfolioCard, TerminalFooter } from "@/components/terminal";
+import { TerminalPortfolioCardWithModal, TerminalFooter } from "@/components/terminal";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import {
@@ -9,6 +9,7 @@ import {
   getPrototypeProjects,
   getExperimentProjects,
   getAllProjects,
+  makeProjectSlug,
 } from "@/lib/portfolio";
 
 export default function PortfolioPage() {
@@ -53,7 +54,7 @@ export default function PortfolioPage() {
               <h1 className="font-terminal text-3xl sm:text-4xl md:text-5xl text-terminal mb-4">
                 Production Systems <span className="text-terminal-cyan">&</span> Experiments
               </h1>
-              <p className="text-lg text-terminal-secondary font-light leading-relaxed max-w-2xl mb-8">
+              <p className="font-terminal text-lg text-terminal-secondary leading-relaxed max-w-2xl mb-8">
                 AI-powered tools, human-centred platforms, and systems that actually work.
                 From production deployments to ongoing experiments.
               </p>
@@ -88,9 +89,9 @@ export default function PortfolioPage() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {currentlyBuilding.map((project, index) => (
-                  <TerminalPortfolioCard
+                  <TerminalPortfolioCardWithModal
                     key={project.id}
-                    project={project}
+                    project={{ ...project, sectionId: project.sectionId }}
                     index={index}
                     showProblemSolution={true}
                   />
@@ -138,7 +139,7 @@ export default function PortfolioPage() {
                       <h3 className="font-terminal text-xl text-terminal mb-2">
                         {swanageProject.title}
                       </h3>
-                      <p className="text-terminal-secondary text-sm">
+                      <p className="font-terminal text-terminal-secondary text-sm">
                         {swanageProject.description}
                       </p>
                     </div>
@@ -146,13 +147,13 @@ export default function PortfolioPage() {
                     <div className="space-y-4 p-4 bg-terminal-bg-secondary border border-white/5 rounded-sm">
                       <div>
                         <span className="font-terminal text-xs text-terminal-red">## Problem</span>
-                        <p className="text-terminal-muted text-sm mt-1">
+                        <p className="font-terminal text-terminal-muted text-sm mt-1">
                           {swanageProject.problem}
                         </p>
                       </div>
                       <div>
                         <span className="font-terminal text-xs text-terminal-green">## Solution</span>
-                        <p className="text-terminal-muted text-sm mt-1">
+                        <p className="font-terminal text-terminal-muted text-sm mt-1">
                           {swanageProject.solution}
                         </p>
                       </div>
@@ -228,16 +229,16 @@ export default function PortfolioPage() {
                 <h2 className="font-terminal text-2xl text-terminal-green">
                   Production Systems
                 </h2>
-                <p className="text-terminal-secondary text-sm mt-2">
+                <p className="font-terminal text-terminal-secondary text-sm mt-2">
                   Live, deployed systems serving real users
                 </p>
               </motion.div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {productionProjects.map((project, index) => (
-                  <TerminalPortfolioCard
+                  <TerminalPortfolioCardWithModal
                     key={project.id}
-                    project={project}
+                    project={{ ...project, sectionId: project.sectionId }}
                     index={index}
                   />
                 ))}
@@ -263,16 +264,16 @@ export default function PortfolioPage() {
                 <h2 className="font-terminal text-2xl text-terminal-blue">
                   Prototypes
                 </h2>
-                <p className="text-terminal-secondary text-sm mt-2">
+                <p className="font-terminal text-terminal-secondary text-sm mt-2">
                   Working builds demonstrating core functionality
                 </p>
               </motion.div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {prototypeProjects.map((project, index) => (
-                  <TerminalPortfolioCard
+                  <TerminalPortfolioCardWithModal
                     key={project.id}
-                    project={project}
+                    project={{ ...project, sectionId: project.sectionId }}
                     index={index}
                     showProblemSolution={true}
                   />
@@ -299,16 +300,16 @@ export default function PortfolioPage() {
                 <h2 className="font-terminal text-2xl text-terminal-purple">
                   Experiments
                 </h2>
-                <p className="text-terminal-secondary text-sm mt-2">
+                <p className="font-terminal text-terminal-secondary text-sm mt-2">
                   Early explorations and research projects
                 </p>
               </motion.div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {experimentProjects.map((project, index) => (
-                  <TerminalPortfolioCard
+                  <TerminalPortfolioCardWithModal
                     key={project.id}
-                    project={project}
+                    project={{ ...project, sectionId: project.sectionId }}
                     index={index}
                     showProblemSolution={true}
                   />
@@ -334,7 +335,7 @@ export default function PortfolioPage() {
               <h2 className="font-terminal text-2xl md:text-3xl text-terminal mb-6">
                 Need something <span className="text-terminal-cyan">built</span>?
               </h2>
-              <p className="text-terminal-secondary leading-relaxed mb-8">
+              <p className="font-terminal text-terminal-secondary leading-relaxed mb-8">
                 I build AI-powered tools for human domains. If you need custom software
                 that actually understands how people work, let&apos;s talk.
               </p>
