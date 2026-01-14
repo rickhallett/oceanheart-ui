@@ -96,6 +96,23 @@ export const portfolioSections: PortfolioSection[] = [
         category: "apps",
         status: "experiment",
       },
+      {
+        id: 111,
+        title: "Clockwork Hamlet",
+        description:
+          "A persistent AI village simulation where 10 autonomous agents with distinct personalities live, interact, and create emergent narratives.",
+        problem: "AI simulations are typically scripted—real emergence requires autonomous agents making independent decisions.",
+        solution: "10 LLM-powered agents with personalities, memory, and relationships creating unscripted drama in a virtual village.",
+        image: "/images/clockwork-hamlet.png",
+        tech: ["FastAPI", "React", "SQLite", "Claude API", "Docker", "SSE", "TypeScript"],
+        externalUrl: "https://clockwork.oceanheart.ai",
+        featured: true,
+        githubRepo: "rickhallett/clockwork-hamlet",
+        githubBranch: "master",
+        category: "apps",
+        status: "experiment",
+        currentlyBuilding: true,
+      },
     ],
   },
   {
