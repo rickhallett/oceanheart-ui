@@ -12,7 +12,9 @@ export function Navigation() {
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/portfolio", label: "Portfolio" },
+    { href: "/cv", label: "CV" },
     { href: "/blog", label: "Blog" },
+    { href: "/journal", label: "Journal" },
     { href: "/consulting", label: "Consulting" },
     { href: "/kai", label: "About" },
   ];

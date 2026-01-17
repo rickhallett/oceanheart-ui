@@ -48,6 +48,41 @@ export const portfolioSections: PortfolioSection[] = [
     hidden: false,
     projects: [
       {
+        id: 113,
+        title: "SATI",
+        description:
+          "Session Analysis Training Intelligence - an AI meditation coach that classifies jhana practice obstacles against a taxonomy of 20+ antipatterns, with calibrated confidence scoring and safety guardrails.",
+        problem: "Jhana practitioners struggle to identify why their practice isn't progressing, lacking accessible expert guidance on common obstacles.",
+        solution: "A conversational AI that detects practice antipatterns from Jhourney's methodology, calibrates confidence with empirical multipliers, and provides targeted interventions.",
+        image: "/images/sati-card.jpeg",
+        tech: ["Next.js 15", "React 19", "Claude API", "Vercel AI SDK", "Turso SQLite", "Drizzle ORM"],
+        externalUrl: "https://koan.oceanheart.ai",
+        featured: true,
+        githubRepo: "rickhallett/koan",
+        githubBranch: "main",
+        category: "apps",
+        status: "experiment",
+        impact: "20+ antipatterns classified, 8 categories of practice obstacles",
+        currentlyBuilding: true,
+      },
+      {
+        id: 112,
+        title: "Discovering Ben",
+        description:
+          "A groundbreaking research initiative documenting vicious reinforcement cycles in autism-LLM interactions. Analyzed 255 conversations revealing that 60-70% of interaction dysfunction originates from LLM responses, not user behavior.",
+        problem: "Autistic users experience pathological interaction patterns with LLMs, but current research lacks quantitative evidence of whether dysfunction stems from users or system design.",
+        solution: "A rigorous two-stage analysis pipeline combining quantitative regex detection with qualitative LLM semantic analysis, identifying 7 distinct interaction patterns and producing evidence-based system prompt interventions.",
+        image: "/images/discovering-ben-card.jpeg",
+        tech: ["Python", "Claude API", "MkDocs", "Regex Pattern Matching", "Parallel Agent Orchestration"],
+        featured: true,
+        githubRepo: "rickhallett/discovering-ben",
+        githubBranch: "master",
+        category: "apps",
+        status: "prototype",
+        impact: "255 conversations analyzed, 7 interaction patterns identified, 4 pathological cycles documented",
+        currentlyBuilding: true,
+      },
+      {
         id: 101,
         title: "Preflight",
         description:
@@ -79,6 +114,7 @@ export const portfolioSections: PortfolioSection[] = [
         githubBranch: "main",
         category: "apps",
         status: "prototype",
+        currentlyBuilding: true,
       },
       {
         id: 110,
@@ -185,7 +221,6 @@ export const portfolioSections: PortfolioSection[] = [
         githubBranch: "main",
         category: "integrations",
         status: "prototype",
-        currentlyBuilding: true,
       },
       {
         id: 105,
