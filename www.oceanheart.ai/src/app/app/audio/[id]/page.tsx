@@ -7,9 +7,7 @@
 
 import React, { useState, useEffect, use } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { useSession } from 'next-auth/react';
 import {
   IconArrowLeft,
   IconHeadphones,
@@ -19,7 +17,6 @@ import {
   IconCalendar,
 } from '@tabler/icons-react';
 import { AudioPlayer } from '@/components/audio/AudioPlayer';
-import { AudioCard } from '@/components/audio/AudioCard';
 import {
   formatDuration,
   formatFileSize,
@@ -30,6 +27,8 @@ import {
 } from '@/lib/audio';
 import { cn } from '@/lib/utils';
 
+// Note: Authentication is currently disabled. Session features are commented out.
+
 interface AudioDetailPageProps {
   params: Promise<{
     id: string;
@@ -38,15 +37,11 @@ interface AudioDetailPageProps {
 
 export default function AudioDetailPage({ params }: AudioDetailPageProps) {
   const resolvedParams = use(params);
-  const router = useRouter();
-  const { data: session } = useSession();
-  const user = session?.user;
+  // Auth disabled - user features removed
   const [recording, setRecording] = useState<AudioWithProgress | null>(null);
   const [relatedRecordings, setRelatedRecordings] = useState<AudioWithProgress[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
-  const isAdmin = user?.email?.endsWith('@oceanheart.ai');
 
   // Fetch recording
   useEffect(() => {

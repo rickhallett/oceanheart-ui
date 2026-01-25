@@ -1,8 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { useSession, signOut } from "next-auth/react";
+import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import {
     IconHome,
@@ -18,15 +17,16 @@ import {
     IconLogout,
 } from "@tabler/icons-react";
 
+// Note: Authentication is currently disabled. Session features are commented out.
+// To re-enable: import { useSession, signOut } from "next-auth/react" and restore session code.
+
 export default function AppLayout({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
-    const router = useRouter();
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-    const { data: session } = useSession();
-    const user = session?.user;
 
-    const handleLogout = async () => {
-        await signOut({ callbackUrl: '/auth/signin' });
+    const handleLogout = () => {
+        // Auth disabled - redirect to home
+        window.location.href = '/';
     };
 
     const navItems = [
@@ -91,36 +91,15 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                     })}
                 </nav>
 
-                {/* User Section & Logout */}
-                <div className="p-4 border-t border-white/[0.1] space-y-3">
-                    {/* User Info */}
-                    {user && (
-                        <div className="flex items-center gap-3 px-4 py-3 rounded-sm bg-white/[0.05] border border-white/[0.1]">
-                            <div className="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center">
-                                {user.image ? (
-                                    <img src={user.image} alt={user.name || "User"} className="w-full h-full rounded-full object-cover" />
-                                ) : (
-                                    <span className="text-gold font-medium">{user.name?.charAt(0).toUpperCase() || "U"}</span>
-                                )}
-                            </div>
-                            <div className="flex-1 min-w-0">
-                                <p className="text-sm font-medium text-zinc-100 truncate">
-                                    {user.name || "Member"}
-                                </p>
-                                <p className="text-xs text-zinc-400 truncate">
-                                    {user.email || "No email"}
-                                </p>
-                            </div>
-                        </div>
-                    )}
-
-                    {/* Logout Button */}
+                {/* Footer Actions */}
+                <div className="p-4 border-t border-white/[0.1]">
+                    {/* Home Button (replaces Sign Out when auth disabled) */}
                     <button
                         onClick={handleLogout}
                         className="w-full justify-start text-plum hover:bg-plum/10 hover:border-plum/30 flex items-center gap-2 px-4 py-3 rounded-sm border border-transparent hover:border-plum/30 transition-all"
                     >
                         <IconLogout className="w-5 h-5" />
-                        <span>Sign Out</span>
+                        <span>Back to Home</span>
                     </button>
                 </div>
             </aside>
@@ -200,36 +179,14 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                             })}
                         </nav>
 
-                        {/* User Section & Logout */}
-                        <div className="p-4 border-t border-white/[0.1] space-y-3">
-                            {/* User Info */}
-                            {user && (
-                                <div className="flex items-center gap-3 px-4 py-3 rounded-sm bg-white/[0.05] border border-white/[0.1]">
-                                    <div className="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center">
-                                        {user.image ? (
-                                            <img src={user.image} alt={user.name || "User"} className="w-full h-full rounded-full object-cover" />
-                                        ) : (
-                                            <span className="text-gold font-medium">{user.name?.charAt(0).toUpperCase() || "U"}</span>
-                                        )}
-                                    </div>
-                                    <div className="flex-1 min-w-0">
-                                        <p className="text-sm font-medium text-zinc-100 truncate">
-                                            {user.name || "Member"}
-                                        </p>
-                                        <p className="text-xs text-zinc-400 truncate">
-                                            {user.email || "No email"}
-                                        </p>
-                                    </div>
-                                </div>
-                            )}
-
-                            {/* Logout Button */}
+                        {/* Footer Actions */}
+                        <div className="p-4 border-t border-white/[0.1]">
                             <button
                                 onClick={handleLogout}
                                 className="w-full justify-start text-plum hover:bg-plum/10 hover:border-plum/30 flex items-center gap-2 px-4 py-3 rounded-sm border border-transparent hover:border-plum/30 transition-all"
                             >
                                 <IconLogout className="w-5 h-5" />
-                                <span>Sign Out</span>
+                                <span>Back to Home</span>
                             </button>
                         </div>
                     </aside>

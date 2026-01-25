@@ -8,7 +8,6 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useSession } from 'next-auth/react';
 import {
   IconSearch,
   IconPlus,
@@ -18,19 +17,18 @@ import {
 import { AudioCard } from '@/components/audio/AudioCard';
 import { CategoryFilter, type AudioCategory } from '@/components/audio/CategoryFilter';
 import type { AudioWithProgress } from '@/lib/audio';
-import { cn } from '@/lib/utils';
+
+// Note: Authentication is currently disabled. Session features are commented out.
 
 export default function AudioLibraryPage() {
-  const { data: session } = useSession();
-  const user = session?.user;
+  // Auth disabled - admin features hidden
+  const isAdmin = false;
   const [recordings, setRecordings] = useState<AudioWithProgress[]>([]);
   const [filteredRecordings, setFilteredRecordings] = useState<AudioWithProgress[]>([]);
   const [activeCategory, setActiveCategory] = useState<AudioCategory>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
-  const isAdmin = user?.email?.endsWith('@oceanheart.ai');
 
   // Fetch recordings
   useEffect(() => {

@@ -5,51 +5,20 @@
  * Admin-only page for uploading new audio recordings
  */
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { useSession } from 'next-auth/react';
 import {
   IconArrowLeft,
   IconUpload,
-  IconLoader2,
 } from '@tabler/icons-react';
 import { UploadForm } from '@/components/audio/UploadForm';
 
+// Note: Authentication is currently disabled.
+// Admin access control has been removed. To re-enable, restore useSession and auth checks.
+
 export default function AudioUploadPage() {
-  const router = useRouter();
-  const { data: session, status } = useSession();
-  const isLoading = status === 'loading';
-  const user = session?.user;
-
-  const isAdmin = user?.email?.endsWith('@oceanheart.ai');
-
-  // Redirect non-admins
-  useEffect(() => {
-    if (isLoading) return;
-
-    if (!user) {
-      router.push('/auth/signin');
-      return;
-    }
-
-    if (!isAdmin) {
-      router.push('/app/audio');
-    }
-  }, [user, isLoading, isAdmin, router]);
-
-  // Show loading while checking auth
-  if (isLoading || !user || !isAdmin) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-center">
-          <IconLoader2 className="w-12 h-12 text-ocean-blue animate-spin mx-auto mb-4" />
-          <p className="text-zinc-400">Loading...</p>
-        </div>
-      </div>
-    );
-  }
+  // Auth disabled - admin check removed
 
   return (
     <div className="max-w-5xl mx-auto">
