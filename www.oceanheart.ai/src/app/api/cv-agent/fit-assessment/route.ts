@@ -101,6 +101,15 @@ You must respond with valid JSON matching this structure:
 
 export async function POST(request: NextRequest) {
   try {
+    // Check for API key
+    if (!process.env.ANTHROPIC_API_KEY) {
+      console.error("[Fit Assessment] Missing ANTHROPIC_API_KEY");
+      return new Response(
+        JSON.stringify({ error: "API configuration error" }),
+        { status: 500, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
     const { jobDescription } = await request.json();
 
     if (!jobDescription || typeof jobDescription !== "string") {
@@ -193,8 +202,12 @@ Now provide your detailed assessment as JSON.`,
     });
   } catch (error) {
     console.error("Fit Assessment API error:", error);
+    const errorMessage = error instanceof Error ? error.message : "Unknown error";
     return new Response(
-      JSON.stringify({ error: "Failed to process fit assessment" }),
+      JSON.stringify({
+        error: "Analysis temporarily unavailable",
+        detail: process.env.NODE_ENV === "development" ? errorMessage : undefined
+      }),
       { status: 500, headers: { "Content-Type": "application/json" } }
     );
   }

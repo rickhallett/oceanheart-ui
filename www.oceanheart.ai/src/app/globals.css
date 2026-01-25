@@ -817,3 +817,23 @@ code.hljs {
 .hljs-variable.constant_ {
   color: #ff9e64;
 }
+
+/* Chat Widget Message Styles - Override global p/li styles for compact display */
+.chat-message-content p,
+.chat-message-content li,
+.chat-message-content ul,
+.chat-message-content ol {
+  font-size: 11px !important;
+  line-height: 1.5 !important;
+  font-weight: 400 !important;
+  letter-spacing: normal !important;
+}
+
+@media (min-width: 640px) {
+  .chat-message-content p,
+  .chat-message-content li,
+  .chat-message-content ul,
+  .chat-message-content ol {
+    font-size: 12px !important;
+  }
+}

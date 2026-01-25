@@ -80,7 +80,20 @@ export function CVChatWidget({
         let fullContent = "";
         while (true) {
           const { done, value } = await reader.read();
-          if (done) break;
+
+          if (done) {
+            // Final flush of any remaining bytes
+            const finalChunk = decoder.decode();
+            if (finalChunk) {
+              fullContent += finalChunk;
+              setMessages((prev) =>
+                prev.map((m) =>
+                  m.id === assistantId ? { ...m, content: fullContent } : m
+                )
+              );
+            }
+            break;
+          }
 
           const chunk = decoder.decode(value, { stream: true });
           fullContent += chunk;
@@ -170,7 +183,7 @@ export function CVChatWidget({
           {messages.map((message) => (
             <div key={message.id}>
               {message.role === "user" ? (
-                <div className="font-terminal text-xs sm:text-sm break-words">
+                <div className="font-terminal text-[11px] sm:text-xs break-words">
                   <span className="text-terminal-green">$</span>
                   <span className="text-terminal-cyan ml-1 sm:ml-2">ask</span>
                   <span className="text-terminal-muted ml-1 sm:ml-2">&quot;{message.content}&quot;</span>
@@ -178,11 +191,11 @@ export function CVChatWidget({
               ) : (
                 <div className="pl-3 sm:pl-4 border-l border-white/10">
                   {message.content ? (
-                    <div className="font-terminal text-xs sm:text-sm text-terminal-secondary text-left leading-relaxed [&_p]:mb-2 [&_p]:last:mb-0 [&_strong]:text-terminal [&_strong]:font-normal [&_code]:text-terminal-cyan [&_code]:bg-terminal-bg-tertiary [&_code]:px-1 [&_code]:rounded-sm [&_ul]:list-none [&_ul]:space-y-1 [&_ul]:my-2 [&_li]:before:content-['-'] [&_li]:before:text-terminal-muted [&_li]:before:mr-2">
+                    <div className="chat-message-content font-terminal text-[11px] sm:text-xs text-terminal-secondary text-left leading-relaxed [&_p]:mb-2 [&_p]:last:mb-0 [&_strong]:text-terminal [&_strong]:font-normal [&_code]:text-terminal-cyan [&_code]:bg-terminal-bg-tertiary [&_code]:px-1 [&_code]:rounded-sm [&_ul]:list-none [&_ul]:space-y-1 [&_ul]:my-2 [&_li]:before:content-['-'] [&_li]:before:text-terminal-muted [&_li]:before:mr-2">
                       <ReactMarkdown>{message.content}</ReactMarkdown>
                     </div>
                   ) : (
-                    <span className="font-terminal text-sm text-terminal-muted animate-pulse">...</span>
+                    <span className="font-terminal text-xs text-terminal-muted animate-pulse">...</span>
                   )}
                 </div>
               )}
@@ -227,7 +240,7 @@ export function CVChatWidget({
             onChange={(e) => setInput(e.target.value)}
             placeholder="ask me anything..."
             disabled={isLoading}
-            className="flex-1 bg-transparent font-terminal text-xs sm:text-sm text-terminal placeholder:text-terminal-muted focus:outline-none min-w-0"
+            className="flex-1 bg-transparent font-terminal text-base sm:text-sm text-terminal placeholder:text-terminal-muted focus:outline-none min-w-0"
           />
           <button
             type="submit"

@@ -44,11 +44,16 @@ export function FitAssessment({ className }: FitAssessmentProps) {
         body: JSON.stringify({ jobDescription: jobDescription.trim() }),
       });
 
+      const data = await response.json();
+
       if (!response.ok) {
-        throw new Error("Failed to analyze job description");
+        throw new Error(data.error || "Failed to analyze job description");
       }
 
-      const data = await response.json();
+      if (data.error) {
+        throw new Error(data.error);
+      }
+
       setResult(data);
     } catch (err) {
       setError(
@@ -172,7 +177,7 @@ export function FitAssessment({ className }: FitAssessmentProps) {
         onChange={(e) => setJobDescription(e.target.value)}
         placeholder="paste job description here..."
         rows={5}
-        className="w-full bg-terminal-bg-secondary text-terminal font-terminal text-xs sm:text-sm border border-white/10 rounded-sm p-3 sm:p-4 placeholder:text-terminal-muted focus:outline-none focus:border-terminal-cyan/30 resize-none"
+        className="w-full bg-terminal-bg-secondary text-terminal font-terminal text-base sm:text-sm border border-white/10 rounded-sm p-3 sm:p-4 placeholder:text-terminal-muted focus:outline-none focus:border-terminal-cyan/30 resize-none"
       />
 
       {error && (
