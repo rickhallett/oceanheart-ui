@@ -1,17 +1,24 @@
 /**
  * NextAuth.js v5 Edge-Compatible Middleware
  *
- * Protects routes using NextAuth session validation.
- * Uses edge-compatible configuration (no database/Node.js APIs in middleware).
+ * Authentication middleware is currently disabled as there are no features
+ * requiring authentication. The /app/* routes remain but are public.
+ *
+ * To re-enable auth protection:
+ * 1. Set AUTH_SECRET environment variable
+ * 2. Uncomment the auth middleware below
+ * 3. Update the matcher to protect desired routes
  */
 
-import NextAuth from "next-auth";
-import { authConfig } from "@/auth.config";
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
-const { auth } = NextAuth(authConfig);
+// Auth middleware disabled - pass through all requests
+export function middleware(request: NextRequest) {
+  return NextResponse.next();
+}
 
-export default auth;
-
+// No routes are protected - auth is disabled
 export const config = {
-  matcher: ["/app/:path*", "/auth/:path*"],
+  matcher: [],
 };
