@@ -56,7 +56,7 @@ export const portfolioSections: PortfolioSection[] = [
         solution: "A conversational AI that detects practice antipatterns from Jhourney's methodology, calibrates confidence with empirical multipliers, and provides targeted interventions.",
         image: "/images/sati-card.jpeg",
         tech: ["Next.js 15", "React 19", "Claude API", "Vercel AI SDK", "Turso SQLite", "Drizzle ORM"],
-        externalUrl: "https://koan.oceanheart.ai",
+        externalUrl: "https://sati.oceanheart.ai",
         featured: true,
         githubRepo: "rickhallett/koan",
         githubBranch: "main",
