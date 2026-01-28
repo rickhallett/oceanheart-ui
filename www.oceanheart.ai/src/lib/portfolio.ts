@@ -215,7 +215,7 @@ export const portfolioSections: PortfolioSection[] = [
         solution: "A trust-based whitelist that blocks unknown senders entirely and intercepts dangerous tool calls for limited-trust contacts.",
         image: "/images/wasp-card.png",
         tech: ["Bun", "SQLite", "TypeScript", "Hono", "Commander"],
-        externalUrl: "https://wasp.xyz",
+        externalUrl: "https://getwasp.xyz",
         featured: true,
         githubRepo: "rickhallett/wasp",
         githubBranch: "master",
