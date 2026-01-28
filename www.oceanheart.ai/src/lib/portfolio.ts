@@ -207,6 +207,24 @@ export const portfolioSections: PortfolioSection[] = [
     hidden: false,
     projects: [
       {
+        id: 114,
+        title: "wasp",
+        description:
+          "Security whitelist layer for agentic AI systems. Pre-inference filtering and tool-call interception to stop prompt injection attacks before they reach your agent.",
+        problem: "Agentic AI systems have no filtering layer—any untrusted input could hijack your agent via prompt injection.",
+        solution: "A trust-based whitelist that blocks unknown senders entirely and intercepts dangerous tool calls for limited-trust contacts.",
+        image: "/images/wasp-card.png",
+        tech: ["Bun", "SQLite", "TypeScript", "Hono", "Commander"],
+        externalUrl: "https://wasp.xyz",
+        featured: true,
+        githubRepo: "rickhallett/wasp",
+        githubBranch: "master",
+        category: "integrations",
+        status: "production",
+        impact: "90+ tests, 210+ assertions, npm published",
+        currentlyBuilding: true,
+      },
+      {
         id: 107,
         title: "Passport",
         description:
