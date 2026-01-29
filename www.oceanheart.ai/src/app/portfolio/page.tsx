@@ -15,11 +15,15 @@ import {
 export default function PortfolioPage() {
   const currentlyBuilding = getCurrentlyBuildingProjects();
   const productionProjects = getProductionProjects();
-  const prototypeProjects = getPrototypeProjects();
-  const experimentProjects = getExperimentProjects();
+  // Filter out currently building projects to avoid duplication
+  const prototypeProjects = getPrototypeProjects().filter(p => !p.currentlyBuilding);
+  const experimentProjects = getExperimentProjects().filter(p => !p.currentlyBuilding);
 
   // Find Swanage Traffic for featured case study
   const swanageProject = getAllProjects().find(p => p.title === "Swanage Traffic Alliance");
+
+  // Find wasp for featured case study
+  const waspProject = getAllProjects().find(p => p.title === "wasp");
 
   return (
     <PageTransition>
@@ -66,6 +70,117 @@ export default function PortfolioPage() {
             </motion.div>
           </div>
         </section>
+
+        {/* Featured Case Study: wasp */}
+        {waspProject && (
+          <section className="py-16 px-6 bg-terminal-bg-secondary">
+            <div className="max-w-5xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <p className="font-terminal text-terminal-muted text-sm mb-2">
+                  <span className="text-terminal-green">$</span> cat ./case-studies/wasp.md
+                </p>
+                <h2 className="font-terminal text-2xl text-terminal-cyan mb-8">
+                  Featured Case Study
+                </h2>
+
+                <div className="grid md:grid-cols-2 gap-8 items-start">
+                  {/* Project image */}
+                  <div className="relative rounded-sm overflow-hidden border border-white/10">
+                    <img
+                      src={waspProject.image}
+                      alt={waspProject.title}
+                      className="w-full h-64 object-cover object-top"
+                    />
+                    <div className="absolute top-3 left-3">
+                      <span className="font-terminal text-xs px-2 py-1 border border-terminal-green/30 text-terminal-green rounded-sm bg-terminal-bg/80 backdrop-blur-sm">
+                        [production]
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Case study content */}
+                  <div className="space-y-6">
+                    <div>
+                      <h3 className="font-terminal text-xl text-terminal mb-2">
+                        {waspProject.title}
+                      </h3>
+                      <p className="font-terminal text-terminal-secondary text-sm">
+                        {waspProject.description}
+                      </p>
+                    </div>
+
+                    <div className="space-y-4 p-4 bg-terminal-bg border border-white/5 rounded-sm">
+                      <div>
+                        <span className="font-terminal text-xs text-terminal-red">## Problem</span>
+                        <p className="font-terminal text-terminal-muted text-sm mt-1">
+                          {waspProject.problem}
+                        </p>
+                      </div>
+                      <div>
+                        <span className="font-terminal text-xs text-terminal-green">## Solution</span>
+                        <p className="font-terminal text-terminal-muted text-sm mt-1">
+                          {waspProject.solution}
+                        </p>
+                      </div>
+                      {waspProject.impact && (
+                        <div>
+                          <span className="font-terminal text-xs text-terminal-cyan">## Impact</span>
+                          <p className="text-terminal-cyan text-sm mt-1 font-terminal">
+                            {waspProject.impact}
+                          </p>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Tech stack */}
+                    <div>
+                      <span className="font-terminal text-xs text-terminal-muted">## Stack</span>
+                      <div className="flex flex-wrap gap-2 mt-2">
+                        {waspProject.tech.map((tech) => (
+                          <span
+                            key={tech}
+                            className="font-terminal text-xs px-2 py-1 bg-terminal-bg-tertiary text-terminal-secondary border border-white/10 rounded-sm"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Links */}
+                    <div className="flex gap-4">
+                      {waspProject.externalUrl && (
+                        <a
+                          href={waspProject.externalUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="font-terminal text-sm text-terminal-cyan hover:text-terminal-blue transition-colors"
+                        >
+                          <span className="text-terminal-green">$</span> visit site →
+                        </a>
+                      )}
+                      {waspProject.githubRepo && (
+                        <a
+                          href={`https://github.com/${waspProject.githubRepo}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="font-terminal text-sm text-terminal-secondary hover:text-terminal-cyan transition-colors"
+                        >
+                          <span className="text-terminal-green">$</span> view source →
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </section>
+        )}
 
         {/* Currently Building Section */}
         {currentlyBuilding.length > 0 && (

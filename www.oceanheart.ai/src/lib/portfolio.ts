@@ -147,7 +147,6 @@ export const portfolioSections: PortfolioSection[] = [
         githubBranch: "master",
         category: "apps",
         status: "experiment",
-        currentlyBuilding: true,
       },
     ],
   },
@@ -222,7 +221,6 @@ export const portfolioSections: PortfolioSection[] = [
         category: "integrations",
         status: "production",
         impact: "90+ tests, 210+ assertions, npm published",
-        currentlyBuilding: true,
       },
       {
         id: 107,
