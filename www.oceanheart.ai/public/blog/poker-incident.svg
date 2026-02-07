@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f7768e"/>
+      <stop offset="100%" style="stop-color:#ff9e64"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background - Tokyo Night -->
+  <rect width="1200" height="630" fill="#1a1b26"/>
+  
+  <!-- Grid pattern -->
+  <pattern id="grid2" width="30" height="30" patternUnits="userSpaceOnUse">
+    <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#24283b" stroke-width="0.5"/>
+  </pattern>
+  <rect width="1200" height="630" fill="url(#grid2)" opacity="0.4"/>
+  
+  <!-- Playing cards -->
+  <g transform="translate(600, 250)">
+    <!-- Card 1 - back -->
+    <rect x="-120" y="-80" width="80" height="110" rx="6" fill="#24283b" stroke="#3b4261" stroke-width="2" transform="rotate(-15)"/>
+    
+    <!-- Card 2 - back -->
+    <rect x="-40" y="-80" width="80" height="110" rx="6" fill="#24283b" stroke="#3b4261" stroke-width="2" transform="rotate(-5)"/>
+    
+    <!-- Card 3 - Ace of Spades -->
+    <rect x="40" y="-80" width="80" height="110" rx="6" fill="#c0caf5" stroke="#7aa2f7" stroke-width="2" transform="rotate(10)"/>
+    <text x="95" y="-30" font-family="serif" font-size="48" text-anchor="middle" fill="#1a1b26" transform="rotate(10)">A</text>
+    <text x="95" y="10" font-family="serif" font-size="24" text-anchor="middle" fill="#1a1b26" transform="rotate(10)">♠</text>
+  </g>
+  
+  <!-- Code snippet overlay -->
+  <rect x="200" y="320" width="800" height="90" rx="6" fill="#16161e" stroke="#3b4261" stroke-width="1"/>
+  <text font-family="'JetBrains Mono', monospace" font-size="14" fill="#565f89">
+    <tspan x="220" y="350">// TODO: I didn't write this</tspan>
+    <tspan x="220" y="375" fill="#7dcfff">class</tspan><tspan fill="#c0caf5"> PokerGame </tspan><tspan fill="#565f89">{</tspan>
+    <tspan x="240" y="400" fill="#bb9af7">constructor</tspan><tspan fill="#565f89">() { </tspan><tspan fill="#9ece6a">/* 1,500 lines... */</tspan><tspan fill="#565f89"> }</tspan>
+  </text>
+  
+  <!-- Title -->
+  <text x="600" y="470" font-family="'JetBrains Mono', monospace" font-size="32" text-anchor="middle" fill="#c0caf5" font-weight="bold">The Poker Incident</text>
+  
+  <!-- Subtitle -->
+  <text x="600" y="510" font-family="'JetBrains Mono', monospace" font-size="18" text-anchor="middle" fill="#565f89">when your AI builds a casino you never asked for</text>
+  
+  <!-- Category badge -->
+  <rect x="520" y="545" width="160" height="28" rx="14" fill="#f7768e" opacity="0.15"/>
+  <text x="600" y="565" font-family="'JetBrains Mono', monospace" font-size="13" text-anchor="middle" fill="#f7768e">agent autonomy</text>
+</svg>
