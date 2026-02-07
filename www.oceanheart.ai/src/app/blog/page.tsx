@@ -19,13 +19,25 @@ interface BlogPost {
   content: string;
 }
 
-export default async function BlogPage() {
-  const posts = (await getContentByType("blog")) as BlogPost[];
+export default async function BlogPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ category?: string }>;
+}) {
+  const { category: activeCategory } = await searchParams;
+  const allPosts = (await getContentByType("blog")) as BlogPost[];
 
   // Get unique categories for filtering
   const allCategories = Array.from(
-    new Set(posts.flatMap((post) => post.frontmatter.categories || []))
+    new Set(allPosts.flatMap((post) => post.frontmatter.categories || []))
   );
+
+  // Filter posts by category if one is selected
+  const posts = activeCategory
+    ? allPosts.filter((post) =>
+        post.frontmatter.categories?.includes(activeCategory)
+      )
+    : allPosts;
 
   return (
     <main className="bg-terminal-bg min-h-screen text-terminal">
@@ -55,13 +67,21 @@ export default async function BlogPage() {
           {allCategories.length > 0 && (
             <div className="mb-12 flex flex-wrap gap-3 justify-center">
               <Link href="/blog">
-                <span className="font-terminal px-4 py-2 bg-terminal-cyan/20 border border-terminal-cyan/50 text-sm text-terminal-cyan hover:bg-terminal-cyan/30 transition-all cursor-pointer">
+                <span className={`font-terminal px-4 py-2 border text-sm transition-all cursor-pointer ${
+                  !activeCategory 
+                    ? "bg-terminal-cyan/20 border-terminal-cyan/50 text-terminal-cyan" 
+                    : "bg-terminal-bg-secondary border-white/10 text-terminal-muted hover:border-terminal-cyan/50 hover:text-terminal-cyan"
+                }`}>
                   All Posts
                 </span>
               </Link>
               {allCategories.map((category) => (
                 <Link key={category} href={`/blog?category=${encodeURIComponent(category)}`}>
-                  <span className="font-terminal px-4 py-2 bg-terminal-bg-secondary border border-white/10 text-sm text-terminal-muted hover:border-terminal-cyan/50 hover:text-terminal-cyan transition-all cursor-pointer">
+                  <span className={`font-terminal px-4 py-2 border text-sm transition-all cursor-pointer ${
+                    activeCategory === category
+                      ? "bg-terminal-cyan/20 border-terminal-cyan/50 text-terminal-cyan"
+                      : "bg-terminal-bg-secondary border-white/10 text-terminal-muted hover:border-terminal-cyan/50 hover:text-terminal-cyan"
+                  }`}>
                     {category}
                   </span>
                 </Link>
